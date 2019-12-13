@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "UserExamReult";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var datas = (Medacademy.Models.UserModel)Session["UserLoginFirstTime"];
+    var examResult = new Ma.EntityLibrary.Data.Exam().GetUserExamResult(datas.UserId);
+}
+<style>
+    .ns-tableView > div {
+        width: 100%;
+        display: inline-block;
+        margin: 50px 0px;
+    }
+</style>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 ns-tableView">
+
+                <table id="classTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Mark</th>
+                            <th>Time(Seconds)</th>
+                            <th>Rank</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{var index = 1;}
+                        @foreach (var user in examResult)
+                        {
+                            var examname = new Ma.EntityLibrary.Data.Exam().GetExamsById(user.ExamId).FirstOrDefault();
+                            if (examname != null)
+                            {
+                            <tr>
+                                <td>@examname.ExamName</td>
+                                <td>@user.Total</td>
+                                <td>@user.Examtime</td>
+                                <td>@index</td>
+                                <td><button type="button" class="btn btn-success btn-xs viewResult" data-id="@user.ExamId">Details</button></td>
+                            </tr>
+
+                                index++;
+                            }
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $(document).on('click', '.viewResult', function () {
+        var examId = $(this).attr('data-id');
+        window.location.href = '/Report/ExamWiseReport/' + examId;
+    });
+</script>
+

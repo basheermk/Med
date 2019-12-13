@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewBag.Title = "SubTopic";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <ol class="breadcrumb">
+                        <li><h3 class="box-title">SubTopic List</h3></li>
+                    </ol>
+                    <a class="btn btn-success btn-xs" style="margin-left:5px" onclick="AddSubTopic()">Add SubTopic</a>
+                </div><!-- /.box-header -->
+                <div class="box-body" id="class-list-view">
+                    @Html.Partial("~/Views/Admin/_pv_SubTopic_Grid.cshtml")
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
+
+<div class="modal fade in" id="editTopic" >
+</div>
+
+@*style="display: block; padding-right: 17px;"*@
+<script>
+    $(document).ready(function () {
+
+        IntializeDataTable();
+
+    });
+    function IntializeDataTable() {
+        $('#classTable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true
+        });
+    }
+    function AddSubTopic() {
+        window.location.href = '/Admin/AddSubTopic/';
+    }
+    function refreshSubTopicGrid() {
+        $.ajax({
+            url: '/Admin/RefreshSubTopic',
+            dataType: 'html',
+            success: function (data) {
+                $('#class-list-view').html(data);
+                IntializeDataTable();
+            },
+        });
+    }
+
+    function EditSubTopic(source) {
+        // debugger;
+        var topicid = $(source).attr("data-id");
+        // alert(groupid);
+        window.location.href = '/Admin/EditSubTopic?topicid=' + topicid;
+
+        //$.ajax({
+        //    url: '/Admin/EditSubTopicView?topicid=' + topicid,
+        //    dataType: 'html',
+        //    success: function (data) {
+               
+        //        $('#editTopic').html(data);
+        //        $.validator.unobtrusive.parse($('#editTopic'));
+        //        $('#editTopic').modal('show');
+        //    },
+        //});
+    }
+
+    $(".confirmDelete").click(function () {
+        var id = $(this).attr("data-id");       
+        var datas = new Object();
+        datas.ID = id;
+
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this imaginary file!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel plx!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+            function (isConfirm) {
+                if (isConfirm) {
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/Admin/RemoveSubtopic",
+                        data: JSON.stringify(datas),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            swal("Deleted!", response, "success");
+                            var explode = function () {
+                                //location.reload();
+                                window.location.href = '/Admin/SubTopic';
+                            };
+                            setTimeout(explode, 3000);
+
+                        },
+                        failure: function (response) {
+                            // alert(response.responseText);
+                        },
+                        error: function (response) {
+                            //alert(response.responseText);
+                        }
+                    });
+
+
+                } else {
+                    swal("Cancelled", "Your imaginary file is safe :)", "error");
+                }
+            });
+
+    });
+
+</script>
+

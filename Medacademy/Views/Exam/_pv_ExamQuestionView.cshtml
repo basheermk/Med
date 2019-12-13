@@ -1,0 +1,90 @@
+﻿@model Medacademy.Models.AddQuestoExam
+
+@{
+    var practiceTest = new Ma.EntityLibrary.Data.Level(Model.LevelID);
+    var questions = practiceTest.GetQuestions();
+}
+
+<section class="content">
+    <div class="box box-default">
+        <div class="box-body">
+            <input type="hidden" id="hflevelid" value="@Model.LevelID" />
+           
+            <table id="QuestionTableNew" class="table table-bordered table-striped">
+               
+                <thead>
+                    <tr>
+                        <th><input class="selectall" type="checkbox"></th>
+                        <th>Q No.</th>
+                        <th>Question</th>
+                        @*<th>Type</th>*@
+                        @*<th>Action</th>*@
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        var index = 1;
+                    }
+                    @foreach (var question in questions)
+                    {
+                        <tr>
+                            <td><input class="ckb-question-item" value="@question.questionId" type="checkbox"></td>
+                            <td>@index</td>
+                            <td>@(new HtmlString(question.questionName))</td>
+                            @*<td>
+                                    <button type="button" class="btn btn-success btn-xs edit-question" data-pract-id=@question.LevelID data-id="@question.questionId" data-practice-id="@Model.LevelID">Edit</button>
+                                    <button type="button" class="btn btn-danger btn-xs confirmDelete" data-id="@question.questionId">Delete</button>
+                                </td>*@
+                        </tr>
+                        index++;
+                    }
+                </tbody>
+            </table>
+        </div><!-- /.box-body -->
+    </div><!-- /.box -->
+    <div class="btns-qstexam">
+        @*<button type="submit" class="btn btn-success">Add to Exam</button>
+        <button type="button" class="btn btn-danger " data-dismiss="modal" style="margin-right:10px">Publish</button>*@
+
+        <button type="button" class="btn btn-success" id="btn-dummy-addexam" >Add to Exam</button>
+
+
+        <button type="submit" style="display:none;" id="btn-addexam" class="btn btn-success">Save</button>
+        <button type="button" class="btn btn-danger"  onclick="PublishExam()">Publish</button>
+
+    </div>
+</section>
+
+
+<script>
+    $(document).ready(function () {
+
+
+        IntializeDataTable();
+
+
+    });
+  
+  
+       
+
+
+
+    function IntializeDataTable() {
+        $('#QuestionTableNew').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true,
+            "lengthMenu": [5, 10, 50, 100, 200, "Max"],
+            "pageLength": 5,
+            "aoColumnDefs": [{"bSortable": false,"aTargets": [0]}]
+
+        });
+
+    }
+
+
+</script>

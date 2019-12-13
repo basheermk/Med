@@ -1,0 +1,154 @@
+﻿
+@model Medacademy.Models.SubjectModel
+<div class="modal-dialog modal-md">
+    <div class="modal-content" style="border-radius: 3px;">
+        <div class="modal-header">
+            Edit Subject<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+
+    
+
+      
+
+
+        @using (Ajax.BeginForm("EditSubject", "Admin", null, new AjaxOptions
+        {
+            HttpMethod = "POST",
+            OnSuccess = "SubjectEditSuccess",
+            OnFailure = "SubjectEditFailed",
+        }, new { id = "form-login" }))
+        {
+            <div class="modal-body">
+                <form>
+                    @Html.TextBoxFor(m => m.SubjectID, new { type = "hidden" })
+                    @Html.TextBoxFor(m => m.PackageID, new { id = "pkgId", type = "hidden" })
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Course</label>
+                        <div class="col-sm-8">
+                            @Html.DropDownListFor(m => m.CourseID, Ma.EntityLibrary.Data.Dropdowndata.GetCourseDrop(), "--Choose--", new { @class = "form-control", id = "courseDrop" })
+                            @Html.ValidationMessageFor(m => m.CourseID)
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Package</label>
+                        <div class="col-sm-8">
+                          
+
+                            <select id="PackageID" class="form-control" disabled>
+                                <option>Select</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    @*<div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Package</label>
+                            <div class="col-sm-8">
+                                @Html.DropDownListFor(m => m.GroupID, Ma.EntityLibrary.Data.Dropdowndata.GetGroupDrop(Model.PackageID), "--Choose--", new { @class = "form-control division_Select", @data_live_search = "true", @disabled = "disabled" })
+                                @Html.ValidationMessageFor(m => m.GroupID)
+                            </div>
+                        </div>*@
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-8">
+                            @Html.TextBoxFor(m => m.SubjectName, new { @class = "form-control", placeholder = "Subject Name" })
+                            @Html.ValidationMessageFor(m => m.SubjectName)
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">&nbsp;</label>
+                        <div class="col-sm-8">
+                            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" style="margin-right:10px">Close</button>
+                            <button type="submit" class="btn btn-success">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+        }
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+<script>
+    function SubjectEditSuccess(result) {
+        if (result.status) {
+            $('#editSubject').modal('hide');
+            toastrSuccess(result.msg);
+            refreshSubjectGrid();
+        }
+        else {
+            toastrError(result.msg);
+        }
+    }
+    function SubjectEditFailed() {
+        toastrError('Group Editing Failed');
+    }
+
+
+
+    $(document).on('change', '#courseDrop', function () {          
+        var Id = $(this).val();       
+        $.ajax({
+            url: '/Admin/Getpackages?courseid=' + Id,
+            type: "GET",
+            dataType: "json",
+            success: function (result) {
+                if (result.List.length > 0) {
+                    $("#PackageID").html(""); // clear before appending new list
+                    $("#PackageID").append($('<option></option>').val("").html('Select'));
+                    $.each(result.List, function (i, item) {
+                        $("#PackageID").append($('<option></option>').val(item.Value).html(item.Text));
+                    });
+                    $("#PackageID").prop("disabled", false);
+                }
+                else {
+                    $("#PackageID").html(""); // clear before appending new list
+                    $("#PackageID").append($('<option></option>').val("").html('No data found'));
+                    $("#PackageID").prop("disabled", true);
+                }
+            }
+        });
+    });
+
+    $(document).on('change', '#PackageID', function () {
+        var Id = $('#PackageID').val();
+        $('#pkgId').val(Id);
+    });
+
+
+    //$(function () {
+    //    debugger;
+
+    //    var depData = $('#depName').val();
+    //    var depId = $('#crsId').val();
+    //    var cmpId = $('#courseDrop').val();
+
+    //    alert(depId + "adsadad" + cmpId);
+    //    $.ajax({
+    //        url: '/Manage/GetPackage?courseid=' + cmpId,
+    //        type: "GET",
+    //        dataType: "json",
+    //        success: function (result) {
+    //            if (result.List.length > 0) {
+    //                $("#PackageID").html("");
+    //                $("#PackageID").append($('<option></option>').val("").html('Select'));
+    //                $.each(result.List, function (i, item) {
+    //                    $("#PackageID").append($('<option></option>').val(item.Value).html(item.Text));
+    //                    $("#PackageID").val(depId);
+    //                    var Id = $('#PackageID').val();
+    //                    //$('#DepartmentName').val(Id);
+    //                });
+    //                $("#PackageID").prop("disabled", false);
+    //            }
+    //            else {
+    //                $("#PackageID").html("");
+    //                $("#PackageID").append($('<option></option>').val("").html('No data found'));
+    //                $("#PackageID").prop("disabled", true);
+    //            }
+    //        }
+    //    });
+    //});
+
+</script>
+<script>
+
+</script>

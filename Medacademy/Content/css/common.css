@@ -1,0 +1,241 @@
+
+
+/*@font-face {
+    font-family: 'glyphicons-halflings-regular';
+    src: url('../fonts/glyphicons-halflings-regular.eot') format('embedded-opentype');
+
+    
+    src: url('../fonts/glyphicons-halflings-regular.svg') format('svg');
+
+  
+    src: url('../fonts/glyphicons-halflings-regular.ttf') format('truetype');
+
+    
+    src: url('../fonts/glyphicons-halflings-regular.woff') format('woff');
+}*/
+.noOpacity {
+    opacity: 0;
+}
+
+.isHidden {
+    display: none;
+}
+
+.hideLabel {
+    left: 46%;
+    position: absolute;
+    bottom: 0px;
+    color: red;
+}
+
+.isPointer {
+    cursor: pointer;
+}
+.isRed {
+    color: red;
+}
+.isJustified {
+    text-align: justify;
+}
+.isGreen {
+    color: green;
+}
+.isDisabled{
+    pointer-events:none;
+}
+
+.normalPointer{
+    cursor:default !important;
+}
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+#contactForm .field-validation-error{
+    position: absolute;
+    bottom: 0px;
+    left: 15px;
+}
+
+.field-validation-error {
+    color: #f00;
+}
+.field-validation-valid {
+    display: none;
+}
+.input-validation-error {
+    border: 1px solid #f00;
+    background-color: #fee;
+}
+.validation-summary-errors {
+    font-weight: bold;
+    color: #f00;
+}
+.validation-summary-valid {
+    display: none;
+}
+/*Basheer content 22-05-2019*/
+.upload-box {
+    min-height: 108px;
+    min-width: 108px;
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    display: block;
+    /* margin: 0px auto; */
+    background-size: contain;
+    /* margin-bottom: 15px; */
+    background-repeat: no-repeat;
+    /* background-position: top; */
+}
+
+/*Style for check box in drop down*/
+.dropdown_main {
+    width: 100%;
+}
+
+.dropdown_btn {
+    width: 100%;
+    color: #464646;
+    padding: 9px 14px;
+    display: block;
+    background: #fff;
+    user-select: none;
+    cursor: pointer;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+    .dropdown_btn i {
+        float: right;
+        margin-top: 4px;
+        margin-right: -7px;
+    }
+
+.dropdown_lists {
+    margin: 0;
+    display: none;
+    max-height: 170px;
+    list-style: none;
+    margin-top: 4px;
+    padding: 15px;
+    overflow: auto;
+    background: #f1f1f1;
+}
+
+.label_container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-weight: normal;
+}
+
+    /* Hide the browser's default checkbox */
+    .label_container input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #bbb4b4;
+}
+
+/* On mouse-over, add a grey background color */
+.label_container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.label_container input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.label_container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.label_container .checkmark:after {
+    left: 7px;
+    top: 3px;
+    width: 6px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.btns-qstexam{
+    float:right;
+}
+.form-inner{
+    padding:0 15px;
+}
+.modal-header.view-header{
+    padding: 15px 0px;
+}
+
+.box.form-inner .box-header {
+    padding: 10px 0;
+}
+.exam_name > label {
+    padding: 10px 10px;
+}
+
+.exam_name {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+button.btn.btn-success.npkg.btn-xs {
+    min-width: 110px;
+}
+
+button.btn.btn-info.npkg.btn-xs.confirmPackage {
+    min-width: 110px;
+}
+
+/*.calendar-inp {
+    width: 100%;
+    float: left;
+    position: relative;
+}*/
+
+    .calendar-inp input {
+        width: 100%;
+    }
+
+    .calendar-inp i {
+        position: absolute;
+        top: 9px;
+        right: 28px;
+    }
+
+    .pos_icon_adj {
+    position: relative;
+}

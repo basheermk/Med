@@ -1,0 +1,172 @@
+﻿@model Medacademy.Models.PackageModel
+@{
+    ViewBag.Title = "AddPackage";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<section class="addpackage">
+@using (Ajax.BeginForm("AddPackage", "Admin", null, new AjaxOptions
+{
+    HttpMethod = "POST",
+    OnSuccess = "PackageAddSuccess",
+    OnFailure = "PackageAddFailed",
+}, new { id = "form-login" }))
+{
+    <div class="container">
+        <div class="col-12">
+            <div class="package_heading">
+                <h3>ADD PACKAGE</h3>
+            </div>
+            <form>
+                @Html.TextBoxFor(m => m.Packageimage, new { value = "", type = "hidden" })
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Course</label>
+                    <div class="col-sm-8">
+                        @Html.DropDownListFor(m => m.CourseID, Ma.EntityLibrary.Data.Dropdowndata.GetCourseDrop(), "--Choose--", new { @class = "form-control pv_class-drop-down", AppendDataBoundItems = "False", @data_live_search = "true", name = "courseDropdown", id = "courseDataDropdown" })
+                        @Html.ValidationMessageFor(m => m.CourseID)
+                    </div>
+                </div>
+                @*<div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Type</label>
+                    <div class="col-sm-8">
+                        <div class="form-check form-check-inline">
+                            @Html.RadioButtonFor(x => x.Type, "PAID", new { type = "radio", name = "radiog_lite", id = "radio2", @class = "form-group", @checked = "checked" })
+                            <span for="radio2" style="color: black;">PAID</span>
+                            @Html.ValidationMessageFor(m => m.Type)
+                        </div>
+                       <div class="form-check form-check-inline">
+                            @Html.RadioButtonFor(x => x.Type, "FREE", new { type = "radio", name = "radiog_lite", id = "radio1", @class = "form-group" })
+                            <span for="radio1" style="color: black;">FREE</span>
+                            @Html.ValidationMessageFor(m => m.Type)
+                        </div>
+                    </div>
+                </div>*@
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Name</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(m => m.PackageName, new { @class = "form-control", placeholder = "Name" })
+                        @Html.ValidationMessageFor(m => m.PackageName)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Amount</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", placeholder = "Amount" })
+                        @Html.ValidationMessageFor(m => m.Amount)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Discount Amount</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(m => m.DiscountAmount, new { @class = "form-control", placeholder = "DiscountAmount" })
+                        @Html.ValidationMessageFor(m => m.DiscountAmount)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Expired(Days)</label>
+                    <div class="col-sm-8">
+                        @*<input type="text" class="form-control" placeholder="0 for unlimited days">*@
+                        @Html.TextBoxFor(m => m.ExpiryDays, new { @class = "form-control", placeholder = "0 for unlimited days" })
+                        @Html.ValidationMessageFor(m => m.ExpiryDays)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Description</label>
+                    <div class="col-sm-8">
+                        @*<textarea class="form-control" placeholder="Description" rows="5"></textarea>*@
+                        @Html.TextAreaFor(m => m.Description, new { @class = "form-control", placeholder = "Description" })
+                        @Html.ValidationMessageFor(m => m.Description)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Upload Photo</label>
+                    <div class="col-sm-8">
+                        <img style="height:50px;" id="package-img-preview" />
+                        <input id="package-image-upload" type="file" class="uploder-controler" />
+                        @*<input type="file" id="course-image-upload" />*@
+                        @*<input type="file">*@
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">&nbsp;</label>
+                    <div class="col-sm-8">
+                        <button type="submit" class="btn btn-success">Save</button>
+                        <button type="button" class="btn btn-danger" onclick="ClosePackage()">Close</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+}
+</section>
+<script>
+    function PackageAddSuccess(result) {
+        if (result.status) {
+            $('#addPackage').modal('hide');
+            toastrSuccess(result.msg);
+            refreshPackageGrid();
+        }
+        else {
+            toastrError(result.msg);
+        }
+    }
+    function PackageAddFailed() {
+        toastrError('Package Adding Failed');
+    }
+
+    $(document).on('change', '#package-image-upload', function () {
+        //debugger;
+        var source = $(this);
+        var selectedFile = this.files[0];
+        var input = this;
+        if (input.files && input.files[0]) {
+            var url = input.value;
+            var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+            if (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg" || ext == "bmp") {
+                selectedFile.convertToBase64(function (base64) {
+                    $('#package-img-preview').attr({ "src": base64, "class": "useruploder" });
+                    $('#Packageimage').val(base64);
+                });
+                var reader = new FileReader();
+            }
+            else {
+                $(source).val('');
+                toastrWarning('Invalid Filetype');
+            }
+        }
+    });
+    File.prototype.convertToBase64 = function (callback) {
+        var FR = new FileReader();
+        FR.onload = function (e) {
+            callback(e.target.result)
+        };
+        FR.readAsDataURL(this);
+    }
+
+    function refreshPackageGrid() {
+        $.ajax({
+            url: '/Admin/RefreshPackage',
+            dataType: 'html',
+            success: function (data) {
+                $('#class-list-view').html(data);
+                IntializeDataTable();
+            },
+        });
+    }
+
+    function IntializeDataTable() {
+        $('#classTable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true
+        });
+    }
+    function ClosePackage() {
+        window.location.href = '/Admin/Package/';
+    }
+
+</script>

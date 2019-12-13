@@ -1,0 +1,127 @@
+﻿
+@{
+    ViewBag.Title = "Subject";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <ol class="breadcrumb">
+                        <li><h3 class="box-title">Subject List</h3></li>
+                    </ol>
+                    <a class="btn btn-success btn-xs" style="margin-left:5px" onclick="AddSubject()">Add Subject</a>
+                </div><!-- /.box-header -->
+                <div class="box-body" id="class-list-view">
+                    @Html.Partial("~/Views/Admin/_pv_Subject_Grid.cshtml")
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
+
+<div class="modal fade" id="editSubject">
+</div><!-- /.modal --><!--edit Class--->
+
+
+<script>
+    $(document).ready(function () {
+
+        IntializeDataTable();
+
+    });
+    function AddSubject() {
+        window.location.href = '/Admin/AddSubject/';
+    }
+    function EditSubject(source) {
+       // debugger;
+        var subjectid = $(source).attr("data-id");
+       // alert(groupid);
+        $.ajax({
+            url: '/Admin/EditSubjectView?subjectid=' + subjectid,
+            dataType: 'html',
+            success: function (data) {
+                $('#editSubject').html(data);
+                $.validator.unobtrusive.parse($('#editSubject'));
+                $('#editSubject').modal('show');
+            },
+        });
+    }
+    function IntializeDataTable() {
+        $('#classTable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true
+        });
+    }
+    function refreshSubjectGrid() {
+        $.ajax({
+            url: '/Admin/RefreshSubject',
+            dataType: 'html',
+            success: function (data) {
+                $('#class-list-view').html(data);
+                IntializeDataTable();
+            },
+        });
+    }
+
+    $(document).on('click', '.confirmDelete', function () {
+        var subjectid = $(this).attr("data-id");
+        var url = '/Admin/SubjectDelete?subjectid=' + subjectid;
+        $.confirm({
+            text: "Are you sure?",
+            confirm: function (button) {
+                $.get(url, function (result) {
+                    if (result.status) {
+                        toastrSuccess(result.msg);
+                        refreshSubjectGrid();
+                    }
+                    else {
+                        toastrError(result.msg);
+                    }
+                });
+            },
+            confirmButton: "Yes",
+            cancelButton: "Cancel",
+            confirmButtonClass: "btn-danger",
+            cancelButtonClass: "btn-success",
+        });
+    });
+
+    $(document).on('change', '.pv_class-drop-down', function () {
+        var packageid = $(this).val();
+        if (packageid != '') {
+            // resetDropDown('Class');
+            $.ajax({
+                url: '/Admin/Getgroup?packageid=' + packageid,
+                type: "GET",
+                success: function (result) {
+                    if (result.list.length > 0) {
+                        $("#GroupID").html(""); // clear before appending new list
+                        $("#GroupID").append($('<option></option>').val("").html('-- Choose --'));
+                        $.each(result.list, function (i, item) {
+                            $("#GroupID").append($('<option></option>').val(item.Value).html(item.Text));
+                        });
+                        $("#GroupID").prop("disabled", false);
+
+                    }
+                    else {
+                        // resetDropDown('Class');
+                        $("#GroupID").html(""); // clear before appending new list
+                        $("#GroupID").append($('<option></option>').val("").html('-- No Group Found --'));
+                        $("#GroupID").prop("disabled", true);
+                    }
+                }
+            });
+        }
+        else {
+            //  resetDropDown('Class');
+        }
+    });
+</script>
+

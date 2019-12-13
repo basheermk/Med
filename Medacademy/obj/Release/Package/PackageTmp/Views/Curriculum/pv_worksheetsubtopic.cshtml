@@ -1,0 +1,32 @@
+﻿
+
+@model Medacademy.Models.UserModel
+
+@{
+
+
+    var subtopic = new Ma.EntityLibrary.Data.SubTopic(Model.SubtopicID);
+
+}
+
+<div>
+    <a href="@subtopic.Pdfpath" class="comm_icon pdf_icon" title="Download PDF"><img src="~/Content/images/pdf.png"></a>
+</div>
+<div>
+    <a href="@subtopic.Videopath" class="comm_icon video_icon" title="Download Video"><img src="~/Content/images/video.png"></a>
+</div>
+@{
+    var levels = new Ma.EntityLibrary.Data.Level().GetUserviewLevel(@subtopic.SubTopicID);
+    if (levels.Count > 0)
+    {
+        foreach (var Lvls in levels)
+        {
+            <div>
+                <div class="tab_inner_btns">
+                    <a href="#">@Lvls.LevelName</a>
+
+                </div>
+            </div>
+        }
+    }
+}

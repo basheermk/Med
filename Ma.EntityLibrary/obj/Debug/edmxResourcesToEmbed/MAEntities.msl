@@ -1,0 +1,1566 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MedacademyModelStoreContainer" CdmEntityContainer="MAEntities">
+    <FunctionImportMapping FunctionImportName="sp_GetRewardPointDeatils1" FunctionName="MedacademyModel.Store.sp_GetRewardPointDeatils">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MedacademyModel.sp_GetRewardPointDeatils1_Result">
+          <ScalarProperty Name="ReferId" ColumnName="ReferId" />
+          <ScalarProperty Name="TotalPoints" ColumnName="TotalPoints" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_QtnFileUpload" FunctionName="MedacademyModel.Store.sp_QtnFileUpload">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MedacademyModel.sp_QtnFileUpload_Result">
+          <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+          <ScalarProperty Name="FromStatus" ColumnName="FromStatus" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="QuestionExcelUpload" FunctionName="MedacademyModel.Store.QuestionExcelUpload" />
+    <FunctionImportMapping FunctionImportName="sp_QuestionExcelUpload" FunctionName="MedacademyModel.Store.sp_QuestionExcelUpload">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MedacademyModel.sp_QuestionExcelUpload_Result">
+          <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+          <ScalarProperty Name="FromStatus" ColumnName="FromStatus" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="PR_expires_Payment" FunctionName="MedacademyModel.Store.PR_expires_Payment" />
+    <FunctionImportMapping FunctionImportName="sp_GetUserResults" FunctionName="MedacademyModel.Store.sp_GetUserResults">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MedacademyModel.sp_GetUserResults_Result">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+          <ScalarProperty Name="Examtime" ColumnName="Examtime" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_GetUserResultsNew" FunctionName="MedacademyModel.Store.sp_GetUserResultsNew">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MedacademyModel.sp_GetUserResultsNew_Result">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+          <ScalarProperty Name="Examtime" ColumnName="Examtime" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="rank" ColumnName="rank" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="tb_Answer">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Answer">
+        <MappingFragment StoreEntitySet="tb_Answer">
+          <ScalarProperty Name="AnswerImage" ColumnName="AnswerImage" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="RightStatus" ColumnName="RightStatus" />
+          <ScalarProperty Name="AnswerTypeId" ColumnName="AnswerTypeId" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_AnswerDummy">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_AnswerDummy">
+        <MappingFragment StoreEntitySet="tb_AnswerDummy">
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="RightStatus" ColumnName="RightStatus" />
+          <ScalarProperty Name="AnswerGuid" ColumnName="AnswerGuid" />
+          <ScalarProperty Name="AnswerViewId" ColumnName="AnswerViewId" />
+          <ScalarProperty Name="AnswerTypeId" ColumnName="AnswerTypeId" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_AnswerType">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_AnswerType">
+        <MappingFragment StoreEntitySet="tb_AnswerType">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="AnswerType" ColumnName="AnswerType" />
+          <ScalarProperty Name="AnswerTypeId" ColumnName="AnswerTypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_AnswerView">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_AnswerView">
+        <MappingFragment StoreEntitySet="tb_AnswerView">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="AnswerView" ColumnName="AnswerView" />
+          <ScalarProperty Name="AnswerViewId" ColumnName="AnswerViewId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_AppRedeemPoints">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_AppRedeemPoints">
+        <MappingFragment StoreEntitySet="tb_AppRedeemPoints">
+          <ScalarProperty Name="DispatchedStatus" ColumnName="DispatchedStatus" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="TotalPoints" ColumnName="TotalPoints" />
+          <ScalarProperty Name="RedeemPoints" ColumnName="RedeemPoints" />
+          <ScalarProperty Name="RewardName" ColumnName="RewardName" />
+          <ScalarProperty Name="RewardId" ColumnName="RewardId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="AppRedeemId" ColumnName="AppRedeemId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Assessment">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Assessment">
+        <MappingFragment StoreEntitySet="tb_Assessment">
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="OrderValue" ColumnName="OrderValue" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="AssessmentGuid" ColumnName="AssessmentGuid" />
+          <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+          <ScalarProperty Name="Assessment" ColumnName="Assessment" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_AssessmentAnswer">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_AssessmentAnswer">
+        <MappingFragment StoreEntitySet="tb_AssessmentAnswer">
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="RightStatus" ColumnName="RightStatus" />
+          <ScalarProperty Name="AnswerGuid" ColumnName="AnswerGuid" />
+          <ScalarProperty Name="AnswerViewId" ColumnName="AnswerViewId" />
+          <ScalarProperty Name="AnswerTypeId" ColumnName="AnswerTypeId" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_AssessmentAttempt">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_AssessmentAttempt">
+        <MappingFragment StoreEntitySet="tb_AssessmentAttempt">
+          <ScalarProperty Name="Attempt" ColumnName="Attempt" />
+          <ScalarProperty Name="AttemptDate" ColumnName="AttemptDate" />
+          <ScalarProperty Name="AssessmentId" ColumnName="AssessmentId" />
+          <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="AssessmentAttemptId" ColumnName="AssessmentAttemptId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_AssessmentFile">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_AssessmentFile">
+        <MappingFragment StoreEntitySet="tb_AssessmentFile">
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ParentGuid" ColumnName="ParentGuid" />
+          <ScalarProperty Name="FileType" ColumnName="FileType" />
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="FileId" ColumnName="FileId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_AssessmentQuestion">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_AssessmentQuestion">
+        <MappingFragment StoreEntitySet="tb_AssessmentQuestion">
+          <ScalarProperty Name="NegativeMark" ColumnName="NegativeMark" />
+          <ScalarProperty Name="Explanation" ColumnName="Explanation" />
+          <ScalarProperty Name="QuestionGuid" ColumnName="QuestionGuid" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ParentGuid" ColumnName="ParentGuid" />
+          <ScalarProperty Name="QuestionTypeId" ColumnName="QuestionTypeId" />
+          <ScalarProperty Name="Mark" ColumnName="Mark" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_CbseAnswer">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_CbseAnswer">
+        <MappingFragment StoreEntitySet="tb_CbseAnswer">
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="RightStatus" ColumnName="RightStatus" />
+          <ScalarProperty Name="AnswerGuid" ColumnName="AnswerGuid" />
+          <ScalarProperty Name="AnswerViewId" ColumnName="AnswerViewId" />
+          <ScalarProperty Name="AnswerTypeId" ColumnName="AnswerTypeId" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_CbseFile">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_CbseFile">
+        <MappingFragment StoreEntitySet="tb_CbseFile">
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ParentGuid" ColumnName="ParentGuid" />
+          <ScalarProperty Name="FileType" ColumnName="FileType" />
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="FileId" ColumnName="FileId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_CbseQuestion">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_CbseQuestion">
+        <MappingFragment StoreEntitySet="tb_CbseQuestion">
+          <ScalarProperty Name="NegativeMark" ColumnName="NegativeMark" />
+          <ScalarProperty Name="Explanation" ColumnName="Explanation" />
+          <ScalarProperty Name="QuestionGuid" ColumnName="QuestionGuid" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ParentGuid" ColumnName="ParentGuid" />
+          <ScalarProperty Name="QuestionTypeId" ColumnName="QuestionTypeId" />
+          <ScalarProperty Name="Mark" ColumnName="Mark" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Challenge">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Challenge">
+        <MappingFragment StoreEntitySet="tb_Challenge">
+          <ScalarProperty Name="NotificationId" ColumnName="NotificationId" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="AcceptedStatus" ColumnName="AcceptedStatus" />
+          <ScalarProperty Name="ToUserId" ColumnName="ToUserId" />
+          <ScalarProperty Name="FromUserId" ColumnName="FromUserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Chapter">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Chapter">
+        <MappingFragment StoreEntitySet="tb_Chapter">
+          <ScalarProperty Name="OrderValue" ColumnName="OrderValue" />
+          <ScalarProperty Name="ChapterGuid" ColumnName="ChapterGuid" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+          <ScalarProperty Name="ChapterName" ColumnName="ChapterName" />
+          <ScalarProperty Name="ChapterId" ColumnName="ChapterId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_ChapterDummy">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_ChapterDummy">
+        <MappingFragment StoreEntitySet="tb_ChapterDummy">
+          <ScalarProperty Name="OrderValue" ColumnName="OrderValue" />
+          <ScalarProperty Name="ChapterGuid" ColumnName="ChapterGuid" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+          <ScalarProperty Name="ChapterName" ColumnName="ChapterName" />
+          <ScalarProperty Name="ChapterId" ColumnName="ChapterId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Class">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Class">
+        <MappingFragment StoreEntitySet="tb_Class">
+          <ScalarProperty Name="ClassOrder" ColumnName="ClassOrder" />
+          <ScalarProperty Name="ClassGuid" ColumnName="ClassGuid" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+          <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_ClassStudent">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_ClassStudent">
+        <MappingFragment StoreEntitySet="tb_ClassStudent">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_CommonPassword">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_CommonPassword">
+        <MappingFragment StoreEntitySet="tb_CommonPassword">
+          <ScalarProperty Name="PasswordGuid" ColumnName="PasswordGuid" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="PasswordArea" ColumnName="PasswordArea" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_ContactExpert">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_ContactExpert">
+        <MappingFragment StoreEntitySet="tb_ContactExpert">
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ReplyStatus" ColumnName="ReplyStatus" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_ContactUs">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_ContactUs">
+        <MappingFragment StoreEntitySet="tb_ContactUs">
+          <ScalarProperty Name="ContactDate" ColumnName="ContactDate" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ReplyStatus" ColumnName="ReplyStatus" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Course">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Course">
+        <MappingFragment StoreEntitySet="tb_Course">
+          <ScalarProperty Name="Files" ColumnName="Files" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="CourseSubjectName" ColumnName="CourseSubjectName" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Division">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Division">
+        <MappingFragment StoreEntitySet="tb_Division">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="SchoolId" ColumnName="SchoolId" />
+          <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+          <ScalarProperty Name="OrderValue" ColumnName="OrderValue" />
+          <ScalarProperty Name="DivisionName" ColumnName="DivisionName" />
+          <ScalarProperty Name="DivisionId" ColumnName="DivisionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_DivisionStudent">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_DivisionStudent">
+        <MappingFragment StoreEntitySet="tb_DivisionStudent">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="DivisionId" ColumnName="DivisionId" />
+          <ScalarProperty Name="DivStudentId" ColumnName="DivStudentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_ErrorLog">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_ErrorLog">
+        <MappingFragment StoreEntitySet="tb_ErrorLog">
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="Exception" ColumnName="Exception" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Exam">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Exam">
+        <MappingFragment StoreEntitySet="tb_Exam">
+          <ScalarProperty Name="PublishResult" ColumnName="PublishResult" />
+          <ScalarProperty Name="PublishStatus" ColumnName="PublishStatus" />
+          <ScalarProperty Name="UpcomingStatus" ColumnName="UpcomingStatus" />
+          <ScalarProperty Name="ExamStartDate" ColumnName="ExamStartDate" />
+          <ScalarProperty Name="ExamEndDate" ColumnName="ExamEndDate" />
+          <ScalarProperty Name="ActiveStatus" ColumnName="ActiveStatus" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="ExamGUID" ColumnName="ExamGUID" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="ExamName" ColumnName="ExamName" />
+          <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_ExamGroup">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_ExamGroup">
+        <MappingFragment StoreEntitySet="tb_ExamGroup">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+          <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_ExamQuestion">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_ExamQuestion">
+        <MappingFragment StoreEntitySet="tb_ExamQuestion">
+          <ScalarProperty Name="ExamName" ColumnName="ExamName" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_ExamRank">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_ExamRank">
+        <MappingFragment StoreEntitySet="tb_ExamRank">
+          <ScalarProperty Name="Rank" ColumnName="Rank" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="Examtime" ColumnName="Examtime" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+          <ScalarProperty Name="ExamMarkId" ColumnName="ExamMarkId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_ExamRequest">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_ExamRequest">
+        <MappingFragment StoreEntitySet="tb_ExamRequest">
+          <ScalarProperty Name="ApprovalStatus" ColumnName="ApprovalStatus" />
+          <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+          <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Exercise">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Exercise">
+        <MappingFragment StoreEntitySet="tb_Exercise">
+          <ScalarProperty Name="OrderValue" ColumnName="OrderValue" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ExerciseGuid" ColumnName="ExerciseGuid" />
+          <ScalarProperty Name="PracticeTestId" ColumnName="PracticeTestId" />
+          <ScalarProperty Name="Exercise" ColumnName="Exercise" />
+          <ScalarProperty Name="ExerciseId" ColumnName="ExerciseId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_File">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_File">
+        <MappingFragment StoreEntitySet="tb_File">
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ParentGuid" ColumnName="ParentGuid" />
+          <ScalarProperty Name="FileType" ColumnName="FileType" />
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="FileId" ColumnName="FileId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_FileDummy">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_FileDummy">
+        <MappingFragment StoreEntitySet="tb_FileDummy">
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ParentGuid" ColumnName="ParentGuid" />
+          <ScalarProperty Name="FileType" ColumnName="FileType" />
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="FileId" ColumnName="FileId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Group">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Group">
+        <MappingFragment StoreEntitySet="tb_Group">
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+          <ScalarProperty Name="Groupname" ColumnName="Groupname" />
+          <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+          <ScalarProperty Name="Course_ID" ColumnName="Course_ID" />
+          <ScalarProperty Name="Group_ID" ColumnName="Group_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_GroupStudent">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_GroupStudent">
+        <MappingFragment StoreEntitySet="tb_GroupStudent">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Homework">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Homework">
+        <MappingFragment StoreEntitySet="tb_Homework">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="PracticeTestId" ColumnName="PracticeTestId" />
+          <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+          <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
+          <ScalarProperty Name="HomeworkId" ColumnName="HomeworkId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_HomeworkSchool">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_HomeworkSchool">
+        <MappingFragment StoreEntitySet="tb_HomeworkSchool">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="ImageLink" ColumnName="ImageLink" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+          <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
+          <ScalarProperty Name="HomeworkId" ColumnName="HomeworkId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_HomeworkStudent">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_HomeworkStudent">
+        <MappingFragment StoreEntitySet="tb_HomeworkStudent">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="HomeworkStatus" ColumnName="HomeworkStatus" />
+          <ScalarProperty Name="Grade" ColumnName="Grade" />
+          <ScalarProperty Name="AttemptId" ColumnName="AttemptId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="HomeworkId" ColumnName="HomeworkId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_HomeworkStudentSchool">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_HomeworkStudentSchool">
+        <MappingFragment StoreEntitySet="tb_HomeworkStudentSchool">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="SendStatus" ColumnName="SendStatus" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="HomeworkId" ColumnName="HomeworkId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Increment">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Increment">
+        <MappingFragment StoreEntitySet="tb_Increment">
+          <ScalarProperty Name="PromoNumber" ColumnName="PromoNumber" />
+          <ScalarProperty Name="IncrementId" ColumnName="IncrementId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Ipayy">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Ipayy">
+        <MappingFragment StoreEntitySet="tb_Ipayy">
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="ParentGuid" ColumnName="ParentGuid" />
+          <ScalarProperty Name="Ec" ColumnName="Ec" />
+          <ScalarProperty Name="Ac" ColumnName="Ac" />
+          <ScalarProperty Name="Ts" ColumnName="Ts" />
+          <ScalarProperty Name="Op" ColumnName="Op" />
+          <ScalarProperty Name="Mn" ColumnName="Mn" />
+          <ScalarProperty Name="Td" ColumnName="Td" />
+          <ScalarProperty Name="Cc" ColumnName="Cc" />
+          <ScalarProperty Name="R" ColumnName="R" />
+          <ScalarProperty Name="Tx" ColumnName="Tx" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Lesson">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Lesson">
+        <MappingFragment StoreEntitySet="tb_Lesson">
+          <ScalarProperty Name="ChapterId" ColumnName="ChapterId" />
+          <ScalarProperty Name="LessonGuid" ColumnName="LessonGuid" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="LessonName" ColumnName="LessonName" />
+          <ScalarProperty Name="LessonId" ColumnName="LessonId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Level">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Level">
+        <MappingFragment StoreEntitySet="tb_Level">
+          <ScalarProperty Name="TopicID" ColumnName="TopicID" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+          <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="orderValue" ColumnName="orderValue" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="LevelName" ColumnName="LevelName" />
+          <ScalarProperty Name="SubTopicID" ColumnName="SubTopicID" />
+          <ScalarProperty Name="LevelID" ColumnName="LevelID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Login">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Login">
+        <MappingFragment StoreEntitySet="tb_Login">
+          <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+          <ScalarProperty Name="FilesName" ColumnName="FilesName" />
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+          <ScalarProperty Name="Districts" ColumnName="Districts" />
+          <ScalarProperty Name="Pin" ColumnName="Pin" />
+          <ScalarProperty Name="PromoCode" ColumnName="PromoCode" />
+          <ScalarProperty Name="ReferenceCode" ColumnName="ReferenceCode" />
+          <ScalarProperty Name="DisableStatus" ColumnName="DisableStatus" />
+          <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="UserGuid" ColumnName="UserGuid" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Mark">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Mark">
+        <MappingFragment StoreEntitySet="tb_Mark">
+          <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Marks" ColumnName="Marks" />
+          <ScalarProperty Name="MarkId" ColumnName="MarkId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_MpesePayment">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_MpesePayment">
+        <MappingFragment StoreEntitySet="tb_MpesePayment">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="PaymeentType" ColumnName="PaymeentType" />
+          <ScalarProperty Name="TxnAmt" ColumnName="TxnAmt" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+          <ScalarProperty Name="Statuscode" ColumnName="Statuscode" />
+          <ScalarProperty Name="Transrefno" ColumnName="Transrefno" />
+          <ScalarProperty Name="Mcompgtransid" ColumnName="Mcompgtransid" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="MpeseId" ColumnName="MpeseId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_News">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_News">
+        <MappingFragment StoreEntitySet="tb_News">
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="NewsDate" ColumnName="NewsDate" />
+          <ScalarProperty Name="News" ColumnName="News" />
+          <ScalarProperty Name="SubHead" ColumnName="SubHead" />
+          <ScalarProperty Name="Head" ColumnName="Head" />
+          <ScalarProperty Name="NewsID" ColumnName="NewsID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Notification">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Notification">
+        <MappingFragment StoreEntitySet="tb_Notification">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="NotificationType" ColumnName="NotificationType" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="ImageLink" ColumnName="ImageLink" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="FromUserId" ColumnName="FromUserId" />
+          <ScalarProperty Name="NotificationId" ColumnName="NotificationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_NotificationUser">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_NotificationUser">
+        <MappingFragment StoreEntitySet="tb_NotificationUser">
+          <ScalarProperty Name="ViewStatus" ColumnName="ViewStatus" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ReadStatus" ColumnName="ReadStatus" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="NotificationId" ColumnName="NotificationId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Olympiad">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Olympiad">
+        <MappingFragment StoreEntitySet="tb_Olympiad">
+          <ScalarProperty Name="OrderValue" ColumnName="OrderValue" />
+          <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="OlympiadGuid" ColumnName="OlympiadGuid" />
+          <ScalarProperty Name="OlympiadName" ColumnName="OlympiadName" />
+          <ScalarProperty Name="OlympiadId" ColumnName="OlympiadId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_OlympiadAnswer">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_OlympiadAnswer">
+        <MappingFragment StoreEntitySet="tb_OlympiadAnswer">
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="RightStatus" ColumnName="RightStatus" />
+          <ScalarProperty Name="AnswerGuid" ColumnName="AnswerGuid" />
+          <ScalarProperty Name="AnswerViewId" ColumnName="AnswerViewId" />
+          <ScalarProperty Name="AnswerTypeId" ColumnName="AnswerTypeId" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_OlympiadAttempt">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_OlympiadAttempt">
+        <MappingFragment StoreEntitySet="tb_OlympiadAttempt">
+          <ScalarProperty Name="UnlockedStatus" ColumnName="UnlockedStatus" />
+          <ScalarProperty Name="Attempt" ColumnName="Attempt" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="OlympiadTestId" ColumnName="OlympiadTestId" />
+          <ScalarProperty Name="ChapterId" ColumnName="ChapterId" />
+          <ScalarProperty Name="OlympiadId" ColumnName="OlympiadId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_OlympiadChapter">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_OlympiadChapter">
+        <MappingFragment StoreEntitySet="tb_OlympiadChapter">
+          <ScalarProperty Name="orderValue" ColumnName="orderValue" />
+          <ScalarProperty Name="ChapterGuid" ColumnName="ChapterGuid" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="OlympiadId" ColumnName="OlympiadId" />
+          <ScalarProperty Name="ChapterName" ColumnName="ChapterName" />
+          <ScalarProperty Name="ChapterId" ColumnName="ChapterId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_OlympiadFile">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_OlympiadFile">
+        <MappingFragment StoreEntitySet="tb_OlympiadFile">
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ParentGuid" ColumnName="ParentGuid" />
+          <ScalarProperty Name="FileType" ColumnName="FileType" />
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="FileId" ColumnName="FileId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_OlympiadQuestion">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_OlympiadQuestion">
+        <MappingFragment StoreEntitySet="tb_OlympiadQuestion">
+          <ScalarProperty Name="NegativeMark" ColumnName="NegativeMark" />
+          <ScalarProperty Name="Explanation" ColumnName="Explanation" />
+          <ScalarProperty Name="QuestionGuid" ColumnName="QuestionGuid" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ParentGuid" ColumnName="ParentGuid" />
+          <ScalarProperty Name="QuestionTypeId" ColumnName="QuestionTypeId" />
+          <ScalarProperty Name="Mark" ColumnName="Mark" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_OlympiadTest">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_OlympiadTest">
+        <MappingFragment StoreEntitySet="tb_OlympiadTest">
+          <ScalarProperty Name="PublishStatus" ColumnName="PublishStatus" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="OrderValue" ColumnName="OrderValue" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="TestGuid" ColumnName="TestGuid" />
+          <ScalarProperty Name="ChapterId" ColumnName="ChapterId" />
+          <ScalarProperty Name="TestName" ColumnName="TestName" />
+          <ScalarProperty Name="TestId" ColumnName="TestId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Package">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Package">
+        <MappingFragment StoreEntitySet="tb_Package">
+          <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+          <ScalarProperty Name="Files" ColumnName="Files" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ExpiryDays" ColumnName="ExpiryDays" />
+          <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+          <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_PasswordReset">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_PasswordReset">
+        <MappingFragment StoreEntitySet="tb_PasswordReset">
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsExpired" ColumnName="IsExpired" />
+          <ScalarProperty Name="ResetGuid" ColumnName="ResetGuid" />
+          <ScalarProperty Name="UserType" ColumnName="UserType" />
+          <ScalarProperty Name="UserGuid" ColumnName="UserGuid" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_PayByCash">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_PayByCash">
+        <MappingFragment StoreEntitySet="tb_PayByCash">
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Payment">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Payment">
+        <MappingFragment StoreEntitySet="tb_Payment">
+          <ScalarProperty Name="RESPONSE_ID" ColumnName="RESPONSE_ID" />
+          <ScalarProperty Name="REQUEST_ID" ColumnName="REQUEST_ID" />
+          <ScalarProperty Name="Expirydate" ColumnName="Expirydate" />
+          <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
+          <ScalarProperty Name="ParentGuid" ColumnName="ParentGuid" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="PaidStatus" ColumnName="PaidStatus" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_PaymentTest">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_PaymentTest">
+        <MappingFragment StoreEntitySet="tb_PaymentTest">
+          <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
+          <ScalarProperty Name="ParentGuid" ColumnName="ParentGuid" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="PaidStatus" ColumnName="PaidStatus" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_PAYTM_REQUEST">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_PAYTM_REQUEST">
+        <MappingFragment StoreEntitySet="tb_PAYTM_REQUEST">
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="BANK_CODE" ColumnName="BANK_CODE" />
+          <ScalarProperty Name="PAYMENT_TYPE_ID" ColumnName="PAYMENT_TYPE_ID" />
+          <ScalarProperty Name="AUTH_MODE" ColumnName="AUTH_MODE" />
+          <ScalarProperty Name="PAYMENT_MODE_ONLY" ColumnName="PAYMENT_MODE_ONLY" />
+          <ScalarProperty Name="CALLBACK_URL" ColumnName="CALLBACK_URL" />
+          <ScalarProperty Name="INDUSTRY_TYPE_ID" ColumnName="INDUSTRY_TYPE_ID" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="MOBILE_NO" ColumnName="MOBILE_NO" />
+          <ScalarProperty Name="CHECKSUMHASH" ColumnName="CHECKSUMHASH" />
+          <ScalarProperty Name="WEBSITE" ColumnName="WEBSITE" />
+          <ScalarProperty Name="CHANNEL_ID" ColumnName="CHANNEL_ID" />
+          <ScalarProperty Name="TXN_AMOUNT" ColumnName="TXN_AMOUNT" />
+          <ScalarProperty Name="CUST_ID" ColumnName="CUST_ID" />
+          <ScalarProperty Name="ORDER_ID" ColumnName="ORDER_ID" />
+          <ScalarProperty Name="MID" ColumnName="MID" />
+          <ScalarProperty Name="PAKAGE_ID" ColumnName="PAKAGE_ID" />
+          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+          <ScalarProperty Name="REQUEST_ID" ColumnName="REQUEST_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_PAYTM_RESPONSE">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_PAYTM_RESPONSE">
+        <MappingFragment StoreEntitySet="tb_PAYTM_RESPONSE">
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CARD_LAST_NUMS" ColumnName="CARD_LAST_NUMS" />
+          <ScalarProperty Name="BIN_NUMBER" ColumnName="BIN_NUMBER" />
+          <ScalarProperty Name="CHECKSUMHASH" ColumnName="CHECKSUMHASH" />
+          <ScalarProperty Name="PAYMENTMODE" ColumnName="PAYMENTMODE" />
+          <ScalarProperty Name="BANKNAME" ColumnName="BANKNAME" />
+          <ScalarProperty Name="GATEWAYNAME" ColumnName="GATEWAYNAME" />
+          <ScalarProperty Name="TXNDATE" ColumnName="TXNDATE" />
+          <ScalarProperty Name="RESPMSG" ColumnName="RESPMSG" />
+          <ScalarProperty Name="RESPCODE" ColumnName="RESPCODE" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="CURRENCY" ColumnName="CURRENCY" />
+          <ScalarProperty Name="TXNAMOUNT" ColumnName="TXNAMOUNT" />
+          <ScalarProperty Name="BANKTXNID" ColumnName="BANKTXNID" />
+          <ScalarProperty Name="ORDERID" ColumnName="ORDERID" />
+          <ScalarProperty Name="TXNID" ColumnName="TXNID" />
+          <ScalarProperty Name="MID" ColumnName="MID" />
+          <ScalarProperty Name="PAKAGE_ID" ColumnName="PAKAGE_ID" />
+          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+          <ScalarProperty Name="REQUEST_ID" ColumnName="REQUEST_ID" />
+          <ScalarProperty Name="RESPONSE_ID" ColumnName="RESPONSE_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Points">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Points">
+        <MappingFragment StoreEntitySet="tb_Points">
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="PointType" ColumnName="PointType" />
+          <ScalarProperty Name="Point" ColumnName="Point" />
+          <ScalarProperty Name="PointId" ColumnName="PointId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_PracticeAttempt">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_PracticeAttempt">
+        <MappingFragment StoreEntitySet="tb_PracticeAttempt">
+          <ScalarProperty Name="TopicId" ColumnName="TopicId" />
+          <ScalarProperty Name="SubtopicId" ColumnName="SubtopicId" />
+          <ScalarProperty Name="UnlockedStatus" ColumnName="UnlockedStatus" />
+          <ScalarProperty Name="Attempt" ColumnName="Attempt" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Levelid" ColumnName="Levelid" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_PracticePoint">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_PracticePoint">
+        <MappingFragment StoreEntitySet="tb_PracticePoint">
+          <ScalarProperty Name="Points" ColumnName="Points" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="PointId" ColumnName="PointId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_PracticePointDetails">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_PracticePointDetails">
+        <MappingFragment StoreEntitySet="tb_PracticePointDetails">
+          <ScalarProperty Name="AttemptId" ColumnName="AttemptId" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="Points" ColumnName="Points" />
+          <ScalarProperty Name="LevelId" ColumnName="LevelId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="PointDetaiId" ColumnName="PointDetaiId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_PracticeReward">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_PracticeReward">
+        <MappingFragment StoreEntitySet="tb_PracticeReward">
+          <ScalarProperty Name="PictureLink" ColumnName="PictureLink" />
+          <ScalarProperty Name="Range" ColumnName="Range" />
+          <ScalarProperty Name="RewardName" ColumnName="RewardName" />
+          <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+          <ScalarProperty Name="RewardId" ColumnName="RewardId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_PracticeTest">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_PracticeTest">
+        <MappingFragment StoreEntitySet="tb_PracticeTest">
+          <ScalarProperty Name="PublishStatus" ColumnName="PublishStatus" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="OrderValue" ColumnName="OrderValue" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="PracticeTestGuid" ColumnName="PracticeTestGuid" />
+          <ScalarProperty Name="ChapterId" ColumnName="ChapterId" />
+          <ScalarProperty Name="PracticeTestName" ColumnName="PracticeTestName" />
+          <ScalarProperty Name="PracticeTestId" ColumnName="PracticeTestId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_PracticeTestDummy">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_PracticeTestDummy">
+        <MappingFragment StoreEntitySet="tb_PracticeTestDummy">
+          <ScalarProperty Name="PracticeTestGuidOld" ColumnName="PracticeTestGuidOld" />
+          <ScalarProperty Name="PublishStatus" ColumnName="PublishStatus" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="OrderValue" ColumnName="OrderValue" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="PracticeTestGuid" ColumnName="PracticeTestGuid" />
+          <ScalarProperty Name="ChapterId" ColumnName="ChapterId" />
+          <ScalarProperty Name="PracticeTestName" ColumnName="PracticeTestName" />
+          <ScalarProperty Name="PracticeTestId" ColumnName="PracticeTestId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Preparation">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Preparation">
+        <MappingFragment StoreEntitySet="tb_Preparation">
+          <ScalarProperty Name="PreparationName" ColumnName="PreparationName" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+          <ScalarProperty Name="PreparationId" ColumnName="PreparationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_PromoCode">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_PromoCode">
+        <MappingFragment StoreEntitySet="tb_PromoCode">
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="PromoGuid" ColumnName="PromoGuid" />
+          <ScalarProperty Name="RemainingCount" ColumnName="RemainingCount" />
+          <ScalarProperty Name="TotalCount" ColumnName="TotalCount" />
+          <ScalarProperty Name="DiscountPercentage" ColumnName="DiscountPercentage" />
+          <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+          <ScalarProperty Name="PromoCode" ColumnName="PromoCode" />
+          <ScalarProperty Name="PromoId" ColumnName="PromoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Question">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Question">
+        <MappingFragment StoreEntitySet="tb_Question">
+          <ScalarProperty Name="AnswerExpImage" ColumnName="AnswerExpImage" />
+          <ScalarProperty Name="QuestionImage" ColumnName="QuestionImage" />
+          <ScalarProperty Name="LevelID" ColumnName="LevelID" />
+          <ScalarProperty Name="NegativeMark" ColumnName="NegativeMark" />
+          <ScalarProperty Name="Explanation" ColumnName="Explanation" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="QuestionTypeId" ColumnName="QuestionTypeId" />
+          <ScalarProperty Name="Mark" ColumnName="Mark" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_QuestionDummy">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_QuestionDummy">
+        <MappingFragment StoreEntitySet="tb_QuestionDummy">
+          <ScalarProperty Name="QuestionIdOld" ColumnName="QuestionIdOld" />
+          <ScalarProperty Name="NegativeMark" ColumnName="NegativeMark" />
+          <ScalarProperty Name="Explanation" ColumnName="Explanation" />
+          <ScalarProperty Name="QuestionGuid" ColumnName="QuestionGuid" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ParentGuid" ColumnName="ParentGuid" />
+          <ScalarProperty Name="QuestionTypeId" ColumnName="QuestionTypeId" />
+          <ScalarProperty Name="Mark" ColumnName="Mark" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_QuestionType">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_QuestionType">
+        <MappingFragment StoreEntitySet="tb_QuestionType">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+          <ScalarProperty Name="QuestionTypeId" ColumnName="QuestionTypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_RedeemPoints">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_RedeemPoints">
+        <MappingFragment StoreEntitySet="tb_RedeemPoints">
+          <ScalarProperty Name="DispatchedStatus" ColumnName="DispatchedStatus" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="Points" ColumnName="Points" />
+          <ScalarProperty Name="RewardName" ColumnName="RewardName" />
+          <ScalarProperty Name="RewardId" ColumnName="RewardId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="RedeemId" ColumnName="RedeemId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_ReferFriend">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_ReferFriend">
+        <MappingFragment StoreEntitySet="tb_ReferFriend">
+          <ScalarProperty Name="UsedStatus" ColumnName="UsedStatus" />
+          <ScalarProperty Name="PointId" ColumnName="PointId" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="FriendId" ColumnName="FriendId" />
+          <ScalarProperty Name="ReferId" ColumnName="ReferId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Reward">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Reward">
+        <MappingFragment StoreEntitySet="tb_Reward">
+          <ScalarProperty Name="RewardGuid" ColumnName="RewardGuid" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Points" ColumnName="Points" />
+          <ScalarProperty Name="Reward" ColumnName="Reward" />
+          <ScalarProperty Name="RewardId" ColumnName="RewardId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Scholarship">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Scholarship">
+        <MappingFragment StoreEntitySet="tb_Scholarship">
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="OrderValue" ColumnName="OrderValue" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ScholarshipGuid" ColumnName="ScholarshipGuid" />
+          <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+          <ScalarProperty Name="Scholarship" ColumnName="Scholarship" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_ScholarshipAnswer">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_ScholarshipAnswer">
+        <MappingFragment StoreEntitySet="tb_ScholarshipAnswer">
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="RightStatus" ColumnName="RightStatus" />
+          <ScalarProperty Name="AnswerGuid" ColumnName="AnswerGuid" />
+          <ScalarProperty Name="AnswerViewId" ColumnName="AnswerViewId" />
+          <ScalarProperty Name="AnswerTypeId" ColumnName="AnswerTypeId" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_ScholarshipAttempt">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_ScholarshipAttempt">
+        <MappingFragment StoreEntitySet="tb_ScholarshipAttempt">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="Guid" ColumnName="Guid" />
+          <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ScholarshipAttemptId" ColumnName="ScholarshipAttemptId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_ScholarshipFile">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_ScholarshipFile">
+        <MappingFragment StoreEntitySet="tb_ScholarshipFile">
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ParentGuid" ColumnName="ParentGuid" />
+          <ScalarProperty Name="FileType" ColumnName="FileType" />
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="FileId" ColumnName="FileId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_ScholarshipQuestion">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_ScholarshipQuestion">
+        <MappingFragment StoreEntitySet="tb_ScholarshipQuestion">
+          <ScalarProperty Name="NegativeMark" ColumnName="NegativeMark" />
+          <ScalarProperty Name="Explanation" ColumnName="Explanation" />
+          <ScalarProperty Name="QuestionGuid" ColumnName="QuestionGuid" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ParentGuid" ColumnName="ParentGuid" />
+          <ScalarProperty Name="QuestionTypeId" ColumnName="QuestionTypeId" />
+          <ScalarProperty Name="Mark" ColumnName="Mark" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_ScholarshipQuestionTest">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_ScholarshipQuestionTest">
+        <MappingFragment StoreEntitySet="tb_ScholarshipQuestionTest">
+          <ScalarProperty Name="QtnId" ColumnName="QtnId" />
+          <ScalarProperty Name="NegativeMark" ColumnName="NegativeMark" />
+          <ScalarProperty Name="Explanation" ColumnName="Explanation" />
+          <ScalarProperty Name="QuestionGuid" ColumnName="QuestionGuid" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ParentGuid" ColumnName="ParentGuid" />
+          <ScalarProperty Name="QuestionTypeId" ColumnName="QuestionTypeId" />
+          <ScalarProperty Name="Mark" ColumnName="Mark" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_School">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_School">
+        <MappingFragment StoreEntitySet="tb_School">
+          <ScalarProperty Name="DeactivateStatus" ColumnName="DeactivateStatus" />
+          <ScalarProperty Name="BannerLink" ColumnName="BannerLink" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+          <ScalarProperty Name="ViewStatus" ColumnName="ViewStatus" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="SchoolGuid" ColumnName="SchoolGuid" />
+          <ScalarProperty Name="StateId" ColumnName="StateId" />
+          <ScalarProperty Name="Contact" ColumnName="Contact" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="School" ColumnName="School" />
+          <ScalarProperty Name="SchoolId" ColumnName="SchoolId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_SchoolRating">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_SchoolRating">
+        <MappingFragment StoreEntitySet="tb_SchoolRating">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ApproveStatus" ColumnName="ApproveStatus" />
+          <ScalarProperty Name="RatingGuid" ColumnName="RatingGuid" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Rating" ColumnName="Rating" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="SchoolId" ColumnName="SchoolId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="RatingId" ColumnName="RatingId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_ScoreRange">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_ScoreRange">
+        <MappingFragment StoreEntitySet="tb_ScoreRange">
+          <ScalarProperty Name="Grade" ColumnName="Grade" />
+          <ScalarProperty Name="OrderValue" ColumnName="OrderValue" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="LevelName" ColumnName="LevelName" />
+          <ScalarProperty Name="ScoreGuid" ColumnName="ScoreGuid" />
+          <ScalarProperty Name="StarRating" ColumnName="StarRating" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="MaxMark" ColumnName="MaxMark" />
+          <ScalarProperty Name="MinMark" ColumnName="MinMark" />
+          <ScalarProperty Name="RangeName" ColumnName="RangeName" />
+          <ScalarProperty Name="ScoreRangeId" ColumnName="ScoreRangeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_State">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_State">
+        <MappingFragment StoreEntitySet="tb_State">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="StateGuid" ColumnName="StateGuid" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="StateId" ColumnName="StateId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Subject">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Subject">
+        <MappingFragment StoreEntitySet="tb_Subject">
+          <ScalarProperty Name="BookUrl" ColumnName="BookUrl" />
+          <ScalarProperty Name="OrderValue" ColumnName="OrderValue" />
+          <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="SubjectGuid" ColumnName="SubjectGuid" />
+          <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+          <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_SubjectExpertSubject">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_SubjectExpertSubject">
+        <MappingFragment StoreEntitySet="tb_SubjectExpertSubject">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ExpertSubjectId" ColumnName="ExpertSubjectId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Subjects">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Subjects">
+        <MappingFragment StoreEntitySet="tb_Subjects">
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+          <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+          <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+          <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Subtopic">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Subtopic">
+        <MappingFragment StoreEntitySet="tb_Subtopic">
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+          <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+          <ScalarProperty Name="FileNameOrginalPDF" ColumnName="FileNameOrginalPDF" />
+          <ScalarProperty Name="YouTubeVideo" ColumnName="YouTubeVideo" />
+          <ScalarProperty Name="Videopath" ColumnName="Videopath" />
+          <ScalarProperty Name="Pdfpath" ColumnName="Pdfpath" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+          <ScalarProperty Name="SubTopicName" ColumnName="SubTopicName" />
+          <ScalarProperty Name="TopicID" ColumnName="TopicID" />
+          <ScalarProperty Name="SubTopicID" ColumnName="SubTopicID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_TeacherSubject">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_TeacherSubject">
+        <MappingFragment StoreEntitySet="tb_TeacherSubject">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="TeacherSubjectId" ColumnName="TeacherSubjectId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Topic">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_Topic">
+        <MappingFragment StoreEntitySet="tb_Topic">
+          <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+          <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="TopicName" ColumnName="TopicName" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="TopicID" ColumnName="TopicID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_UnlockedLevel">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_UnlockedLevel">
+        <MappingFragment StoreEntitySet="tb_UnlockedLevel">
+          <ScalarProperty Name="CompletedStatus" ColumnName="CompletedStatus" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="SubtopicId" ColumnName="SubtopicId" />
+          <ScalarProperty Name="LevelId" ColumnName="LevelId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UnlockedLevelId" ColumnName="UnlockedLevelId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_UrlFile">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_UrlFile">
+        <MappingFragment StoreEntitySet="tb_UrlFile">
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="FileGuid" ColumnName="FileGuid" />
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="FileId" ColumnName="FileId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_UserAssessmentAttend">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_UserAssessmentAttend">
+        <MappingFragment StoreEntitySet="tb_UserAssessmentAttend">
+          <ScalarProperty Name="AssessmentAttemptId" ColumnName="AssessmentAttemptId" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ParentGuid" ColumnName="ParentGuid" />
+          <ScalarProperty Name="Mark" ColumnName="Mark" />
+          <ScalarProperty Name="RightAnswerId" ColumnName="RightAnswerId" />
+          <ScalarProperty Name="UserAnswerId" ColumnName="UserAnswerId" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_UserAttend">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_UserAttend">
+        <MappingFragment StoreEntitySet="tb_UserAttend">
+          <ScalarProperty Name="LevelId" ColumnName="LevelId" />
+          <ScalarProperty Name="AttendStatus" ColumnName="AttendStatus" />
+          <ScalarProperty Name="PracticeAttemptId" ColumnName="PracticeAttemptId" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ParentGuid" ColumnName="ParentGuid" />
+          <ScalarProperty Name="Mark" ColumnName="Mark" />
+          <ScalarProperty Name="RightAnswerId" ColumnName="RightAnswerId" />
+          <ScalarProperty Name="UserAnswerId" ColumnName="UserAnswerId" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_UserExamAttend">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_UserExamAttend">
+        <MappingFragment StoreEntitySet="tb_UserExamAttend">
+          <ScalarProperty Name="Examtime" ColumnName="Examtime" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ParentGuid" ColumnName="ParentGuid" />
+          <ScalarProperty Name="RightAnswerStatus" ColumnName="RightAnswerStatus" />
+          <ScalarProperty Name="Mark" ColumnName="Mark" />
+          <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+          <ScalarProperty Name="UserAnswerId" ColumnName="UserAnswerId" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_UserLog">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_UserLog">
+        <MappingFragment StoreEntitySet="tb_UserLog">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="LogoutTime" ColumnName="LogoutTime" />
+          <ScalarProperty Name="LoginTime" ColumnName="LoginTime" />
+          <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="LogId" ColumnName="LogId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_UserOlympiadAttend">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_UserOlympiadAttend">
+        <MappingFragment StoreEntitySet="tb_UserOlympiadAttend">
+          <ScalarProperty Name="AttendStatus" ColumnName="AttendStatus" />
+          <ScalarProperty Name="OlympiadAttemptId" ColumnName="OlympiadAttemptId" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ParentGuid" ColumnName="ParentGuid" />
+          <ScalarProperty Name="Mark" ColumnName="Mark" />
+          <ScalarProperty Name="RightAnswerId" ColumnName="RightAnswerId" />
+          <ScalarProperty Name="UserAnswerId" ColumnName="UserAnswerId" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_UserPreparationAttend">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_UserPreparationAttend">
+        <MappingFragment StoreEntitySet="tb_UserPreparationAttend">
+          <ScalarProperty Name="Preparationtime" ColumnName="Preparationtime" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="RightAnswerStatus" ColumnName="RightAnswerStatus" />
+          <ScalarProperty Name="Mark" ColumnName="Mark" />
+          <ScalarProperty Name="PreparationId" ColumnName="PreparationId" />
+          <ScalarProperty Name="UserAnswerId" ColumnName="UserAnswerId" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_UserPreparationResult">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_UserPreparationResult">
+        <MappingFragment StoreEntitySet="tb_UserPreparationResult">
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Mark" ColumnName="Mark" />
+          <ScalarProperty Name="PreparationId" ColumnName="PreparationId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_VideoFiles">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_VideoFiles">
+        <MappingFragment StoreEntitySet="tb_VideoFiles">
+          <ScalarProperty Name="SubTopicID" ColumnName="SubTopicID" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+          <ScalarProperty Name="FileSize" ColumnName="FileSize" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserExamResults">
+      <EntityTypeMapping TypeName="MedacademyModel.UserExamResult">
+        <MappingFragment StoreEntitySet="UserExamResult">
+          <ScalarProperty Name="Mark" ColumnName="Mark" />
+          <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_FileTest">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_FileTest">
+        <MappingFragment StoreEntitySet="tb_FileTest">
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ParentGuid" ColumnName="ParentGuid" />
+          <ScalarProperty Name="FileType" ColumnName="FileType" />
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="FileId" ColumnName="FileId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_ScholarshipAnswerTest">
+      <EntityTypeMapping TypeName="MedacademyModel.tb_ScholarshipAnswerTest">
+        <MappingFragment StoreEntitySet="tb_ScholarshipAnswerTest">
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="RightStatus" ColumnName="RightStatus" />
+          <ScalarProperty Name="AnswerGuid" ColumnName="AnswerGuid" />
+          <ScalarProperty Name="AnswerViewId" ColumnName="AnswerViewId" />
+          <ScalarProperty Name="AnswerTypeId" ColumnName="AnswerTypeId" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="View_ExamStudentResult">
+      <EntityTypeMapping TypeName="MedacademyModel.View_ExamStudentResult">
+        <MappingFragment StoreEntitySet="View_ExamStudentResult">
+          <ScalarProperty Name="ParentGuid" ColumnName="ParentGuid" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="UserAnswerId" ColumnName="UserAnswerId" />
+          <ScalarProperty Name="RightAnswerStatus" ColumnName="RightAnswerStatus" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+          <ScalarProperty Name="Expr2" ColumnName="Expr2" />
+          <ScalarProperty Name="Examtime" ColumnName="Examtime" />
+          <ScalarProperty Name="Mark" ColumnName="Mark" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

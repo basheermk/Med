@@ -1,0 +1,218 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Medacademy</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.5 -->
+    <link href="@Url.Content("~/Content/css/bootstrap.min.css")" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!--Loader-->
+    <link href="@Url.Content("~/Content/css/aps-loader.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Content/js/jquery.js")"></script>
+    <script src="@Url.Content("~/Content/aps-loader-js/aps-loader.js")"></script>
+    <!--/Loader-->
+    <!-- Theme style -->
+    <link href="@Url.Content("~/Content/css/AdminLTE.min.css")" rel="stylesheet" />
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link href="@Url.Content("~/Content/css/skins/_all-skins.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/css/skins/skin-green.min.css")" rel="stylesheet" />
+
+    <link href="@Url.Content("~/Content/css/Common.css")" rel="stylesheet" />
+    <!--Toastr-->
+    <link href="@Url.Content("~/Content/plugins/toastr/toastr.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/plugins/toastr/toastr.min.css")" rel="stylesheet" />
+    <!--Toastr ends-->
+    <!-- jQuery 2.1.4 -->
+
+    <script src="@Url.Content("~/Content/plugins/jQuery/jQuery-2.1.4.min.js")"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="@Url.Content("~/Content/js/bootstrap.min.js")"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+    <!-- SlimScroll -->
+    <script src="@Url.Content("~/Content/plugins/slimScroll/jquery.slimscroll.min.js")"></script>
+    <!-- FastClick -->
+    <script src="@Url.Content("~/Content/plugins/fastclick/fastclick.min.js")"></script>
+    <!-- AdminLTE App -->
+    <script src="@Url.Content("~/Content/js/app.min.js")"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="@Url.Content("~/Content/js/demo.js")"></script>
+
+    <!--Toastr-->
+    <script src="@Url.Content("~/Content/plugins/toastr/toastr.min.js")"></script>
+    <script src="@Url.Content("~/Content/plugins/toastr/toastrConfig.js")"></script>
+    <!--Toastr ends-->
+    <!--Confirmation-->
+    <script src="@Url.Content("~/Content/js/jquery.confirm.min.js")"></script>
+
+    <script src="@Url.Content("~/Content/js/moment.min.js")"></script>
+
+    <link href="@Url.Content("~/Content/plugins/bootstrap-dropselect/dist/css/bootstrap-select.min.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Content/plugins/bootstrap-dropselect/dist/js/bootstrap-select.min.js")"></script>
+
+    <link href="@Url.Content("~/Content/plugins/jQueryCustomselect/css/jquery-customselect-1.9.1.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Content/plugins/jQueryCustomselect/js/jquery-customselect-1.9.1.min.js")"></script>
+
+    <script src="@Url.Content("~/Content/plugins/ckeditor/ckeditor.js")"></script>
+    <script src="@Url.Content("~/Content/plugins/ckeditor/plugins/specialchar/dialogs/specialchar.js")"></script>
+    <script src="@Url.Content("~/Content/plugins/jquery.pleaseWait.js")"></script>
+    <script src="@Url.Content("~/Content/js/scJs/scJs01.js")"></script>
+
+    <link href="@Url.Content("~/Content/css/bootstrap-datetimepicker.min.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Content/js/bootstrap-datetimepicker.min.js")"></script>
+    @*<link href="@Url.Content("~/Content/css/pikaday.css")" rel="stylesheet" />
+        <script src="@Url.Content("~/Content/js/pikaday.js")"></script>
+        <script src="@Url.Content("~/Content/js/pikaday.jquery.js")"></script>*@
+    <link href="@Url.Content("~/Content/css/jquery.ui.timepicker.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Content/js/jquery.ui.timepicker.js")"></script>
+
+
+    <script>
+        $(function () {
+            function reposition() {
+                var modal = $(this),
+                    dialog = modal.find('.modal-dialog');
+                modal.css('display', 'block');
+
+                // Dividing by two centers the modal exactly, but dividing by three
+                // or four works better for larger screens.
+                dialog.css("margin-top", Math.max(0, ($(window).height() - dialog.height()) / 2));
+            }
+            // Reposition when a modal is shown
+            $('.modal').on('show.bs.modal', reposition);
+            // Reposition when the window is resized
+            $(window).on('resize', function () {
+                $('.modal:visible').each(reposition);
+            });
+
+
+
+        });
+    </script>
+
+
+
+    <!-- DataTables -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/plugins/datatables/dataTables.bootstrap.css")">
+    <script src="@Url.Content("~/Content/plugins/datatables/jquery.dataTables.min.js")"></script>
+    <script src="@Url.Content("~/Content/plugins/datatables/dataTables.bootstrap.min.js")"></script>
+
+
+</head>
+<!-- ADD THE CLASS fixed TO GET A FIXED HEADER AND SIDEBAR LAYOUT -->
+<!-- the fixed layout is not compatible with sidebar-mini -->
+<body class="hold-transition skin-green fixed sidebar-mini">
+    <div class="aps-i-want-loader">
+    </div>
+    <div class="aps-i-want-loader-page">
+        <!-- Site wrapper -->
+        <div class="wrapper">
+            <header class="main-header">
+                <!-- Logo -->
+                <a class="logo">
+                    <!-- mini logo for sidebar mini 50x50 pixels -->
+                    <span class="logo-mini"><b>M</b>A</span>
+                    <!-- logo for regular state and mobile devices -->
+                    <span class="logo-lg">Medacademy</span>
+                </a>
+                <!-- Header Navbar: style can be found in header.less -->
+                <nav class="navbar navbar-static-top" role="navigation">
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+                            <!-- Control Sidebar Toggle Button -->
+                            <li>
+                                <a href="/Admin/Logout"><i class="fa fa-power-off"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </nav>
+            </header>
+
+            @{
+                var action = ViewContext.RouteData.Values["action"].ToString().ToLower();
+                var controller = ViewContext.RouteData.Values["controller"].ToString().ToLower();
+            }
+            <!-- =============================================== -->
+            <!-- Left side column. contains the sidebar -->
+            <aside class="main-sidebar">
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+                    <ul class="sidebar-menu">
+                        @*<li class="header">MAIN NAVIGATION</li>*@
+                        <li class="@((controller == "admin" && action == "Dashboard") ? "active " : "")"><a href="/Admin/Dashboard"><i class="fa fa-book"></i> <span>Dashboard</span></a></li>
+                        <li class="@((controller == "admin" && action == "Course") ? "active " : "")"><a href="/Admin/Course"><i class="fa fa-book"></i> <span>Course</span></a></li>
+                        <li class="@((controller == "admin" && action == "Package") ? "active " : "")"><a href="/Admin/Package"><i class="fa fa-book"></i> <span>Package</span></a></li>
+                        <li class="@((controller == "admin" && action == "Subject") ? "active " : "")"><a href="/Admin/Subject"><i class="fa fa-book"></i> <span>Subjects</span></a></li>
+                        <li class="@((controller == "admin" && action == "Dashboard") ? "active " : "")"><a href="/Admin/Dashboard"><i class="fa fa-book"></i> <span>Topic</span></a></li>
+                        <li class="@((controller == "admin" && action == "Dashboard") ? "active " : "")"><a href="/Admin/Dashboard"><i class="fa fa-book"></i> <span>Subtopic</span></a></li>
+                        <li class="@((controller == "admin" && action == "Group") ? "active " : "")"><a href="/Admin/Group"><i class="fa fa-book"></i> <span>Group</span></a></li>
+                        <li class="@((controller == "admin" && action == "Dashboard") ? "active " : "")"><a href="/Admin/Dashboard"><i class="fa fa-book"></i> <span>Questions</span></a></li>
+                        <li class="@((controller == "admin" && action == "Dashboard") ? "active " : "")"><a href="/Admin/Dashboard"><i class="fa fa-book"></i> <span>Exams</span></a></li>
+                        @*<li class="@((controller == "admin" && action == "Dashboard") ? "active " : "")"><a href="/Admin/Dashboard"><i class="fa fa-book"></i> <span>Results</span></a></li>
+                        <li class="@((controller == "admin" && action == "Dashboard") ? "active " : "")"><a href="/Admin/Dashboard"><i class="fa fa-book"></i> <span>Students</span></a></li>
+                        <li class="@((controller == "admin" && action == "Dashboard") ? "active " : "")"><a href="/Admin/Dashboard"><i class="fa fa-book"></i> <span>Mailbox</span></a></li>*@
+             
+
+                        @*<li class="treeview @((controller == "question") ? "active " : "")">
+                            <a class="isPointer">
+                                <i class="fa fa-question-circle"></i> <span>Question</span> <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="@((controller == "question" && action == "addpractice") ? "active " : "")"><a href="/Question/AddPractice"><i class="fa fa-pencil"></i>Practice Test</a></li>
+                                <li class="@((controller == "question" && action == "addscholarship") ? "active " : "")"><a href="/Question/AddScholarship"><i class="fa fa-graduation-cap"></i>Scholarship</a></li>
+                                <li class="@((controller == "question" && action == "addcbse") ? "active " : "")"><a href="/Question/AddCbse"><i class="fa fa-archive"></i>CBSE</a></li>
+                                <li class="@((controller == "question" && action == "addassessment") ? "active " : "")"><a href="/Question/AddAssessment"><i class="fa fa-archive"></i>Assessment</a></li>
+                                <li class="@((controller == "question" && action == "addolympiadTest") ? "active " : "")"><a href="/Question/AddOlympiadTest"><i class="fa fa-archive"></i>Olympiad Test</a></li>
+
+                            </ul>
+
+                        </li>
+                        <li class="@((controller == "admin" && action == "image") ? "active " : "")"><a href="/Admin/Image"><i class="fa fa-file-image-o"></i> <span>Image</span></a></li>
+                        <li class="@((controller == "admin" && action == "score") ? "active " : "")"><a href="/Admin/Score"><i class="fa fa-bar-chart"></i> <span>Score Range</span></a></li>
+                        <li class="@((controller == "admin" && action == "managesubjectexperts") ? "active " : "")"><a href="/Admin/ManageSubjectExperts"><i class="fa fa-user-secret "></i> <span>Manage Subject Experts</span></a></li>
+*@
+                    </ul>
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+            <!-- =============================================== -->
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Main content -->
+                @RenderBody()
+                <!-- /.content -->
+            </div><!-- /.content-wrapper -->
+            <footer class="main-footer">
+                <div class="pull-right hidden-xs">
+                    <b>Version</b> 2.3.0
+                </div>
+                <strong>Copyright &copy; 2019 <a href="http://childacademy.in">Medacademy</a>.</strong> All rights reserved.
+            </footer>
+          
+            <!-- Add the sidebar's background. This div must be placed
+                 immediately after the control sidebar -->
+            <div class="control-sidebar-bg"></div>
+        </div><!-- ./wrapper -->
+    </div>
+</body>
+</html>
+
+<script>
+    $(document).ready(function () {
+        $('.selectpicker').selectpicker();
+        $(".custom-select").customselect();
+        CKEDITOR.replace('question-editor');
+        $('#datepicker-exam').datepicker();
+    });
+</script>
+
+
+
+

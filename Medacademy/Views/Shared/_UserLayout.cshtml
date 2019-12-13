@@ -1,0 +1,135 @@
+﻿
+ <!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<!-- Google font -->
+<link href="https://fonts.googleapis.com/css?family=Lato:400,700,900" rel="stylesheet">
+
+<!-- Fontawesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+<!-- Owl Stylesheets -->
+@*<link rel="stylesheet" href="Content/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="Content/css/owl.theme.default.min.css">*@
+
+<link rel="stylesheet" href="~/Content/css/owl.carousel.min.css">
+<link rel="stylesheet" href="~/Content/css/owl.theme.default.min.css">
+
+<!-- Custom style -->
+<link rel="stylesheet" href="~/Content/css/styles.css">
+ 
+<link rel="stylesheet" href="~/Content/css/new_style.css">
+
+<!-- Favicon -->
+<link rel="shortcut icon" href="~/Content/images/favicon.png">
+
+
+<!-- Important Owl stylesheet -->
+
+<link rel="stylesheet" href="~/Content/css/owl.carousel.min.css">
+
+
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script src="~/Content/js/jquery.paginate.js"></script>
+<link href="~/Content/js/jquery.paginate.css" rel="stylesheet" />
+
+
+ <!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="icon" href="~/Content/images/fav.png" type="image/png" sizes="16x16">
+
+<!-- Bootstrap CSS -->
+
+<!-- Google font -->
+<link href="https://fonts.googleapis.com/css?family=Oleo+Script:300,400,600,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+
+<!-- Fontawesome -->
+
+
+
+
+
+<script>
+		//main menu
+		$('.mobile_menu').click(function(){
+			$('.main_menu').toggle();
+			});
+
+		//submenu
+		$('.sub_item').click(function(){
+			$(this).children('.subMenu').toggle();
+			});
+
+		//search
+		$('.search').click(function(){
+			$('.search_type').toggle();
+			});
+</script>
+
+<!-- Owl carousel -->
+@*<script src="js/owl.carousel.js"></script>*@
+<script src="~/Content/js/owl.carousel.js"></script>
+<script>
+		$('.owl-carousel').owlCarousel({
+			loop: true,
+			margin: 10,
+			nav: false,
+			dot: true,
+			autoplay: true,
+			responsiveClass:true,
+			responsive:{
+				0:{
+					items:1,
+					nav:true
+				},
+				600:{
+					items:1,
+					nav:false
+				},
+				1000:{
+					items:1,
+					nav:true,
+					loop:false
+				}
+			}
+		})
+</script>
+
+<script>
+		//var my_time;
+		//$(document).ready(function() {
+		//  pageScroll();
+		//  $("#points_achieve").mouseover(function() {
+		//	clearTimeout(my_time);
+		//  }).mouseout(function() {
+		//	pageScroll();
+		//  });
+		//});
+
+		//function pageScroll() {
+		//	var objDiv = document.getElementById("points_achieve");
+		//  objDiv.scrollTop = objDiv.scrollTop + 1;
+		//  $('').html('scrollTop : '+ objDiv.scrollTop);
+		//  $('').html('scrollHeight : ' + objDiv.scrollHeight);
+		//  if (objDiv.scrollTop == (objDiv.scrollHeight - 100)) {
+		//	objDiv.scrollTop = 0;
+		//  }
+		//  my_time = setTimeout('pageScroll()', 25);
+		//}
+</script>
+
+
+@RenderBody()

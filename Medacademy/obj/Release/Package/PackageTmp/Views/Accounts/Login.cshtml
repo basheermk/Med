@@ -1,0 +1,115 @@
+﻿
+@model Medacademy.Models.Login
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+
+<section class="lgn_sec">
+
+    @*@using (Ajax.BeginForm("LoginCheck", "Accounts", null, new AjaxOptions
+        {
+            HttpMethod = "POST",
+            OnSuccess = "LoginCheckSuccess",
+            OnFailure = "LoginCheckFailed"
+        }, new { id = "form-login" }))
+        {*@
+    @using (Html.BeginForm("LoginCheck", "Accounts", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-12 full_wid">
+                    <div class="cust_lg_form">
+                        <div class="details">
+
+                            <h4>Login!</h4>
+                            @if (TempData["status"] != null)
+                            {
+                                <span style="color:red">Username/Password does not match</span>
+                            }
+                            @if (TempData["expire"] != null)
+                            {
+                                <span style="color:red">Package Expired</span>
+                            }
+                            @if (TempData["approval"] != null)
+                            {
+                                <span style="color:red">You are yet to receive the approval</span>
+                            }
+                            <div class="form-group">
+                                @*<input type="text" class="form-control" placeholder="Email">*@
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
+                                @Html.ValidationMessageFor(m => m.Email)
+                            </div>
+                            <div class="form-group">
+                                @*<input type="text" class="form-control" placeholder="Password">*@
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+                                @Html.ValidationMessageFor(m => m.Password)
+                            </div>
+                            <p>Don’t  have an account ?  <span><a href="/Accounts/SignUp" class="btn-class">Sign up</a> </span></p>
+                            <div class="sb_btn form-group">
+                                @*<a href="#">login</a>*@
+                                <button type="submit" class="btn-class">Login</button>
+                            </div>
+
+                        </div>
+
+
+                        <div class="blue_right_sec">
+                            <div class="img_cont">
+                                <img src="~/Content/images/login/lgo.png">
+                            </div>
+                            <h4>
+                                WELCOME TO
+                                MEDACADEMY
+                            </h4>
+                            <p class="hid">To keep connected with us please signup with peronal info</p>
+                            <div class="sb_btn form-group ">
+                                <a href="/Accounts/SignUp" class="btn-class">Sign up</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+</section>
+
+
+
+<script>
+            function LoginCheckSuccess(result) {
+               // alert("test");
+                //debugger;
+                if (result.status) {
+                    if (result.userType == 1) {
+                        //toastr.info(result.msg);
+                         window.location.href = '/Admin/Dashboard';
+                    }
+                    else if (result.userType == 2) {
+
+                        // window.location.href = '/Parent/Home';
+                    }
+                }
+                else {
+                    //$('#errorMsg').removeClass("isHidden");
+                    toastrError(result.msg);
+                }
+            }
+            function LoginCheckFailed(result) {
+                toastrError(result.msg);
+            }
+
+
+            //$(document).ready(function () {
+
+            //    alert("test");
+
+            //});
+
+
+</script>
+
+
+

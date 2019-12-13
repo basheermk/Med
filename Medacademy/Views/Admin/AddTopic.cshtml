@@ -1,0 +1,178 @@
+﻿@model Medacademy.Models.TopicModel
+@{
+    ViewBag.Title = "AddTopic";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="addpackage">
+    @using (Ajax.BeginForm("AddTopics", "Admin", null, new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnSuccess = "TopicAddSuccess",
+        OnFailure = "TopicAddFailed",
+    }, new { id = "form-login" }))
+    {
+        @Html.TextBoxFor(m => m.PackageID, new { type = "hidden" })
+        @Html.TextBoxFor(m => m.SubjectID, new { type = "hidden" })
+        <div class="container">
+            <div class="col-12">
+                <div class="package_heading">
+                    <h3>Add Topic</h3>
+                </div>
+                <form>
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Course</label>
+                        <div class="col-sm-8">
+                            @Html.DropDownListFor(m => m.CourseID, Ma.EntityLibrary.Data.Dropdowndata.GetCourseDrop(), "--Choose--", new { @class = "form-control course-drop-down", @data_live_search = "true", name = "topicDropdown", id = "topicDataDropdown" })
+                            @Html.ValidationMessageFor(m => m.CourseID)
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Package</label>
+                        <div class="col-sm-8">
+                            <select id="Package-drop-down" class="form-control Package-drop-down" disabled>
+                                <option>-- Please select Package --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Subject</label>
+                        <div class="col-sm-8">
+                            <select id="Subject-drop-down" class="form-control Subject-drop-down" disabled>
+                                <option>-- Please select Subject --</option>
+                            </select>
+                        </div>
+                    </div>
+                   <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-8">
+                            @Html.TextBoxFor(m => m.TopicName, new { @class = "form-control", placeholder = "Topic Name" })
+                            @Html.ValidationMessageFor(m => m.TopicName)
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">&nbsp;</label>
+                        <div class="col-sm-8">
+                            <button type="submit" class="btn btn-success">Save</button>
+                            <button type="button" class="btn btn-danger" onclick="CloseTopic()">Close</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    }
+</section>
+
+<script>
+    function refreshTopicGrid() {
+        $.ajax({
+            url: '/Admin/RefreshTopic',
+            dataType: 'html',
+            success: function (data) {
+                $('#class-list-view').html(data);
+                IntializeDataTable();
+            },
+        });
+    }
+
+    function IntializeDataTable() {
+        $('#classTable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true
+        });
+    }
+    function TopicAddSuccess(result) {
+        if (result.status) {
+            toastrSuccess(result.msg);
+            refreshTopicGrid();
+        }
+        else {
+            toastrError(result.msg);
+        }
+    }
+    function TopicAddFailed() {
+        toastrError('Topic Adding Failed');
+    }
+
+   
+
+    function CloseTopic() {
+        window.location.href = '/Admin/Topic/';
+    }
+
+
+    $(document).on('change', '.course-drop-down', function () {
+        var id = $(this).val();
+        if (id != '') {
+            //  resetDropDown('Package');
+            $.ajax({
+                url: '/Data/LoadPackages?courseid=' + id,
+                type: "GET",
+                success: function (result) {
+                    if (result.list.length > 0) {
+                        $("#Package-drop-down").html(""); // clear before appending new list
+                        $("#Package-drop-down").append($('<option></option>').val("").html('-- Select Package --'));
+                        $.each(result.list, function (i, item) {
+                            $("#Package-drop-down").append($('<option></option>').val(item.Value).html(item.Text));
+                        });
+                        $("#Package-drop-down").prop("disabled", false);
+                    }
+                    else {
+                        resetDropDown('Class');
+                        $("#Package-drop-down").html(""); // clear before appending new list
+                        $("#Package-drop-down").append($('<option></option>').val("").html('-- No Packages Found --'));
+                        $("#Package-drop-down").prop("disabled", true);
+                    }
+                }
+            });
+
+        }
+        else {
+            resetDropDown('Class');
+        }
+    });
+
+
+    $(document).on('change', '.Package-drop-down', function () {
+        var id = $(this).val();       
+        $('#PackageID').val(id);
+        if (id != '') {
+            //  resetDropDown('Package');
+            $.ajax({
+                url: '/Data/LoadSubjects?packageid=' + id,
+                type: "GET",
+                success: function (result) {
+                    if (result.list.length > 0) {
+                        $("#Subject-drop-down").html(""); // clear before appending new list
+                        $("#Subject-drop-down").append($('<option></option>').val("").html('-- Select Subject --'));
+                        $.each(result.list, function (i, item) {
+                            $("#Subject-drop-down").append($('<option></option>').val(item.Value).html(item.Text));
+                        });
+                        $("#Subject-drop-down").prop("disabled", false);
+                    }
+                    else {
+                        resetDropDown('Class');
+                        $("#Subject-drop-down").html(""); // clear before appending new list
+                        $("#Subject-drop-down").append($('<option></option>').val("").html('-- No Packages Found --'));
+                        $("#Subject-drop-down").prop("disabled", true);
+                    }
+                }
+            });
+
+        }
+        else {
+            resetDropDown('Class');
+        }
+    });
+
+    $(document).on('change', '.Subject-drop-down', function () {
+        var id = $(this).val();
+        $('#SubjectID').val(id);
+
+    });
+</script>
+

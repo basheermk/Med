@@ -1,0 +1,1002 @@
+﻿
+@model Medacademy.Models.SubmitPreparationModel
+@{
+    ViewBag.Title = "PreparationStart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var exam = new Ma.EntityLibrary.Data.Exam(Model.ExamId);// .GetExamsById(Model.ExamId);
+    var preparation = new Ma.EntityLibrary.Data.Exam().GetPreparationById(Model.preparationid).FirstOrDefault();
+    var questions = exam.GetQuestions(Model.ExamId).OrderBy(z => Guid.NewGuid()).Take(10).ToList();
+ //   practiceTest.GetPracticeTestQuestions().OrderBy(z => Guid.NewGuid()).Take(10).ToList();
+    var student = new Ma.EntityLibrary.Data.StudentsList(Model.userId);
+}
+
+<input type="hidden" value="0" id="hfTimeOut" />
+<input type="hidden" id="hfExamId" value="@preparation.PreparationId" />
+<input type="hidden" id="hfAttemptId" />
+<input type="hidden" id="hftimervalue" />
+<input type="hidden" id="hfexamstarttime" />
+<input type="hidden" id="hfexamfinishtime" />
+
+
+@*@using (Ajax.BeginForm("SubmitExam", "Curriculum", null, new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnSuccess = "SubmitExamSuccess",
+        OnFailure = "ajaxFailure",
+    }, new { id = "form-scholorship" }))
+    {*@
+
+<div onbeforeunload="return confirmEvent()">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+
+                @*<div class="exams_main2">
+                        <h4> @Subtopics.SubTopicName</h4>
+                    </div>*@
+
+                <div class="exam_questions">
+
+                    <div class="exam_left">
+                        <div class="exam_border">
+                            <div class="exam_title"> @preparation.PreparationName </div>
+                        </div>
+                        <ul class="question-list-group" id="quest-ul-list">
+                            @{
+                                var index = 1;
+                            }
+                            @foreach (var question in questions)
+                            {
+                                if (question.questionTypeId == 1)
+                                {
+                                <li id="@question.questionId" class="isHidden answer-list-li">
+                                    <div class="exam_qa exam_border  questions_main">
+                                        <div class="questions_box media_marpad_zero">
+                                            <div class="pmzero identify-quest-parent-dev">
+                                                <div class="untickmother">
+                                                    <div class="exam_qa_header pmzero">
+                                                        <h4 class="q_no" data-question-number="@question.questionId" data-quest-no="@index">
+                                                            Question @index
+                                                        </h4>
+                                                        <span class="right_mark">Right mark:<b>1.00</b></span>
+                                                        <span class="neg_mark">Negative mark:<b>0.33</b></span>
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 ">
+                                                        <a class="button_1 button_3 round_ red-tooltip btn-Report isPointer " data-toggle="tooltip" data-placement="top" title="" data-original-title="Report" style="float:right" data-id="@preparation.PreparationId"><span class="fa  fa-file-text-o"></span></a>@*display:none;*@
+                                                        @*<a class="button_1 apsunTick-btn " style="cursor:pointer; float:right;" id="unTick-btn">@*<i class="fa fa-check-square-o" aria-hidden="true"></i> UnTick </a>*@
+
+                                                    </div>
+                                                    @*<div class="pmzero right-wrong-specify-dev" style="min-height: initial;width: 100%;display: inline-block;">
+                                                            <p class="rightorwrongaps apswrong isHidden">Wrong Answer</p>
+                                                            <p class="rightorwrongaps apsright isHidden">Right Answer</p>
+                                                        </div>*@
+                                                </div>
+                                            </div>
+                                            @*<div class="exam_qa exam_border">*@
+                                            <div class="exam_qa_body">
+                                                <div class="exam_question question-mark">
+                                                    <input type="hidden" id="hfQuestionNo" value="@index" />
+                                                    <div class="question">@(new HtmlString(question.questionName))</div>
+
+                                                    @{var answers = new Ma.EntityLibrary.Data.Exam().GetExamAnswer(question.questionId);}
+                                                    <div class="checkboxes answer_main" id="answer-option-div">
+                                                        @foreach (var answerlist in answers)
+                                                        {
+                                                            if (answerlist.AnswerTypeId == 1)
+                                                            {
+                                                                <label class="cust_checkbox">
+                                                                    @(new HtmlString(answerlist.Answer))
+                                                                    <input type="radio" class="ans_radio" id="@answerlist.AnswerId" name="@question.questionId" data-right="@answerlist.Status" data-mark="@question.mark" data-question-id="@question.questionId">
+                                                                    <span class="checkmark"></span>
+                                                                </label>
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <label class="cust_checkbox">
+                                                                    @(new HtmlString(answerlist.Answer))
+                                                                    <input type="radio" class="ans_radio" id="@answerlist.AnswerId" name="@question.questionId" data-right="@answerlist.Status" data-mark="@question.mark" data-question-id="@question.questionId">
+                                                                    <span class="checkmark"></span>
+                                                                </label>
+                                                                    <div class="img-question">
+                                                                        <img class="img-responsive" src="@answerlist.AnswerImage">
+                                                                    </div>
+                                                            }
+                                                        }
+                                                    </div><!-- ./checkboxes -->
+
+
+
+                                                </div><!-- ./exam_question -->
+                                            </div><!-- ./exam_qa_body -->
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 question_buttons_main text-center exam_qa_footer">
+                                                <a class="qafoot_btn get-prev-quest prev-btn" style="cursor:pointer" id="prev-btn"><span class="fa  fa-angle-left"></span> &nbsp; previous </a>
+                                                <a class="qafoot_btn check-ans-dev isHidden" style="cursor:pointer">Save</a>
+                                                <a class="qafoot_btn get-next-quest next-btn" style="cursor:pointer" id="next-btn">next &nbsp; <span class="fa  fa-angle-right"></span></a>
+                                                @*<a class="qafoot_btn round_ red-tooltip isHidden btn-Report isPointer submit-validate-practice" data-toggle="tooltip" data-placement="top" title="" data-original-title="Report" style="display:none; float:right" data-id="@practiceTest.LevelID"><span class="fa  fa-file-text-o"></span></a>*@
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 explanation isHidden explanation-@question.questionId" id="answer-exp-div" data-id="@question.questionId">
+                                                <hr>
+                                                <img class="ans_ban" src="@Url.Content("~/Content/images/ans_134.png")">
+                                                <p>@(new HtmlString(@question.explanation))</p>
+                                                @{
+                                                    @*var explanationFile = question.GetAnswerExplanationImage();
+                                                        if (explanationFile != null)
+                                                        {
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 img-question isPointer">
+                                                                <img class="img-responsive isPointer" src="@explanationFile.FilePath">
+
+                                                            </div>
+                                                        }*@
+                                                }
+                                            </div>
+
+                                            @*</div>*@<!-- ./exam_qa -->
+
+                                        </div>
+                                    </div>
+
+
+
+                                </li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li id="@question.questionId" class="isHidden answer-list-li">
+                                                            <div class="exam_qa exam_border  questions_main">
+                                                                <div class="questions_box media_marpad_zero">
+                                                                    <div class="pmzero identify-quest-parent-dev">
+                                                                        <div class="untickmother">
+                                                                            <div class="exam_qa_header pmzero">
+                                                                                <h4 class="q_no" data-question-number="@question.questionId" data-quest-no="@index">
+                                                                                    Question @index
+                                                                                </h4>
+                                                                                <span class="right_mark">Right mark:<b>1.00</b></span>
+                                                                                <span class="neg_mark">Negative mark:<b>0.33</b></span>
+                                                                            </div>
+                                                                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 ">
+                                                                                <a class="button_1 button_3 round_ red-tooltip btn-Report isPointer " data-toggle="tooltip" data-placement="top" title="" data-original-title="Report" style="float:right" data-id="@preparation.PreparationId"><span class="fa  fa-file-text-o"></span></a>@*display:none;*@
+                                                                                @*<a class="button_1 apsunTick-btn " style="cursor:pointer; float:right;" id="unTick-btn"><i class="fa fa-check-square-o" aria-hidden="true"></i> UnTick </a>*@
+
+                                                                            </div>
+                                                                            @*<div class="pmzero right-wrong-specify-dev" style="min-height: initial;width: 100%;display: inline-block;">
+                                                                                    <p class="rightorwrongaps apswrong isHidden">Wrong Answer</p>
+                                                                                    <p class="rightorwrongaps apsright isHidden">Right Answer</p>
+                                                                                </div>*@
+                                                                        </div>
+                                                                    </div>
+                                                                    @*<div class="exam_qa exam_border">*@
+                                                                    <div class="exam_qa_body">
+                                                                        <div class="exam_question question-mark">
+                                                                            <input type="hidden" id="hfQuestionNo" value="@index" />
+                                                                            <div class="question">@(new HtmlString(question.questionName))</div>
+                                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 img-question">
+
+                                                                                @if (question.QuestionImagse != null)
+                                                                                {
+                                                                                    <img class="img-responsive" src="@question.QuestionImagse">
+                                                                                }
+                                                                            </div>
+
+                                                                            @{var answers = new Ma.EntityLibrary.Data.Exam().GetExamAnswer(question.questionId);}
+                                                                            <div class="checkboxes answer_main" id="answer-option-div">
+                                                                                @foreach (var answerlist in answers)
+                                                                                {
+
+                                                                                    if (answerlist.AnswerTypeId == 1)
+                                                                                    {
+                                                                                        <label class="cust_checkbox">
+                                                                                            @(new HtmlString(answerlist.Answer))
+                                                                                            <input type="radio" class="ans_radio" id="@answerlist.AnswerId" name="@question.questionId" data-right="@answerlist.Status" data-mark="@question.mark" data-question-id="@question.questionId">
+                                                                                            <span class="checkmark"></span>
+                                                                                        </label>
+
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <label class="cust_checkbox">
+                                                                                            @(new HtmlString(answerlist.Answer))
+                                                                                            <input type="radio" class="ans_radio" id="@answerlist.AnswerId" name="@question.questionId" data-right="@answerlist.Status" data-mark="@question.mark" data-question-id="@question.questionId">
+                                                                                            <span class="checkmark"></span>
+                                                                                        </label>
+                                                                                        <div class="img-question">
+                                                                                            <img class="img-responsive" src="@answerlist.AnswerImage">
+                                                                                        </div>
+                                                                                    }
+                                                                                }
+                                                                            </div><!-- ./checkboxes -->
+
+
+
+                                                                        </div><!-- ./exam_question -->
+                                                                    </div><!-- ./exam_qa_body -->
+                                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 question_buttons_main text-center exam_qa_footer">
+                                                                        <a class="qafoot_btn get-prev-quest prev-btn" style="cursor:pointer" id="prev-btn"><span class="fa  fa-angle-left"></span> &nbsp; previous </a>
+                                                                        <a class="qafoot_btn check-ans-dev isHidden" style="cursor:pointer">Save</a>
+                                                                        <a class="qafoot_btn get-next-quest next-btn" style="cursor:pointer" id="next-btn">next &nbsp; <span class="fa  fa-angle-right"></span></a>
+                                                                        @*<a class="qafoot_btn round_ red-tooltip isHidden btn-Report isPointer submit-validate-practice" data-toggle="tooltip" data-placement="top" title="" data-original-title="Report" style="display:none; float:right" data-id="@practiceTest.LevelID"><span class="fa  fa-file-text-o"></span></a>*@
+                                                                    </div>
+                                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 explanation isHidden explanation-@question.questionId" id="answer-exp-div" data-id="@question.questionId">
+                                                                        <hr>
+                                                                        <img class="ans_ban" src="@Url.Content("~/Content/images/ans_134.png")">
+                                                                        <p>@(new HtmlString(@question.explanation))</p>
+                                                                        @{
+                                                                            @*var explanationFile = question.GetAnswerExplanationImage();
+                                                                                if (explanationFile != null)
+                                                                                {
+                                                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 img-question isPointer">
+                                                                                        <img class="img-responsive isPointer" src="@explanationFile.FilePath">
+
+                                                                                    </div>
+                                                                                }*@
+                                                                        }
+                                                                    </div>
+
+                                                                    @*</div>*@<!-- ./exam_qa -->
+
+                                                                </div>
+                                                            </div>
+
+
+
+                                                        </li>
+                                                                                }
+                                                                                index++;
+                                                                            }
+                        </ul>
+
+
+
+                    </div><!-- ./exam_left -->
+
+
+                    <div class="exam_right">
+                        <div class="exam_timer_all exam_border">
+                            <div class="examTimer" id="Timervalue" data-seconds-left=@preparation.Duration.TotalSeconds>
+                            </div>
+                            <div class="question_palette">
+                                <h6 class="text-center">Question Palette</h6>
+                                <ul class="blocks_ul" id="block-mark-answer">
+                                    @{
+                                        var indexOfBox = 1;
+                                    }
+
+                                    @if (student.isPaid != 0)
+                                    {
+                                        foreach (var question in questions)
+                                        {
+                                            var tooltip = indexOfBox;
+                                            var qtooltip = "Q " + indexOfBox;
+                                            <li class="not_ans navigate-qusetion-div isPointer red-tooltip" id="@question.questionId" data-index="@indexOfBox">
+                                                <a class="apsQuestionNumberMod" data-toggle="tooltip" data-placement="top" title="@qtooltip"><span> @tooltip</span></a>
+                                            </li>
+                                            indexOfBox++;
+
+                                        }
+                                    }
+                                    @*else
+                                        {
+                                            foreach (var question in  var student = new Ma.EntityLibrary.Data.StudentsList(Model.userId);)
+                                            {
+                                                var tooltip = indexOfBox;
+                                                var qtooltip = "Q " + indexOfBox;
+                                                <li class="not_ans navigate-qusetion-div isPointer red-tooltip" id="@question.questionId" data-index="@indexOfBox">
+                                                    <a class="apsQuestionNumberMod" data-toggle="tooltip" data-placement="top" title="@qtooltip">@tooltip</a>
+                                                </li>
+                                                indexOfBox++;
+                                            }
+
+                                        }*@
+
+                                </ul>
+                                <ul class="legend_list">
+                                    <li class="not_ans">
+                                        <span class="numb_stat" id="unattend-number">@questions.Count</span><p>Unattended</p>
+                                    </li>
+                                    @*<li class="marked">
+                                            <span class="numb_stat" id="wrong-number">0</span><p>Wrong</p>
+                                        </li>
+                                        <li class="answ">
+                                            <span class="numb_stat" id="correct-number">0</span><p>Right Answered</p>
+                                        </li>*@
+                                </ul>
+                                @*<ul class="question_number">
+                                        <li class="not_ans"><span>1</span></li>
+                                        <li><span>2</span></li>
+                                        <li class="marked"><span>3</span></li>
+                                        <li class="answ"><span>4</span></li>
+                                    </ul>*@
+                                <div class="pal_buttons">
+                                    @*<div><button>Questions</button></div>*@
+                                    @*<div><button>Insructions</button></div>
+                                        <div><button>Profile</button></div>*@
+                                    <div><button class="qafoot_btn  round_ red-tooltip btn-Report isPointer submit-validate-practice" data-toggle="tooltip" data-placement="top" title="" data-original-title="Report" style="float:right;cursor:pointer" data-id="@preparation.PreparationId">Submit</button></div>
+                                    @*<a class="qafoot_btn round_ red-tooltip isHidden btn-Report isPointer submit-validate-practice" data-toggle="tooltip" data-placement="top" title="" data-original-title="Report" style="display:none; float:right" data-id="@practiceTest.LevelID"><span class="fa  fa-file-text-o"></span></a>*@
+                                </div>
+                            </div><!-- ./question_palette -->
+                        </div><!-- ./exam_right -->
+
+                    </div><!-- ./exam_questions -->
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    @Html.TextBoxFor(m => m.AnswerSet, new { value = "", type = "hidden" })
+    @Html.TextBoxFor(m => m.ExamId, new { type = "hidden" })
+    @Html.HiddenFor(m => m.ExamId)
+    @Html.HiddenFor(m => m.preparationid)
+    @Html.HiddenFor(m => m.userId)
+    @Html.HiddenFor(m => m.startTime)
+    <button type="submit" id="submit-answer-button" class="isHidden"></button>
+
+    @*}*@
+</div>
+@*}*@
+
+<!-- /pop up for window unload-------------------------------------------------------------------------------------------------------------->
+
+<div class="modal fade my_model_success  bs-example-modal-sm" id="window-unload-modal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header wrong_ans">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="mySmallModalLabel"><span class="fa fa-warning"></span>&nbsp;Warning!</h4>
+            </div>
+            <div class="modal-body my_modle_txt">
+                <p>You won't be able to attend the scholarship again. Are you sure you want to close?<br /></p>
+                <button class="close_popup window-unload-ok">Ok</button>
+                <button class="close_popup window-unload-cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- /pop up for window unload-------------------------------------------------------------------------------------------------------------->
+<!-- /pop up for time out-------------------------------------------------------------------------------------------------------------->
+
+<div class="modal fade my_model_success  bs-example-modal-sm" id="time-out-modal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header wrong_ans">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="mySmallModalLabel"><span class="fa fa-warning"></span>&nbsp;Oops!</h4>
+            </div>
+            <div class="modal-body my_modle_txt">
+                <p>Your time has expired!<br /></p>
+                <button class="close_popup time-out-ok">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- /pop up for time out-------------------------------------------------------------------------------------------------------------->
+<!-- /pop up for leaving exam-------------------------------------------------------------------------------------------------------------->
+
+<div class="modal fade my_model_success  bs-example-modal-sm" id="finish-exam-modal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header wrong_ans">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Finish"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="mySmallModalLabel"><span class="fa fa-warning"></span>&nbsp;Alert!</h4>
+            </div>
+            <div class="modal-body my_modle_txt">
+                <p>Are you sure you want to Finish Exam?<br /></p>
+                <button class="close_popup submit-validate-practice" data-id="@exam.ExamGUID">Yes</button>
+                <button class="close_popup" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- /pop up for leaving exam-------------------------------------------------------------------------------------------------------------->
+<!--Select Option-->
+<div class="modal fade my_model_success  bs-example-modal-sm" id="select-option-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header select_ans">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="mySmallModalLabel"><span class="fa fa-question-circle "></span>&nbsp;Note</h4>
+            </div>
+            <div class="modal-body my_modle_txt">
+                <p>Please select an option!</p>
+                <button class="close_popup select-popup-ok">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/Select Option-->
+<!--Submit Atleast One Answer Option-->
+<div class="modal fade my_model_success  bs-example-modal-sm" id="submit-atleast-one-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header select_ans">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="mySmallModalLabel"><span class="fa fa-question-circle "></span>&nbsp;Note</h4>
+            </div>
+            <div class="modal-body my_modle_txt">
+                <p>Submit atleast one answer to view report!</p>
+                <button class="close_popup atleast-popup-ok">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/Submit Atleast One Answer Option-->
+<!-- footer-------------------------------------------------------------------------------------------------------------->
+
+<input type="hidden" id="hfQuestionNavigateId" value="@Model.QuestionId" />
+<input type="hidden" id="hfIsNavigate" value="@ViewBag.Navigate" />
+<input type="hidden" id="hfExamName" value="@exam.ExamName" />
+<input type="hidden" id="hfPreparationName" value="@preparation.PreparationName" />
+
+
+
+<script>
+
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+
+
+
+    $(document).ready(function () {
+        var now = new Date();
+        var seconds = now.getTime() / 1000; // - startDate.getTime()) / 1000;
+
+       // alert(seconds);
+
+        $('#hfexamstarttime').val(seconds);
+
+
+        var unattendednumber = parseInt($('#unattend-number').html());
+        console.log("unattendednumber" + unattendednumber);
+
+
+        $('.ans_radio').click(function () {
+           // debugger;
+            if ($(this).parent().parent().parent().hasClass('apsalreadyattended')) {
+                 }
+            else {
+                unattendednumber = unattendednumber - 1;
+                $('#unattend-number').html(unattendednumber);
+                $(this).parent().parent().parent().siblings('.untickmother').children().children('.apsunTick-btn').show();
+                $(this).parent().parent().parent().addClass('apsalreadyattended');
+            }
+
+
+
+        });
+
+        $('.apsunTick-btn').click(function () {
+           // debugger;
+            $(this).parent().parent().siblings('.answer_main').removeClass('apsalreadyattended');
+            unattendednumber = unattendednumber + 1;
+            $('#unattend-number').html(unattendednumber);
+
+
+            $(this).hide();
+
+        });
+
+
+        $('.apsunTick-btn').click(function () {
+            var currentQuestNo = $(this).closest('.questions_main').find('.q_no').attr('data-quest-no');
+            $('.navigate-qusetion-div:nth-child(' + currentQuestNo + ') > .apsQuestionNumberMod').removeClass('apsQuestionNumberModAtnd');
+            $('.navigate-qusetion-div:nth-child(' + currentQuestNo + ') > .apsQuestionNumberMod').addClass('apsQuestionNumberModActive');
+            console.log(currentQuestNo);
+            $(this).parent().parent().siblings('.answer_main').children().children().children().children('.trigger-ans-option').each(function () {
+                $(this).removeClass('v_select');
+                $(this).siblings('.ans_radio').prop('checked', false);
+            });
+        });
+
+
+
+
+        var examName = $('#hfExamName').val();
+        $('.sch-exam-name').html(examName);
+
+        $('#hfTimeOut').val('0');
+
+
+        //  debugger;
+        //     $('#quest-ul-list li:last-child').find('.next-btn').hide();
+        $('#quest-ul-list li:last-child').find('.next-btn').remove();
+        $('#quest-ul-list li:last-child').find('.submit-validate-practice').show();///////
+        $('#quest-ul-list > li').find('.btn-Report').hide();
+        $('#quest-ul-list > li').hide();
+
+        $('#quest-ul-list li:nth-child(1)').show();
+
+        // $('#quest-ul-list li:nth-child(1)').find('#prev-btn').hide();
+        $('#quest-ul-list li:nth-child(1)').find('#prev-btn').remove();
+
+        var isPaid = $('#hfIsPaid').val();
+        if (isPaid == 'False') {
+            $('#quest-ul-list li:nth-child(1)').find('#prev-btn').css('display', 'inline-block');
+            $('#quest-ul-list li:nth-child(1)').find('#prev-btn').addClass('demo-user');
+        }
+        var isPaid = $('#hfIsPaid').val();
+        var questNo = parseInt($('#unattend-number').text());
+        ////if (isPaid == 'True' && questNo > 1)
+        //$('#quest-ul-list li:last-child').find('.btn-Report').css('display', 'inline-block');
+
+
+        //if ($('#hfIsNavigate').val() == 1) {
+        //    $('#quest-ul-list > li').hide();
+        //    var li = $('#quest-ul-list').find('#' + $('#hfQuestionNavigateId').val());
+        //    $(li).show();
+        //}
+
+        $('.apsQuestionNumberMod').parent().each(function () {
+            if ($(this).index() == 0) {
+                $(this).children('.apsQuestionNumberMod').addClass('apsQuestionNumberModActive');
+            }
+        });
+        $('.apsQuestionNumberMod').click(function () {
+            $('.apsQuestionNumberMod').removeClass('apsQuestionNumberModActive');
+            $(this).addClass('apsQuestionNumberModActive');
+        });
+        //$('.haClassName-dev').val($('#hfClassName').val());
+        //$('.haSubject-dev').val($('#hfSubjectName').val());
+        //$('.haChapter-dev').val($('#hfChapterName').val());
+        //$('.haPractice-dev').val($('#hfPracticeTestName').val());
+
+
+        setInterval(function () {
+
+            $.ajax({
+                url: '/Student/timeoutforScholarship/',
+                global: false,     // this makes sure ajaxStart is not triggered
+                dataType: 'json',
+                success: function (data) {
+                    console.log("good")
+                },
+                error: function (data) {
+                    console.log("bad")
+                },
+            });
+        }, 10000);
+
+    });
+
+    $(document).on('click', '.navigate-qusetion-div', function () {
+
+        var index = $(this).attr('data-index');
+        var isPaid = $('#hfIsPaid').val();
+        if (index > 3 && isPaid == 'False') {
+            if (chpNo == '1' && practName == 'Level 1' || practName == 'Level 2' || practName == 'Level 3') { }
+            else {
+                window.location.href = '/Student/AlertPayment/';
+                return;
+            }
+        }
+        $('#quest-ul-list > li').hide();
+        var questId = $(this).attr('id');
+        var li = $('#quest-ul-list').find('#' + questId);
+        $(li).show();
+
+    });
+
+    $(document).on('click', '.get-next-quest', function () {
+        var questNo = parseInt($('#unattend-number').text());
+        //var practName = $('#hfPracticeTestName').val();
+        var isPaid = $('#hfIsPaid').val();
+        //var chpNo = $('#hfChapterNo').val();
+        var currentQuestNo = $(this).closest('.questions_main').find('.q_no').attr('data-quest-no');
+        //if (currentQuestNo >= 3 && isPaid == 'False') {
+        //    if (chpNo == '1' && practName == 'Level 1' || practName == 'Level 2' || practName == 'Level 3') {
+        //        var parentLi = $(this).parent().parent().parent().parent();
+        //        $('#quest-ul-list > li').hide();
+        //        $(parentLi).next('li').show();
+        //    }
+        //    else {
+        //        window.location.href = '/Student/AlertPayment';
+        //    }
+        //}
+        //else {
+        var parentLi = $(this).parent().parent().parent().parent();
+        $('#quest-ul-list > li').hide();
+        $(parentLi).next('li').show();
+        //}
+
+        var nextQuestNo = parseInt(currentQuestNo) + 1;
+        $('.apsQuestionNumberMod').each(function () {
+            $(this).removeClass('apsQuestionNumberModActive');
+        });
+        $('.navigate-qusetion-div:nth-child(' + nextQuestNo + ') > .apsQuestionNumberMod').addClass('apsQuestionNumberModActive');
+        //Highlights the current question
+
+
+    });
+
+    $(document).on('click', '.get-prev-quest', function () {
+        //$('html, body').animate({
+        //    scrollTop: $('.nav_bar_main').offset().top
+        //}, 20);
+        var parentLi = $(this).parent().parent().parent().parent();
+        $('#quest-ul-list > li').hide();
+        $(parentLi).prev('li').css('display', 'block');
+
+        //Highlights the current question
+        var currentQuestNo = $(this).closest('.questions_main').find('.q_no').attr('data-quest-no');
+        var nextQuestNo = parseInt(currentQuestNo) - 1;
+        $('.apsQuestionNumberMod').each(function () {
+            $(this).removeClass('apsQuestionNumberModActive');
+        });
+        $('.navigate-qusetion-div:nth-child(' + nextQuestNo + ') > .apsQuestionNumberMod').addClass('apsQuestionNumberModActive');
+        //Highlights the current question
+
+
+    });
+
+    $(document).on('click', '.ans_radio', function () {
+        $(this).parent().parent().parent().parent().find('.trigger-ans-option').removeClass('v_select');
+        $(this).parent().find('.trigger-ans-option').addClass('v_select');
+        var currentQuestNo = $(this).closest('.questions_main').find('.q_no').attr('data-quest-no');
+        var nextQuestNo = parseInt(currentQuestNo)
+        $('.navigate-qusetion-div:nth-child(' + nextQuestNo + ') > .apsQuestionNumberMod').addClass('apsQuestionNumberModAtnd');
+
+        var questId = $(this).closest('.questions_main').find('.q_no').attr('data-question-number');
+        var marker = $('#block-mark-answer').find('#' + questId);
+        $(marker).addClass('answ');
+    });
+
+    var answerValidation = 1;
+
+    $(document).on('click', '.submit-validate-practice', function () {
+
+
+
+
+
+        var starttime = $('#hfexamstarttime').val();
+        var now = new Date();
+        var endatime = now.getTime() / 1000; // - startDate.getTime()) / 1000;
+       // alert(endatime+"end time");
+        var totaltime = Math.round( endatime -starttime  );
+       // alert(totaltime + "Totaltime for exam");
+        $('#hfexamfinishtime').val(totaltime);
+
+
+
+
+
+        $('.examTimer').trigger('click');
+        SubmitAnswers();
+
+    });
+
+    function SubmitAnswers() {
+        var list = [];
+        $('#quest-ul-list .answer-list-li').each(function (index, row) {
+            var radio = $(row).find('input[type=radio]:checked');
+            var radioId = $(radio).attr('id');
+            var questId = $(radio).attr('data-question-id');
+            var rightAnsStatus = $(radio).attr('data-right');
+            var wrongMark = $(radio).attr('data-wrong-id');
+            var mark = $(radio).attr('data-mark');
+            var obj = new Object();
+            obj.QuestionId = questId;
+            obj.SelectedAnsId = radioId;
+            obj.RightAnsStatus = rightAnsStatus;
+            obj.NegativeMark = -0.33;
+            obj.Mark = mark;
+            if (radio.length)
+                list.push(obj);
+        });
+        setTimeout(function () {
+            if (list.length > 0) {
+                $('#PracticeTestId').val($('#hfPracticeTestId').val())
+                $('#AnswerSet').val(JSON.stringify(list));
+
+                  submit();
+                $('#submit-answer-button').trigger('click');
+            }
+        }, 200)
+    }
+
+    //Check
+    function SubmitExamSuccess(result) {
+        window.location.href = '/Student/ScholarshipComplete/';
+        //if (result.attemptId != null)
+        //    $('#hfAttemptId').val(result.attemptId);
+
+
+    }
+    function submit() {
+        //var answerset = $('#AnswerSet').val();
+        //var levelid = $('#levelid').val();
+        //var userId = $('#userId').val();
+        //var startTime = $('#startTime').val();
+        //var attemptId = $('#attemptId').val();
+        //var SubtopicId = $('#SubtopicId').val();
+        //var TopicId = $('#TopicId').val();
+        //var orderValue = $('#orderValue').text();
+        //var correctAnsCount = $('#correctAnsCount').val();
+
+        //var id = answerset + '~' + levelid + '~' + userId + '~' + startTime + '~' + startTime + '~' + attemptId + '~' + SubtopicId + '~' + TopicId + '~' + orderValue + '~' + correctAnsCount;
+
+        //$.ajax({
+        //    url: '/Curriculum/SubmitPractice?id=' + id,
+        //    type: "GET",
+        //    dataType: 'json',
+        //    success: function (data) {
+        //        if (data.status) {
+        //            window.location.href = '/Curriculum/Worksheet';
+        //        }
+        //        else {
+        //            toastrError(data.msg);
+        //        }
+        //    }
+        //});
+
+        ///--------------------------------------------------
+
+        var ob = new Object();
+        ob.examfinishtime= $('#hfexamfinishtime').val();
+        ob.AnswerSet = $('#AnswerSet').val();
+       // ob.ExamId = $('#hfExamId').val();
+        ob.PreparationId = $('#hfExamId').val();
+        ob.userId = $('#userId').val();
+        //ob.startTime = $('#startTime').val();
+        //ob.attemptId = $('#attemptId').val();
+        //ob.SubtopicId = $('#hfSubtopicId').val();
+        //ob.TopicId = $('#hfTopicId').val();
+        //ob.orderValue = $('#orderValue').val();
+        //ob.correctAnsCount = $('#correctAnsCount').val();
+
+        //ob.subListOnly = [];
+        //$.each(array, function (key, value) {
+        //    var data = new Object();
+        //    data.Id = value;
+        //    ob.subListOnly.push(data);
+        //});
+        $.ajax({
+            url: "/Curriculum/SubmitPreparation",
+            type: "POST",
+            dataType: 'json',
+            data: ob,
+            global: false,
+            success: function (response) {
+                if (response.status) {
+                     
+                    toastrSuccess(response.msg);
+                    window.location.href = '/Curriculum/PreparationUser';
+                }
+                else {
+                    toastrError(response.msg);
+                    //window.location.href = '/Module/UserTypeDefineHome/';
+                }
+            },
+        });
+    }
+
+    function SubmitPracticeSuccess(result) {
+        $('body').pleaseWait();
+
+        var practiceTestGuId = $('#PracticeTestGuid').val();
+        var practiceTestName = $('#hfPracticeTestName').val();
+        var attemptId = result.attemptId;
+        var subject = $('#hfSubjectName').val();
+        var chapter = $('#hfChapterId').val();
+        var classes = $('#hfClassId').val();
+        var practiceTestId = $('#hfPracticeTestId').val();
+        var correctAnsCount = $('#correct-number').text();
+        var nowUnlocked = result.nowUnlocked;
+        var homework = $('#homework').val();
+
+        //if (homework != "0") {
+        //    window.location.href = '/Student/ReportDetails/' + practiceTestGuId + '~' + attemptId + '~' + practiceTestId + '~' + correctAnsCount + '~' + nowUnlocked + '~' + homework;
+        //}
+        //else {
+        //    //window.location.href = '/Student/ReportDetails/' + practiceTestGuId + '~' + attemptId + '~' + practiceTestId + '~' + correctAnsCount + '~' + nowUnlocked;
+        //}
+
+        window.location.href = '/Curriculum/Worksheet';
+    }
+
+    $(document).on('click', '.demo-user', function () {
+        //alert(1);
+    });
+
+
+    $(document).on('click', '.wrong-popup-ok', function () {
+        $('#answer-wrong-modal').modal('hide');
+    });
+
+    $(document).on('click', '.correct-popup-ok', function () {
+        $('#answer-success-modal').modal('hide');
+    });
+
+    $(document).on('click', '.select-popup-ok', function () {
+        $('#select-option-modal').modal('hide');
+    });
+
+    $(document).on('click', '.selected-class', function () {
+        var classId = $(this).attr("data-classId");
+        window.location.href = '/Student/Classes';
+    });
+
+    $(document).on('click', '.selected-subject', function () {
+        var chapterId = $('#hfChapterId').val();
+        var subjectId = $('#hfSubjectId').val();
+        var classId = $('#hfClassId').val();
+        window.location.href = '/Student/SearchResultCrumb/?id=' + classId + '&secondId=' + subjectId + '&thirdId=' + chapterId;
+    });
+
+    $(document).on('click', '.atleast-popup-ok', function () {
+        $('#submit-atleast-one-modal').modal('hide');
+    });
+
+    var findingTag = $(document).find('.img-question > img');
+    $(findingTag).addClass('isPointer');
+    var tagValue = '';
+    $(tagValue).insertAfter(findingTag);
+
+    $('.img-question > img').click(function () {
+
+        var target_src = $(this).attr('src');
+        var question = $(this).parent().parent().children('.question').next().html();
+        var target_height = $('.questions_box').outerHeight(); // height();
+
+        var wanted_height = target_height - 40;
+        $('.questions_box').append("<div class='qus-pop-up' style='position:absolute;  top:0px; background-color:rgba(0, 0, 0, 0.2); left:0px; width:100%; height:100%; z-index:99999999;'><div class='put_question''><p style='padding: 2px 1%;'></p></div><div class='pop-img-pack' style='display:table; margin:auto;position:relative;'><img class='img-responsive' style='margin:auto; float:none; display:block; position: relative; height: auto !important; '/><span class='qus-pop-close' style='position:absolute; cursor:pointer; display:block; width: 25px; height: 25px; background-color: rgb(255, 88, 82); font-size: 14px;color: #fff; border-radius: 50%;text-align: center;top: 10px; right: -10px;padding: 2px;'>X</span></div></div>")
+        $('.pop-img-pack > img').attr('src', target_src);
+        //$('.put_question > p').text(question);
+        if ($(window).height() < $('.question-list-group').height()) {
+            var height_wan = $(window).height();
+            //alert("1A" + height_wan);
+        }
+        else {
+            var height_wan = $('.question-list-group').height();
+            //alert("1B" + height_wan);
+        }
+
+        var height_wan_c = height_wan - (height_wan / 4);
+        $('.pop-img-pack > img').css('height', height_wan_c);
+        //$('.qus-pop-up > img').css('height', wanted_height);
+        $('.pop-img-pack > img').css('margin-top', '20px');
+
+
+        $("html, body").animate({
+            scrollTop: $('.question-list-group').offset().top
+        }, 2000);
+
+        $('.qus-pop-close').click(function () {
+
+            $('.qus-pop-up').remove();
+
+        });
+    });
+
+
+
+
+
+    $(function () {
+        $('.examTimer').startTimer({
+            onComplete: function (element) {
+                element.addClass('is-complete');
+                $('.submit-validate-practice').addClass('isDisabled');
+                $('#time-out-modal').modal('show');
+                $('#hfTimeOut').val('1');
+            },
+            allowPause: true
+        });
+    })
+    //$('.examTimer').startTimer({
+    //    onComplete: function (element) {
+    //        element.addClass('is-complete');
+    //        $('.submit-validate-practice').addClass('isDisabled');
+
+    //        $('#time-out-modal').modal('show');
+    //        $('#hfTimeOut').val('1');
+    //    },
+    //    allowPause: true
+    //});
+
+    $(document).on('click', '.time-out-ok', function () {
+        //$('#time-out-modal').modal('hide');
+        var starttime = $('#hfexamstarttime').val();
+        var now = new Date();
+        var endatime = now.getTime() / 1000; // - startDate.getTime()) / 1000;
+        // alert(endatime+"end time");
+        var totaltime = Math.round(endatime - starttime);
+        // alert(totaltime + "Totaltime for exam");
+        $('#hfexamfinishtime').val(totaltime);
+        SubmitAnswers();
+    });
+
+    //$(document).on('click', '.check-ans-dev', function () {
+
+    //    var iwantthis = $(this);
+    //    $('html, body').animate({
+    //        scrollTop: $('#quest-ul-list').offset().top
+    //    }, 200);
+
+    //    function rightasp() {
+    //        iwantthis.parent().siblings('.identify-quest-parent-dev').children('.right-wrong-specify-dev').children('.apsright').show();
+
+
+    //    }
+    //    function wrongasp() {
+    //        iwantthis.parent().siblings('.identify-quest-parent-dev').children('.right-wrong-specify-dev').children('.apswrong').show();
+    //    }
+
+    //    var source = $(this);
+    //    var parentDiv = $(source).parent().parent();
+    //    var currentLi = $(source).parent().parent().parent().parent();
+    //    var nextLi = $(currentLi).next('li');
+    //    var prevBtn = $(nextLi).find('.get-prev-quest');
+    //    var answerDiv = $(parentDiv).find('#answer-option-div');
+
+    //    var nextBtn = $(parentDiv).find('.get-next-quest');
+    //    var answerExpDiv = $(parentDiv).find('#answer-exp-div');
+    //    var radio = $(answerDiv).find('input[type=radio]:checked');
+    //    var unattend = parseInt($('#unattend-number').text());
+    //    var correct = parseInt($('#correct-number').text());
+    //    var wrong = parseInt($('#wrong-number').text());
+    //    var rightTag = $(answerDiv).find('input[type=radio][data-right=1]').parent().find('.trigger-ans-option');
+    //    var radioId = $(radio).attr('id');
+    //    var questId = $(radio).attr('data-question-id');
+    //    var marker = $('#block-mark-answer').find('#' + questId);
+    //    var selectedAns = $(radio).parent().find('.trigger-ans-option');
+    //    var dataIdVal = $(answerExpDiv).attr('data-id');
+    //    if (radioId != undefined) {
+
+    //        var status = $(radio).attr('data-right');
+    //        if (status == 1) {
+    //            $('#answer-success-modal').modal('show');
+    //            $(answerExpDiv).removeClass('isHidden'); //Explanation is shown
+    //            //Scroll
+    //            //$('html, body').animate({
+    //            //    'scrollTop': $('.explanation-' + dataIdVal).offset().top
+    //            //}, 20);
+    //            //Scroll end
+    //            $(marker).addClass('answ');
+    //            $(selectedAns).addClass('v_right');
+    //            correct++;
+    //            rightasp();
+    //        }
+    //        else {
+    //            $('#answer-wrong-modal').modal('show');
+    //            $(answerExpDiv).removeClass('isHidden'); //Explanation is shown
+    //            //Scroll
+    //            //$('html, body').animate({
+    //            //    'scrollTop': $('.explanation-' + dataIdVal).offset().top
+    //            //}, 20);
+    //            //Scroll end
+
+    //            $(marker).addClass('marked');
+    //            // $(selectedAns).addClass('v_wrong');
+    //            //  $(rightTag).addClass('v_right')
+    //            wrong++;
+    //            wrongasp();
+    //        }
+
+    //        $(source).remove(); //Hides the submit button if the answer is attended
+    //        unattend--;
+
+    //        $('#unattend-number').text(unattend)
+    //        $('#correct-number').text(correct)
+    //        $('#wrong-number').text(wrong)
+    //        $(nextBtn).css('display', 'inline-block');
+    //        $(prevBtn).css('display', 'inline-block');
+    //        $(answerDiv).addClass('isDisabled');
+    //        $(source).addClass('isDisabled');
+    //        $('.ha-CorrectAnsCount-dev').val(correct);
+    //    }
+    //    else {
+    //        $('#select-option-modal').modal('show');
+    //    }
+    //});
+
+</script>
+
+
+
+

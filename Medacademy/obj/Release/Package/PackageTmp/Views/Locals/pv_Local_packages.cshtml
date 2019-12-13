@@ -1,0 +1,30 @@
+﻿@model Medacademy.Models.UserModel
+
+@{
+    foreach (var a1 in Model.LocalModel.LI_Pacages)
+    {
+        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+            <div class="packages">
+                <div class="package_photo">
+                    <img src="@a1.Files">
+                </div>
+                <div class="package_info">
+                    <h5>@a1.PackageName</h5>
+                    <div class="price">
+                        <span><i class="fas fa-rupee-sign"></i>Rs.@a1.Amount</span>
+                        <span><i class="fas fa-rupee-sign"></i>Rs.@Convert.ToInt64(Convert.ToInt64(a1.Amount) - Convert.ToInt64(a1.DiscountAmount))</span>
+                    </div>
+                    <div class="infos_pkgs">
+                       @a1.Description
+                    </div>
+                    <div class="package_btn">
+                        <a href="#" class="detls_btn">Full Details</a>
+                        <a href="/User/AlertPayment?page=@a1.PackageID" class="slct_btn" pakage-Id="@a1.PackageID">Select</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+}
+

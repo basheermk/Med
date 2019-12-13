@@ -1,0 +1,157 @@
+﻿@model Medacademy.Models.PracticeWorksheetModel
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "ReportMain";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var url = Request.Url.GetLeftPart(UriPartial.Authority);
+}
+<div class="mar_gap_for_menu">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 media_marpad_zero">
+        <div class="container media_marpad_zero">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 media_marpad_zero text-center reports_main">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                    <h1 class="reports_h1">Assess Your Performance Here!</h1>
+                    <p class="reports_p">Your performance through the test sessions are indicated in the below statistics.</p>
+                </div>
+
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 media_marpad_zero text-center reports-scroll pmzero aps-table-chart-holder">
+                    <div id="gridcontainer">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 media_marpad_zero text-center reports-scroll aps-table-div " style="margin-top:20px;">
+                            <style>
+                                th, td {
+                                    text-align: center;
+                                }
+
+                                .align-middle tbody tr td, .align-middle tr td {
+                                    vertical-align: middle;
+                                }
+
+                                table tbody tr.active, .align-middle tbody tr.active td {
+                                    background-color: #DDF7ED;
+                                }
+                            </style>
+                            <div id="content">
+                                <table class="table my_reports_table table-hover align-middle" id="test-report-table" style="width:100%;">
+                                    <thead>
+                                        <tr>
+                                            @*<th>Sl No.</th>*@
+                                            <th>Topic</th>
+                                            <th>Subtopic</th>
+                                            <th>Level</th>
+                                            <th>Date Time</th>
+                                            <th>Action</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            var index = 1;
+                                        }
+                                        @foreach (var item in Model.report)
+                                        {
+                                           // var urlShare = "https://facebook.com/sharer.php?u=" + url + "/Account/UserPractice/" + item.Id;
+
+                                           
+                                                var topicname = new Ma.EntityLibrary.Data.Topic(item.TopicId).TopicName;
+                                          
+                                            <tr data-value-1="@item.RightAnswerCount" data-value-2="@item.WrongAnswerCount" data-value-3="@item.UnattendAnswerCount" class="plot-pi-chart isPointer trigger-pie">
+                                                @*<td data-value-1="@item.RightAnswerCount" data-value-2="@item.WrongAnswerCount" data-value-3="@item.UnattendAnswerCount">@index</td>*@
+                                                <td data-value-1="@item.RightAnswerCount" data-value-2="@item.WrongAnswerCount" data-value-3="@item.UnattendAnswerCount">@topicname</td>
+                                                <td data-value-1="@item.RightAnswerCount" data-value-2="@item.WrongAnswerCount" data-value-3="@item.UnattendAnswerCount">@item.subtopic.SubTopicName</td>
+                                                <td data-value-1="@item.RightAnswerCount" data-value-2="@item.WrongAnswerCount" data-value-3="@item.UnattendAnswerCount">@item.practiceTest.LevelName</td>
+                                                <td data-value-1="@item.RightAnswerCount" data-value-2="@item.WrongAnswerCount" data-value-3="@item.UnattendAnswerCount">@item.TimeStamp.ToString("dd/MM/yyyy hh:mm:ss tt")</td>
+                                                <td data-value-1="@item.RightAnswerCount" data-value-2="@item.WrongAnswerCount" data-value-3="@item.UnattendAnswerCount"><a data-attempt="@item.Id" data-practice-id="@item.practiceTest.LevelID" class="button_detail ispointer detailed-view">Details</a> </td>
+                                                <td data-value-1="@item.RightAnswerCount" data-value-2="@item.WrongAnswerCount" data-value-3="@item.UnattendAnswerCount"><img src="~/Content/images/pie-chart.png" style="width: 20px; float : right; position : relative; display: inline-block; margin-top:6px;" /></td>
+                                                <td></td>
+                                            </tr>
+                                            index++;
+                                        }
+                                    </tbody>
+                                </table>
+                                @if (Model.reportCount > 10)
+                                {
+                                    <div id="contentPager">
+                                        @Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("ReportMain", new { page }))
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+        setTimeout(function () {
+            var thisrow = $(".trigger-pie:first");
+            var value1 = $(thisrow).attr('data-value-1');
+            var value2 = $(thisrow).attr('data-value-2');
+            var value3 = $(thisrow).attr('data-value-3');
+            myData = [parseFloat(value1 * 10), parseFloat(value2 * 10) + parseFloat(value3 * 10)];
+            $('#expand-span').remove();
+            $('tr.active').removeClass('active');
+
+            $(thisrow).addClass('active');
+            var appendcow = '<tr><td id="expand-span" colspan="9" style="border-top: none; background-color: #DDF7ED;"><canvas id="canvas" width="500" height="300"></canvas></td></tr>'
+            $(appendcow).insertAfter(thisrow)
+            plotData();
+        }, 100);
+    });
+    $('.detailed-view').click(function (event) {
+        var practiceTestGuid = $(this).attr('data-practice-id');
+        var attempt = $(this).attr('data-attempt');
+        window.location.href = '/Report/ReportNavigate/' + practiceTestGuid + '~' + attempt;
+        event.preventDefault();
+        event.stopPropagation();
+    });
+    //$(document).on('click', '.detailed-view', function () {
+    //    var practiceTestGuid = $(this).attr('data-practice-id');
+    //    var attempt = $(this).attr('data-attempt');
+    //    window.location.href = '/Student/ReportNavigate/' + practiceTestGuid + '~' + attempt;
+    //});
+
+
+    //$('#test-report-table tbody > tr > td:not(:nth-last-child(2))').click(function () {
+    $('#test-report-table tbody > tr > td').click(function () {
+        //alert('2');
+        var thisrow = $(this).closest('tr');
+        var value1 = $(this).attr('data-value-1');
+        var value2 = $(this).attr('data-value-2');
+        var value3 = $(this).attr('data-value-3');
+        myData = [parseFloat(value1 * 10), parseFloat(value2 * 10) + parseFloat(value3 * 10)];
+
+        $('#expand-span').remove();
+        $('tr.active').removeClass('active');
+
+        $(thisrow).addClass('active');
+        var appendcow = '<tr><td id="expand-span" colspan="8" style="border-top: none; background-color: #DDF7ED;"><canvas id="canvas" width="500" height="300"></canvas></td></tr>'
+        $(appendcow).insertAfter(thisrow)
+
+        setTimeout(function () {
+            plotData();
+        }, 100);
+
+    });
+
+
+
+    //$(document).on('click', '.btn-practice', function () {
+    //    window.location.href = '/Student/Index/';
+    //});
+   
+
+    //$(document).on('click', '.fb-share-button', function () {
+    //});
+</script>
+
+
+

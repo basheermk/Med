@@ -1,0 +1,49 @@
+﻿<style>
+    .green {
+        background-color: greenyellow;
+        font-size: 12px;
+        padding: 3px 8px;
+    }
+
+    .red {
+        background-color: red;
+        font-size: 12px;
+        padding: 5px 10px;
+    }
+</style>
+
+<table id="classTable" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Sl No</th>
+            <th>News</th>
+            <th>Subhead</th>
+            <th>Details</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{int id = 1;
+
+            foreach (var news in new Ma.EntityLibrary.Data.News().Getnews())
+            {
+              
+                <tr>
+                    <td>@id</td>
+                    <td>@news.Head</td>
+                    <td>@news.SubHead</td>
+                    <td>@news.Newsdetils</td>
+                    <td>@news.NewsDate</td>                    
+                    <td>
+                        <button type="button" class="btn btn-success btn-xs" data-id="@news.NewsID" onclick="EditNews(this)">Edit</button>
+                        <button type="button" class="btn btn-danger btn-xs confirmDelete" data-id="@news.NewsID">Delete</button>
+
+                    </td>
+                </tr>
+                            id++;
+                        }
+        }
+    </tbody>
+</table>
+

@@ -1,0 +1,271 @@
+﻿@model Medacademy.Models.QuestionExcelUpload
+@{
+    ViewBag.Title = "QuestionExcelUpload";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+ <section class="content">
+    <!-- COLOR PALETTE -->
+    <div class="box box-default color-palette-box">
+        <div class="box-header with-border">
+            <h3 class="box-title"><i class="fa fa-pencil"></i>Question Excel Upload</h3>
+        </div>
+        <div class="box-body">
+            @*@Html.HiddenFor(z => z.LevelID)*@
+            <div class="row">
+                <div class="col-sm-4 col-md-3">
+                    <h4 class="text-center">Course</h4>
+                    @Html.DropDownListFor(m => m.CourseId, Ma.EntityLibrary.Data.Dropdowndata.GetCourseDrop(), "--Choose--", new { @class = "form-control course-drop-down", @data_live_search = "true" })
+                </div><!-- /.col -->
+                <div class="col-sm-4 col-md-3">
+                    <h4 class="text-center">Package</h4>
+                    <select id="Package-drop-down" class="form-control Package-drop-down" disabled>
+                        <option>-- Please select Package --</option>
+                    </select>
+                </div><!-- /.col -->
+
+                <div class="col-sm-4 col-md-3">
+                    <h4 class="text-center">Subject</h4>
+                    <select id="Subject-drop-down" class="form-control Subject-drop-down" disabled>
+                        <option>-- Please select Subject --</option>
+                    </select>
+                </div><!-- /.col -->
+                <div class="col-sm-4 col-md-3">
+                    <h4 class="text-center">Topic</h4>
+                    <select id="Topic-drop-down" class="form-control Topic-drop-down" disabled>
+                        <option>-- Please select Topic --</option>
+                    </select>
+                </div><!-- /.col -->
+                <div class="col-sm-4 col-md-3">
+                    <h4 class="text-center">Subtopic</h4>
+                    <select id="Subtopic-drop-down" class="form-control Subtopic-drop-down" disabled>
+                        <option>-- Please select Subtopic --</option>
+                    </select>
+                </div><!-- /.col -->
+                <div class="col-sm-4 col-md-3">
+                    <h4 class="text-center">Level</h4>
+                    <select id="Level-drop-down" class="form-control Level-drop-down" disabled>
+                        <option>-- Please select Level --</option>
+                    </select>
+                </div><!-- /.col -->
+
+                
+            </div><!-- /.row -->
+            <div class="col-md-4">
+                <h5 class="text-left" style="color:#f00">*Choose level before uploading excel</h5>
+                <h5 class="text-left" style="color:#f00">*Can upload one excel with questions for one level</h5>
+            </div>
+           
+         </div><!-- /.box -->
+    </div>
+</section><!-- /.content -->
+
+<div align="center">
+    @if (ViewBag.Message != null)
+    {
+        <span class="alert alert-warning"> @ViewBag.Message</span>
+    }
+
+    <div align="right" class="btn btn-default">
+        @*new { levelid = 12 },*@
+        @using (Html.BeginForm("UploadExcel", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
+            @Html.TextBoxFor(m => m.LevelID , new { type = "hidden" })
+            <input type="file" id="fileUpload" class="btn btn-primary" name="FileUpload" /><br />
+            <input type="submit" class="btn btn-primary" name="UploadNewEmployee" id="fileUploadExcel" value="Upload Questions" />
+            
+        }
+    </div>
+</div>
+
+  
+
+<script>
+
+    $('#fileUploadExcel').click(function (e) {
+        if ($('#fileUpload').val() === "")
+        {
+            sweetAlert("Oops...!!!", "Please select file", "error");
+            return false;
+        }
+
+    });
+
+
+
+    $(document).on('change', '.course-drop-down', function () {
+        var id = $(this).val();
+        if (id != '') {
+           // resetDropDown('Package');
+            $.ajax({
+                url: '/Data/LoadPackages?courseid=' + id,
+                type: "GET",
+                success: function (result) {
+                    if (result.list.length > 0) {
+                        $("#Package-drop-down").html(""); // clear before appending new list
+                        $("#Package-drop-down").append($('<option></option>').val("").html('-- Select Package --'));
+                        $.each(result.list, function (i, item) {
+                            $("#Package-drop-down").append($('<option></option>').val(item.Value).html(item.Text));
+                        });
+                        $("#Package-drop-down").prop("disabled", false);
+                    }
+                    else {
+//resetDropDown('Class');
+                        $("#Package-drop-down").html(""); // clear before appending new list
+                        $("#Package-drop-down").append($('<option></option>').val("").html('-- No Packages Found --'));
+                        $("#Package-drop-down").prop("disabled", true);
+                    }
+                }
+            });
+
+        }
+        else {
+            resetDropDown('Class');
+        }
+    });
+
+
+
+    $(document).on('change', '.Package-drop-down', function () {
+        var id = $(this).val();
+        if (id != '') {
+          //  resetDropDown('Class');
+            $.ajax({
+                url: '/Data/LoadSubjects?packageid=' + id,
+                type: "GET",
+                success: function (result) {
+                    if (result.list.length > 0) {
+                        $("#Subject-drop-down").html(""); // clear before appending new list
+                        $("#Subject-drop-down").append($('<option></option>').val("").html('-- Select Subject --'));
+                        $.each(result.list, function (i, item) {
+                            $("#Subject-drop-down").append($('<option></option>').val(item.Value).html(item.Text));
+                        });
+                        $("#Subject-drop-down").prop("disabled", false);
+                    }
+                    else {
+                      //  resetDropDown('Class');
+                        $("#Subject-drop-down").html(""); // clear before appending new list
+                        $("#Subject-drop-down").append($('<option></option>').val("").html('-- No Subjects Found --'));
+                        $("#Subject-drop-down").prop("disabled", true);
+                    }
+                }
+            });
+
+        }
+        else {
+         //   resetDropDown('Class');
+        }
+    });
+
+    $(document).on('change', '.Subject-drop-down', function () {
+        var id = $(this).val();
+        if (id != '') {
+         //   resetDropDown('Subject');
+
+            $.ajax({
+                url: '/Data/LoadTopic?subjectid=' + id,
+                type: "GET",
+                success: function (result) {
+                    if (result.list.length > 0) {
+                        $("#Topic-drop-down").html(""); // clear before appending new list
+                        $("#Topic-drop-down").append($('<option></option>').val("").html('-- Select Topic --'));
+                        $.each(result.list, function (i, item) {
+                            $("#Topic-drop-down").append($('<option></option>').val(item.Value).html(item.Text));
+                        });
+                        $("#Topic-drop-down").prop("disabled", false);
+                    }
+                    else {
+                       // resetDropDown('Subject');
+                        $("#Topic-drop-down").html(""); // clear before appending new list
+                        $("#Topic-drop-down").append($('<option></option>').val("").html('-- No Topics Found --'));
+                        $("#Topic-drop-down").prop("disabled", true);
+                    }
+                }
+            });
+
+        }
+        else {
+           // resetDropDown('Subject');
+        }
+    });
+
+    $(document).on('change', '.Topic-drop-down', function () {
+        var id = $(this).val();
+        if (id != '') {
+           // resetDropDown('Chapter');
+
+            $.ajax({
+                url: '/Data/LoadSubtopic?topicid=' + id,
+                type: "GET",
+                success: function (result) {
+                    if (result.list.length > 0) {
+                        $("#Subtopic-drop-down").html(""); // clear before appending new list
+                        $("#Subtopic-drop-down").append($('<option></option>').val("").html('-- Select Subtopic --'));
+                        $.each(result.list, function (i, item) {
+                            $("#Subtopic-drop-down").append($('<option></option>').val(item.Value).html(item.Text));
+                        });
+                        $("#Subtopic-drop-down").prop("disabled", false);
+                    }
+                    else {
+                    //    resetDropDown('Chapter');
+                        $("#Subtopic-drop-down").html(""); // clear before appending new list
+                        $("#Subtopic-drop-down").append($('<option></option>').val("").html('-- No Subtopic Found --'));
+                        $("#Subtopic-drop-down").prop("disabled", true);
+                    }
+                }
+            });
+
+        }
+        else {
+          //  resetDropDown('Chapter');
+        }
+    });
+
+    $(document).on('change', '.Subtopic-drop-down', function () {
+        var id = $(this).val();
+        if (id != '') {
+           // resetDropDown('Class');
+            $.ajax({
+                url: '/Data/LoadLevel?subtopicid=' + id,
+                type: "GET",
+                success: function (result) {
+                    if (result.list.length > 0) {
+                        $("#Level-drop-down").html(""); // clear before appending new list
+                        $("#Level-drop-down").append($('<option></option>').val("").html('-- Select Level --'));
+                        $.each(result.list, function (i, item) {
+                            $("#Level-drop-down").append($('<option></option>').val(item.Value).html(item.Text));
+                        });
+                        $("#Level-drop-down").prop("disabled", false);
+                    }
+                    else {
+                    //    resetDropDown('Class');
+                        $("#Level-drop-down").html(""); // clear before appending new list
+                        $("#Level-drop-down").append($('<option></option>').val("").html('-- No Level Found --'));
+                        $("#Level-drop-down").prop("disabled", true);
+                    }
+                }
+            });
+
+        }
+        else {
+         //   resetDropDown('Class');
+        }
+    });
+
+
+
+    $(document).on('change', '#Level-drop-down', function () {
+        var testId = $(this).val();
+        $("#LevelID").val(testId);
+
+        //alert(testId);
+
+
+    });
+
+</script>  
+
+
+
+

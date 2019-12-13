@@ -1,0 +1,37 @@
+﻿<table id="classTable" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Sl No</th>
+            <th>Subject Name</th>
+            <th>Package Name</th>
+            <th>Course Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{int id = 1;
+
+            foreach (var subjects in new Ma.EntityLibrary.Data.Subject().GetSubjects())
+            {
+
+                var package = new Ma.EntityLibrary.Data.Package(subjects.PackageID);
+                var course = new Ma.EntityLibrary.Data.Course(subjects.CourseID);
+
+
+                <tr>
+                    <td>@id</td>
+                    <td>@subjects.SubjectName</td>
+                    <td>@package.PackageName</td>
+                    <td>@course.CourseName</td>
+                    
+                    @*<td>@groups</td>*@
+                    <td>
+                        <button type="button" class="btn btn-success btn-xs" data-id="@subjects.SubjectID" onclick="EditSubject(this)">Edit</button>
+                        <button type="button" class="btn btn-danger btn-xs confirmDelete" data-id="@subjects.SubjectID">Delete</button>
+                    </td>
+                </tr>
+                id++;
+            }
+        }
+    </tbody>
+</table>

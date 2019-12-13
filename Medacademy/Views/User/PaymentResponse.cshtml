@@ -1,0 +1,35 @@
+﻿@model Medacademy.Models.UserModel
+@{
+    ViewBag.Title = "PaymentResponse";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<form method="post" action="/User/PaymentConfirm" name="PaymentResponse" id="form-pay-response">
+    @{if (Model.PaymentModel.ConfirmData != null && Model.PaymentModel.ConfirmData.Count > 0)
+        {
+            foreach (var p in Model.PaymentModel.ConfirmData)
+            {
+                if (p.Key.ToString() != "secure_hash" && !p.Key.ToString().ToLower().StartsWith("__") && p.Key.ToString() != "secretkey" && p.Key.ToString() != "submitted")
+                {
+
+                    <input type="hidden" value=@p.Value.ToString() name=@p.Key.ToString() />
+                }
+            }
+        }
+    }
+    <input type="hidden" value="@Model.PaymentModel.SecureHash" id="SecureHash" name="SecureHash" />
+    <input value="Submit" type="submit" class="submit-trigger" />
+</form>
+
+<script>
+    $(document).ready(function () {
+        setTimeout(function () {
+            $('.submit-trigger').trigger('click');
+
+        });
+
+    });
+</script>
+
+

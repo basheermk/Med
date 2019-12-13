@@ -1,0 +1,22 @@
+﻿@model Medacademy.Models.AddQuestoExam
+@{
+    int count = new Ma.EntityLibrary.Data.ExamQuestion().GetCount(Model.ExamId);
+    string exam = @Model.ExamName;
+    var examid = new Ma.EntityLibrary.Data.Exam().GetExamsById(Model.ExamId);
+    
+}
+<div class="row">
+    <div class="col-sm-6">
+        <div class="exam_name">
+            <label class="col-form-label">Exam Name</label>
+            <label class="col-form-label">@examid.FirstOrDefault().ExamName</label>
+        </div>
+
+    </div>
+    <div class="col-sm-6">
+        <div class="exam_name">
+            <label class="col-form-label">Question Count</label>
+            <label class="col-form-label">@count</label>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+﻿@model Medacademy.Models.UserModel
+
+
+@{
+    ViewBag.Title = "PaymentPost";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form method="post" action="https://secure.ebs.in/pg/ma/payment/request" name="frmTransaction" id="frmTransaction">
+    
+    <input name="channel" type="hidden" value="10" />
+    <input name="account_id" type="hidden" value="21159" />
+   
+    <input name="mode" type="hidden" value="LIVE" />
+    <input name="currency" type="hidden" value="INR" />
+    
+    <input name="country" type="hidden" value="IND" />
+    
+  
+
+
+    <input name="secure_hash" type="hidden" value="@Model.PaymentModel.SecureHash" id="secure-hash" />
+    <input value="Submit" type="submit" class="submit-trigger" />
+</form>
+
+<script>
+    $(document).ready(function () {
+        //ajaxLoaderStop();
+        //$('body').pleaseWait();
+        //$('.nav_bar_main').addClass('isHidden');
+        //$('.footer_main').addClass('isHidden');
+        $('.submit-trigger').hide();
+        $('.submit-trigger').trigger('click');
+    });
+</script>
+
+

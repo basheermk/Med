@@ -1,0 +1,113 @@
+﻿@*<style>
+        .green {
+            background-color: greenyellow;
+            font-size: 12px;
+            padding: 3px 8px;
+        }
+
+        .red {
+            background-color: red;
+            font-size: 12px;
+            padding: 5px 10px;
+        }
+    </style>*@
+
+
+
+@{
+    string packagename = "";
+
+}
+
+<table id="classTable" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Sl No</th>
+
+            <th>Name</th>
+            <th>Package Name</th>
+            <th>Package Exp Date</th>
+            <th>Contact</th>
+            <th>Email</th>
+
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{int id = 1;
+
+            foreach (var student in new Ma.EntityLibrary.Data.StudentsList().GetRegisteredStudents())
+            {
+                 var paymentdetails = new Ma.EntityLibrary.Data.Payment().ExampaymentDetails(student.UserId);
+                <tr>
+                    <td>@id</td>
+
+                    @{
+
+
+
+
+                        if (paymentdetails != null)
+                        {
+                            //if (paymentdetails.PaidStatus)
+                            //{
+                            packagename = new Ma.EntityLibrary.Data.Package(paymentdetails.PackageID).PackageName;
+
+
+                                <td>@student.FirstName @student.LastName</td>
+                                <td>@packagename</td>
+                                <td>@paymentdetails.Expirydate</td>
+                            //}
+
+
+                        }
+                        else
+                        {
+
+                            <td style="background: #00c0ef; color: #fff;"> @student.FirstName @student.LastName </td>
+                            <td></td>
+                            <td></td>
+
+                        }
+                    }
+
+                    <td>@student.ContactNo</td>
+                    <td>@student.Email</td>
+
+
+                    <td>
+                        <button type="button" class="btn btn-success btn-xs" data-id="@student.UserId" onclick="Worksheetreport(this)">Worksheet Report</button>
+                        <button type="button" class="btn btn-success btn-xs" data-id="@student.UserId" onclick="ViewStudentinfo(this)">View</button>
+                        <button type="button" class="btn btn-success btn-xs" data-id="@student.UserId" onclick="EditStudentinfo(this)">Edit</button>
+                        @if (student.DisableStatus == true)
+                        {
+                            <button type="button" class="btn btn-primary btn-xs deactivate-student" data-id="@student.UserId" data-active="@student.DisableStatus">Deactivate</button>
+                        }
+                        else
+                        {
+                            <button type="button" style="min-width: 65px;" class="btn btn-info btn-xs activate-student" data-id="@student.UserId" data-active="@student.DisableStatus">Activate</button>
+                        }
+                        <button type="button" class="btn btn-danger btn-xs confirmDelete" data-id="@student.UserId">Delete</button>
+                        @{   if (paymentdetails != null)
+                            {
+                                if (paymentdetails.PaidStatus != true)
+                                {
+                                    <button type="button" class="btn btn-info npkg  btn-xs confirmPackage" data-package-id="@paymentdetails.PackageID" data-id="@student.UserId">Confirm Package</button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-primary npkg btn-xs" data-id="@student.UserId">Package Confirmed</button>
+                                }
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-success npkg btn-xs" data-id="@student.UserId">No Package</button>
+                            }
+                        }
+                    </td>
+                </tr>
+                                id++;
+                            }
+        }
+    </tbody>
+</table>

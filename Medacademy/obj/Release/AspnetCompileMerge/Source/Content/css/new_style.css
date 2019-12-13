@@ -1,0 +1,229 @@
+.cont_sideimg img{
+    max-width: 100%;
+}
+
+.left_ttl{
+    text-align: left;
+}
+
+.mainTitle.left_ttl:after{
+    left: 50px;
+    transform: translate(0%,0%);
+}
+
+.details_his p {
+    font-size: 16px;
+    line-height: 27px;
+    text-align: justify;
+}
+
+.inner_pgs {
+    margin: 40px 0;
+}
+
+.details_his {
+    margin: 20px 0;
+}
+
+.about_section{
+    background:url(../images/about_bnner.jpg) no-repeat;
+}
+
+.uppercontact_section{
+    background:url(../images/contact_bnner.jpg) no-repeat;
+}
+
+.contact_forms .form-control{
+    border: 0;
+    border-radius:0; 
+    border-bottom: 1px solid #ccc;
+    padding: inherit;
+}
+
+.contact_forms .form-control:focus{
+    box-shadow: inherit;
+}
+
+.contact_forms > div {
+    width: calc(100%/2);
+    padding: 0 10px;
+}
+
+.contact_forms {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.contact_forms label {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.form-control.inner_label::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #c7c7c7;
+  font-size: 14px;
+}
+.form-control.inner_label::-moz-placeholder { /* Firefox 19+ */
+  color: #c7c7c7;
+  font-size: 14px;
+}
+.form-control.inner_label:-ms-input-placeholder { /* IE 10+ */
+  color: #c7c7c7;
+  font-size: 14px;
+}
+.form-control.inner_label:-moz-placeholder { /* Firefox 18- */
+  color: #c7c7c7;
+  font-size: 14px;
+}
+.messagbx .form-control {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0;
+}
+.messagbx .form-group {
+    width: calc(100% - 60px);
+    float: left;
+}
+.mail_btn{
+    position: relative;
+    background: #20a7db;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    float: right;
+    margin-top: 25px;
+    margin-left: 10px;
+
+}
+.mail_btn a{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.messagbx {
+    margin: 20px 0;
+    padding: 0 10px;
+}
+
+.connecting_pg {
+    box-shadow: 5px 5px 18px #929292;
+}
+
+.connecting_pg p {
+    margin: 10px 0;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.contact_title {
+    color: #20a7db;
+}
+
+.contact_loc {
+    display: flex;
+    margin: 25px 0px;
+}
+.loc_img{
+    margin-top:10px;
+    margin-right: 10px;
+}
+.blue_sec {
+    background: #1081ad;
+}
+.filter {
+  -webkit-filter: brightness(0) invert(1);
+  filter: brightness(0) invert(1);
+}
+.contact_loc p {
+    color: #fff;
+    word-break: break-word;
+}
+.left_white {
+    padding: 35px;
+    float: left;
+    width: 100%;
+}
+.right_blue{
+    padding: 0 20px;
+}
+
+h4.white_right {
+    color: #fff;
+    margin-top: 30px;
+}
+
+.package_section{
+  background:url(../images/package_bnnr.jpg) no-repeat;  
+}
+
+.sub_package {
+    font-size: 31px;
+}
+
+/*bootrap4 tabs style*/
+
+.card {
+    border: none;
+}
+.card-header{
+    border-bottom: 0;
+}
+/* Tabs Card */
+
+
+.tab-card-header {
+  background:none;
+}
+/* Default mode */
+.tab-card-header > .nav-tabs {
+  border: none;
+  margin: 0px;
+}
+.tab-card-header > .nav-tabs > li {
+  margin-right: 2px;
+}
+.tab-card-header > .nav-tabs > li > a {
+  border: 0;
+  margin-right: 0;
+      color: #000000;
+    font-weight: 500;
+  padding: 2px 15px;
+}
+
+.tab-card-header > .nav-tabs > li > a.show {
+        color: #20a7db;
+}
+
+.tab-card-header > .tab-content {
+  padding-bottom: 0;
+}
+
+.nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover{
+    border-color: none;
+}
+
+.infos_pkgs {
+    font-size: 14px;
+    text-align: justify;
+    margin: 10px 0;
+}
+
+@media(max-width:767px){
+    
+    .blue_sec {
+        background: inherit;
+    }
+    .right_blue {
+    background: #1081ad;
+    padding: 15px 20px;
+}
+    .contact_forms {
+        display: block;
+    }
+    .contact_forms > div {
+        width: 100%;
+    }
+    
+}

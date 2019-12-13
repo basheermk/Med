@@ -1,0 +1,134 @@
+﻿@model Medacademy.Models.PackageModel
+<div class="modal-dialog modal-md">
+    <div class="modal-content" style="border-radius: 3px;">
+        <div class="modal-header">
+            Edit Package<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+
+        @using (Ajax.BeginForm("EditPackage", "Admin", null, new AjaxOptions
+        {
+            HttpMethod = "POST",
+            OnSuccess = "PackageEditSuccess",
+            OnFailure = "PackageEditFailed",
+        }, new { id = "form-login" }))
+        {
+            <div class="modal-body">
+                <form>
+                    @Html.TextBoxFor(m => m.Packageeditimage, new { value = "", type = "hidden" })
+                    @Html.TextBoxFor(m => m.PackageID, new { type = "hidden" })
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Course</label>
+                        <div class="col-sm-8">
+                            @Html.DropDownListFor(m => m.CourseID, Ma.EntityLibrary.Data.Dropdowndata.GetCourseDrop(), "--Choose--", new { @class = "form-control pv_class-drop-down", @data_live_search = "true", name = "courseDropdown", id = "courseDataDropdown" })
+                            @Html.ValidationMessageFor(m => m.CourseID)
+                        </div>
+                    </div>
+                    @*<div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Type</label>
+                        <div class="col-sm-8">
+                            <div class="form-check form-check-inline">
+                                @Html.RadioButtonFor(x => x.Type, "PAID", new { type = "radio", name = "radiog_lite", id = "radio2", @class = "form-group", @checked = "checked" })
+                                <span for="radio2" style="color: black;">PAID</span>
+                                @Html.ValidationMessageFor(m => m.Type)
+                            </div>
+                            <div class="form-check form-check-inline">
+                                @Html.RadioButtonFor(x => x.Type, "FREE", new { type = "radio", name = "radiog_lite", id = "radio1", @class = "form-group" })
+                                <span for="radio1" style="color: black;">FREE</span>
+                                @Html.ValidationMessageFor(m => m.Type)
+                            </div>
+                        </div>
+                    </div>*@
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-8">
+                            @Html.TextBoxFor(m => m.PackageName, new { @class = "form-control", placeholder = "Name" })
+                            @Html.ValidationMessageFor(m => m.PackageName)
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Amount</label>
+                        <div class="col-sm-8">
+                            @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", placeholder = "Amount" })
+                            @Html.ValidationMessageFor(m => m.Amount)
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Discount Amount</label>
+                        <div class="col-sm-8">
+                            @Html.TextBoxFor(m => m.DiscountAmount, new { @class = "form-control", placeholder = "DiscountAmount" })
+                            @Html.ValidationMessageFor(m => m.DiscountAmount)
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Expired(Days)</label>
+                        <div class="col-sm-8">
+                            @*<input type="text" class="form-control" placeholder="0 for unlimited days">*@
+                            @Html.TextBoxFor(m => m.ExpiryDays, new { @class = "form-control", placeholder = "0 for unlimited days" })
+                            @Html.ValidationMessageFor(m => m.ExpiryDays)
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Description</label>
+                        <div class="col-sm-8">
+                            @*<textarea class="form-control" placeholder="Description" rows="5"></textarea>*@
+                            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", placeholder = "Description" })
+                            @Html.ValidationMessageFor(m => m.Description)
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @{if (Model.Packageimage == null || Model.Packageimage == string.Empty)
+                            {
+                                <label class="col-sm-2 col-form-label">Package Image</label>
+                                <div class="col-sm-8">
+                                    <div class="upload-box" id="packageedit-img-preview" style="background-image: url(../Content/img/default-placeholder-1024x1024-960x960.png);">
+                                    </div>
+                                    <input id="packageedit-image-upload" type="file" class="uploder-controler" />
+                                </div>
+                            }
+                            else
+                            {
+                                <label class="col-sm-2 col-form-label">Package Image</label>
+                                <div class="col-sm-8">
+                                    <div class="upload-box" id="packageedit-img-preview" style="background-image:url(@Model.Packageimage);">
+                                    </div>
+                                    <input id="packageedit-image-upload" type="file" class="uploder-controler" />
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">&nbsp;</label>
+                        <div class="col-sm-8">
+                            <div id="dummyId1"></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">&nbsp;</label>
+                        <div class="col-sm-8">
+                            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" style="margin-right:10px">Close</button>
+                            <button type="submit" class="btn btn-success">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+                            }
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+<script>
+    function PackageEditSuccess(result) {
+        if (result.status) {
+            $('#editCourse').modal('hide');
+            toastrSuccess(result.msg);
+            refreshPackageGrid();
+        }
+        else {
+            toastrError(result.msg);
+        }
+    }
+    function PackageEditFailed() {
+        toastrError('Package Editing Failed');
+    }
+
+</script>

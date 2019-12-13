@@ -1,0 +1,107 @@
+﻿@model Medacademy.Models.NewsModel
+<div class="modal-dialog modal-md">
+    <div class="modal-content" style="border-radius: 3px;">
+        <div class="modal-header">
+            Edit News<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+
+        @using (Ajax.BeginForm("EditNews", "Admin", null, new AjaxOptions
+        {
+            HttpMethod = "POST",
+            OnSuccess = "NewsEditSuccess",
+            OnFailure = "NewsEditFailed",
+        }, new { id = "form-login" }))
+        {
+            <div class="modal-body">
+                <form>
+                    @Html.TextBoxFor(m => m.Newseditimage, new { value = "", type = "hidden" })
+                    @Html.TextBoxFor(m => m.NewsId, new { type = "hidden" })
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Head</label>
+                        <div class="col-sm-8">
+                            @Html.TextBoxFor(m => m.Head, new { @class = "form-control", placeholder = "Heading" })
+                            @Html.ValidationMessageFor(m => m.Head)
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Date</label>
+                        <div class="calendar-inp pos_icon_adj col-sm-8">
+                            <i class="fa fa-calendar" style="margin-left: 90%;"></i>
+                            @Html.TextBoxFor(m => m.DateofNews, new { @class = "form-control borderStyleClass", placeholder = "" })
+                            @*@Html.ValidationMessageFor(m => m.DOBstring)*@
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Sub Heading</label>
+                        <div class="col-sm-8">
+                            @*<textarea class="form-control" placeholder="Description" rows="5"></textarea>*@
+                            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", placeholder = "Sub Heading" })
+                            @Html.ValidationMessageFor(m => m.Description)
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">News</label>
+                        <div class="col-sm-8">
+                            @*<textarea class="form-control" placeholder="Description" rows="5"></textarea>*@
+                            @Html.TextAreaFor(m => m.DetailedDescription, new { @class = "form-control", placeholder = "Deatiled News" })
+                            @Html.ValidationMessageFor(m => m.DetailedDescription)
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @{if (Model.Newsimage == null || Model.Newsimage == string.Empty)
+                            {
+                                <label class="col-sm-2 col-form-label">News Image</label>
+                                <div class="col-sm-8">
+                                    <div class="upload-box" id="packageedit-img-preview" style="background-image: url(../Content/img/default-placeholder-1024x1024-960x960.png);">
+                                    </div>
+                                    <input id="packageedit-image-upload" type="file" class="uploder-controler" />
+                                </div>
+                            }
+                            else
+                            {
+                                <label class="col-sm-2 col-form-label">News Image</label>
+                                <div class="col-sm-8">
+                                    <div class="upload-box" id="packageedit-img-preview" style="background-image:url(@Model.Newsimage);">
+                                    </div>
+                                    <input id="packageedit-image-upload" type="file" class="uploder-controler" />
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">&nbsp;</label>
+                        <div class="col-sm-8">
+                            <div id="dummyId1"></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">&nbsp;</label>
+                        <div class="col-sm-8">
+                            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" style="margin-right:10px">Close</button>
+                            <button type="submit" class="btn btn-success">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+                            }
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+
+<script>
+
+    $('#DateofNews').datepicker({
+        format: "dd-mm-yyyy",
+        autoclose: true,
+        todayHighlight: true,
+        startDate: '-0d'
+        //endDate: '+d'
+    });
+
+    
+
+</script>

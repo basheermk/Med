@@ -1,0 +1,384 @@
+﻿@model Medacademy.Models.UserModel
+@{
+    ViewBag.Title = "UserLogin";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+
+
+<script>
+
+
+       $('#example').paginate({
+
+           // how many items per page
+           perPage: 5,
+
+           // boolean: scroll to top of the container if a user clicks on a pagination link
+           autoScroll: true,
+
+           // which elements to target
+           scope: '',
+
+           // defines where the pagination will be displayed
+           paginatePosition: ['bottom'],
+
+           // Pagination selectors
+           containerTag: 'nav',
+           paginationTag: 'ul',
+           itemTag: 'li',
+           linkTag: 'a',
+
+           // Determines whether or not the plugin makes use of hash locations
+           useHashLocation: true,
+
+           // Triggered when a pagination link is clicked
+           onPageClick: function () { }
+
+       });
+
+
+</script>
+
+
+
+
+
+<section class="preheadSection">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+
+                <div class="pre_head">
+                    <div class="pre_left">
+                        <img src="~/Content/images/home_icon.png">
+                        <span>Welcome to Medacademy</span>
+                    </div>
+
+                    <div class="pre_right">
+                        <ul class="pre_social_icon">
+                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
+                            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                        </ul>
+                        <a href="#" class="apply_btn">Apply Now</a>
+                    </div>
+                </div><!-- ./pre_head -->
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ./preheadSection -->
+
+
+
+<section class="main_headSection">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+
+                <div class="main_header">
+                    <div class="head_left head_icons">
+                        <img src="~/Content/images/mail_icon.png">
+                        <div class="icon_info">
+                            <h5>Mail Us</h5>
+                            <h6>medacademy.co.in@gmail.com</h6>
+                        </div>
+                    </div>
+
+                    <div class="logo">
+                        <img src="~/Content/images/logo.png">
+                    </div>
+
+                    <div class="head_right head_icons">
+                        <img src="~/Content/images/phone_icon.png">
+                        <div class="icon_info">
+                            <h5>Call Us</h5>
+                            <h6>+1234-567-890</h6>
+                        </div>
+                    </div>
+                </div><!-- ./main_header -->
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ./main_headSection -->
+
+
+
+<section class="main_menuSection">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+
+                <div class="menu">
+                    <div class="mobile_menu">
+                        <i class="fas fa-bars"></i>
+                    </div>
+
+                    <ul class="main_menu">
+                        <li><a href="/Accounts/Index">Home</a></li>
+                        <li><a href="/Accounts/Courses">Courses</a></li>
+                        <li><a href="packages.html">Packages</a></li>
+                        <li class="sub_item">
+                            <a>Curriculum</a>
+                            <ul class="subMenu">
+                                <li><a href="course_1.html">Worksheet</a></li>
+                                <li><a href="preparation.html">Preparation</a></li>
+                                <li><a href="exams.html">Exam</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/Accounts/Reports">Reports</a></li>
+                        <li><a href="/Accounts/Groups">Groups</a></li>
+                        <li><a href="aboutus.html">About</a></li>
+                        <li><a href="contactus.html">Contact</a></li>
+                    </ul>
+
+                    <div class="rst_of_menu">
+                        @*<button class="login_btn">@Model.FirstName</button>
+                            <div class="search">
+                                <img src="~/Content/images/search_icon.png">
+                            </div>*@
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @Model.FirstName
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="/User/LogOut">Log out</a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="search_type">
+                        <input type="text" class="form-control" placeholder="Search here...">
+                    </div>
+                </div><!-- ./menu -->
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ./main_menuSection -->
+
+
+
+<section class="breadcrumbsSection package_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+
+                <div class="breadcrumbs">
+                    <h1>Packages</h1>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li>Packages</li>
+                    </ul>
+                </div><!-- ./breadcrumbs -->
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ./breadcrumbsSection -->
+
+<section class="packages_section commSec">
+    <div class="container">
+        <div class="col-12">
+            <h3 class="sub_package">Our packages</h3>
+
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active p-3" id="one" role="tabpanel" aria-labelledby="one-tab">
+                    <div class="row" id="pagination">
+
+                        @{
+                            foreach (var a1 in Model.LI_Pacages)
+                            {
+
+
+                                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12" id="example">
+
+
+
+                                    <div class="packages">
+                                        <div class="package_photo">
+                                            @*<img src="~/Content/images/package/1.jpg">*@
+                                            <img src="@a1.Files">
+                                        </div>
+                                        <div class="package_info">
+                                            <h5>@a1.PackageName</h5>
+                                            <div class="price">
+                                                <span><i class="fas fa-rupee-sign"></i>@a1.Amount</span>
+                                                <span><i class="fas fa-rupee-sign"></i>@Convert.ToInt64(Convert.ToInt64(a1.Amount) - Convert.ToInt64(a1.DiscountAmount))</span>
+                                            </div>
+                                            <div class="infos_pkgs">
+                                                All questions are objective based with diagrammatic explanations given at appropriate instances
+                                            </div>
+                                            <div class="package_btn">
+                                                <a href="#" class="detls_btn">Full Details</a>
+                                                <a href="/User/AlertPayment?page=@a1.PackageID" class="slct_btn" pakage-Id="@a1.PackageID">Select</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+
+                            }
+
+                        }
+
+
+                    </div>
+                    <ul class="pagination">
+                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="commSec">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-12">
+                <h3 class="mainTitle blckClr">Contact us</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="contact_main">
+                    <div class="contact_single">
+                        <img src="~/Content/images/contact_single.png">
+                        <h5>Address</h5>
+                        <p>503 Old Buffalo Street</p>
+                        <p>Northwest #205, New York-3087</p>
+                    </div>
+
+                    <div class="contact_single">
+                        <img src="~/Content/images/phone_single.png">
+                        <h5>Phone Number</h5>
+                        <p>+3453-909-6565</p>
+                        <p>+2390-875-2235</p>
+                    </div>
+
+                    <div class="contact_single">
+                        <img src="~/Content/images/mail_single.png">
+                        <h5>Mail</h5>
+                        <p>medacademy.co.in@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<footer class="footerSection">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="foot_single">
+                    <img src="~/Content/images/foot_logo.png">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut fermentum, augue ut interdum mollis, elit diam pulvinar leo, vel feugiat neque ipsum ut felis. Ut auctor odio eu nibh porta rutrum.</p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="foot_single center_foot">
+                    <h5>Our Site Map</h5>
+
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Courses</a></li>
+                        <li><a href="#">Packages</a></li>
+                        <li><a href="#">Preparations</a></li>
+                        <li><a href="#">Reports</a></li>
+                        <li><a href="#">Groups</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="foot_single">
+                    <h5>Newsletter</h5>
+                    <p>Sign Up to Our Newsletter to Get Latest Updates & Services</p>
+
+                    <div class="newsletter">
+                        <input type="text" class="form-control" placeholder="Enter Your Email">
+                        <button class="send_btn"><i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<section class="copyrightSection">
+    <div class="container">
+        <div class="row foot_row">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="copyright">
+                    © 2019-Medacdamey All Rights Reserved
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="copyright">
+                    <img src="~/Content/images/foot_logo.png">
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="copyright copyright_link">
+                    <span><a href="#">Terms and conditions</a></span>
+                    <span><a href="#">Privacy Policy</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    //$(".slct_btn").click(function () {
+    //    var id = $(this).attr("pakage-Id");
+
+    //    var datas = new Object();
+    //    var UserModel = new Object();
+    //    datas.PackageID = id;
+    //    UserModel.PackageModel = datas;
+
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/User/AlertPayment",
+    //        data: JSON.stringify(UserModel),
+    //        contentType: "application/json; charset=utf-8",
+    //        dataType: "json",
+    //        success: function (response) {
+    //        },
+    //        failure: function (response) {
+    //        },
+    //        error: function (response) {
+    //        }
+    //    });
+    //});
+
+
+</script>

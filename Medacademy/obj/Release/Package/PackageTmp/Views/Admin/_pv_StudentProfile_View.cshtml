@@ -1,0 +1,89 @@
+﻿
+<style>
+    .green {
+        background-color: greenyellow;
+        font-size: 12px;
+        padding: 3px 8px;
+    }
+</style>
+@model Medacademy.Models.UserModel
+<div class="modal-dialog modal-md">
+    <div class="modal-content" style="border-radius: 3px;">
+        <div class="modal-body">
+            <form>
+                <div class="modal-header view-header">
+                    Profile info<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Student Name</label>
+                    <div class="col-sm-9">
+                        <label> @Model.FirstName</label>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Address</label>
+                    <div class="col-sm-9">
+                        <label> @Model.Address</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Date of Joining</label>
+                    <div class="col-sm-9">
+                        <label> @Model.TimeStamp</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Contact No</label>
+                    <div class="col-sm-9">
+                        <label> @Model.ContactNo</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Email</label>
+                    <div class="col-sm-9">
+                        <label> @Model.Email</label>
+                    </div>
+                </div>
+                @*<div class="form-group row">
+                    <label class="col-sm-3 col-form-label">DOB</label>
+                    <div class="col-sm-9">
+                        <label>@Model.DOB</label>
+                    </div>
+                </div>*@
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Gender</label>
+                    <div class="col-sm-9">
+                        <label>@Model.Gender</label>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Groups</label>
+                    <div class="col-sm-9">
+                        @{ var groups = new Ma.EntityLibrary.Data.StudentsList().Getgroupname(@Model.UserId);
+            string groupname = "";
+            foreach (var grp in groups)
+            {
+                groupname = grp.GroupName + groupname;
+            }
+                        }
+                        <label>@groupname</label>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Profile Image</label>
+                    <div class="col-sm-8">
+                        <div class="upload-box" style="background-image:url(@Model.FilesName);">
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+
+        }
+    </div>
+</div>

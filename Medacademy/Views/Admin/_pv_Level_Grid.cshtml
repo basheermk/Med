@@ -1,0 +1,41 @@
+﻿<table id="classTable" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Sl No</th>
+            <th>Level Name</th>
+            <th>Subtopic Name</th>
+            <th>Topic Name</th>
+            <th>Subject Name</th>
+            <th>Package Name</th>
+            <th>Course Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{int id = 1;
+            foreach (var topics in new Ma.EntityLibrary.Data.Level().GetLevels())
+            {
+                var Subtopic = new Ma.EntityLibrary.Data.SubTopic(topics.SubTopicID);
+                var Topic = new Ma.EntityLibrary.Data.Topic(topics.TopicID);
+                var Subject = new Ma.EntityLibrary.Data.Subject(topics.SubjectID);
+                var Package = new Ma.EntityLibrary.Data.Package(topics.PackageID);
+                var Course = new Ma.EntityLibrary.Data.Course(topics.CourseID);
+                <tr>
+                    <td>@id</td>
+                    <td>@topics.LevelName</td>
+                    <td>@Subtopic.SubTopicName</td>
+                    <td>@Topic.TopicName</td>
+                    <td>@Subject.SubjectName</td>
+                    <td>@Package.PackageName</td>
+                    <td>@Course.CourseName</td>
+                    <td>
+                        <button type="button" class="btn btn-success btn-xs" data-id="@topics.LevelID" onclick="EditLevel(this)">Edit</button>
+                        <button type="button" class="btn btn-danger btn-xs confirmDelete" data-id="@topics.LevelID">Delete</button>
+                    </td>
+                </tr>
+                id++;
+            }
+        }
+    </tbody>
+</table>
+

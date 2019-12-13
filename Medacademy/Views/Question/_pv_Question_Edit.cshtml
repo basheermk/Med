@@ -1,0 +1,220 @@
+﻿@model Medacademy.Models.QuestionAddModel
+
+
+@{
+    var question = new Ma.EntityLibrary.Data.Question(Model.questionId);
+    var answer = question.GetAnswer();
+
+}
+
+<input type="hidden" value="@answer.Count" id="hfAnswerCount" />
+
+<!-- Main content -->
+<section class="content">
+    <!-- COLOR PALETTE -->
+    <div class="box box-default color-palette-box">
+        <div class="box-header with-border">
+            <h3 class="box-title"><i class="fa fa-list-alt"></i> Edit Question</h3>
+            <button type="button" class="btn btn-success btn-xs pull-right" id="go-question-practice" data-practice-id="@Model.LevelID">Go Back</button>
+        </div>
+        <div class="box-body">
+            <div class="row" id="main-question-body">
+                @using (Ajax.BeginForm("EditQuestion", "Question", null, new AjaxOptions
+                {
+                    HttpMethod = "POST",
+                    OnSuccess = "EditQuestionSuccess",
+                    OnFailure = "ajaxFailure",
+                }, new { id = "form-login" }))
+                {
+
+
+                    <div class="col-sm-12">
+                        <!--- question type -->
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Question Type</label>
+                                @Html.DropDownListFor(m => m.questionTypeId, Ma.EntityLibrary.Data.Dropdowndata.GetQuestionTypes(), "--Choose--", new { @class = "form-control select2" })
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                        <!--- question type -->
+                        <!--- answer type -->
+                        <div class="col-md-4" id="answer-type-id">
+                            <div class="form-group">
+                                <label>Answer Type</label>
+                                @Html.DropDownListFor(m => m.answerTypeId, Ma.EntityLibrary.Data.Dropdowndata.GetAnswerTypes(), "--Choose--", new { @class = "form-control select2" })
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                        <!--- answer type -->
+                    </div>
+
+                    @Html.TextBoxFor(m => m.answerData, new { value = "", type = "hidden" })
+                    @Html.HiddenFor(m => m.LevelID)
+                    @Html.HiddenFor(m => m.questionId)
+                    @Html.TextBoxFor(m => m.questionImage, new { value = "", type = "hidden" })
+
+
+                    @Html.TextBoxFor(m => m.answerExplanation, new { value = "", type = "hidden" })
+                    @Html.TextBoxFor(m => m.question, new { value = "", type = "hidden" })
+                    @Html.TextBoxFor(m => m.ansExpImage, new { value = "", type = "hidden" })
+
+                    @*@Html.TextBoxFor(m => m.imageedit, new { value = "", type = "hidden" })*@
+
+
+                    if (question.questionTypeId == 1)
+                    {
+                                    <!--- html editor-->
+                        <div class="col-sm-12" id="question-editor-area">
+                            <div class="form-group">
+                                <label>Question</label>
+                                <textarea id="question-editor" name="question-editor" rows="10" cols="80">@question.questionName</textarea>
+                            </div><!-- /.form-group -->
+                        </div>
+                    <!--- html editor-->
+                    }
+                    else if (question.questionTypeId == 2)
+                    {
+                    <!--- image upload-->
+                        {
+                            var file = question.QuestionImage;
+                            if (file != null)
+                            {
+                                <div class="col-sm-12" id="question-image-area">
+                                    <div class="form-group">
+                                        <label>Question Image</label>
+                                        <img src="@file" style="height:100px" id="question-image-preview" />
+                                        <input type="file" id="question-image-upload" />
+                                        <input type="hidden" id="hfImageDatabase" value="1" />
+                                    </div><!-- /.form-group -->
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-sm-12" id="question-image-area">
+                                    <div class="form-group">
+                                        <label>Question Image</label>
+                                        <img style="height:100px;display:none;" id="question-image-preview" />
+                                        <input type="file" id="question-image-upload" />
+                                        <input type="hidden" id="hfImageDatabase" value="0" />
+                                    </div><!-- /.form-group -->
+                                </div>
+                            }
+                        }
+
+                    <!--- image upload-->
+                    <!--- 2ndhtml editor-->
+                        <div class="col-sm-12" id="question-editor-area2">
+                            <div class="form-group">
+                                <label>Question</label>
+                                <textarea id="question-editor" name="question-editor" rows="10" cols="80">@question.questionName</textarea>
+                            </div><!-- /.form-group -->
+                        </div>
+                    <!--- 2ndhtml editor-->
+                    }
+
+
+                    <div class="col-sm-12" id="answer-area">
+                        <label>
+                            Add Answers
+                            <button type="button" class="btn btn-success btn-xs add-answer-option" ><i class="fa fa-plus"></i></button>
+                        </label>
+
+                        @{
+                            var index = 1;
+                        }
+                        @if (Model.answerTypeId == 1)
+                        {
+                            <div class="row" id="answer-editor-div">
+                                @foreach (var ans in answer)
+                                {
+                                    <div class="form-group answer-editor-repeat" id="answer-editor-div-repeat-@index">
+                                        <button class="btn btn-danger btn-xs remove-answer-option"><i class="fa fa-minus"></i></button>
+                                        <label>Option</label>
+                                        <textarea id="answer-editor-@index" name="answer-editor-@index">@ans.Answer</textarea>
+                                        <input type="radio" name="correct-answer" id="correct-answer" @(ans.Status == 1 ? "checked" : "") />
+                                    </div><!-- /.form-group -->
+                                    index++;
+                                }
+                            </div>
+                          
+                        }
+                        else if (Model.answerTypeId == 2)
+                        {
+                            <div class="row" id="answer-image-div">
+                                @foreach (var ans in answer)
+                                {
+                                    var file = ans.AnswerImage;
+                                    <div class="form-group answer-image-repeat" id="answer-editor-div-repeat-@index">
+                                        <button class="btn btn-danger btn-xs remove-answer-option"><i class="fa fa-minus"></i></button>
+                                        <label>Option</label>
+                                        <input id="answer-image-@index" name="answer-image-@index" class="answer-image-upload" type="file" />
+                                        <img style="height:100px;" src="@file" id="image-browse" />
+                                        <input type="hidden" id="hfBase64Image" />
+                                        <input type="hidden" id="hfIsDatabase" value="1" />
+                                        <label>Correct Answer <input type="radio" name="correct-answer" id="correct-answer" class="radio radio-primary" @(ans.Status == 1 ? "checked" : "") /></label>
+                                    </div><!-- /.form-group -->
+                                    index++;
+                                }
+                            </div>
+                        }
+
+                        <div class="form-group">
+
+                            <label>Answer Explanation Image</label>
+                            @{
+                                var answerExpImage = question.AnswerExpImage;
+                                if (answerExpImage != null)
+                                {
+                                    <img style="height:100px;" id="answer-exp-image-preview" src="@answerExpImage" />
+                                    <input type="hidden" id="hfExpImageDatabase" value="1" />
+                                }
+                                else
+                                {
+                                    <img style="height:100px;" id="answer-exp-image-preview" />
+                                    <input type="hidden" id="hfExpImageDatabase" value="0" />
+                                }
+                                <input type="file" id="answer-exp-image-upload" />
+                            }
+                            <label>Answer Explanation</label>
+                            <textarea id="answer-explanation-editor" name="answer-explanation-editor" rows="10" cols="80">@question.explanation</textarea>
+                        </div><!-- /.form-group -->
+                    </div>
+                    <button type="button" id="submit-btn-dummy" class="btn btn-info pull-right ">Submit</button>
+                    <button type="submit" id="submit-btn" class="btn btn-info pull-right" style="display:none">Submit</button>
+                                }
+            </div><!-- /.row -->
+                               
+
+        </div><!-- /.box-body -->
+        <div class="box-body">
+        </div><!-- /.box-body -->
+    </div><!-- /.box -->
+</section><!-- /.content -->
+
+
+<script id="answer-editor-template" type="application/html-template">
+    <div class="form-group answer-editor-repeat" id="answer-editor-div-repeat-{{item}}">
+        <button class="btn btn-danger btn-xs remove-answer-option"><i class="fa fa-minus"></i></button>
+        <label>Option</label>
+        <textarea id="answer-editor-{{editorId}}" name="answer-editor-{{editorName}}" />
+        <input type="radio" name="correct-answer" id="correct-answer" />
+    </div><!-- /.form-group -->
+</script>
+
+<script id="answer-image-template" type="application/html-template">
+    <div class="form-group answer-image-repeat" id="answer-editor-div-repeat-{{item}}">
+        <button class="btn btn-danger btn-xs remove-answer-option"><i class="fa fa-minus"></i></button>
+        <label>Option</label>
+        <input id="answer-image-{{editorId}}" name="answer-image-{{editorName}}" class="answer-image-upload" type="file" />
+        <img style="height:100px;" id="image-browse" />
+        <input type="hidden" id="hfBase64Image" />
+        <input type="hidden" id="hfIsDatabase" value="0" />
+        <label>Correct Answer <input type="radio" name="correct-answer" id="correct-answer" class="radio radio-primary" /></label>
+    </div><!-- /.form-group -->
+</script>
+
+<script>
+
+
+
+</script>
+

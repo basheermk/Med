@@ -1,0 +1,98 @@
+﻿<table id="classTable" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Exam</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Groups</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{int id = 1;
+
+            foreach (var exams in new Ma.EntityLibrary.Data.Exam().GetExams())
+            {
+
+                //DateTime startdate1 = TimeZoneInfo.ConvertTimeFromUtc(exams.ExamStartDate, TimeZoneInfo.FindSystemTimeZoneById("India Standard Time"));
+                //DateTime enddate1 = TimeZoneInfo.ConvertTimeFromUtc(exams.ExamEndDate, TimeZoneInfo.FindSystemTimeZoneById("India Standard Time"));
+
+                string startdate = exams.ExamStartDate;
+                string enddate = exams.ExamEndDate;
+
+
+
+                var examid = exams.ExamId;
+
+                var groups = "";
+
+                foreach (var examgroup in new Ma.EntityLibrary.Data.Exam().GetExamgroups(examid))
+                {
+                    groups = examgroup.Groups + " | " + groups;
+                }
+                string[] splitData = exams.ExamStartDate.Split('/');
+                string stdate = splitData[1] + "/" + splitData[0] + "/" + splitData[2].ToString();
+
+
+                string[] splitData1 = exams.ExamEndDate.Split('/');
+
+                string eddate = splitData1[1] + "/" + splitData1[0] + "/" + splitData1[2].ToString();
+
+
+                DateTime startdates = Convert.ToDateTime(stdate);
+                DateTime enddates = Convert.ToDateTime(eddate);
+
+                //When we using server the below dates will not work .so kindly use the above commented code for server..the below code is just for localhost 
+
+                //DateTime startdates = Convert.ToDateTime(exams.ExamStartDate);
+                //DateTime enddates = Convert.ToDateTime(exams.ExamEndDate);
+
+
+
+                <tr>
+                    <td>@id</td>
+                    <td>@exams.ExamName</td>
+                    <td>@startdate</td>
+                    <td>@enddate</td>
+                    <td>@groups</td>
+                                        @if (startdates <= DateTime.Now && DateTime.Now<= Convert.ToDateTime(enddates))
+                                        {
+                                            <td>   <button type="button" class="btn btn-primary btn-xs">Active</button></td>
+                                        }
+                                        else
+                                        {
+                                            <td> <button type="button" class="btn btn-info btn-xs">Expired</button> </td>
+                                        }
+
+<td>
+                        <button type="button" class="btn btn-success btn-xs viewResult" data-id="@exams.ExamId">Result</button>
+                        <button type="button" class="btn btn-success btn-xs" data-id="@exams.ExamId" onclick="EditExam(this)">Edit</button>
+                        @*<button type="button" class="btn btn-danger btn-xs confirmDelete" data-id="@exams.ExamId">Cancel</button>*@
+                        <button type="button" class="btn btn-danger btn-xs Deletepermenently" data-id="@exams.ExamId">Delete</button>
+                        <button type="button" class="btn btn-success btn-xs" data-id="@exams.ExamId" data-pract-name="@exams.ExamName" onclick="AddQuestoExam(this)">Add Question</button>
+                        <button type="button" class="btn btn-success btn-xs" data-id="@exams.ExamId" data-pract-name="@exams.ExamName" onclick="ViewQuestion(this)">View Questions</button>
+                        <button type="button" class="btn btn-success btn-xs" data-id="@exams.ExamId" data-pract-name="@exams.ExamName" onclick="addPreparations(this)">Preparation</button>
+                    </td>
+                </tr>
+                id++;
+            }
+        }
+    </tbody>
+</table>
+@*<script>
+    $(document).ready(function () {
+        IntializeDataTable();
+    });
+    function IntializeDataTable() {
+        $('#classTable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true
+        });
+    }
+</script>*@

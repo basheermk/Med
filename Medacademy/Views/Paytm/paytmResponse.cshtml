@@ -1,0 +1,76 @@
+﻿@model Medacademy.Models.UserModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+   
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="payment_sec">
+            @{
+                if (Model.PaytmResponceModel.STATUS == "TXN_SUCCESS")
+                {
+                    <h3 style="color:green;"><i class="fas fa-check-circle" style="color:green;"></i> <span style="font-weight:800;">PAYMENT SUCCESSFUL</span></h3>
+
+                }
+                else
+                {
+                    <h3 style="color:red;"><i class="fas fa-times-circle" style="color:red;"></i> <span style="font-weight:800;">PAYMENT FAILED</span></h3>
+
+                }
+            }
+            @*<h5>We have emailed your recepit</h5>*@
+            <div class="payid">
+                <label>User Name:</label>
+                <p>@Model.FirstName</p>
+            </div>
+            <div class="payid">
+                <label>Email:</label>
+                <p>@Model.Email</p>
+            </div>
+            <div class="payid">
+                <label>ContactNo:</label>
+                <p>@Model.ContactNo</p>
+            </div>
+            <div class="payid">
+                <label>Pakage Name:</label>
+                <p>@Model.PaymentPaytmModel.PakageName</p>
+            </div>
+            <div class="payid">
+                <label>TxnId:</label>
+                <p>@Model.PaytmResponceModel.TXNID</p>
+            </div>
+            <div class="payid">
+                <label>OrderId:</label>
+                <p>@Model.PaytmResponceModel.ORDERID</p>
+            </div>
+            <div class="payid">
+                <label>BankTxnId:</label>
+                <p>@Model.PaytmResponceModel.BANKTXNID</p>
+            </div>
+            <div class="payid">
+                <label>Amount:</label>
+                <p>@Model.PaytmResponceModel.TXNAMOUNT</p>
+            </div>
+            <div class="payid">
+                <label>TxnDate:</label>
+                <p>@Model.PaytmResponceModel.TXNDATE</p>
+            </div>
+            @{
+                if (Model.PaymentPaytmModel.Expirydate != null)
+                {
+                    <div class="payid">
+                        <label>Expiry date:</label>
+                        <p>@Model.PaymentPaytmModel.Expirydate</p>
+                    </div>
+
+                }
+            }
+            
+            <div class="payment_btns">
+                <button type="button" class="btn">Login</button>
+                <button type="button" class="btn">Print</button>
+            </div>
+        </div>
+    </div>
+</div>

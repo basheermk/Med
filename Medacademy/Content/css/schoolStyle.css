@@ -1,0 +1,251 @@
+﻿.content-wrapper, .main-footer {
+    margin-left: 0px;
+    padding: 0px 15px;
+}
+
+.top-haeder {
+    display: block;
+    position: relative;
+    float: left;
+    width: 100%;
+    background-color: #fff;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 8px rgba(153, 153, 153, 0.27);
+    -webkit-box-shadow: 0px 4px 8px rgba(153, 153, 153, 0.27);
+    -moz-box-shadow: 0px 4px 8px rgba(153, 153, 153, 0.27);
+}
+
+.container-wrapper {
+    background-color: rgb(255, 255, 255);
+    display: block;
+    position: relative;
+    padding: 12px 15px;
+    float: left;
+    width: 100%;
+}
+
+.logo-box {
+    display: block;
+    position: relative;
+    float: left;
+}
+
+.dropoption {
+    display: block;
+    position: relative;
+    float: right;
+    margin-top: 15px;
+}
+
+.person_lgin {
+    background-color: transparent;
+    display: inline-block;
+    height: 34px;
+    vertical-align: middle;
+    width: 34px;
+    cursor: pointer;
+    position: relative;
+}
+
+.usr_name {
+    line-height: 33px;
+    padding-right: 11px;
+}
+
+.dow_menu {
+    position: absolute;
+    background: rgb(255, 255, 255);
+    width: 150px;
+    top: 46px;
+    z-index: 900;
+    display: none;
+    border: 1px solid rgb(227, 227, 227);
+    right: 15px;
+    top: 108%;
+    text-align: left;
+}
+
+.menu_drop li {
+    -webkit-transition: background-color .3s ease-out;
+    -moz-transition: background-color .3s ease-out;
+    -o-transition: background-color .3s ease-out;
+    transition: background-color .3s ease-out;
+    list-style: none;
+    padding-left: 0px;
+    border-bottom: 1px solid rgb(227, 227, 227);
+}
+
+.b4_af::after {
+    content: "";
+    border-bottom: 8px solid rgb(227, 227, 227);
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    position: absolute;
+    top: -8px;
+    right: 8px;
+    z-index: 9;
+}
+
+.menu_drop .b4_af:hover::before {
+    border-bottom: 7px solid rgb(87, 215, 167);
+}
+
+.b4_af::before {
+    content: "";
+    border-bottom: 7px solid rgb(255, 255, 255);
+    border-right: 7px solid transparent;
+    border-left: 7px solid transparent;
+    position: absolute;
+    top: -7px;
+    right: 9px;
+    z-index: 10;
+}
+
+.menu_drop {
+    display: block;
+    position: relative;
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+    .menu_drop li a {
+        color: rgb(89, 89, 89);
+        font-size: 15px;
+        padding: 14px 0px 14px 15px;
+        display: block;
+    }
+
+        .menu_drop li a:hover {
+            background: rgb(87, 215, 167);
+            text-decoration: none;
+            color: rgb(255, 255, 255);
+        }
+
+.menu_items {
+    list-style: none;
+    padding: 0;
+    text-transform: uppercase;
+    margin-bottom: 0;
+    /*margin-top: 5px;*/
+    text-align: left;
+    border-top: 1px solid #ccc;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+    .menu_items li {
+        display: inline-block;
+        padding: 2px 10px 2px 2px;
+        font-size: 14px;
+        /*font-family: Lato;*/
+        font-weight: 700;
+    }
+
+    .menu_items a {
+        color: rgb(94, 94, 94);
+        -webkit-transition: all .2s ease-in-out;
+        -moz-transition: all .2s ease-in-out;
+        transition: all .2s ease-in-out;
+    }
+
+    .menu_items li.active a {
+        color: rgb(87, 197, 120);
+    }
+
+.ca-footer {
+    padding: 15px;
+    float: left;
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+.ca-footer-link {
+    margin-bottom: 0px;
+    padding: 0px;
+    text-align: right;
+    list-style: none;
+}
+
+    .ca-footer-link li {
+        margin-bottom: 0px;
+        padding: 0px;
+        list-style: none;
+        position: relative;
+        display: inline-block;
+    }
+
+        .ca-footer-link li a {
+            color: #fff;
+            display: inline-block;
+            position: relative;
+            padding: 10px;
+        }
+
+        .ca-footer-link li.active a {
+            color: rgb(87, 197, 120);
+        }
+
+.foot_logo-admin {
+    width: 157px;
+}
+
+    .foot_logo-admin img {
+        max-width: 100%;
+    }
+    .btn-footer{
+        color: #fff;
+        background-color: transparent;
+    }
+    .active > .btn-footer{
+        color: rgb(87, 197, 120);
+    }
+    .btn-footer ~ ul li a {
+    color: #57a847;
+    display: inline-block;
+    position: relative;
+    padding: 10px;
+}
+    .btn-footer ~ ul{
+        right: 0px;
+        left: inherit;
+    }
+@media (max-width: 767px) {
+    .logo-box {
+        display: block;
+        position: relative;
+        float: none;
+        margin: 0px auto;
+    }
+
+    .logo-img {
+        margin: 0px auto;
+        display: block;
+    }
+
+    .dropoption {
+        display: block;
+        position: relative;
+        text-align: center;
+        float: none;
+        margin: 0px auto;
+    }
+
+    .dropoption {
+        margin-top: 15px;
+    }
+
+    .ca-footer-link {
+        margin-bottom: 0px;
+        padding: 0px;
+        text-align: center;
+        list-style: none;
+    }
+
+    .foot_logo-admin {
+        width: 157px;
+        display: block;
+        margin: 0px auto;
+    }
+}

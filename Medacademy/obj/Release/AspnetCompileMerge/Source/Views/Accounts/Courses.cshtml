@@ -1,0 +1,196 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="breadcrumbsSection course_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+
+                <div class="breadcrumbs">
+                    <h1>Courses</h1>
+                    <ul>
+                        <li><a href="/Accounts/Index">Home</a></li>
+                        <li>Courses</li>
+                    </ul>
+                </div><!-- ./breadcrumbs -->
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ./breadcrumbsSection -->
+
+
+
+
+<section class="commSec course_bdy_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+@*@foreach (var courses in new Ma.EntityLibrary.Data.Course().GetCourses())
+{*@
+                @*<div class="course_div">
+                    <div class="course_image">
+                        <div class="upload-box" style="background-image:url(@courses.Files);">
+                        </div>
+                    </div>
+                    <div class="course_info">
+                        <h6>@courses.CourseSubjectName</h6>
+                        <h4>@courses.CourseName</h4>
+                        <div class="course_time">
+                            <span><i class="far fa-clock"></i>@courses.Duration</span>
+                            <span>Price : @courses.Price</span>
+                        </div>
+                        <p>@courses.Details</p>
+                        <a href="#">Read more</a>
+                    </div>
+                </div>*@
+
+                <div class="course_div">
+                    <div class="course_image">
+                        <img src="~/Content/images/course/1.jpg">
+                    </div>
+                    <div class="course_info">
+                        <h6>Science</h6>
+                        <h4>BioTechnology</h4>
+                        <div class="course_time">
+                            <span><i class="far fa-clock"></i> 4 Year</span>
+                            <span>Price : Rs 2,00,000</span>
+                        </div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer euismod, lectus sed finibus pretium, sapien metus fermentum libero, sit amet posuere neque ipsum ve</p>
+                        <a href="#">Read more</a>
+                    </div>
+                </div>
+
+                <div class="course_div">
+                    <div class="course_image">
+                        <img src="~/Content/images/course/1.jpg">
+                    </div>
+                    <div class="course_info">
+                        <h6>Science</h6>
+                        <h4>BioTechnology</h4>
+                        <div class="course_time">
+                            <span><i class="far fa-clock"></i> 4 Year</span>
+                            <span>Price : Rs 2,00,000</span>
+                        </div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer euismod, lectus sed finibus pretium, sapien metus fermentum libero, sit amet posuere neque ipsum ve</p>
+                        <a href="#">Read more</a>
+                    </div>
+                </div>
+
+                <div class="course_div">
+                    <div class="course_image">
+                        <img src="~/Content/images/course/1.jpg">
+                    </div>
+                    <div class="course_info">
+                        <h6>Science</h6>
+                        <h4>BioTechnology</h4>
+                        <div class="course_time">
+                            <span><i class="far fa-clock"></i> 4 Year</span>
+                            <span>Price : Rs 2,00,000</span>
+                        </div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer euismod, lectus sed finibus pretium, sapien metus fermentum libero, sit amet posuere neque ipsum ve</p>
+                        <a href="#">Read more</a>
+                    </div>
+                </div>
+
+
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+
+                <div class="course_sidebar">
+                    <div class="search_courses">
+                        <h5 class="sidebar_title">Search Courses</h5>
+
+                        <div class="search_bar">
+                            <input type="text" class="form-control" placeholder="Search here...">
+                            <button class="search_submit"><i class="fas fa-search"></i></button>
+                        </div>
+
+                    </div><!-- ./search_courses -->
+
+                    <div class="categories_list">
+                        <h5 class="sidebar_title">Categories</h5>
+
+                        <ul>
+                            <li>Analysis & Features <span>(05)</span></li>
+                            <li>Videos Review <span>(05)</span></li>
+                            <li>Medical tech <span>(05)</span></li>
+                            <li>BDS <span>(05)</span></li>
+                            <li>BAMPS <span>(05)</span></li>
+                        </ul>
+                    </div><!-- ./categories_list -->
+
+                    <div class="latest_courses">
+                        <h5 class="sidebar_title">Latest Courses</h5>
+
+                        <div class="course_single">
+                            <div class="course_photo">
+                                <img src="~/Content/images/course/2.jpg">
+                            </div>
+                            <div class="course_info course_latst_info">
+                                <h6>Master of Pharmacy</h6>
+                                <div class="course_time">
+                                    <span><i class="far fa-clock"></i> 4 Year</span>
+                                    <span>Price : Rs 2,00,000</span>
+                                </div>
+                            </div>
+                        </div><!-- ./course_single -->
+
+                        <div class="course_single">
+                            <div class="course_photo">
+                                <img src="~/Content/images/course/2.jpg">
+                            </div>
+                            <div class="course_info course_latst_info">
+                                <h6>Master of Pharmacy</h6>
+                                <div class="course_time">
+                                    <span><i class="far fa-clock"></i> 4 Year</span>
+                                    <span>Price : Rs 2,00,000</span>
+                                </div>
+                            </div>
+                        </div><!-- ./course_single -->
+
+                        <div class="course_single">
+                            <div class="course_photo">
+                                <img src="~/Content/images/course/2.jpg">
+                            </div>
+                            <div class="course_info course_latst_info">
+                                <h6>Master of Pharmacy</h6>
+                                <div class="course_time">
+                                    <span><i class="far fa-clock"></i> 4 Year</span>
+                                    <span>Price : Rs 2,00,000</span>
+                                </div>
+                            </div>
+                        </div><!-- ./course_single -->
+                    </div><!-- ./latest_courses -->
+
+                    <div class="prod_tags">
+                        <h5 class="sidebar_title">Product Tags</h5>
+
+                        <div class="tags">
+                            <span>Pharmacy</span>
+                            <span>D.Pharma</span>
+                            <span>B.Pharma</span>
+                            <span>M.Pharma</span>
+                        </div>
+                    </div>
+                </div><!-- ./course_sidebar -->
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+

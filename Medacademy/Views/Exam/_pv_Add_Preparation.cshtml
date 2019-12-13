@@ -1,0 +1,108 @@
+﻿@model Medacademy.Models.Preparation
+
+<div class="modal-dialog modal-md">
+    <div class="modal-content" style="border-radius: 3px;">
+        @using (Ajax.BeginForm("AddPreparation", "Exam", null, new AjaxOptions
+            {
+                HttpMethod = "POST",
+                OnSuccess = "AddPreparationSuccess",
+                OnFailure = "AddPreparationFailed",
+            }, new { id = "form-login" }))
+            {
+            <div class="modal-body">
+                <form>
+                    @*@Html.TextBoxFor(m => m.examid, new { type = "hidden",value=@Model.examid })*@
+                    @Html.HiddenFor(z => z.examid, new { Value = @Model.examid })
+                    <div class="modal-header view-header text-center">
+                        Exam Name<span aria-hidden="true" style="margin-left:5px; font-weight:600;">@Model.examname</span>
+                    </div>
+                    <div style="margin:10px 5px;">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Preparation</label>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", Placeholder = "Preparation" })
+                                @Html.ValidationMessageFor(m => m.Name)
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Duration</label>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.timer, new { @class = "form-control", Placeholder = "Duration", Value = "00:00:00" })
+                                @Html.ValidationMessageFor(m => m.timer)
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Start Date</label>
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(m => m.stdate, new { @class = "form-control", id = "stdate", placeholder = "MM/DD/YYYY" })
+                                @Html.ValidationMessageFor(m => m.stdate)
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">End Date</label>
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(m => m.eddate, new { @class = "form-control", id = "eddate", placeholder = "MM/DD/YYYY" })
+                                @Html.ValidationMessageFor(m => m.eddate)
+                            </div>
+                        </div>
+                        
+                    </div>
+               
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger " data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                </form>
+
+            </div>
+        }
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+
+
+
+
+<script>
+
+    $('#addPreparation').on('shown.bs.modal', function () {
+
+        $('#stdate').datetimepicker({
+            format: 'DD-MM-YYYY HH:mm',
+            minDate: new Date()
+        });
+        $('#eddate').datetimepicker({
+            format: 'DD-MM-YYYY HH:mm',
+            minDate: new Date()
+        });
+
+       
+        $('#eddate').datetimepicker({ format: 'DD/MM/YYYY' }).on('dp.change', function (e) {
+
+          
+            var startdate = $('#stdate').val();
+                var enddate = $('#eddate').val();
+                if(startdate>enddate)
+                {
+                    toastrError("End date lessthan start date!");
+                }
+        });
+
+        $('#stdate').datetimepicker({ format: 'DD/MM/YYYY' }).on('dp.change', function (e) {
+
+            
+            var startdate = $('#stdate').val();
+            var enddate = $('#eddate').val();
+            if (enddate != "") {
+                
+                if (startdate > enddate) {
+                    toastrError("End date lessthan start date!");
+                }
+            }
+        });
+    });
+
+
+
+
+</script>

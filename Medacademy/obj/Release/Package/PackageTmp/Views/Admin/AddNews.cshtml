@@ -1,0 +1,157 @@
+﻿@model Medacademy.Models.NewsModel
+ @{
+    ViewBag.Title = "AddNews";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="addpackage">
+    @using (Ajax.BeginForm("AddNews", "Admin", null, new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnSuccess = "NewsAddSuccess",
+        OnFailure = "NewsAddFailed",
+    }, new { id = "form-login" }))
+    {
+        <div class="container">
+            <div class="col-12">
+                <div class="package_heading">
+                    <h3>ADD NEWS</h3>
+                </div>
+                <form>
+                    @Html.TextBoxFor(m => m.Newsimage, new { value = "", type = "hidden" })
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Head</label>
+                        <div class="col-sm-8">
+                            @Html.TextBoxFor(m => m.Head, new { @class = "form-control", placeholder = "Heading" })
+                            @Html.ValidationMessageFor(m => m.Head)
+                        </div>
+                    </div>    
+                    
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Date</label>
+                        <div class="calendar-inp pos_icon_adj col-sm-8">
+                            <i class="fa fa-calendar" style="margin-left: 90%;"></i>
+                            @Html.TextBoxFor(m => m.DateofNews, new { @class = "form-control borderStyleClass", placeholder = "" })
+                            @*@Html.ValidationMessageFor(m => m.DOBstring)*@
+                        </div>
+                    </div>         
+                              
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Sub Heading</label>
+                        <div class="col-sm-8">
+                            @*<textarea class="form-control" placeholder="Description" rows="5"></textarea>*@
+                            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", placeholder = "Sub Heading" })
+                            @Html.ValidationMessageFor(m => m.Description)
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">News</label>
+                        <div class="col-sm-8">
+                            @*<textarea class="form-control" placeholder="Description" rows="5"></textarea>*@
+                            @Html.TextAreaFor(m => m.DetailedDescription, new { @class = "form-control", placeholder = "Deatiled News" })
+                            @Html.ValidationMessageFor(m => m.DetailedDescription)
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Upload Photo</label>
+                        <div class="col-sm-8">
+                            <img style="height:50px;" id="package-img-preview" />
+                            <input id="package-image-upload" type="file" class="uploder-controler" />
+                            @*<input type="file" id="course-image-upload" />*@
+                            @*<input type="file">*@
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">&nbsp;</label>
+                        <div class="col-sm-8">
+                            <button type="submit" class="btn btn-success">Save</button>
+                            <button type="button" class="btn btn-danger" onclick="CloseNews()">Close</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    }
+</section>
+<script>
+    $('#DateofNews').datepicker({
+        format: "dd-mm-yyyy",
+        autoclose: true,
+        todayHighlight: true,
+        startDate: '-0d'
+        //endDate: '+d'
+    });
+
+
+    $(document).on('change', '#package-image-upload', function () {
+        debugger;
+        var source = $(this);
+        var selectedFile = this.files[0];
+        var input = this;
+        if (input.files && input.files[0]) {
+            var url = input.value;
+            var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+            if (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg" || ext == "bmp") {
+                selectedFile.convertToBase64(function (base64) {
+                    $('#package-img-preview').attr({ "src": base64, "class": "useruploder" });
+                    $('#Newsimage').val(base64);
+                });
+                var reader = new FileReader();
+            }
+            else {
+                $(source).val('');
+                toastrWarning('Invalid Filetype');
+            }
+        }
+    });
+    File.prototype.convertToBase64 = function (callback) {
+        var FR = new FileReader();
+        FR.onload = function (e) {
+            callback(e.target.result)
+        };
+        FR.readAsDataURL(this);
+    }
+
+    function NewsAddSuccess(result) {
+        if (result.status) {
+            $('#addPackage').modal('hide');
+            toastrSuccess(result.msg);
+            refreshNewsGrid();
+        }
+        else {
+            toastrError(result.msg);
+        }
+    }
+    function NewsAddFailed() {
+        toastrError('News Adding Failed');
+    }
+
+    function refreshNewsGrid() {
+        $.ajax({
+            url: '/Admin/RefreshNews',
+            dataType: 'html',
+            success: function (data) {
+                $('#class-list-view').html(data);
+                IntializeDataTable();
+            },
+        });
+    }
+
+   function IntializeDataTable() {
+        $('#classTable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true
+        });
+   }
+   function CloseNews() {
+       window.location.href = '/Admin/News/';
+   }
+
+</script>

@@ -1,0 +1,53 @@
+﻿@model Medacademy.Models.StudentList
+@{
+    ViewBag.Title = "StudentsList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<section class="addpackage">
+    <div class="container">
+        <div class="col-12">
+            <div class="package_heading">
+                <h3>Students List</h3>
+            </div>
+            <form>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Group</label>
+                    <div class="col-sm-8">
+                        @Html.DropDownListFor(m => m.GroupID, Ma.EntityLibrary.Data.Dropdowndata.GetGroup(), new { @class = "form-control pv_class-drop-down", @data_live_search = "true",id = "groupdataid"  })
+                        @Html.ValidationMessageFor(m => m.GroupID)
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="box-body" id="class-list-view">
+        @*@Html.Partial("~/Views/Admin/_pv_Students_View.cshtml", Model)*@
+    </div>
+</section>
+<script>
+    $(document).on('change', '#groupdataid', function () {
+        ViewList();
+
+    });
+
+    $(document).ready(function () {
+        ViewList();
+    });
+
+    function ViewList() {
+        var groupid = $('#groupdataid').val();
+
+      
+        $.ajax({
+            url: '/Admin/ViewStudentList?groupid=' + groupid,
+            dataType: 'html',
+            success: function (data) {
+                $('#class-list-view').html(data);
+                IntializeDataTable();
+            },
+        });
+    }
+</script>

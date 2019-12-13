@@ -1,0 +1,26 @@
+﻿<table id="classTable" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Sl No</th>
+            <th>Group Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{int id = 1;
+
+            foreach (var groups in new Ma.EntityLibrary.Data.Group().GetGroups())
+            {
+                <tr>
+                    <td>@id</td>
+                    <td>@groups.GroupName</td>
+                    <td>
+                        <button type="button" class="btn btn-success btn-xs" data-id="@groups.GroupID" onclick="EditGroup(this)">Edit</button>
+                        <button type="button" class="btn btn-danger btn-xs confirmDelete" data-id="@groups.GroupID">Delete</button>
+                    </td>
+                </tr>
+                id++;
+            }
+        }
+    </tbody>
+</table>

@@ -1,0 +1,74 @@
+.noOpacity {
+    opacity: 0;
+}
+
+.isHidden {
+    display: none;
+}
+
+.hideLabel {
+    left: 46%;
+    position: absolute;
+    bottom: 0px;
+    color: red;
+}
+
+.isPointer {
+    cursor: pointer;
+}
+.isRed {
+    color: red;
+}
+.isJustified {
+    text-align: justify;
+}
+.isGreen {
+    color: green;
+}
+.isDisabled{
+    pointer-events:none;
+}
+
+.normalPointer{
+    cursor:default !important;
+}
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+#contactForm .field-validation-error{
+    position: absolute;
+    bottom: 0px;
+    left: 15px;
+}
+
+.field-validation-error {
+    color: #f00;
+}
+.field-validation-valid {
+    display: none;
+}
+.input-validation-error {
+    border: 1px solid #f00;
+    background-color: #fee;
+}
+.validation-summary-errors {
+    font-weight: bold;
+    color: #f00;
+}
+.validation-summary-valid {
+    display: none;
+}
+/*Basheer content 22-05-2019*/
+.upload-box {
+    min-height: 108px;
+    min-width: 108px;
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    display: block;
+    /* margin: 0px auto; */
+    background-size: contain;
+    /* margin-bottom: 15px; */
+    background-repeat: no-repeat;
+    /* background-position: top; */
+}

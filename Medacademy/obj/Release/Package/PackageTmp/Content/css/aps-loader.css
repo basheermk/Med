@@ -1,0 +1,55 @@
+﻿@charset "utf-8";
+/* CSS Document */
+body{padding:0px; margin:0px;}
+.aps-i-want-loader-page {display:none;}
+.aps-i-want-loader {z-index:99999;}
+.dummy-div{height:100vh; width:50%;box-sizing:border-box; overflow:hidden; float:left;}
+.aps-loader-holder,.aps-loader-content-holder{width:150px; height:150px;overflow: hidden;}
+.aps-loader-holder{display:block; float:none; margin:auto;}
+.aps-loader-content-holder{display:block;position:relative;}
+.aps-loader-cap{width:50px; height:50px; position:absolute; left:0px; top:0px;  }
+.aps-loader-outer-round,.aps-loader-inner-face{right: 0px;bottom: 0px;position:absolute; width:102px; height:102px;}
+.aps-loader-outer-round{-webkit-animation: spin 4s linear infinite; animation: spin 4s linear infinite;}
+.aps-loader-inner-face{-webkit-animation: show-face 4s linear infinite; animation: show-face 4s linear infinite;}
+.aps-loader-cap{-webkit-animation: show-cap 4s linear infinite; animation: show-cap 4s linear infinite;}
+.aps-loader-landing{position:absolute; width:100%; height:100%; top:0; left:0; background-color:#fff; z-index: 99999;}
+
+@-webkit-keyframes spin {
+0% { -webkit-transform: rotate(0deg); }
+50% { -webkit-transform: rotate(360deg); }
+100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+0% { transform: rotate(0deg); }
+50% {transform: rotate(360deg);}
+100% { transform: rotate(360deg); }
+}
+
+@-webkit-keyframes show-face {
+0% { -webkit-opacity: 0; }
+50% { -webkit-opacity: 0; }
+75% { -webkit-opacity: 1; }
+100% { -webkit-opacity: 0; }
+}
+
+@keyframes show-face {
+0% { opacity: 0; }
+50% { opacity: 0; }
+75% { opacity: 1; }
+100% { opacity: 0; }
+}
+
+@-webkit-keyframes show-cap {
+0% { -webkit-top: -100px; -webkit-left: -100px; -webkit-opacity: 1; }
+50% { -webkit-top: -100px;  -webkit-left: -100px;  }
+75% { -webkit-top: 0px;  -webkit-left: 0px; -webkit-opacity: 1; }
+100% { -webkit-top: 0px;  -webkit-left: 0px; -webkit-opacity: 0; }
+}
+
+@keyframes show-cap {
+0% { top: -100px; left: -100px;  opacity:1;}
+50% { top: -100px; left: -100px;}
+75% { top: 0px; left: 0px; opacity:1;}
+100% { top: 0px; left: 0px; opacity:0;}
+}

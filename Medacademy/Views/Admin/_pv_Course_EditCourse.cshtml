@@ -1,0 +1,87 @@
+﻿@model Medacademy.Models.CourseModel
+<div class="modal-dialog modal-sm">
+    <div class="modal-content" style="border-radius: 3px;">
+        <div class="modal-header">
+            Edit Course<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        @using (Ajax.BeginForm("EditCourse", "Admin", null, new AjaxOptions
+        {
+            HttpMethod = "POST",
+            OnSuccess = "CourseEditSuccess",
+            OnFailure = "CourseEditFailed",
+        }, new { id = "form-login" }))
+        {
+            @Html.TextBoxFor(m => m.Courseeditimage, new { value = "", type = "hidden" })
+           @Html.TextBoxFor(m => m.CourseId, new { type = "hidden" })
+            <div class="modal-body">
+                @Html.TextBoxFor(m => m.CourseName, new { @class = "form-control", placeholder = "Course Name" })
+                @Html.ValidationMessageFor(m => m.CourseName)
+            </div>
+            @Html.TextBoxFor(m => m.Courseimage, new { value = "", type = "hidden" })
+            @*<div class="modal-body">
+                @Html.TextBoxFor(m => m.CourseSubjectName, new { @class = "form-control", placeholder = "Subject Name" })
+                @Html.ValidationMessageFor(m => m.CourseSubjectName)
+            </div>*@
+            @*<div class="modal-body">
+                @Html.TextBoxFor(m => m.Price, new { @class = "form-control", placeholder = "Price" })
+                @Html.ValidationMessageFor(m => m.Price)
+            </div>*@
+            <div class="modal-body">
+                @Html.TextBoxFor(m => m.Duration, new { @class = "form-control", placeholder = "Duration" })
+                @Html.ValidationMessageFor(m => m.Duration)
+            </div>
+            <div class="modal-body">
+                @Html.TextAreaFor(m => m.Details, new { @class = "form-control", placeholder = "Details" })
+                @Html.ValidationMessageFor(m => m.Details)
+            </div>
+            <div class="modal-body">
+                @{if (Model.Courseimage == null || Model.Courseimage == string.Empty)
+                {
+                        <label>Course Image</label>
+                        <div class="upload-box" id="courseedit-img-preview" style="background-image: url(../Content/img/default-placeholder-1024x1024-960x960.png);">
+                        </div>
+                        <input id="courseedit-image-upload" type="file" class="uploder-controler" />
+                    }
+                    else
+                    {
+                        <label>Course Image</label>
+                        <div class="upload-box" id="courseedit-img-preview" style="background-image:url(@Model.Courseimage);">    
+                        </div>
+                        <input id="courseedit-image-upload" type="file" class="uploder-controler" />
+
+                    }
+                }
+                <div id="dummyId"></div>
+
+                @*<img style="height:50px;" id="course-img-preview" />
+                    <input id="course-image-upload" type="file" class="uploder-controler" />*@
+
+            </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Update</button>
+                    </div>
+                    }
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+
+<script>
+
+
+    function CourseEditSuccess(result) {
+        if (result.status) {
+            $('#editCourse').modal('hide');
+            toastrSuccess(result.msg);
+            refreshCourseGrid();
+        }
+        else {
+            toastrError(result.msg);
+        }
+    }
+    function CourseEditFailed() {
+        toastrError('Course Adding Failed');
+    }
+
+
+
+</script>

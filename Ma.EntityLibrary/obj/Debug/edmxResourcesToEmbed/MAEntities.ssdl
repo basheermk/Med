@@ -1,0 +1,3816 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MedacademyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tb_Answer">
+    <Key>
+      <PropertyRef Name="AnswerId" />
+    </Key>
+    <Property Name="AnswerId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Answer" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="QuestionId" Type="bigint" Nullable="false" />
+    <Property Name="AnswerTypeId" Type="bigint" Nullable="false" />
+    <Property Name="RightStatus" Type="int" Nullable="false" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="TimeStamp" Type="datetime" />
+    <Property Name="AnswerImage" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="tb_AnswerDummy">
+    <Key>
+      <PropertyRef Name="AnswerId" />
+    </Key>
+    <Property Name="AnswerId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Answer" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="QuestionId" Type="bigint" Nullable="false" />
+    <Property Name="AnswerTypeId" Type="bigint" Nullable="false" />
+    <Property Name="AnswerViewId" Type="bigint" Nullable="false" />
+    <Property Name="AnswerGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="RightStatus" Type="int" Nullable="false" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tb_AnswerType">
+    <Key>
+      <PropertyRef Name="AnswerTypeId" />
+    </Key>
+    <Property Name="AnswerTypeId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AnswerType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_AnswerView">
+    <Key>
+      <PropertyRef Name="AnswerViewId" />
+    </Key>
+    <Property Name="AnswerViewId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AnswerView" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_AppRedeemPoints">
+    <Key>
+      <PropertyRef Name="AppRedeemId" />
+    </Key>
+    <Property Name="AppRedeemId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="RewardId" Type="bigint" Nullable="false" />
+    <Property Name="RewardName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RedeemPoints" Type="bigint" Nullable="false" />
+    <Property Name="TotalPoints" Type="bigint" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="DispatchedStatus" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_Assessment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Assessment" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SubjectId" Type="bigint" Nullable="false" />
+    <Property Name="AssessmentGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="OrderValue" Type="bigint" Nullable="false" />
+    <Property Name="Duration" Type="time" Precision="7" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_AssessmentAnswer">
+    <Key>
+      <PropertyRef Name="AnswerId" />
+    </Key>
+    <Property Name="AnswerId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Answer" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="QuestionId" Type="bigint" Nullable="false" />
+    <Property Name="AnswerTypeId" Type="bigint" Nullable="false" />
+    <Property Name="AnswerViewId" Type="bigint" Nullable="false" />
+    <Property Name="AnswerGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="RightStatus" Type="bit" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_AssessmentAttempt">
+    <Key>
+      <PropertyRef Name="AssessmentAttemptId" />
+    </Key>
+    <Property Name="AssessmentAttemptId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="SubjectId" Type="bigint" Nullable="false" />
+    <Property Name="AssessmentId" Type="bigint" Nullable="false" />
+    <Property Name="AttemptDate" Type="datetime" Nullable="false" />
+    <Property Name="Attempt" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_AssessmentFile">
+    <Key>
+      <PropertyRef Name="FileId" />
+    </Key>
+    <Property Name="FileId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FileName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FilePath" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FileType" Type="bigint" Nullable="false" />
+    <Property Name="ParentGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_AssessmentQuestion">
+    <Key>
+      <PropertyRef Name="QuestionId" />
+    </Key>
+    <Property Name="QuestionId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Question" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Mark" Type="float" Nullable="false" />
+    <Property Name="QuestionTypeId" Type="bigint" Nullable="false" />
+    <Property Name="ParentGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="QuestionGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Explanation" Type="nvarchar(max)" />
+    <Property Name="NegativeMark" Type="float" />
+  </EntityType>
+  <EntityType Name="tb_CbseAnswer">
+    <Key>
+      <PropertyRef Name="AnswerId" />
+    </Key>
+    <Property Name="AnswerId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Answer" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="QuestionId" Type="bigint" Nullable="false" />
+    <Property Name="AnswerTypeId" Type="bigint" Nullable="false" />
+    <Property Name="AnswerViewId" Type="bigint" Nullable="false" />
+    <Property Name="AnswerGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="RightStatus" Type="bit" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_CbseFile">
+    <Key>
+      <PropertyRef Name="FileId" />
+    </Key>
+    <Property Name="FileId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FileName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FilePath" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FileType" Type="bigint" Nullable="false" />
+    <Property Name="ParentGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_CbseQuestion">
+    <Key>
+      <PropertyRef Name="QuestionId" />
+    </Key>
+    <Property Name="QuestionId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Question" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Mark" Type="float" Nullable="false" />
+    <Property Name="QuestionTypeId" Type="bigint" Nullable="false" />
+    <Property Name="ParentGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="QuestionGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Explanation" Type="nvarchar(max)" />
+    <Property Name="NegativeMark" Type="float" />
+  </EntityType>
+  <EntityType Name="tb_Challenge">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FromUserId" Type="bigint" Nullable="false" />
+    <Property Name="ToUserId" Type="bigint" Nullable="false" />
+    <Property Name="AcceptedStatus" Type="int" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="NotificationId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_Chapter">
+    <Key>
+      <PropertyRef Name="ChapterId" />
+    </Key>
+    <Property Name="ChapterId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ChapterName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SubjectId" Type="bigint" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="ChapterGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="OrderValue" Type="bigint" />
+  </EntityType>
+  <EntityType Name="tb_ChapterDummy">
+    <Key>
+      <PropertyRef Name="ChapterId" />
+    </Key>
+    <Property Name="ChapterId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ChapterName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SubjectId" Type="bigint" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="ChapterGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="OrderValue" Type="bigint" />
+  </EntityType>
+  <EntityType Name="tb_Class">
+    <Key>
+      <PropertyRef Name="ClassId" />
+    </Key>
+    <Property Name="ClassId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClassName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="ClassGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ClassOrder" Type="bigint" />
+  </EntityType>
+  <EntityType Name="tb_ClassStudent">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClassId" Type="bigint" />
+    <Property Name="UserId" Type="bigint" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_CommonPassword">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PasswordArea" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="PasswordGuid" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_ContactExpert">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ReplyStatus" Type="bit" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_ContactUs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ContactNo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ReplyStatus" Type="bit" Nullable="false" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="ContactDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_Course">
+    <Key>
+      <PropertyRef Name="CourseId" />
+    </Key>
+    <Property Name="CourseId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CourseName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="CourseSubjectName" Type="nvarchar(max)" />
+    <Property Name="Price" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="Duration" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Details" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Files" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="tb_Division">
+    <Key>
+      <PropertyRef Name="DivisionId" />
+    </Key>
+    <Property Name="DivisionId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DivisionName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="OrderValue" Type="int" Nullable="false" />
+    <Property Name="ClassId" Type="bigint" Nullable="false" />
+    <Property Name="SchoolId" Type="bigint" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_DivisionStudent">
+    <Key>
+      <PropertyRef Name="DivStudentId" />
+    </Key>
+    <Property Name="DivStudentId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DivisionId" Type="bigint" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_ErrorLog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Exception" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_Exam">
+    <Key>
+      <PropertyRef Name="ExamId" />
+    </Key>
+    <Property Name="ExamId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ExamName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Duration" Type="time" Precision="7" Nullable="false" />
+    <Property Name="ExamGUID" Type="uniqueidentifier" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="ActiveStatus" Type="bit" Nullable="false" />
+    <Property Name="ExamEndDate" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ExamStartDate" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UpcomingStatus" Type="bit" />
+    <Property Name="PublishStatus" Type="bit" Nullable="false" />
+    <Property Name="PublishResult" Type="bit" />
+  </EntityType>
+  <EntityType Name="tb_ExamGroup">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ExamId" Type="bigint" Nullable="false" />
+    <Property Name="GroupId" Type="bigint" Nullable="false" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="tb_ExamQuestion">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ExamId" Type="bigint" />
+    <Property Name="QuestionId" Type="bigint" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="ExamName" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="tb_ExamRank">
+    <Key>
+      <PropertyRef Name="ExamMarkId" />
+    </Key>
+    <Property Name="ExamMarkId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ExamId" Type="bigint" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Examtime" Type="bigint" Nullable="false" />
+    <Property Name="Total" Type="float" Nullable="false" />
+    <Property Name="Rank" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_ExamRequest">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" />
+    <Property Name="ExamId" Type="bigint" />
+    <Property Name="RequestDate" Type="datetime" />
+    <Property Name="ApprovalStatus" Type="bit" />
+  </EntityType>
+  <EntityType Name="tb_Exercise">
+    <Key>
+      <PropertyRef Name="ExerciseId" />
+    </Key>
+    <Property Name="ExerciseId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Exercise" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PracticeTestId" Type="bigint" Nullable="false" />
+    <Property Name="ExerciseGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="OrderValue" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_File">
+    <Key>
+      <PropertyRef Name="FileId" />
+    </Key>
+    <Property Name="FileId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FileName" Type="nvarchar(max)" />
+    <Property Name="FilePath" Type="nvarchar(max)" />
+    <Property Name="FileType" Type="bigint" />
+    <Property Name="ParentGuid" Type="uniqueidentifier" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tb_FileDummy">
+    <Key>
+      <PropertyRef Name="FileId" />
+    </Key>
+    <Property Name="FileId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FileName" Type="nvarchar(max)" />
+    <Property Name="FilePath" Type="nvarchar(max)" />
+    <Property Name="FileType" Type="bigint" />
+    <Property Name="ParentGuid" Type="uniqueidentifier" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ph17889340521_Medacademy.dbo.tb_FileTest' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tb_FileTest">
+    <Key>
+      <PropertyRef Name="FileId" />
+    </Key>
+    <Property Name="FileId" Type="bigint" Nullable="false" />
+    <Property Name="FileName" Type="nvarchar(max)" />
+    <Property Name="FilePath" Type="nvarchar(max)" />
+    <Property Name="FileType" Type="bigint" />
+    <Property Name="ParentGuid" Type="uniqueidentifier" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tb_Group">
+    <Key>
+      <PropertyRef Name="Group_ID" />
+    </Key>
+    <Property Name="Group_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Course_ID" Type="bigint" />
+    <Property Name="PackageID" Type="bigint" />
+    <Property Name="Groupname" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Isactive" Type="bit" Nullable="false" />
+    <Property Name="Timestamp" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_GroupStudent">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GroupID" Type="bigint" Nullable="false" />
+    <Property Name="StudentID" Type="bigint" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_Homework">
+    <Key>
+      <PropertyRef Name="HomeworkId" />
+    </Key>
+    <Property Name="HomeworkId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TeacherId" Type="bigint" Nullable="false" />
+    <Property Name="ClassId" Type="bigint" Nullable="false" />
+    <Property Name="PracticeTestId" Type="bigint" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_HomeworkSchool">
+    <Key>
+      <PropertyRef Name="HomeworkId" />
+    </Key>
+    <Property Name="HomeworkId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TeacherId" Type="bigint" Nullable="false" />
+    <Property Name="ClassId" Type="bigint" Nullable="false" />
+    <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ImageLink" Type="nvarchar(max)" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_HomeworkStudent">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HomeworkId" Type="bigint" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="AttemptId" Type="bigint" />
+    <Property Name="Grade" Type="nvarchar(max)" />
+    <Property Name="HomeworkStatus" Type="bit" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_HomeworkStudentSchool">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HomeworkId" Type="bigint" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="SendStatus" Type="bit" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_Increment">
+    <Key>
+      <PropertyRef Name="IncrementId" />
+    </Key>
+    <Property Name="IncrementId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PromoNumber" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_Ipayy">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="Status" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="Tx" Type="nvarchar(max)" />
+    <Property Name="R" Type="nvarchar(max)" />
+    <Property Name="Cc" Type="nvarchar(max)" />
+    <Property Name="Td" Type="nvarchar(max)" />
+    <Property Name="Mn" Type="nvarchar(max)" />
+    <Property Name="Op" Type="nvarchar(max)" />
+    <Property Name="Ts" Type="nvarchar(max)" />
+    <Property Name="Ac" Type="nvarchar(max)" />
+    <Property Name="Ec" Type="nvarchar(max)" />
+    <Property Name="ParentGuid" Type="uniqueidentifier" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tb_Lesson">
+    <Key>
+      <PropertyRef Name="LessonId" />
+    </Key>
+    <Property Name="LessonId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LessonName" Type="nvarchar(max)" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="TimeStamp" Type="datetime" />
+    <Property Name="LessonGuid" Type="uniqueidentifier" />
+    <Property Name="ChapterId" Type="bigint" />
+  </EntityType>
+  <EntityType Name="tb_Level">
+    <Key>
+      <PropertyRef Name="LevelID" />
+    </Key>
+    <Property Name="LevelID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SubTopicID" Type="bigint" Nullable="false" />
+    <Property Name="LevelName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="Timestamp" Type="datetime" Nullable="false" />
+    <Property Name="orderValue" Type="int" />
+    <Property Name="Duration" Type="time" Precision="7" Nullable="false" />
+    <Property Name="CourseID" Type="bigint" Nullable="false" />
+    <Property Name="PackageID" Type="bigint" Nullable="false" />
+    <Property Name="SubjectID" Type="bigint" Nullable="false" />
+    <Property Name="TopicID" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_Login">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" />
+    <Property Name="FirstName" Type="nvarchar(max)" />
+    <Property Name="LastName" Type="nvarchar(max)" />
+    <Property Name="Gender" Type="nvarchar(max)" />
+    <Property Name="Email" Type="nvarchar(max)" />
+    <Property Name="ContactNo" Type="nvarchar(max)" />
+    <Property Name="DOB" Type="datetime" />
+    <Property Name="SchoolName" Type="nvarchar(max)" />
+    <Property Name="RoleId" Type="int" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="TimeStamp" Type="datetime" />
+    <Property Name="UserGuid" Type="uniqueidentifier" />
+    <Property Name="Location" Type="nvarchar(max)" />
+    <Property Name="State" Type="nvarchar(max)" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="PostalCode" Type="varchar(max)" />
+    <Property Name="DisableStatus" Type="bit" />
+    <Property Name="ReferenceCode" Type="nvarchar(max)" />
+    <Property Name="PromoCode" Type="nvarchar(max)" />
+    <Property Name="Pin" Type="nvarchar(max)" />
+    <Property Name="Districts" Type="nvarchar(max)" />
+    <Property Name="CourseId" Type="bigint" />
+    <Property Name="FilesName" Type="nvarchar(max)" />
+    <Property Name="SessionId" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="tb_Mark">
+    <Key>
+      <PropertyRef Name="MarkId" />
+    </Key>
+    <Property Name="MarkId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Marks" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="UserId" Type="bigint" />
+    <Property Name="QuestionId" Type="bigint" />
+    <Property Name="AnswerId" Type="bigint" />
+  </EntityType>
+  <EntityType Name="tb_MpesePayment">
+    <Key>
+      <PropertyRef Name="MpeseId" />
+    </Key>
+    <Property Name="MpeseId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="Mcompgtransid" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Transrefno" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Statuscode" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Reason" Type="nvarchar(max)" />
+    <Property Name="TxnAmt" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PaymeentType" Type="int" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_News">
+    <Key>
+      <PropertyRef Name="NewsID" />
+    </Key>
+    <Property Name="NewsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Head" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="SubHead" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="News" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="NewsDate" Type="datetime" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="Image" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_Notification">
+    <Key>
+      <PropertyRef Name="NotificationId" />
+    </Key>
+    <Property Name="NotificationId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FromUserId" Type="bigint" Nullable="false" />
+    <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ImageLink" Type="nvarchar(max)" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="NotificationType" Type="int" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_NotificationUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NotificationId" Type="bigint" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="ReadStatus" Type="bit" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="ViewStatus" Type="bit" />
+  </EntityType>
+  <EntityType Name="tb_Olympiad">
+    <Key>
+      <PropertyRef Name="OlympiadId" />
+    </Key>
+    <Property Name="OlympiadId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OlympiadName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="OlympiadGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="ClassId" Type="bigint" Nullable="false" />
+    <Property Name="OrderValue" Type="bigint" />
+  </EntityType>
+  <EntityType Name="tb_OlympiadAnswer">
+    <Key>
+      <PropertyRef Name="AnswerId" />
+    </Key>
+    <Property Name="AnswerId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Answer" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="QuestionId" Type="bigint" Nullable="false" />
+    <Property Name="AnswerTypeId" Type="bigint" Nullable="false" />
+    <Property Name="AnswerViewId" Type="bigint" Nullable="false" />
+    <Property Name="AnswerGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="RightStatus" Type="int" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_OlympiadAttempt">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="OlympiadId" Type="bigint" Nullable="false" />
+    <Property Name="ChapterId" Type="bigint" Nullable="false" />
+    <Property Name="OlympiadTestId" Type="bigint" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="Attempt" Type="bigint" Nullable="false" />
+    <Property Name="UnlockedStatus" Type="bit" />
+  </EntityType>
+  <EntityType Name="tb_OlympiadChapter">
+    <Key>
+      <PropertyRef Name="ChapterId" />
+    </Key>
+    <Property Name="ChapterId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ChapterName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="OlympiadId" Type="bigint" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="ChapterGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="orderValue" Type="bigint" />
+  </EntityType>
+  <EntityType Name="tb_OlympiadFile">
+    <Key>
+      <PropertyRef Name="FileId" />
+    </Key>
+    <Property Name="FileId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FileName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FilePath" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FileType" Type="bigint" Nullable="false" />
+    <Property Name="ParentGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_OlympiadQuestion">
+    <Key>
+      <PropertyRef Name="QuestionId" />
+    </Key>
+    <Property Name="QuestionId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Question" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Mark" Type="float" Nullable="false" />
+    <Property Name="QuestionTypeId" Type="bigint" Nullable="false" />
+    <Property Name="ParentGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="QuestionGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Explanation" Type="nvarchar(max)" />
+    <Property Name="NegativeMark" Type="float" />
+  </EntityType>
+  <EntityType Name="tb_OlympiadTest">
+    <Key>
+      <PropertyRef Name="TestId" />
+    </Key>
+    <Property Name="TestId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TestName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ChapterId" Type="bigint" Nullable="false" />
+    <Property Name="TestGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="OrderValue" Type="bigint" Nullable="false" />
+    <Property Name="Duration" Type="time" Precision="7" Nullable="false" />
+    <Property Name="PublishStatus" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_Package">
+    <Key>
+      <PropertyRef Name="PackageID" />
+    </Key>
+    <Property Name="PackageID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CourseID" Type="bigint" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Type" Type="nvarchar" MaxLength="20" />
+    <Property Name="Amount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="DiscountAmount" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="ExpiryDays" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Isactive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="Files" Type="nvarchar(max)" />
+    <Property Name="ExpiryDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_PasswordReset">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserType" Type="int" Nullable="false" />
+    <Property Name="ResetGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IsExpired" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_PayByCash">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ContactNo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="State" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PostalCode" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="Amount" Type="money" />
+  </EntityType>
+  <EntityType Name="tb_Payment">
+    <Key>
+      <PropertyRef Name="PaymentId" />
+    </Key>
+    <Property Name="PaymentId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="PaidStatus" Type="bit" Nullable="false" />
+    <Property Name="Amount" Type="money" Nullable="false" />
+    <Property Name="PaymentType" Type="bigint" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="ParentGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PaymentMode" Type="int" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="PackageID" Type="bigint" Nullable="false" />
+    <Property Name="Expirydate" Type="datetime" Nullable="false" />
+    <Property Name="REQUEST_ID" Type="numeric" Precision="18" Scale="0" />
+    <Property Name="RESPONSE_ID" Type="numeric" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="tb_PaymentTest">
+    <Key>
+      <PropertyRef Name="PaymentId" />
+    </Key>
+    <Property Name="PaymentId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" />
+    <Property Name="PaidStatus" Type="bit" />
+    <Property Name="Amount" Type="money" />
+    <Property Name="PaymentType" Type="bigint" />
+    <Property Name="TimeStamp" Type="datetime" />
+    <Property Name="ParentGuid" Type="uniqueidentifier" />
+    <Property Name="PaymentMode" Type="int" />
+  </EntityType>
+  <EntityType Name="tb_PAYTM_REQUEST">
+    <Key>
+      <PropertyRef Name="REQUEST_ID" />
+    </Key>
+    <Property Name="REQUEST_ID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="USER_ID" Type="bigint" Nullable="false" />
+    <Property Name="PAKAGE_ID" Type="bigint" Nullable="false" />
+    <Property Name="MID" Type="nvarchar" MaxLength="500" />
+    <Property Name="ORDER_ID" Type="nvarchar" MaxLength="500" />
+    <Property Name="CUST_ID" Type="nvarchar" MaxLength="500" />
+    <Property Name="TXN_AMOUNT" Type="nvarchar" MaxLength="500" />
+    <Property Name="CHANNEL_ID" Type="nvarchar" MaxLength="500" />
+    <Property Name="WEBSITE" Type="nvarchar" MaxLength="500" />
+    <Property Name="CHECKSUMHASH" Type="nvarchar" MaxLength="500" />
+    <Property Name="MOBILE_NO" Type="nvarchar" MaxLength="500" />
+    <Property Name="EMAIL" Type="nvarchar" MaxLength="500" />
+    <Property Name="INDUSTRY_TYPE_ID" Type="nvarchar" MaxLength="500" />
+    <Property Name="CALLBACK_URL" Type="nvarchar" MaxLength="500" />
+    <Property Name="PAYMENT_MODE_ONLY" Type="nvarchar" MaxLength="500" />
+    <Property Name="AUTH_MODE" Type="nvarchar" MaxLength="500" />
+    <Property Name="PAYMENT_TYPE_ID" Type="nvarchar" MaxLength="500" />
+    <Property Name="BANK_CODE" Type="nvarchar" MaxLength="500" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_PAYTM_RESPONSE">
+    <Key>
+      <PropertyRef Name="RESPONSE_ID" />
+    </Key>
+    <Property Name="RESPONSE_ID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="REQUEST_ID" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="USER_ID" Type="bigint" Nullable="false" />
+    <Property Name="PAKAGE_ID" Type="bigint" Nullable="false" />
+    <Property Name="MID" Type="nvarchar" MaxLength="600" />
+    <Property Name="TXNID" Type="nvarchar" MaxLength="600" />
+    <Property Name="ORDERID" Type="nvarchar" MaxLength="600" />
+    <Property Name="BANKTXNID" Type="nvarchar" MaxLength="600" />
+    <Property Name="TXNAMOUNT" Type="nvarchar" MaxLength="600" />
+    <Property Name="CURRENCY" Type="nvarchar" MaxLength="600" />
+    <Property Name="STATUS" Type="nvarchar" MaxLength="600" />
+    <Property Name="RESPCODE" Type="nvarchar" MaxLength="600" />
+    <Property Name="RESPMSG" Type="nvarchar" MaxLength="600" />
+    <Property Name="TXNDATE" Type="nvarchar" MaxLength="600" />
+    <Property Name="GATEWAYNAME" Type="nvarchar" MaxLength="600" />
+    <Property Name="BANKNAME" Type="nvarchar" MaxLength="600" />
+    <Property Name="PAYMENTMODE" Type="nvarchar" MaxLength="600" />
+    <Property Name="CHECKSUMHASH" Type="nvarchar" MaxLength="600" />
+    <Property Name="BIN_NUMBER" Type="nvarchar" MaxLength="600" />
+    <Property Name="CARD_LAST_NUMS" Type="nvarchar" MaxLength="600" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_Points">
+    <Key>
+      <PropertyRef Name="PointId" />
+    </Key>
+    <Property Name="PointId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Point" Type="float" Nullable="false" />
+    <Property Name="PointType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_PracticeAttempt">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="Levelid" Type="bigint" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="Attempt" Type="bigint" Nullable="false" />
+    <Property Name="UnlockedStatus" Type="bit" />
+    <Property Name="SubtopicId" Type="bigint" Nullable="false" />
+    <Property Name="TopicId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_PracticePoint">
+    <Key>
+      <PropertyRef Name="PointId" />
+    </Key>
+    <Property Name="PointId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="Points" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_PracticePointDetails">
+    <Key>
+      <PropertyRef Name="PointDetaiId" />
+    </Key>
+    <Property Name="PointDetaiId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="LevelId" Type="bigint" Nullable="false" />
+    <Property Name="Points" Type="bigint" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="AttemptId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_PracticeReward">
+    <Key>
+      <PropertyRef Name="RewardId" />
+    </Key>
+    <Property Name="RewardId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClassId" Type="bigint" Nullable="false" />
+    <Property Name="RewardName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Range" Type="bigint" Nullable="false" />
+    <Property Name="PictureLink" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_PracticeTest">
+    <Key>
+      <PropertyRef Name="PracticeTestId" />
+    </Key>
+    <Property Name="PracticeTestId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PracticeTestName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ChapterId" Type="bigint" Nullable="false" />
+    <Property Name="PracticeTestGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="OrderValue" Type="bigint" Nullable="false" />
+    <Property Name="Duration" Type="time" Precision="7" Nullable="false" />
+    <Property Name="PublishStatus" Type="bit" />
+  </EntityType>
+  <EntityType Name="tb_PracticeTestDummy">
+    <Key>
+      <PropertyRef Name="PracticeTestId" />
+    </Key>
+    <Property Name="PracticeTestId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PracticeTestName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ChapterId" Type="bigint" Nullable="false" />
+    <Property Name="PracticeTestGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="OrderValue" Type="bigint" Nullable="false" />
+    <Property Name="Duration" Type="time" Precision="7" Nullable="false" />
+    <Property Name="PublishStatus" Type="bit" />
+    <Property Name="PracticeTestGuidOld" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_Preparation">
+    <Key>
+      <PropertyRef Name="PreparationId" />
+    </Key>
+    <Property Name="PreparationId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ExamId" Type="bigint" Nullable="false" />
+    <Property Name="StartDate" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EndDate" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="Timestamp" Type="datetime" Nullable="false" />
+    <Property Name="Duration" Type="time" Precision="7" Nullable="false" />
+    <Property Name="PreparationName" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_PromoCode">
+    <Key>
+      <PropertyRef Name="PromoId" />
+    </Key>
+    <Property Name="PromoId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PromoCode" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ExpiryDate" Type="datetime" Nullable="false" />
+    <Property Name="DiscountPercentage" Type="float" Nullable="false" />
+    <Property Name="TotalCount" Type="bigint" Nullable="false" />
+    <Property Name="RemainingCount" Type="bigint" Nullable="false" />
+    <Property Name="PromoGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_Question">
+    <Key>
+      <PropertyRef Name="QuestionId" />
+    </Key>
+    <Property Name="QuestionId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Question" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Mark" Type="float" Nullable="false" />
+    <Property Name="QuestionTypeId" Type="bigint" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="Explanation" Type="nvarchar(max)" />
+    <Property Name="NegativeMark" Type="float" />
+    <Property Name="LevelID" Type="bigint" Nullable="false" />
+    <Property Name="QuestionImage" Type="nvarchar(max)" />
+    <Property Name="AnswerExpImage" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="tb_QuestionDummy">
+    <Key>
+      <PropertyRef Name="QuestionId" />
+    </Key>
+    <Property Name="QuestionId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Question" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Mark" Type="float" Nullable="false" />
+    <Property Name="QuestionTypeId" Type="bigint" Nullable="false" />
+    <Property Name="ParentGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="QuestionGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Explanation" Type="nvarchar(max)" />
+    <Property Name="NegativeMark" Type="float" />
+    <Property Name="QuestionIdOld" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_QuestionType">
+    <Key>
+      <PropertyRef Name="QuestionTypeId" />
+    </Key>
+    <Property Name="QuestionTypeId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QuestionType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_RedeemPoints">
+    <Key>
+      <PropertyRef Name="RedeemId" />
+    </Key>
+    <Property Name="RedeemId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="RewardId" Type="bigint" Nullable="false" />
+    <Property Name="RewardName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Points" Type="bigint" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="DispatchedStatus" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_ReferFriend">
+    <Key>
+      <PropertyRef Name="ReferId" />
+    </Key>
+    <Property Name="ReferId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FriendId" Type="bigint" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="PointId" Type="bigint" Nullable="false" />
+    <Property Name="UsedStatus" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_Reward">
+    <Key>
+      <PropertyRef Name="RewardId" />
+    </Key>
+    <Property Name="RewardId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Reward" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Points" Type="float" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="RewardGuid" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_Scholarship">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Scholarship" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SubjectId" Type="bigint" Nullable="false" />
+    <Property Name="ScholarshipGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="OrderValue" Type="bigint" Nullable="false" />
+    <Property Name="Duration" Type="time" Precision="7" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_ScholarshipAnswer">
+    <Key>
+      <PropertyRef Name="AnswerId" />
+    </Key>
+    <Property Name="AnswerId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Answer" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="QuestionId" Type="bigint" Nullable="false" />
+    <Property Name="AnswerTypeId" Type="bigint" Nullable="false" />
+    <Property Name="AnswerViewId" Type="bigint" Nullable="false" />
+    <Property Name="AnswerGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="RightStatus" Type="bit" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="date" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ph17889340521_Medacademy.dbo.tb_ScholarshipAnswerTest' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tb_ScholarshipAnswerTest">
+    <Key>
+      <PropertyRef Name="AnswerId" />
+      <PropertyRef Name="Answer" />
+      <PropertyRef Name="QuestionId" />
+      <PropertyRef Name="AnswerTypeId" />
+      <PropertyRef Name="AnswerViewId" />
+      <PropertyRef Name="AnswerGuid" />
+      <PropertyRef Name="RightStatus" />
+      <PropertyRef Name="IsActive" />
+      <PropertyRef Name="TimeStamp" />
+    </Key>
+    <Property Name="AnswerId" Type="bigint" Nullable="false" />
+    <Property Name="Answer" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="QuestionId" Type="bigint" Nullable="false" />
+    <Property Name="AnswerTypeId" Type="bigint" Nullable="false" />
+    <Property Name="AnswerViewId" Type="bigint" Nullable="false" />
+    <Property Name="AnswerGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="RightStatus" Type="bit" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_ScholarshipAttempt">
+    <Key>
+      <PropertyRef Name="ScholarshipAttemptId" />
+    </Key>
+    <Property Name="ScholarshipAttemptId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="ExamId" Type="bigint" Nullable="false" />
+    <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_ScholarshipFile">
+    <Key>
+      <PropertyRef Name="FileId" />
+    </Key>
+    <Property Name="FileId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FileName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FilePath" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FileType" Type="bigint" Nullable="false" />
+    <Property Name="ParentGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_ScholarshipQuestion">
+    <Key>
+      <PropertyRef Name="QuestionId" />
+    </Key>
+    <Property Name="QuestionId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Question" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Mark" Type="float" Nullable="false" />
+    <Property Name="QuestionTypeId" Type="bigint" Nullable="false" />
+    <Property Name="ParentGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="QuestionGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Explanation" Type="nvarchar(max)" />
+    <Property Name="NegativeMark" Type="float" />
+  </EntityType>
+  <EntityType Name="tb_ScholarshipQuestionTest">
+    <Key>
+      <PropertyRef Name="QuestionId" />
+    </Key>
+    <Property Name="QuestionId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Question" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Mark" Type="float" Nullable="false" />
+    <Property Name="QuestionTypeId" Type="bigint" Nullable="false" />
+    <Property Name="ParentGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="QuestionGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Explanation" Type="nvarchar(max)" />
+    <Property Name="NegativeMark" Type="float" />
+    <Property Name="QtnId" Type="bigint" />
+  </EntityType>
+  <EntityType Name="tb_School">
+    <Key>
+      <PropertyRef Name="SchoolId" />
+    </Key>
+    <Property Name="SchoolId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="School" Type="nvarchar(max)" />
+    <Property Name="Location" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Contact" Type="nvarchar(max)" />
+    <Property Name="StateId" Type="bigint" Nullable="false" />
+    <Property Name="SchoolGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="ViewStatus" Type="bit" Nullable="false" />
+    <Property Name="PostalCode" Type="bigint" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="BannerLink" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DeactivateStatus" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_SchoolRating">
+    <Key>
+      <PropertyRef Name="RatingId" />
+    </Key>
+    <Property Name="RatingId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="SchoolId" Type="bigint" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Rating" Type="int" Nullable="false" />
+    <Property Name="Comment" Type="nvarchar(max)" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="RatingGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ApproveStatus" Type="bit" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_ScoreRange">
+    <Key>
+      <PropertyRef Name="ScoreRangeId" />
+    </Key>
+    <Property Name="ScoreRangeId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RangeName" Type="nvarchar(max)" />
+    <Property Name="MinMark" Type="int" Nullable="false" />
+    <Property Name="MaxMark" Type="int" Nullable="false" />
+    <Property Name="Message" Type="nvarchar(max)" />
+    <Property Name="StarRating" Type="int" Nullable="false" />
+    <Property Name="ScoreGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="LevelName" Type="nvarchar(max)" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="OrderValue" Type="bigint" Nullable="false" />
+    <Property Name="Grade" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="tb_State">
+    <Key>
+      <PropertyRef Name="StateId" />
+    </Key>
+    <Property Name="StateId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="State" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="StateGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TimeStamp" Type="date" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_Subject">
+    <Key>
+      <PropertyRef Name="SubjectId" />
+    </Key>
+    <Property Name="SubjectId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SubjectName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SubjectGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="ClassId" Type="bigint" />
+    <Property Name="OrderValue" Type="bigint" />
+    <Property Name="BookUrl" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="tb_SubjectExpertSubject">
+    <Key>
+      <PropertyRef Name="ExpertSubjectId" />
+    </Key>
+    <Property Name="ExpertSubjectId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="SubjectId" Type="bigint" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_Subjects">
+    <Key>
+      <PropertyRef Name="SubjectID" />
+    </Key>
+    <Property Name="SubjectID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PackageID" Type="bigint" Nullable="false" />
+    <Property Name="GroupID" Type="bigint" />
+    <Property Name="CourseID" Type="bigint" Nullable="false" />
+    <Property Name="SubjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Isactive" Type="bit" Nullable="false" />
+    <Property Name="Timestamp" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_Subtopic">
+    <Key>
+      <PropertyRef Name="SubTopicID" />
+    </Key>
+    <Property Name="SubTopicID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TopicID" Type="bigint" Nullable="false" />
+    <Property Name="SubTopicName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Isactive" Type="bit" Nullable="false" />
+    <Property Name="Timestamp" Type="datetime" Nullable="false" />
+    <Property Name="Pdfpath" Type="nvarchar(max)" />
+    <Property Name="Videopath" Type="nvarchar(max)" />
+    <Property Name="YouTubeVideo" Type="nvarchar(max)" />
+    <Property Name="FileNameOrginalPDF" Type="nvarchar(max)" />
+    <Property Name="CourseID" Type="bigint" Nullable="false" />
+    <Property Name="PackageID" Type="bigint" Nullable="false" />
+    <Property Name="SubjectID" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_TeacherSubject">
+    <Key>
+      <PropertyRef Name="TeacherSubjectId" />
+    </Key>
+    <Property Name="TeacherSubjectId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="SubjectId" Type="bigint" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_Topic">
+    <Key>
+      <PropertyRef Name="TopicID" />
+    </Key>
+    <Property Name="TopicID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SubjectID" Type="bigint" Nullable="false" />
+    <Property Name="TopicName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="Timestamp" Type="datetime" Nullable="false" />
+    <Property Name="CourseID" Type="bigint" Nullable="false" />
+    <Property Name="PackageID" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_UnlockedLevel">
+    <Key>
+      <PropertyRef Name="UnlockedLevelId" />
+    </Key>
+    <Property Name="UnlockedLevelId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="LevelId" Type="bigint" Nullable="false" />
+    <Property Name="SubtopicId" Type="bigint" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="CompletedStatus" Type="bit" />
+  </EntityType>
+  <EntityType Name="tb_UrlFile">
+    <Key>
+      <PropertyRef Name="FileId" />
+    </Key>
+    <Property Name="FileId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FileName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FilePath" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FileGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_UserAssessmentAttend">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="QuestionId" Type="bigint" Nullable="false" />
+    <Property Name="UserAnswerId" Type="bigint" Nullable="false" />
+    <Property Name="RightAnswerId" Type="bigint" Nullable="false" />
+    <Property Name="Mark" Type="float" Nullable="false" />
+    <Property Name="ParentGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="AssessmentAttemptId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_UserAttend">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="QuestionId" Type="bigint" Nullable="false" />
+    <Property Name="UserAnswerId" Type="bigint" Nullable="false" />
+    <Property Name="RightAnswerId" Type="bigint" Nullable="false" />
+    <Property Name="Mark" Type="float" Nullable="false" />
+    <Property Name="ParentGuid" Type="uniqueidentifier" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="PracticeAttemptId" Type="bigint" Nullable="false" />
+    <Property Name="AttendStatus" Type="int" Nullable="false" />
+    <Property Name="LevelId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_UserExamAttend">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="QuestionId" Type="bigint" Nullable="false" />
+    <Property Name="UserAnswerId" Type="bigint" Nullable="false" />
+    <Property Name="ExamId" Type="bigint" Nullable="false" />
+    <Property Name="Mark" Type="float" Nullable="false" />
+    <Property Name="RightAnswerStatus" Type="bigint" Nullable="false" />
+    <Property Name="ParentGuid" Type="uniqueidentifier" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="Examtime" Type="bigint" />
+  </EntityType>
+  <EntityType Name="tb_UserLog">
+    <Key>
+      <PropertyRef Name="LogId" />
+    </Key>
+    <Property Name="LogId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="ClassId" Type="bigint" />
+    <Property Name="LoginTime" Type="datetime" Nullable="false" />
+    <Property Name="LogoutTime" Type="datetime" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_UserOlympiadAttend">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="QuestionId" Type="bigint" Nullable="false" />
+    <Property Name="UserAnswerId" Type="bigint" Nullable="false" />
+    <Property Name="RightAnswerId" Type="bigint" Nullable="false" />
+    <Property Name="Mark" Type="float" Nullable="false" />
+    <Property Name="ParentGuid" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="OlympiadAttemptId" Type="bigint" Nullable="false" />
+    <Property Name="AttendStatus" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_UserPreparationAttend">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="QuestionId" Type="bigint" Nullable="false" />
+    <Property Name="UserAnswerId" Type="bigint" Nullable="false" />
+    <Property Name="PreparationId" Type="bigint" Nullable="false" />
+    <Property Name="Mark" Type="float" Nullable="false" />
+    <Property Name="RightAnswerStatus" Type="bigint" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="Preparationtime" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_UserPreparationResult">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="PreparationId" Type="bigint" Nullable="false" />
+    <Property Name="Mark" Type="float" Nullable="false" />
+    <Property Name="Time" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_VideoFiles">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="decimal" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="200" />
+    <Property Name="FileSize" Type="bigint" />
+    <Property Name="FilePath" Type="nvarchar" MaxLength="500" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="SubTopicID" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="UserExamResult">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" />
+    <Property Name="ExamID" Type="bigint" />
+    <Property Name="Mark" Type="float" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ph17889340521_Medacademy.dbo.View_ExamStudentResult' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_ExamStudentResult">
+    <Key>
+      <PropertyRef Name="Expr1" />
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Mark" />
+      <PropertyRef Name="ExamId" />
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="IsActive" />
+      <PropertyRef Name="RightAnswerStatus" />
+      <PropertyRef Name="UserAnswerId" />
+      <PropertyRef Name="QuestionId" />
+    </Key>
+    <Property Name="Expr1" Type="bigint" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" />
+    <Property Name="Id" Type="bigint" Nullable="false" />
+    <Property Name="Mark" Type="float" Nullable="false" />
+    <Property Name="Examtime" Type="bigint" />
+    <Property Name="Expr2" Type="bit" />
+    <Property Name="ExamId" Type="bigint" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="RightAnswerStatus" Type="bigint" Nullable="false" />
+    <Property Name="UserAnswerId" Type="bigint" Nullable="false" />
+    <Property Name="QuestionId" Type="bigint" Nullable="false" />
+    <Property Name="ParentGuid" Type="uniqueidentifier" />
+  </EntityType>
+  <Association Name="FK__tb_AppRed__Rewar__5BAD9CC8">
+    <End Role="tb_PracticeReward" Type="Self.tb_PracticeReward" Multiplicity="1" />
+    <End Role="tb_AppRedeemPoints" Type="Self.tb_AppRedeemPoints" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_PracticeReward">
+        <PropertyRef Name="RewardId" />
+      </Principal>
+      <Dependent Role="tb_AppRedeemPoints">
+        <PropertyRef Name="RewardId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_AppRed__UserI__3F115E1A">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_AppRedeemPoints" Type="Self.tb_AppRedeemPoints" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_AppRedeemPoints">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Assess__Answe__5E8A0973">
+    <End Role="tb_AnswerView" Type="Self.tb_AnswerView" Multiplicity="1" />
+    <End Role="tb_AssessmentAnswer" Type="Self.tb_AssessmentAnswer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_AnswerView">
+        <PropertyRef Name="AnswerViewId" />
+      </Principal>
+      <Dependent Role="tb_AssessmentAnswer">
+        <PropertyRef Name="AnswerViewId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Assess__Asses__607251E5">
+    <End Role="tb_Assessment" Type="Self.tb_Assessment" Multiplicity="1" />
+    <End Role="tb_AssessmentAttempt" Type="Self.tb_AssessmentAttempt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Assessment">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tb_AssessmentAttempt">
+        <PropertyRef Name="AssessmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Assess__Quest__5F7E2DAC">
+    <End Role="tb_AssessmentQuestion" Type="Self.tb_AssessmentQuestion" Multiplicity="1" />
+    <End Role="tb_AssessmentAnswer" Type="Self.tb_AssessmentAnswer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_AssessmentQuestion">
+        <PropertyRef Name="QuestionId" />
+      </Principal>
+      <Dependent Role="tb_AssessmentAnswer">
+        <PropertyRef Name="QuestionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Assess__Quest__634EBE90">
+    <End Role="tb_QuestionType" Type="Self.tb_QuestionType" Multiplicity="1" />
+    <End Role="tb_AssessmentQuestion" Type="Self.tb_AssessmentQuestion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_QuestionType">
+        <PropertyRef Name="QuestionTypeId" />
+      </Principal>
+      <Dependent Role="tb_AssessmentQuestion">
+        <PropertyRef Name="QuestionTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Assess__Subje__5D95E53A">
+    <End Role="tb_Subject" Type="Self.tb_Subject" Multiplicity="1" />
+    <End Role="tb_Assessment" Type="Self.tb_Assessment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Subject">
+        <PropertyRef Name="SubjectId" />
+      </Principal>
+      <Dependent Role="tb_Assessment">
+        <PropertyRef Name="SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Assess__Subje__6166761E">
+    <End Role="tb_Subject" Type="Self.tb_Subject" Multiplicity="1" />
+    <End Role="tb_AssessmentAttempt" Type="Self.tb_AssessmentAttempt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Subject">
+        <PropertyRef Name="SubjectId" />
+      </Principal>
+      <Dependent Role="tb_AssessmentAttempt">
+        <PropertyRef Name="SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Assess__UserI__44CA3770">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_AssessmentAttempt" Type="Self.tb_AssessmentAttempt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_AssessmentAttempt">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_CbseAn__Answe__6442E2C9">
+    <End Role="tb_AnswerView" Type="Self.tb_AnswerView" Multiplicity="1" />
+    <End Role="tb_CbseAnswer" Type="Self.tb_CbseAnswer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_AnswerView">
+        <PropertyRef Name="AnswerViewId" />
+      </Principal>
+      <Dependent Role="tb_CbseAnswer">
+        <PropertyRef Name="AnswerViewId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_CbseAn__Quest__65370702">
+    <End Role="tb_CbseQuestion" Type="Self.tb_CbseQuestion" Multiplicity="1" />
+    <End Role="tb_CbseAnswer" Type="Self.tb_CbseAnswer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_CbseQuestion">
+        <PropertyRef Name="QuestionId" />
+      </Principal>
+      <Dependent Role="tb_CbseAnswer">
+        <PropertyRef Name="QuestionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_CbseQu__Quest__662B2B3B">
+    <End Role="tb_QuestionType" Type="Self.tb_QuestionType" Multiplicity="1" />
+    <End Role="tb_CbseQuestion" Type="Self.tb_CbseQuestion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_QuestionType">
+        <PropertyRef Name="QuestionTypeId" />
+      </Principal>
+      <Dependent Role="tb_CbseQuestion">
+        <PropertyRef Name="QuestionTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Challe__FromU__498EEC8D">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_Challenge" Type="Self.tb_Challenge" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_Challenge">
+        <PropertyRef Name="FromUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Challe__Notif__681373AD">
+    <End Role="tb_Notification" Type="Self.tb_Notification" Multiplicity="1" />
+    <End Role="tb_Challenge" Type="Self.tb_Challenge" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Notification">
+        <PropertyRef Name="NotificationId" />
+      </Principal>
+      <Dependent Role="tb_Challenge">
+        <PropertyRef Name="NotificationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Challe__ToUse__4B7734FF">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_Challenge" Type="Self.tb_Challenge" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_Challenge">
+        <PropertyRef Name="ToUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Divisi__Class__6BE40491">
+    <End Role="tb_Class" Type="Self.tb_Class" Multiplicity="1" />
+    <End Role="tb_Division" Type="Self.tb_Division" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Class">
+        <PropertyRef Name="ClassId" />
+      </Principal>
+      <Dependent Role="tb_Division">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Divisi__Divis__6DCC4D03">
+    <End Role="tb_Division" Type="Self.tb_Division" Multiplicity="1" />
+    <End Role="tb_DivisionStudent" Type="Self.tb_DivisionStudent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Division">
+        <PropertyRef Name="DivisionId" />
+      </Principal>
+      <Dependent Role="tb_DivisionStudent">
+        <PropertyRef Name="DivisionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Divisi__Schoo__6CD828CA">
+    <End Role="tb_School" Type="Self.tb_School" Multiplicity="1" />
+    <End Role="tb_Division" Type="Self.tb_Division" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_School">
+        <PropertyRef Name="SchoolId" />
+      </Principal>
+      <Dependent Role="tb_Division">
+        <PropertyRef Name="SchoolId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Divisi__UserI__5224328E">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_DivisionStudent" Type="Self.tb_DivisionStudent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_DivisionStudent">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Exerci__Pract__756D6ECB">
+    <End Role="tb_PracticeTest" Type="Self.tb_PracticeTest" Multiplicity="1" />
+    <End Role="tb_Exercise" Type="Self.tb_Exercise" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_PracticeTest">
+        <PropertyRef Name="PracticeTestId" />
+      </Principal>
+      <Dependent Role="tb_Exercise">
+        <PropertyRef Name="PracticeTestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Homewo__Attem__5BAD9CC8">
+    <End Role="tb_PracticeAttempt" Type="Self.tb_PracticeAttempt" Multiplicity="0..1" />
+    <End Role="tb_HomeworkStudent" Type="Self.tb_HomeworkStudent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_PracticeAttempt">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tb_HomeworkStudent">
+        <PropertyRef Name="AttemptId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Homewo__Class__7755B73D">
+    <End Role="tb_Class" Type="Self.tb_Class" Multiplicity="1" />
+    <End Role="tb_Homework" Type="Self.tb_Homework" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Class">
+        <PropertyRef Name="ClassId" />
+      </Principal>
+      <Dependent Role="tb_Homework">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Homewo__Class__7A3223E8">
+    <End Role="tb_Class" Type="Self.tb_Class" Multiplicity="1" />
+    <End Role="tb_HomeworkSchool" Type="Self.tb_HomeworkSchool" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Class">
+        <PropertyRef Name="ClassId" />
+      </Principal>
+      <Dependent Role="tb_HomeworkSchool">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Homewo__Homew__7D0E9093">
+    <End Role="tb_Homework" Type="Self.tb_Homework" Multiplicity="1" />
+    <End Role="tb_HomeworkStudent" Type="Self.tb_HomeworkStudent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Homework">
+        <PropertyRef Name="HomeworkId" />
+      </Principal>
+      <Dependent Role="tb_HomeworkStudent">
+        <PropertyRef Name="HomeworkId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Homewo__Homew__7EF6D905">
+    <End Role="tb_HomeworkSchool" Type="Self.tb_HomeworkSchool" Multiplicity="1" />
+    <End Role="tb_HomeworkStudentSchool" Type="Self.tb_HomeworkStudentSchool" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_HomeworkSchool">
+        <PropertyRef Name="HomeworkId" />
+      </Principal>
+      <Dependent Role="tb_HomeworkStudentSchool">
+        <PropertyRef Name="HomeworkId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Homewo__Pract__7849DB76">
+    <End Role="tb_PracticeTest" Type="Self.tb_PracticeTest" Multiplicity="1" />
+    <End Role="tb_Homework" Type="Self.tb_Homework" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_PracticeTest">
+        <PropertyRef Name="PracticeTestId" />
+      </Principal>
+      <Dependent Role="tb_Homework">
+        <PropertyRef Name="PracticeTestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Homewo__Teach__58D1301D">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_Homework" Type="Self.tb_Homework" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_Homework">
+        <PropertyRef Name="TeacherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Homewo__Teach__5AB9788F">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_HomeworkSchool" Type="Self.tb_HomeworkSchool" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_HomeworkSchool">
+        <PropertyRef Name="TeacherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Homewo__UserI__5D95E53A">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_HomeworkStudent" Type="Self.tb_HomeworkStudent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_HomeworkStudent">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Homewo__UserI__5F7E2DAC">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_HomeworkStudentSchool" Type="Self.tb_HomeworkStudentSchool" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_HomeworkStudentSchool">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_MpeseP__UserI__65370702">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_MpesePayment" Type="Self.tb_MpesePayment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_MpesePayment">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Notifi__FromU__662B2B3B">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_Notification" Type="Self.tb_Notification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_Notification">
+        <PropertyRef Name="FromUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Notifi__Notif__0880433F">
+    <End Role="tb_Notification" Type="Self.tb_Notification" Multiplicity="1" />
+    <End Role="tb_NotificationUser" Type="Self.tb_NotificationUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Notification">
+        <PropertyRef Name="NotificationId" />
+      </Principal>
+      <Dependent Role="tb_NotificationUser">
+        <PropertyRef Name="NotificationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Notifi__UserI__681373AD">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_NotificationUser" Type="Self.tb_NotificationUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_NotificationUser">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Olympi__Answe__0B5CAFEA">
+    <End Role="tb_AnswerType" Type="Self.tb_AnswerType" Multiplicity="1" />
+    <End Role="tb_OlympiadAnswer" Type="Self.tb_OlympiadAnswer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_AnswerType">
+        <PropertyRef Name="AnswerTypeId" />
+      </Principal>
+      <Dependent Role="tb_OlympiadAnswer">
+        <PropertyRef Name="AnswerTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Olympi__Answe__0C50D423">
+    <End Role="tb_AnswerView" Type="Self.tb_AnswerView" Multiplicity="1" />
+    <End Role="tb_OlympiadAnswer" Type="Self.tb_OlympiadAnswer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_AnswerView">
+        <PropertyRef Name="AnswerViewId" />
+      </Principal>
+      <Dependent Role="tb_OlympiadAnswer">
+        <PropertyRef Name="AnswerViewId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Olympi__Chapt__0E391C95">
+    <End Role="tb_OlympiadChapter" Type="Self.tb_OlympiadChapter" Multiplicity="1" />
+    <End Role="tb_OlympiadAttempt" Type="Self.tb_OlympiadAttempt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_OlympiadChapter">
+        <PropertyRef Name="ChapterId" />
+      </Principal>
+      <Dependent Role="tb_OlympiadAttempt">
+        <PropertyRef Name="ChapterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Olympi__Chapt__13F1F5EB">
+    <End Role="tb_OlympiadChapter" Type="Self.tb_OlympiadChapter" Multiplicity="1" />
+    <End Role="tb_OlympiadTest" Type="Self.tb_OlympiadTest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_OlympiadChapter">
+        <PropertyRef Name="ChapterId" />
+      </Principal>
+      <Dependent Role="tb_OlympiadTest">
+        <PropertyRef Name="ChapterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Olympi__Class__0A688BB1">
+    <End Role="tb_Class" Type="Self.tb_Class" Multiplicity="1" />
+    <End Role="tb_Olympiad" Type="Self.tb_Olympiad" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Class">
+        <PropertyRef Name="ClassId" />
+      </Principal>
+      <Dependent Role="tb_Olympiad">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Olympi__Olymp__0F2D40CE">
+    <End Role="tb_Olympiad" Type="Self.tb_Olympiad" Multiplicity="1" />
+    <End Role="tb_OlympiadAttempt" Type="Self.tb_OlympiadAttempt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Olympiad">
+        <PropertyRef Name="OlympiadId" />
+      </Principal>
+      <Dependent Role="tb_OlympiadAttempt">
+        <PropertyRef Name="OlympiadId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Olympi__Olymp__10216507">
+    <End Role="tb_OlympiadTest" Type="Self.tb_OlympiadTest" Multiplicity="1" />
+    <End Role="tb_OlympiadAttempt" Type="Self.tb_OlympiadAttempt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_OlympiadTest">
+        <PropertyRef Name="TestId" />
+      </Principal>
+      <Dependent Role="tb_OlympiadAttempt">
+        <PropertyRef Name="OlympiadTestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Olympi__Olymp__1209AD79">
+    <End Role="tb_Olympiad" Type="Self.tb_Olympiad" Multiplicity="1" />
+    <End Role="tb_OlympiadChapter" Type="Self.tb_OlympiadChapter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Olympiad">
+        <PropertyRef Name="OlympiadId" />
+      </Principal>
+      <Dependent Role="tb_OlympiadChapter">
+        <PropertyRef Name="OlympiadId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Olympi__Quest__0D44F85C">
+    <End Role="tb_OlympiadQuestion" Type="Self.tb_OlympiadQuestion" Multiplicity="1" />
+    <End Role="tb_OlympiadAnswer" Type="Self.tb_OlympiadAnswer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_OlympiadQuestion">
+        <PropertyRef Name="QuestionId" />
+      </Principal>
+      <Dependent Role="tb_OlympiadAnswer">
+        <PropertyRef Name="QuestionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Olympi__Quest__12FDD1B2">
+    <End Role="tb_QuestionType" Type="Self.tb_QuestionType" Multiplicity="1" />
+    <End Role="tb_OlympiadQuestion" Type="Self.tb_OlympiadQuestion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_QuestionType">
+        <PropertyRef Name="QuestionTypeId" />
+      </Principal>
+      <Dependent Role="tb_OlympiadQuestion">
+        <PropertyRef Name="QuestionTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Olympi__UserI__6FB49575">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_OlympiadAttempt" Type="Self.tb_OlympiadAttempt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_OlympiadAttempt">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_PayByC__UserI__73852659">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_PayByCash" Type="Self.tb_PayByCash" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_PayByCash">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Practi__Class__251C81ED">
+    <End Role="tb_Class" Type="Self.tb_Class" Multiplicity="1" />
+    <End Role="tb_PracticeReward" Type="Self.tb_PracticeReward" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Class">
+        <PropertyRef Name="ClassId" />
+      </Principal>
+      <Dependent Role="tb_PracticeReward">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Practi__Pract__7A3223E8">
+    <End Role="tb_Level" Type="Self.tb_Level" Multiplicity="1" />
+    <End Role="tb_PracticePointDetails" Type="Self.tb_PracticePointDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Level">
+        <PropertyRef Name="LevelID" />
+      </Principal>
+      <Dependent Role="tb_PracticePointDetails">
+        <PropertyRef Name="LevelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Practi__UserI__793DFFAF">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_PracticePoint" Type="Self.tb_PracticePoint" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_PracticePoint">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Practi__UserI__7B264821">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_PracticePointDetails" Type="Self.tb_PracticePointDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_PracticePointDetails">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Redeem__Rewar__27F8EE98">
+    <End Role="tb_PracticeReward" Type="Self.tb_PracticeReward" Multiplicity="1" />
+    <End Role="tb_RedeemPoints" Type="Self.tb_RedeemPoints" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_PracticeReward">
+        <PropertyRef Name="RewardId" />
+      </Principal>
+      <Dependent Role="tb_RedeemPoints">
+        <PropertyRef Name="RewardId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Redeem__UserI__00DF2177">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_RedeemPoints" Type="Self.tb_RedeemPoints" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_RedeemPoints">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_ReferF__Frien__01D345B0">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_ReferFriend" Type="Self.tb_ReferFriend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_ReferFriend">
+        <PropertyRef Name="FriendId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_ReferF__UserI__02C769E9">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_ReferFriend" Type="Self.tb_ReferFriend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_ReferFriend">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_School__Schoo__32767D0B">
+    <End Role="tb_School" Type="Self.tb_School" Multiplicity="1" />
+    <End Role="tb_SchoolRating" Type="Self.tb_SchoolRating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_School">
+        <PropertyRef Name="SchoolId" />
+      </Principal>
+      <Dependent Role="tb_SchoolRating">
+        <PropertyRef Name="SchoolId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_School__State__318258D2">
+    <End Role="tb_State" Type="Self.tb_State" Multiplicity="1" />
+    <End Role="tb_School" Type="Self.tb_School" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_State">
+        <PropertyRef Name="StateId" />
+      </Principal>
+      <Dependent Role="tb_School">
+        <PropertyRef Name="StateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_School__UserI__0B5CAFEA">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_SchoolRating" Type="Self.tb_SchoolRating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_SchoolRating">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Subjec__Subje__3552E9B6">
+    <End Role="tb_Subject" Type="Self.tb_Subject" Multiplicity="1" />
+    <End Role="tb_SubjectExpertSubject" Type="Self.tb_SubjectExpertSubject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Subject">
+        <PropertyRef Name="SubjectId" />
+      </Principal>
+      <Dependent Role="tb_SubjectExpertSubject">
+        <PropertyRef Name="SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Subjec__UserI__0E391C95">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_SubjectExpertSubject" Type="Self.tb_SubjectExpertSubject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_SubjectExpertSubject">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Teache__Subje__3CF40B7E">
+    <End Role="tb_Subject" Type="Self.tb_Subject" Multiplicity="1" />
+    <End Role="tb_TeacherSubject" Type="Self.tb_TeacherSubject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Subject">
+        <PropertyRef Name="SubjectId" />
+      </Principal>
+      <Dependent Role="tb_TeacherSubject">
+        <PropertyRef Name="SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Teache__UserI__10216507">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_TeacherSubject" Type="Self.tb_TeacherSubject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_TeacherSubject">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Unlock__Level__11158940">
+    <End Role="tb_Level" Type="Self.tb_Level" Multiplicity="1" />
+    <End Role="tb_UnlockedLevel" Type="Self.tb_UnlockedLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Level">
+        <PropertyRef Name="LevelID" />
+      </Principal>
+      <Dependent Role="tb_UnlockedLevel">
+        <PropertyRef Name="LevelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Unlock__Subtopic__1209AD79">
+    <End Role="tb_Subtopic" Type="Self.tb_Subtopic" Multiplicity="1" />
+    <End Role="tb_UnlockedLevel" Type="Self.tb_UnlockedLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Subtopic">
+        <PropertyRef Name="SubTopicID" />
+      </Principal>
+      <Dependent Role="tb_UnlockedLevel">
+        <PropertyRef Name="SubtopicId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_Unlock__UserI__12FDD1B2">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_UnlockedLevel" Type="Self.tb_UnlockedLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_UnlockedLevel">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_UserAs__Asses__44952D46">
+    <End Role="tb_AssessmentAttempt" Type="Self.tb_AssessmentAttempt" Multiplicity="1" />
+    <End Role="tb_UserAssessmentAttend" Type="Self.tb_UserAssessmentAttend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_AssessmentAttempt">
+        <PropertyRef Name="AssessmentAttemptId" />
+      </Principal>
+      <Dependent Role="tb_UserAssessmentAttend">
+        <PropertyRef Name="AssessmentAttemptId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_UserAs__Quest__4589517F">
+    <End Role="tb_AssessmentQuestion" Type="Self.tb_AssessmentQuestion" Multiplicity="1" />
+    <End Role="tb_UserAssessmentAttend" Type="Self.tb_UserAssessmentAttend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_AssessmentQuestion">
+        <PropertyRef Name="QuestionId" />
+      </Principal>
+      <Dependent Role="tb_UserAssessmentAttend">
+        <PropertyRef Name="QuestionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_UserAs__UserA__467D75B8">
+    <End Role="tb_AssessmentAnswer" Type="Self.tb_AssessmentAnswer" Multiplicity="1" />
+    <End Role="tb_UserAssessmentAttend" Type="Self.tb_UserAssessmentAttend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_AssessmentAnswer">
+        <PropertyRef Name="AnswerId" />
+      </Principal>
+      <Dependent Role="tb_UserAssessmentAttend">
+        <PropertyRef Name="UserAnswerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_UserAs__UserI__16CE6296">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_UserAssessmentAttend" Type="Self.tb_UserAssessmentAttend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_UserAssessmentAttend">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_UserEx__ExamI__1B9317B3">
+    <End Role="tb_Exam" Type="Self.tb_Exam" Multiplicity="1" />
+    <End Role="tb_UserExamAttend" Type="Self.tb_UserExamAttend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Exam">
+        <PropertyRef Name="ExamId" />
+      </Principal>
+      <Dependent Role="tb_UserExamAttend">
+        <PropertyRef Name="ExamId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_UserEx__UserI__1C873BEC">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_UserExamAttend" Type="Self.tb_UserExamAttend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_UserExamAttend">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_UserLo__Class__5006DFF2">
+    <End Role="tb_Class" Type="Self.tb_Class" Multiplicity="0..1" />
+    <End Role="tb_UserLog" Type="Self.tb_UserLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Class">
+        <PropertyRef Name="ClassId" />
+      </Principal>
+      <Dependent Role="tb_UserLog">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_UserLo__UserI__2057CCD0">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_UserLog" Type="Self.tb_UserLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_UserLog">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_UserOl__Olymp__51EF2864">
+    <End Role="tb_OlympiadAttempt" Type="Self.tb_OlympiadAttempt" Multiplicity="1" />
+    <End Role="tb_UserOlympiadAttend" Type="Self.tb_UserOlympiadAttend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_OlympiadAttempt">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tb_UserOlympiadAttend">
+        <PropertyRef Name="OlympiadAttemptId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_UserOl__Quest__52E34C9D">
+    <End Role="tb_OlympiadQuestion" Type="Self.tb_OlympiadQuestion" Multiplicity="1" />
+    <End Role="tb_UserOlympiadAttend" Type="Self.tb_UserOlympiadAttend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_OlympiadQuestion">
+        <PropertyRef Name="QuestionId" />
+      </Principal>
+      <Dependent Role="tb_UserOlympiadAttend">
+        <PropertyRef Name="QuestionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_UserOl__UserA__53D770D6">
+    <End Role="tb_OlympiadAnswer" Type="Self.tb_OlympiadAnswer" Multiplicity="1" />
+    <End Role="tb_UserOlympiadAttend" Type="Self.tb_UserOlympiadAttend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_OlympiadAnswer">
+        <PropertyRef Name="AnswerId" />
+      </Principal>
+      <Dependent Role="tb_UserOlympiadAttend">
+        <PropertyRef Name="UserAnswerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tb_UserOl__UserI__24285DB4">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_UserOlympiadAttend" Type="Self.tb_UserOlympiadAttend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_UserOlympiadAttend">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseID_tb_Package_tb_Course">
+    <End Role="tb_Course" Type="Self.tb_Course" Multiplicity="1" />
+    <End Role="tb_Package" Type="Self.tb_Package" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Course">
+        <PropertyRef Name="CourseId" />
+      </Principal>
+      <Dependent Role="tb_Package">
+        <PropertyRef Name="CourseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PackageID_tb_Subjects_tb_Package">
+    <End Role="tb_Package" Type="Self.tb_Package" Multiplicity="1" />
+    <End Role="tb_Subjects" Type="Self.tb_Subjects" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Package">
+        <PropertyRef Name="PackageID" />
+      </Principal>
+      <Dependent Role="tb_Subjects">
+        <PropertyRef Name="PackageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Subject_tb_Topic_tb_Subjects">
+    <End Role="tb_Subjects" Type="Self.tb_Subjects" Multiplicity="1" />
+    <End Role="tb_Topic" Type="Self.tb_Topic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Subjects">
+        <PropertyRef Name="SubjectID" />
+      </Principal>
+      <Dependent Role="tb_Topic">
+        <PropertyRef Name="SubjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Answer_tb_Question">
+    <End Role="tb_Question" Type="Self.tb_Question" Multiplicity="1" />
+    <End Role="tb_Answer" Type="Self.tb_Answer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Question">
+        <PropertyRef Name="QuestionId" />
+      </Principal>
+      <Dependent Role="tb_Answer">
+        <PropertyRef Name="QuestionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Attempt_tb_Login">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_PracticeAttempt" Type="Self.tb_PracticeAttempt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_PracticeAttempt">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Attempt_tb_Subtopic">
+    <End Role="tb_Subtopic" Type="Self.tb_Subtopic" Multiplicity="1" />
+    <End Role="tb_PracticeAttempt" Type="Self.tb_PracticeAttempt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Subtopic">
+        <PropertyRef Name="SubTopicID" />
+      </Principal>
+      <Dependent Role="tb_PracticeAttempt">
+        <PropertyRef Name="SubtopicId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_ClassStudent_tb_Class">
+    <End Role="tb_Class" Type="Self.tb_Class" Multiplicity="0..1" />
+    <End Role="tb_ClassStudent" Type="Self.tb_ClassStudent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Class">
+        <PropertyRef Name="ClassId" />
+      </Principal>
+      <Dependent Role="tb_ClassStudent">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_ClassStudent_tb_Login1">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="0..1" />
+    <End Role="tb_ClassStudent" Type="Self.tb_ClassStudent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_ClassStudent">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Exam_tb_Exam">
+    <End Role="tb_Exam" Type="Self.tb_Exam" Multiplicity="1" />
+    <End Role="tb_Exam1" Type="Self.tb_Exam" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Exam">
+        <PropertyRef Name="ExamId" />
+      </Principal>
+      <Dependent Role="tb_Exam1">
+        <PropertyRef Name="ExamId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_ExamGroup_tb_ExamGroup">
+    <End Role="tb_Exam" Type="Self.tb_Exam" Multiplicity="1" />
+    <End Role="tb_ExamGroup" Type="Self.tb_ExamGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Exam">
+        <PropertyRef Name="ExamId" />
+      </Principal>
+      <Dependent Role="tb_ExamGroup">
+        <PropertyRef Name="ExamId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_ExamGroup_tb_Group">
+    <End Role="tb_Group" Type="Self.tb_Group" Multiplicity="1" />
+    <End Role="tb_ExamGroup" Type="Self.tb_ExamGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Group">
+        <PropertyRef Name="Group_ID" />
+      </Principal>
+      <Dependent Role="tb_ExamGroup">
+        <PropertyRef Name="GroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_ExamQuestion_tb_Exam1">
+    <End Role="tb_Exam" Type="Self.tb_Exam" Multiplicity="0..1" />
+    <End Role="tb_ExamQuestion" Type="Self.tb_ExamQuestion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Exam">
+        <PropertyRef Name="ExamId" />
+      </Principal>
+      <Dependent Role="tb_ExamQuestion">
+        <PropertyRef Name="ExamId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_ExamRank_tb_Exam">
+    <End Role="tb_Exam" Type="Self.tb_Exam" Multiplicity="1" />
+    <End Role="tb_ExamRank" Type="Self.tb_ExamRank" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Exam">
+        <PropertyRef Name="ExamId" />
+      </Principal>
+      <Dependent Role="tb_ExamRank">
+        <PropertyRef Name="ExamId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_ExamRank_tb_Login">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_ExamRank" Type="Self.tb_ExamRank" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_ExamRank">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_ExamRequest_tb_Login">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="0..1" />
+    <End Role="tb_ExamRequest" Type="Self.tb_ExamRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_ExamRequest">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Ipayy_tb_Login">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_Ipayy" Type="Self.tb_Ipayy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_Ipayy">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Level_tb_Course">
+    <End Role="tb_Course" Type="Self.tb_Course" Multiplicity="1" />
+    <End Role="tb_Level" Type="Self.tb_Level" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Course">
+        <PropertyRef Name="CourseId" />
+      </Principal>
+      <Dependent Role="tb_Level">
+        <PropertyRef Name="CourseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Level_tb_Package">
+    <End Role="tb_Package" Type="Self.tb_Package" Multiplicity="1" />
+    <End Role="tb_Level" Type="Self.tb_Level" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Package">
+        <PropertyRef Name="PackageID" />
+      </Principal>
+      <Dependent Role="tb_Level">
+        <PropertyRef Name="PackageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_level_tb_PracticeTest">
+    <End Role="tb_Level" Type="Self.tb_Level" Multiplicity="1" />
+    <End Role="tb_PracticeAttempt" Type="Self.tb_PracticeAttempt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Level">
+        <PropertyRef Name="LevelID" />
+      </Principal>
+      <Dependent Role="tb_PracticeAttempt">
+        <PropertyRef Name="Levelid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Level_tb_Subjects">
+    <End Role="tb_Subjects" Type="Self.tb_Subjects" Multiplicity="1" />
+    <End Role="tb_Level" Type="Self.tb_Level" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Subjects">
+        <PropertyRef Name="SubjectID" />
+      </Principal>
+      <Dependent Role="tb_Level">
+        <PropertyRef Name="SubjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Level_tb_Topic">
+    <End Role="tb_Topic" Type="Self.tb_Topic" Multiplicity="1" />
+    <End Role="tb_Level" Type="Self.tb_Level" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Topic">
+        <PropertyRef Name="TopicID" />
+      </Principal>
+      <Dependent Role="tb_Level">
+        <PropertyRef Name="TopicID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_login_tb_Payment">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_Payment" Type="Self.tb_Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_Payment">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Mark_tb_Login">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="0..1" />
+    <End Role="tb_Mark" Type="Self.tb_Mark" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_Mark">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Payment_tb_Login">
+    <End Role="tb_PAYTM_REQUEST" Type="Self.tb_PAYTM_REQUEST" Multiplicity="0..1" />
+    <End Role="tb_Payment" Type="Self.tb_Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_PAYTM_REQUEST">
+        <PropertyRef Name="REQUEST_ID" />
+      </Principal>
+      <Dependent Role="tb_Payment">
+        <PropertyRef Name="REQUEST_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Payment_tb_PAYTM_RESPONSE">
+    <End Role="tb_PAYTM_RESPONSE" Type="Self.tb_PAYTM_RESPONSE" Multiplicity="0..1" />
+    <End Role="tb_Payment" Type="Self.tb_Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_PAYTM_RESPONSE">
+        <PropertyRef Name="RESPONSE_ID" />
+      </Principal>
+      <Dependent Role="tb_Payment">
+        <PropertyRef Name="RESPONSE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_PAYTM_REQUEST_tb_Login">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_PAYTM_REQUEST" Type="Self.tb_PAYTM_REQUEST" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_PAYTM_REQUEST">
+        <PropertyRef Name="USER_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_PAYTM_REQUEST_tb_Package">
+    <End Role="tb_Package" Type="Self.tb_Package" Multiplicity="1" />
+    <End Role="tb_PAYTM_REQUEST" Type="Self.tb_PAYTM_REQUEST" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Package">
+        <PropertyRef Name="PackageID" />
+      </Principal>
+      <Dependent Role="tb_PAYTM_REQUEST">
+        <PropertyRef Name="PAKAGE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_PAYTM_RESPONSE_tb_Login">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_PAYTM_RESPONSE" Type="Self.tb_PAYTM_RESPONSE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_PAYTM_RESPONSE">
+        <PropertyRef Name="USER_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_PAYTM_RESPONSE_tb_Package">
+    <End Role="tb_Package" Type="Self.tb_Package" Multiplicity="1" />
+    <End Role="tb_PAYTM_RESPONSE" Type="Self.tb_PAYTM_RESPONSE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Package">
+        <PropertyRef Name="PackageID" />
+      </Principal>
+      <Dependent Role="tb_PAYTM_RESPONSE">
+        <PropertyRef Name="PAKAGE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_PAYTM_RESPONSE_tb_PAYTM_REQUEST">
+    <End Role="tb_PAYTM_REQUEST" Type="Self.tb_PAYTM_REQUEST" Multiplicity="1" />
+    <End Role="tb_PAYTM_RESPONSE" Type="Self.tb_PAYTM_RESPONSE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_PAYTM_REQUEST">
+        <PropertyRef Name="REQUEST_ID" />
+      </Principal>
+      <Dependent Role="tb_PAYTM_RESPONSE">
+        <PropertyRef Name="REQUEST_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_PracticePointDetails_tb_PracticeAttempt">
+    <End Role="tb_PracticeAttempt" Type="Self.tb_PracticeAttempt" Multiplicity="1" />
+    <End Role="tb_PracticePointDetails" Type="Self.tb_PracticePointDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_PracticeAttempt">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tb_PracticePointDetails">
+        <PropertyRef Name="AttemptId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Question_tb_Level">
+    <End Role="tb_Level" Type="Self.tb_Level" Multiplicity="1" />
+    <End Role="tb_Question" Type="Self.tb_Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Level">
+        <PropertyRef Name="LevelID" />
+      </Principal>
+      <Dependent Role="tb_Question">
+        <PropertyRef Name="LevelID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Question_tb_QuestionType">
+    <End Role="tb_QuestionType" Type="Self.tb_QuestionType" Multiplicity="1" />
+    <End Role="tb_Question" Type="Self.tb_Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_QuestionType">
+        <PropertyRef Name="QuestionTypeId" />
+      </Principal>
+      <Dependent Role="tb_Question">
+        <PropertyRef Name="QuestionTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Scholarship_tb_Subject">
+    <End Role="tb_Subject" Type="Self.tb_Subject" Multiplicity="1" />
+    <End Role="tb_Scholarship" Type="Self.tb_Scholarship" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Subject">
+        <PropertyRef Name="SubjectId" />
+      </Principal>
+      <Dependent Role="tb_Scholarship">
+        <PropertyRef Name="SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_ScholarshipAnswer_tb_AnswerView">
+    <End Role="tb_AnswerView" Type="Self.tb_AnswerView" Multiplicity="1" />
+    <End Role="tb_ScholarshipAnswer" Type="Self.tb_ScholarshipAnswer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_AnswerView">
+        <PropertyRef Name="AnswerViewId" />
+      </Principal>
+      <Dependent Role="tb_ScholarshipAnswer">
+        <PropertyRef Name="AnswerViewId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_ScholarshipAnswer_tb_ScholarshipQuestion">
+    <End Role="tb_ScholarshipQuestion" Type="Self.tb_ScholarshipQuestion" Multiplicity="1" />
+    <End Role="tb_ScholarshipAnswer" Type="Self.tb_ScholarshipAnswer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_ScholarshipQuestion">
+        <PropertyRef Name="QuestionId" />
+      </Principal>
+      <Dependent Role="tb_ScholarshipAnswer">
+        <PropertyRef Name="QuestionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_ScholarshipQuestion_tb_QuestionType">
+    <End Role="tb_QuestionType" Type="Self.tb_QuestionType" Multiplicity="1" />
+    <End Role="tb_ScholarshipQuestion" Type="Self.tb_ScholarshipQuestion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_QuestionType">
+        <PropertyRef Name="QuestionTypeId" />
+      </Principal>
+      <Dependent Role="tb_ScholarshipQuestion">
+        <PropertyRef Name="QuestionTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_ScholarshipQuestionTest_tb_QuestionType">
+    <End Role="tb_QuestionType" Type="Self.tb_QuestionType" Multiplicity="1" />
+    <End Role="tb_ScholarshipQuestionTest" Type="Self.tb_ScholarshipQuestionTest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_QuestionType">
+        <PropertyRef Name="QuestionTypeId" />
+      </Principal>
+      <Dependent Role="tb_ScholarshipQuestionTest">
+        <PropertyRef Name="QuestionTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Subject_tb_Class">
+    <End Role="tb_Class" Type="Self.tb_Class" Multiplicity="0..1" />
+    <End Role="tb_Subject" Type="Self.tb_Subject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Class">
+        <PropertyRef Name="ClassId" />
+      </Principal>
+      <Dependent Role="tb_Subject">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Subjects_tb_Course">
+    <End Role="tb_Course" Type="Self.tb_Course" Multiplicity="1" />
+    <End Role="tb_Subjects" Type="Self.tb_Subjects" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Course">
+        <PropertyRef Name="CourseId" />
+      </Principal>
+      <Dependent Role="tb_Subjects">
+        <PropertyRef Name="CourseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Subtopic_tb_Course">
+    <End Role="tb_Course" Type="Self.tb_Course" Multiplicity="1" />
+    <End Role="tb_Subtopic" Type="Self.tb_Subtopic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Course">
+        <PropertyRef Name="CourseId" />
+      </Principal>
+      <Dependent Role="tb_Subtopic">
+        <PropertyRef Name="CourseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Subtopic_tb_Package">
+    <End Role="tb_Package" Type="Self.tb_Package" Multiplicity="1" />
+    <End Role="tb_Subtopic" Type="Self.tb_Subtopic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Package">
+        <PropertyRef Name="PackageID" />
+      </Principal>
+      <Dependent Role="tb_Subtopic">
+        <PropertyRef Name="PackageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Subtopic_tb_Subjects">
+    <End Role="tb_Subjects" Type="Self.tb_Subjects" Multiplicity="1" />
+    <End Role="tb_Subtopic" Type="Self.tb_Subtopic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Subjects">
+        <PropertyRef Name="SubjectID" />
+      </Principal>
+      <Dependent Role="tb_Subtopic">
+        <PropertyRef Name="SubjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Topic_tb_Course">
+    <End Role="tb_Course" Type="Self.tb_Course" Multiplicity="1" />
+    <End Role="tb_Topic" Type="Self.tb_Topic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Course">
+        <PropertyRef Name="CourseId" />
+      </Principal>
+      <Dependent Role="tb_Topic">
+        <PropertyRef Name="CourseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_Topic_tb_Package">
+    <End Role="tb_Package" Type="Self.tb_Package" Multiplicity="1" />
+    <End Role="tb_Topic" Type="Self.tb_Topic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Package">
+        <PropertyRef Name="PackageID" />
+      </Principal>
+      <Dependent Role="tb_Topic">
+        <PropertyRef Name="PackageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_UserAttend_tb_Answer">
+    <End Role="tb_Answer" Type="Self.tb_Answer" Multiplicity="1" />
+    <End Role="tb_UserAttend" Type="Self.tb_UserAttend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Answer">
+        <PropertyRef Name="AnswerId" />
+      </Principal>
+      <Dependent Role="tb_UserAttend">
+        <PropertyRef Name="UserAnswerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_UserAttend_tb_Login">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_UserAttend" Type="Self.tb_UserAttend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_UserAttend">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_UserAttend_tb_PracticeAttempt">
+    <End Role="tb_PracticeAttempt" Type="Self.tb_PracticeAttempt" Multiplicity="1" />
+    <End Role="tb_UserAttend" Type="Self.tb_UserAttend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_PracticeAttempt">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tb_UserAttend">
+        <PropertyRef Name="PracticeAttemptId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_UserAttend_tb_Question">
+    <End Role="tb_Question" Type="Self.tb_Question" Multiplicity="1" />
+    <End Role="tb_UserAttend" Type="Self.tb_UserAttend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Question">
+        <PropertyRef Name="QuestionId" />
+      </Principal>
+      <Dependent Role="tb_UserAttend">
+        <PropertyRef Name="QuestionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_UserExamAttend_tb_ScholarshipAnswer">
+    <End Role="tb_Answer" Type="Self.tb_Answer" Multiplicity="1" />
+    <End Role="tb_UserExamAttend" Type="Self.tb_UserExamAttend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Answer">
+        <PropertyRef Name="AnswerId" />
+      </Principal>
+      <Dependent Role="tb_UserExamAttend">
+        <PropertyRef Name="UserAnswerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_UserExamAttend_tb_ScholarshipQuestion">
+    <End Role="tb_Question" Type="Self.tb_Question" Multiplicity="1" />
+    <End Role="tb_UserExamAttend" Type="Self.tb_UserExamAttend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Question">
+        <PropertyRef Name="QuestionId" />
+      </Principal>
+      <Dependent Role="tb_UserExamAttend">
+        <PropertyRef Name="QuestionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_UserPreparationAttend_tb_Answer">
+    <End Role="tb_Answer" Type="Self.tb_Answer" Multiplicity="1" />
+    <End Role="tb_UserPreparationAttend" Type="Self.tb_UserPreparationAttend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Answer">
+        <PropertyRef Name="AnswerId" />
+      </Principal>
+      <Dependent Role="tb_UserPreparationAttend">
+        <PropertyRef Name="UserAnswerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_UserPreparationAttend_tb_Login">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_UserPreparationAttend" Type="Self.tb_UserPreparationAttend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_UserPreparationAttend">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_UserPreparationAttend_tb_Preparation">
+    <End Role="tb_Preparation" Type="Self.tb_Preparation" Multiplicity="1" />
+    <End Role="tb_UserPreparationAttend" Type="Self.tb_UserPreparationAttend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Preparation">
+        <PropertyRef Name="PreparationId" />
+      </Principal>
+      <Dependent Role="tb_UserPreparationAttend">
+        <PropertyRef Name="PreparationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_UserPreparationAttend_tb_Question">
+    <End Role="tb_Question" Type="Self.tb_Question" Multiplicity="1" />
+    <End Role="tb_UserPreparationAttend" Type="Self.tb_UserPreparationAttend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Question">
+        <PropertyRef Name="QuestionId" />
+      </Principal>
+      <Dependent Role="tb_UserPreparationAttend">
+        <PropertyRef Name="QuestionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_UserPreparationResult_tb_Login">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="1" />
+    <End Role="tb_UserPreparationResult" Type="Self.tb_UserPreparationResult" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tb_UserPreparationResult">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_UserPreparationResult_tb_Preparation">
+    <End Role="tb_Preparation" Type="Self.tb_Preparation" Multiplicity="1" />
+    <End Role="tb_UserPreparationResult" Type="Self.tb_UserPreparationResult" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Preparation">
+        <PropertyRef Name="PreparationId" />
+      </Principal>
+      <Dependent Role="tb_UserPreparationResult">
+        <PropertyRef Name="PreparationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TopicID_tb_Subtopic_tb_Topic">
+    <End Role="tb_Topic" Type="Self.tb_Topic" Multiplicity="1" />
+    <End Role="tb_Subtopic" Type="Self.tb_Subtopic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Topic">
+        <PropertyRef Name="TopicID" />
+      </Principal>
+      <Dependent Role="tb_Subtopic">
+        <PropertyRef Name="TopicID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserExamResult_tb_Exam">
+    <End Role="tb_Exam" Type="Self.tb_Exam" Multiplicity="0..1" />
+    <End Role="UserExamResult" Type="Self.UserExamResult" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Exam">
+        <PropertyRef Name="ExamId" />
+      </Principal>
+      <Dependent Role="UserExamResult">
+        <PropertyRef Name="ExamID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserExamResult_tb_Login">
+    <End Role="tb_Login" Type="Self.tb_Login" Multiplicity="0..1" />
+    <End Role="UserExamResult" Type="Self.UserExamResult" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserExamResult">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PointId">
+    <End Role="tb_Points" Type="Self.tb_Points" Multiplicity="1" />
+    <End Role="tb_ReferFriend" Type="Self.tb_ReferFriend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Points">
+        <PropertyRef Name="PointId" />
+      </Principal>
+      <Dependent Role="tb_ReferFriend">
+        <PropertyRef Name="PointId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_GetTotalRewardPoints" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="float">
+    <Parameter Name="UserId" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="fn_GetUserResultNew" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="float">
+    <Parameter Name="userId" Type="bigint" Mode="In" />
+    <Parameter Name="examId" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="fn_GetUserTotal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="float">
+    <Parameter Name="userId" Type="bigint" Mode="In" />
+    <Parameter Name="examId" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="PR_expires_Payment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="USERID" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="QuestionExcelUpload" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="questionid" Type="bigint" Mode="In" />
+    <Parameter Name="question" Type="varchar(max)" Mode="In" />
+    <Parameter Name="levelid" Type="bigint" Mode="In" />
+    <Parameter Name="explanation" Type="varchar(max)" Mode="In" />
+    <Parameter Name="answer" Type="varchar(max)" Mode="In" />
+    <Parameter Name="rightstatus" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_GetRewardPointDeatils" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="sp_GetUserResults" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ExamId" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="sp_GetUserResultsNew" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ExamId" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="sp_QtnFileUpload" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="questionid" Type="bigint" Mode="In" />
+    <Parameter Name="question" Type="varchar(max)" Mode="In" />
+    <Parameter Name="levelid" Type="bigint" Mode="In" />
+    <Parameter Name="explanation" Type="varchar(max)" Mode="In" />
+    <Parameter Name="answer" Type="varchar(max)" Mode="In" />
+    <Parameter Name="rightstatus" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_QuestionExcelUpload" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="questionid" Type="bigint" Mode="In" />
+    <Parameter Name="question" Type="varchar(max)" Mode="In" />
+    <Parameter Name="levelid" Type="bigint" Mode="In" />
+    <Parameter Name="explanation" Type="varchar(max)" Mode="In" />
+    <Parameter Name="answer" Type="varchar(max)" Mode="In" />
+    <Parameter Name="rightstatus" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="MedacademyModelStoreContainer">
+    <EntitySet Name="tb_Answer" EntityType="Self.tb_Answer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_AnswerDummy" EntityType="Self.tb_AnswerDummy" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_AnswerType" EntityType="Self.tb_AnswerType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_AnswerView" EntityType="Self.tb_AnswerView" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_AppRedeemPoints" EntityType="Self.tb_AppRedeemPoints" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_Assessment" EntityType="Self.tb_Assessment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_AssessmentAnswer" EntityType="Self.tb_AssessmentAnswer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_AssessmentAttempt" EntityType="Self.tb_AssessmentAttempt" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_AssessmentFile" EntityType="Self.tb_AssessmentFile" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_AssessmentQuestion" EntityType="Self.tb_AssessmentQuestion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_CbseAnswer" EntityType="Self.tb_CbseAnswer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_CbseFile" EntityType="Self.tb_CbseFile" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_CbseQuestion" EntityType="Self.tb_CbseQuestion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_Challenge" EntityType="Self.tb_Challenge" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_Chapter" EntityType="Self.tb_Chapter" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_ChapterDummy" EntityType="Self.tb_ChapterDummy" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_Class" EntityType="Self.tb_Class" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_ClassStudent" EntityType="Self.tb_ClassStudent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_CommonPassword" EntityType="Self.tb_CommonPassword" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_ContactExpert" EntityType="Self.tb_ContactExpert" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_ContactUs" EntityType="Self.tb_ContactUs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_Course" EntityType="Self.tb_Course" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_Division" EntityType="Self.tb_Division" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_DivisionStudent" EntityType="Self.tb_DivisionStudent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_ErrorLog" EntityType="Self.tb_ErrorLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_Exam" EntityType="Self.tb_Exam" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_ExamGroup" EntityType="Self.tb_ExamGroup" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_ExamQuestion" EntityType="Self.tb_ExamQuestion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_ExamRank" EntityType="Self.tb_ExamRank" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_ExamRequest" EntityType="Self.tb_ExamRequest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_Exercise" EntityType="Self.tb_Exercise" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_File" EntityType="Self.tb_File" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_FileDummy" EntityType="Self.tb_FileDummy" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_Group" EntityType="Self.tb_Group" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_GroupStudent" EntityType="Self.tb_GroupStudent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_Homework" EntityType="Self.tb_Homework" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_HomeworkSchool" EntityType="Self.tb_HomeworkSchool" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_HomeworkStudent" EntityType="Self.tb_HomeworkStudent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_HomeworkStudentSchool" EntityType="Self.tb_HomeworkStudentSchool" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_Increment" EntityType="Self.tb_Increment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_Ipayy" EntityType="Self.tb_Ipayy" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_Lesson" EntityType="Self.tb_Lesson" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_Level" EntityType="Self.tb_Level" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_Login" EntityType="Self.tb_Login" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_Mark" EntityType="Self.tb_Mark" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_MpesePayment" EntityType="Self.tb_MpesePayment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_News" EntityType="Self.tb_News" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_Notification" EntityType="Self.tb_Notification" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_NotificationUser" EntityType="Self.tb_NotificationUser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_Olympiad" EntityType="Self.tb_Olympiad" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_OlympiadAnswer" EntityType="Self.tb_OlympiadAnswer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_OlympiadAttempt" EntityType="Self.tb_OlympiadAttempt" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_OlympiadChapter" EntityType="Self.tb_OlympiadChapter" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_OlympiadFile" EntityType="Self.tb_OlympiadFile" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_OlympiadQuestion" EntityType="Self.tb_OlympiadQuestion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_OlympiadTest" EntityType="Self.tb_OlympiadTest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_Package" EntityType="Self.tb_Package" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_PasswordReset" EntityType="Self.tb_PasswordReset" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_PayByCash" EntityType="Self.tb_PayByCash" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_Payment" EntityType="Self.tb_Payment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_PaymentTest" EntityType="Self.tb_PaymentTest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_PAYTM_REQUEST" EntityType="Self.tb_PAYTM_REQUEST" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_PAYTM_RESPONSE" EntityType="Self.tb_PAYTM_RESPONSE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_Points" EntityType="Self.tb_Points" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_PracticeAttempt" EntityType="Self.tb_PracticeAttempt" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_PracticePoint" EntityType="Self.tb_PracticePoint" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_PracticePointDetails" EntityType="Self.tb_PracticePointDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_PracticeReward" EntityType="Self.tb_PracticeReward" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_PracticeTest" EntityType="Self.tb_PracticeTest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_PracticeTestDummy" EntityType="Self.tb_PracticeTestDummy" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_Preparation" EntityType="Self.tb_Preparation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_PromoCode" EntityType="Self.tb_PromoCode" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_Question" EntityType="Self.tb_Question" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_QuestionDummy" EntityType="Self.tb_QuestionDummy" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_QuestionType" EntityType="Self.tb_QuestionType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_RedeemPoints" EntityType="Self.tb_RedeemPoints" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_ReferFriend" EntityType="Self.tb_ReferFriend" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_Reward" EntityType="Self.tb_Reward" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_Scholarship" EntityType="Self.tb_Scholarship" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_ScholarshipAnswer" EntityType="Self.tb_ScholarshipAnswer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_ScholarshipAttempt" EntityType="Self.tb_ScholarshipAttempt" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_ScholarshipFile" EntityType="Self.tb_ScholarshipFile" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_ScholarshipQuestion" EntityType="Self.tb_ScholarshipQuestion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_ScholarshipQuestionTest" EntityType="Self.tb_ScholarshipQuestionTest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_School" EntityType="Self.tb_School" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_SchoolRating" EntityType="Self.tb_SchoolRating" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_ScoreRange" EntityType="Self.tb_ScoreRange" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_State" EntityType="Self.tb_State" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_Subject" EntityType="Self.tb_Subject" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_SubjectExpertSubject" EntityType="Self.tb_SubjectExpertSubject" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_Subjects" EntityType="Self.tb_Subjects" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_Subtopic" EntityType="Self.tb_Subtopic" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_TeacherSubject" EntityType="Self.tb_TeacherSubject" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_Topic" EntityType="Self.tb_Topic" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_UnlockedLevel" EntityType="Self.tb_UnlockedLevel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_UrlFile" EntityType="Self.tb_UrlFile" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_UserAssessmentAttend" EntityType="Self.tb_UserAssessmentAttend" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_UserAttend" EntityType="Self.tb_UserAttend" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_UserExamAttend" EntityType="Self.tb_UserExamAttend" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_UserLog" EntityType="Self.tb_UserLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_UserOlympiadAttend" EntityType="Self.tb_UserOlympiadAttend" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_UserPreparationAttend" EntityType="Self.tb_UserPreparationAttend" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_UserPreparationResult" EntityType="Self.tb_UserPreparationResult" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_VideoFiles" EntityType="Self.tb_VideoFiles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserExamResult" EntityType="Self.UserExamResult" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_FileTest" EntityType="Self.tb_FileTest" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [tb_FileTest].[FileId] AS [FileId], 
+    [tb_FileTest].[FileName] AS [FileName], 
+    [tb_FileTest].[FilePath] AS [FilePath], 
+    [tb_FileTest].[FileType] AS [FileType], 
+    [tb_FileTest].[ParentGuid] AS [ParentGuid], 
+    [tb_FileTest].[IsActive] AS [IsActive], 
+    [tb_FileTest].[TimeStamp] AS [TimeStamp]
+    FROM [dbo].[tb_FileTest] AS [tb_FileTest]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="tb_ScholarshipAnswerTest" EntityType="Self.tb_ScholarshipAnswerTest" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [tb_ScholarshipAnswerTest].[AnswerId] AS [AnswerId], 
+    [tb_ScholarshipAnswerTest].[Answer] AS [Answer], 
+    [tb_ScholarshipAnswerTest].[QuestionId] AS [QuestionId], 
+    [tb_ScholarshipAnswerTest].[AnswerTypeId] AS [AnswerTypeId], 
+    [tb_ScholarshipAnswerTest].[AnswerViewId] AS [AnswerViewId], 
+    [tb_ScholarshipAnswerTest].[AnswerGuid] AS [AnswerGuid], 
+    [tb_ScholarshipAnswerTest].[RightStatus] AS [RightStatus], 
+    [tb_ScholarshipAnswerTest].[IsActive] AS [IsActive], 
+    [tb_ScholarshipAnswerTest].[TimeStamp] AS [TimeStamp]
+    FROM [dbo].[tb_ScholarshipAnswerTest] AS [tb_ScholarshipAnswerTest]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_ExamStudentResult" EntityType="Self.View_ExamStudentResult" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [View_ExamStudentResult].[Expr1] AS [Expr1], 
+    [View_ExamStudentResult].[FirstName] AS [FirstName], 
+    [View_ExamStudentResult].[Id] AS [Id], 
+    [View_ExamStudentResult].[Mark] AS [Mark], 
+    [View_ExamStudentResult].[Examtime] AS [Examtime], 
+    [View_ExamStudentResult].[Expr2] AS [Expr2], 
+    [View_ExamStudentResult].[ExamId] AS [ExamId], 
+    [View_ExamStudentResult].[UserId] AS [UserId], 
+    [View_ExamStudentResult].[IsActive] AS [IsActive], 
+    [View_ExamStudentResult].[RightAnswerStatus] AS [RightAnswerStatus], 
+    [View_ExamStudentResult].[UserAnswerId] AS [UserAnswerId], 
+    [View_ExamStudentResult].[QuestionId] AS [QuestionId], 
+    [View_ExamStudentResult].[ParentGuid] AS [ParentGuid]
+    FROM [dbo].[View_ExamStudentResult] AS [View_ExamStudentResult]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__tb_AppRed__Rewar__5BAD9CC8" Association="Self.FK__tb_AppRed__Rewar__5BAD9CC8">
+      <End Role="tb_PracticeReward" EntitySet="tb_PracticeReward" />
+      <End Role="tb_AppRedeemPoints" EntitySet="tb_AppRedeemPoints" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_AppRed__UserI__3F115E1A" Association="Self.FK__tb_AppRed__UserI__3F115E1A">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_AppRedeemPoints" EntitySet="tb_AppRedeemPoints" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Assess__Answe__5E8A0973" Association="Self.FK__tb_Assess__Answe__5E8A0973">
+      <End Role="tb_AnswerView" EntitySet="tb_AnswerView" />
+      <End Role="tb_AssessmentAnswer" EntitySet="tb_AssessmentAnswer" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Assess__Asses__607251E5" Association="Self.FK__tb_Assess__Asses__607251E5">
+      <End Role="tb_Assessment" EntitySet="tb_Assessment" />
+      <End Role="tb_AssessmentAttempt" EntitySet="tb_AssessmentAttempt" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Assess__Quest__5F7E2DAC" Association="Self.FK__tb_Assess__Quest__5F7E2DAC">
+      <End Role="tb_AssessmentQuestion" EntitySet="tb_AssessmentQuestion" />
+      <End Role="tb_AssessmentAnswer" EntitySet="tb_AssessmentAnswer" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Assess__Quest__634EBE90" Association="Self.FK__tb_Assess__Quest__634EBE90">
+      <End Role="tb_QuestionType" EntitySet="tb_QuestionType" />
+      <End Role="tb_AssessmentQuestion" EntitySet="tb_AssessmentQuestion" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Assess__Subje__5D95E53A" Association="Self.FK__tb_Assess__Subje__5D95E53A">
+      <End Role="tb_Subject" EntitySet="tb_Subject" />
+      <End Role="tb_Assessment" EntitySet="tb_Assessment" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Assess__Subje__6166761E" Association="Self.FK__tb_Assess__Subje__6166761E">
+      <End Role="tb_Subject" EntitySet="tb_Subject" />
+      <End Role="tb_AssessmentAttempt" EntitySet="tb_AssessmentAttempt" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Assess__UserI__44CA3770" Association="Self.FK__tb_Assess__UserI__44CA3770">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_AssessmentAttempt" EntitySet="tb_AssessmentAttempt" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_CbseAn__Answe__6442E2C9" Association="Self.FK__tb_CbseAn__Answe__6442E2C9">
+      <End Role="tb_AnswerView" EntitySet="tb_AnswerView" />
+      <End Role="tb_CbseAnswer" EntitySet="tb_CbseAnswer" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_CbseAn__Quest__65370702" Association="Self.FK__tb_CbseAn__Quest__65370702">
+      <End Role="tb_CbseQuestion" EntitySet="tb_CbseQuestion" />
+      <End Role="tb_CbseAnswer" EntitySet="tb_CbseAnswer" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_CbseQu__Quest__662B2B3B" Association="Self.FK__tb_CbseQu__Quest__662B2B3B">
+      <End Role="tb_QuestionType" EntitySet="tb_QuestionType" />
+      <End Role="tb_CbseQuestion" EntitySet="tb_CbseQuestion" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Challe__FromU__498EEC8D" Association="Self.FK__tb_Challe__FromU__498EEC8D">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_Challenge" EntitySet="tb_Challenge" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Challe__Notif__681373AD" Association="Self.FK__tb_Challe__Notif__681373AD">
+      <End Role="tb_Notification" EntitySet="tb_Notification" />
+      <End Role="tb_Challenge" EntitySet="tb_Challenge" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Challe__ToUse__4B7734FF" Association="Self.FK__tb_Challe__ToUse__4B7734FF">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_Challenge" EntitySet="tb_Challenge" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Divisi__Class__6BE40491" Association="Self.FK__tb_Divisi__Class__6BE40491">
+      <End Role="tb_Class" EntitySet="tb_Class" />
+      <End Role="tb_Division" EntitySet="tb_Division" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Divisi__Divis__6DCC4D03" Association="Self.FK__tb_Divisi__Divis__6DCC4D03">
+      <End Role="tb_Division" EntitySet="tb_Division" />
+      <End Role="tb_DivisionStudent" EntitySet="tb_DivisionStudent" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Divisi__Schoo__6CD828CA" Association="Self.FK__tb_Divisi__Schoo__6CD828CA">
+      <End Role="tb_School" EntitySet="tb_School" />
+      <End Role="tb_Division" EntitySet="tb_Division" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Divisi__UserI__5224328E" Association="Self.FK__tb_Divisi__UserI__5224328E">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_DivisionStudent" EntitySet="tb_DivisionStudent" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Exerci__Pract__756D6ECB" Association="Self.FK__tb_Exerci__Pract__756D6ECB">
+      <End Role="tb_PracticeTest" EntitySet="tb_PracticeTest" />
+      <End Role="tb_Exercise" EntitySet="tb_Exercise" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Homewo__Attem__5BAD9CC8" Association="Self.FK__tb_Homewo__Attem__5BAD9CC8">
+      <End Role="tb_PracticeAttempt" EntitySet="tb_PracticeAttempt" />
+      <End Role="tb_HomeworkStudent" EntitySet="tb_HomeworkStudent" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Homewo__Class__7755B73D" Association="Self.FK__tb_Homewo__Class__7755B73D">
+      <End Role="tb_Class" EntitySet="tb_Class" />
+      <End Role="tb_Homework" EntitySet="tb_Homework" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Homewo__Class__7A3223E8" Association="Self.FK__tb_Homewo__Class__7A3223E8">
+      <End Role="tb_Class" EntitySet="tb_Class" />
+      <End Role="tb_HomeworkSchool" EntitySet="tb_HomeworkSchool" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Homewo__Homew__7D0E9093" Association="Self.FK__tb_Homewo__Homew__7D0E9093">
+      <End Role="tb_Homework" EntitySet="tb_Homework" />
+      <End Role="tb_HomeworkStudent" EntitySet="tb_HomeworkStudent" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Homewo__Homew__7EF6D905" Association="Self.FK__tb_Homewo__Homew__7EF6D905">
+      <End Role="tb_HomeworkSchool" EntitySet="tb_HomeworkSchool" />
+      <End Role="tb_HomeworkStudentSchool" EntitySet="tb_HomeworkStudentSchool" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Homewo__Pract__7849DB76" Association="Self.FK__tb_Homewo__Pract__7849DB76">
+      <End Role="tb_PracticeTest" EntitySet="tb_PracticeTest" />
+      <End Role="tb_Homework" EntitySet="tb_Homework" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Homewo__Teach__58D1301D" Association="Self.FK__tb_Homewo__Teach__58D1301D">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_Homework" EntitySet="tb_Homework" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Homewo__Teach__5AB9788F" Association="Self.FK__tb_Homewo__Teach__5AB9788F">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_HomeworkSchool" EntitySet="tb_HomeworkSchool" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Homewo__UserI__5D95E53A" Association="Self.FK__tb_Homewo__UserI__5D95E53A">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_HomeworkStudent" EntitySet="tb_HomeworkStudent" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Homewo__UserI__5F7E2DAC" Association="Self.FK__tb_Homewo__UserI__5F7E2DAC">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_HomeworkStudentSchool" EntitySet="tb_HomeworkStudentSchool" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_MpeseP__UserI__65370702" Association="Self.FK__tb_MpeseP__UserI__65370702">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_MpesePayment" EntitySet="tb_MpesePayment" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Notifi__FromU__662B2B3B" Association="Self.FK__tb_Notifi__FromU__662B2B3B">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_Notification" EntitySet="tb_Notification" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Notifi__Notif__0880433F" Association="Self.FK__tb_Notifi__Notif__0880433F">
+      <End Role="tb_Notification" EntitySet="tb_Notification" />
+      <End Role="tb_NotificationUser" EntitySet="tb_NotificationUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Notifi__UserI__681373AD" Association="Self.FK__tb_Notifi__UserI__681373AD">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_NotificationUser" EntitySet="tb_NotificationUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Olympi__Answe__0B5CAFEA" Association="Self.FK__tb_Olympi__Answe__0B5CAFEA">
+      <End Role="tb_AnswerType" EntitySet="tb_AnswerType" />
+      <End Role="tb_OlympiadAnswer" EntitySet="tb_OlympiadAnswer" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Olympi__Answe__0C50D423" Association="Self.FK__tb_Olympi__Answe__0C50D423">
+      <End Role="tb_AnswerView" EntitySet="tb_AnswerView" />
+      <End Role="tb_OlympiadAnswer" EntitySet="tb_OlympiadAnswer" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Olympi__Chapt__0E391C95" Association="Self.FK__tb_Olympi__Chapt__0E391C95">
+      <End Role="tb_OlympiadChapter" EntitySet="tb_OlympiadChapter" />
+      <End Role="tb_OlympiadAttempt" EntitySet="tb_OlympiadAttempt" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Olympi__Chapt__13F1F5EB" Association="Self.FK__tb_Olympi__Chapt__13F1F5EB">
+      <End Role="tb_OlympiadChapter" EntitySet="tb_OlympiadChapter" />
+      <End Role="tb_OlympiadTest" EntitySet="tb_OlympiadTest" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Olympi__Class__0A688BB1" Association="Self.FK__tb_Olympi__Class__0A688BB1">
+      <End Role="tb_Class" EntitySet="tb_Class" />
+      <End Role="tb_Olympiad" EntitySet="tb_Olympiad" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Olympi__Olymp__0F2D40CE" Association="Self.FK__tb_Olympi__Olymp__0F2D40CE">
+      <End Role="tb_Olympiad" EntitySet="tb_Olympiad" />
+      <End Role="tb_OlympiadAttempt" EntitySet="tb_OlympiadAttempt" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Olympi__Olymp__10216507" Association="Self.FK__tb_Olympi__Olymp__10216507">
+      <End Role="tb_OlympiadTest" EntitySet="tb_OlympiadTest" />
+      <End Role="tb_OlympiadAttempt" EntitySet="tb_OlympiadAttempt" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Olympi__Olymp__1209AD79" Association="Self.FK__tb_Olympi__Olymp__1209AD79">
+      <End Role="tb_Olympiad" EntitySet="tb_Olympiad" />
+      <End Role="tb_OlympiadChapter" EntitySet="tb_OlympiadChapter" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Olympi__Quest__0D44F85C" Association="Self.FK__tb_Olympi__Quest__0D44F85C">
+      <End Role="tb_OlympiadQuestion" EntitySet="tb_OlympiadQuestion" />
+      <End Role="tb_OlympiadAnswer" EntitySet="tb_OlympiadAnswer" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Olympi__Quest__12FDD1B2" Association="Self.FK__tb_Olympi__Quest__12FDD1B2">
+      <End Role="tb_QuestionType" EntitySet="tb_QuestionType" />
+      <End Role="tb_OlympiadQuestion" EntitySet="tb_OlympiadQuestion" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Olympi__UserI__6FB49575" Association="Self.FK__tb_Olympi__UserI__6FB49575">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_OlympiadAttempt" EntitySet="tb_OlympiadAttempt" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_PayByC__UserI__73852659" Association="Self.FK__tb_PayByC__UserI__73852659">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_PayByCash" EntitySet="tb_PayByCash" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Practi__Class__251C81ED" Association="Self.FK__tb_Practi__Class__251C81ED">
+      <End Role="tb_Class" EntitySet="tb_Class" />
+      <End Role="tb_PracticeReward" EntitySet="tb_PracticeReward" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Practi__Pract__7A3223E8" Association="Self.FK__tb_Practi__Pract__7A3223E8">
+      <End Role="tb_Level" EntitySet="tb_Level" />
+      <End Role="tb_PracticePointDetails" EntitySet="tb_PracticePointDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Practi__UserI__793DFFAF" Association="Self.FK__tb_Practi__UserI__793DFFAF">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_PracticePoint" EntitySet="tb_PracticePoint" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Practi__UserI__7B264821" Association="Self.FK__tb_Practi__UserI__7B264821">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_PracticePointDetails" EntitySet="tb_PracticePointDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Redeem__Rewar__27F8EE98" Association="Self.FK__tb_Redeem__Rewar__27F8EE98">
+      <End Role="tb_PracticeReward" EntitySet="tb_PracticeReward" />
+      <End Role="tb_RedeemPoints" EntitySet="tb_RedeemPoints" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Redeem__UserI__00DF2177" Association="Self.FK__tb_Redeem__UserI__00DF2177">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_RedeemPoints" EntitySet="tb_RedeemPoints" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_ReferF__Frien__01D345B0" Association="Self.FK__tb_ReferF__Frien__01D345B0">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_ReferFriend" EntitySet="tb_ReferFriend" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_ReferF__UserI__02C769E9" Association="Self.FK__tb_ReferF__UserI__02C769E9">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_ReferFriend" EntitySet="tb_ReferFriend" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_School__Schoo__32767D0B" Association="Self.FK__tb_School__Schoo__32767D0B">
+      <End Role="tb_School" EntitySet="tb_School" />
+      <End Role="tb_SchoolRating" EntitySet="tb_SchoolRating" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_School__State__318258D2" Association="Self.FK__tb_School__State__318258D2">
+      <End Role="tb_State" EntitySet="tb_State" />
+      <End Role="tb_School" EntitySet="tb_School" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_School__UserI__0B5CAFEA" Association="Self.FK__tb_School__UserI__0B5CAFEA">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_SchoolRating" EntitySet="tb_SchoolRating" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Subjec__Subje__3552E9B6" Association="Self.FK__tb_Subjec__Subje__3552E9B6">
+      <End Role="tb_Subject" EntitySet="tb_Subject" />
+      <End Role="tb_SubjectExpertSubject" EntitySet="tb_SubjectExpertSubject" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Subjec__UserI__0E391C95" Association="Self.FK__tb_Subjec__UserI__0E391C95">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_SubjectExpertSubject" EntitySet="tb_SubjectExpertSubject" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Teache__Subje__3CF40B7E" Association="Self.FK__tb_Teache__Subje__3CF40B7E">
+      <End Role="tb_Subject" EntitySet="tb_Subject" />
+      <End Role="tb_TeacherSubject" EntitySet="tb_TeacherSubject" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Teache__UserI__10216507" Association="Self.FK__tb_Teache__UserI__10216507">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_TeacherSubject" EntitySet="tb_TeacherSubject" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Unlock__Level__11158940" Association="Self.FK__tb_Unlock__Level__11158940">
+      <End Role="tb_Level" EntitySet="tb_Level" />
+      <End Role="tb_UnlockedLevel" EntitySet="tb_UnlockedLevel" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Unlock__Subtopic__1209AD79" Association="Self.FK__tb_Unlock__Subtopic__1209AD79">
+      <End Role="tb_Subtopic" EntitySet="tb_Subtopic" />
+      <End Role="tb_UnlockedLevel" EntitySet="tb_UnlockedLevel" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_Unlock__UserI__12FDD1B2" Association="Self.FK__tb_Unlock__UserI__12FDD1B2">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_UnlockedLevel" EntitySet="tb_UnlockedLevel" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_UserAs__Asses__44952D46" Association="Self.FK__tb_UserAs__Asses__44952D46">
+      <End Role="tb_AssessmentAttempt" EntitySet="tb_AssessmentAttempt" />
+      <End Role="tb_UserAssessmentAttend" EntitySet="tb_UserAssessmentAttend" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_UserAs__Quest__4589517F" Association="Self.FK__tb_UserAs__Quest__4589517F">
+      <End Role="tb_AssessmentQuestion" EntitySet="tb_AssessmentQuestion" />
+      <End Role="tb_UserAssessmentAttend" EntitySet="tb_UserAssessmentAttend" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_UserAs__UserA__467D75B8" Association="Self.FK__tb_UserAs__UserA__467D75B8">
+      <End Role="tb_AssessmentAnswer" EntitySet="tb_AssessmentAnswer" />
+      <End Role="tb_UserAssessmentAttend" EntitySet="tb_UserAssessmentAttend" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_UserAs__UserI__16CE6296" Association="Self.FK__tb_UserAs__UserI__16CE6296">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_UserAssessmentAttend" EntitySet="tb_UserAssessmentAttend" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_UserEx__ExamI__1B9317B3" Association="Self.FK__tb_UserEx__ExamI__1B9317B3">
+      <End Role="tb_Exam" EntitySet="tb_Exam" />
+      <End Role="tb_UserExamAttend" EntitySet="tb_UserExamAttend" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_UserEx__UserI__1C873BEC" Association="Self.FK__tb_UserEx__UserI__1C873BEC">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_UserExamAttend" EntitySet="tb_UserExamAttend" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_UserLo__Class__5006DFF2" Association="Self.FK__tb_UserLo__Class__5006DFF2">
+      <End Role="tb_Class" EntitySet="tb_Class" />
+      <End Role="tb_UserLog" EntitySet="tb_UserLog" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_UserLo__UserI__2057CCD0" Association="Self.FK__tb_UserLo__UserI__2057CCD0">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_UserLog" EntitySet="tb_UserLog" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_UserOl__Olymp__51EF2864" Association="Self.FK__tb_UserOl__Olymp__51EF2864">
+      <End Role="tb_OlympiadAttempt" EntitySet="tb_OlympiadAttempt" />
+      <End Role="tb_UserOlympiadAttend" EntitySet="tb_UserOlympiadAttend" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_UserOl__Quest__52E34C9D" Association="Self.FK__tb_UserOl__Quest__52E34C9D">
+      <End Role="tb_OlympiadQuestion" EntitySet="tb_OlympiadQuestion" />
+      <End Role="tb_UserOlympiadAttend" EntitySet="tb_UserOlympiadAttend" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_UserOl__UserA__53D770D6" Association="Self.FK__tb_UserOl__UserA__53D770D6">
+      <End Role="tb_OlympiadAnswer" EntitySet="tb_OlympiadAnswer" />
+      <End Role="tb_UserOlympiadAttend" EntitySet="tb_UserOlympiadAttend" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tb_UserOl__UserI__24285DB4" Association="Self.FK__tb_UserOl__UserI__24285DB4">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_UserOlympiadAttend" EntitySet="tb_UserOlympiadAttend" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseID_tb_Package_tb_Course" Association="Self.FK_CourseID_tb_Package_tb_Course">
+      <End Role="tb_Course" EntitySet="tb_Course" />
+      <End Role="tb_Package" EntitySet="tb_Package" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PackageID_tb_Subjects_tb_Package" Association="Self.FK_PackageID_tb_Subjects_tb_Package">
+      <End Role="tb_Package" EntitySet="tb_Package" />
+      <End Role="tb_Subjects" EntitySet="tb_Subjects" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Subject_tb_Topic_tb_Subjects" Association="Self.FK_Subject_tb_Topic_tb_Subjects">
+      <End Role="tb_Subjects" EntitySet="tb_Subjects" />
+      <End Role="tb_Topic" EntitySet="tb_Topic" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Answer_tb_Question" Association="Self.FK_tb_Answer_tb_Question">
+      <End Role="tb_Question" EntitySet="tb_Question" />
+      <End Role="tb_Answer" EntitySet="tb_Answer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Attempt_tb_Login" Association="Self.FK_tb_Attempt_tb_Login">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_PracticeAttempt" EntitySet="tb_PracticeAttempt" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Attempt_tb_Subtopic" Association="Self.FK_tb_Attempt_tb_Subtopic">
+      <End Role="tb_Subtopic" EntitySet="tb_Subtopic" />
+      <End Role="tb_PracticeAttempt" EntitySet="tb_PracticeAttempt" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_ClassStudent_tb_Class" Association="Self.FK_tb_ClassStudent_tb_Class">
+      <End Role="tb_Class" EntitySet="tb_Class" />
+      <End Role="tb_ClassStudent" EntitySet="tb_ClassStudent" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_ClassStudent_tb_Login1" Association="Self.FK_tb_ClassStudent_tb_Login1">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_ClassStudent" EntitySet="tb_ClassStudent" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Exam_tb_Exam" Association="Self.FK_tb_Exam_tb_Exam">
+      <End Role="tb_Exam" EntitySet="tb_Exam" />
+      <End Role="tb_Exam1" EntitySet="tb_Exam" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_ExamGroup_tb_ExamGroup" Association="Self.FK_tb_ExamGroup_tb_ExamGroup">
+      <End Role="tb_Exam" EntitySet="tb_Exam" />
+      <End Role="tb_ExamGroup" EntitySet="tb_ExamGroup" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_ExamGroup_tb_Group" Association="Self.FK_tb_ExamGroup_tb_Group">
+      <End Role="tb_Group" EntitySet="tb_Group" />
+      <End Role="tb_ExamGroup" EntitySet="tb_ExamGroup" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_ExamQuestion_tb_Exam1" Association="Self.FK_tb_ExamQuestion_tb_Exam1">
+      <End Role="tb_Exam" EntitySet="tb_Exam" />
+      <End Role="tb_ExamQuestion" EntitySet="tb_ExamQuestion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_ExamRank_tb_Exam" Association="Self.FK_tb_ExamRank_tb_Exam">
+      <End Role="tb_Exam" EntitySet="tb_Exam" />
+      <End Role="tb_ExamRank" EntitySet="tb_ExamRank" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_ExamRank_tb_Login" Association="Self.FK_tb_ExamRank_tb_Login">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_ExamRank" EntitySet="tb_ExamRank" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_ExamRequest_tb_Login" Association="Self.FK_tb_ExamRequest_tb_Login">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_ExamRequest" EntitySet="tb_ExamRequest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Ipayy_tb_Login" Association="Self.FK_tb_Ipayy_tb_Login">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_Ipayy" EntitySet="tb_Ipayy" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Level_tb_Course" Association="Self.FK_tb_Level_tb_Course">
+      <End Role="tb_Course" EntitySet="tb_Course" />
+      <End Role="tb_Level" EntitySet="tb_Level" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Level_tb_Package" Association="Self.FK_tb_Level_tb_Package">
+      <End Role="tb_Package" EntitySet="tb_Package" />
+      <End Role="tb_Level" EntitySet="tb_Level" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_level_tb_PracticeTest" Association="Self.FK_tb_level_tb_PracticeTest">
+      <End Role="tb_Level" EntitySet="tb_Level" />
+      <End Role="tb_PracticeAttempt" EntitySet="tb_PracticeAttempt" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Level_tb_Subjects" Association="Self.FK_tb_Level_tb_Subjects">
+      <End Role="tb_Subjects" EntitySet="tb_Subjects" />
+      <End Role="tb_Level" EntitySet="tb_Level" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Level_tb_Topic" Association="Self.FK_tb_Level_tb_Topic">
+      <End Role="tb_Topic" EntitySet="tb_Topic" />
+      <End Role="tb_Level" EntitySet="tb_Level" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_login_tb_Payment" Association="Self.FK_tb_login_tb_Payment">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_Payment" EntitySet="tb_Payment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Mark_tb_Login" Association="Self.FK_tb_Mark_tb_Login">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_Mark" EntitySet="tb_Mark" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Payment_tb_Login" Association="Self.FK_tb_Payment_tb_Login">
+      <End Role="tb_PAYTM_REQUEST" EntitySet="tb_PAYTM_REQUEST" />
+      <End Role="tb_Payment" EntitySet="tb_Payment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Payment_tb_PAYTM_RESPONSE" Association="Self.FK_tb_Payment_tb_PAYTM_RESPONSE">
+      <End Role="tb_PAYTM_RESPONSE" EntitySet="tb_PAYTM_RESPONSE" />
+      <End Role="tb_Payment" EntitySet="tb_Payment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_PAYTM_REQUEST_tb_Login" Association="Self.FK_tb_PAYTM_REQUEST_tb_Login">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_PAYTM_REQUEST" EntitySet="tb_PAYTM_REQUEST" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_PAYTM_REQUEST_tb_Package" Association="Self.FK_tb_PAYTM_REQUEST_tb_Package">
+      <End Role="tb_Package" EntitySet="tb_Package" />
+      <End Role="tb_PAYTM_REQUEST" EntitySet="tb_PAYTM_REQUEST" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_PAYTM_RESPONSE_tb_Login" Association="Self.FK_tb_PAYTM_RESPONSE_tb_Login">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_PAYTM_RESPONSE" EntitySet="tb_PAYTM_RESPONSE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_PAYTM_RESPONSE_tb_Package" Association="Self.FK_tb_PAYTM_RESPONSE_tb_Package">
+      <End Role="tb_Package" EntitySet="tb_Package" />
+      <End Role="tb_PAYTM_RESPONSE" EntitySet="tb_PAYTM_RESPONSE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_PAYTM_RESPONSE_tb_PAYTM_REQUEST" Association="Self.FK_tb_PAYTM_RESPONSE_tb_PAYTM_REQUEST">
+      <End Role="tb_PAYTM_REQUEST" EntitySet="tb_PAYTM_REQUEST" />
+      <End Role="tb_PAYTM_RESPONSE" EntitySet="tb_PAYTM_RESPONSE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_PracticePointDetails_tb_PracticeAttempt" Association="Self.FK_tb_PracticePointDetails_tb_PracticeAttempt">
+      <End Role="tb_PracticeAttempt" EntitySet="tb_PracticeAttempt" />
+      <End Role="tb_PracticePointDetails" EntitySet="tb_PracticePointDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Question_tb_Level" Association="Self.FK_tb_Question_tb_Level">
+      <End Role="tb_Level" EntitySet="tb_Level" />
+      <End Role="tb_Question" EntitySet="tb_Question" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Question_tb_QuestionType" Association="Self.FK_tb_Question_tb_QuestionType">
+      <End Role="tb_QuestionType" EntitySet="tb_QuestionType" />
+      <End Role="tb_Question" EntitySet="tb_Question" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Scholarship_tb_Subject" Association="Self.FK_tb_Scholarship_tb_Subject">
+      <End Role="tb_Subject" EntitySet="tb_Subject" />
+      <End Role="tb_Scholarship" EntitySet="tb_Scholarship" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_ScholarshipAnswer_tb_AnswerView" Association="Self.FK_tb_ScholarshipAnswer_tb_AnswerView">
+      <End Role="tb_AnswerView" EntitySet="tb_AnswerView" />
+      <End Role="tb_ScholarshipAnswer" EntitySet="tb_ScholarshipAnswer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_ScholarshipAnswer_tb_ScholarshipQuestion" Association="Self.FK_tb_ScholarshipAnswer_tb_ScholarshipQuestion">
+      <End Role="tb_ScholarshipQuestion" EntitySet="tb_ScholarshipQuestion" />
+      <End Role="tb_ScholarshipAnswer" EntitySet="tb_ScholarshipAnswer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_ScholarshipQuestion_tb_QuestionType" Association="Self.FK_tb_ScholarshipQuestion_tb_QuestionType">
+      <End Role="tb_QuestionType" EntitySet="tb_QuestionType" />
+      <End Role="tb_ScholarshipQuestion" EntitySet="tb_ScholarshipQuestion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_ScholarshipQuestionTest_tb_QuestionType" Association="Self.FK_tb_ScholarshipQuestionTest_tb_QuestionType">
+      <End Role="tb_QuestionType" EntitySet="tb_QuestionType" />
+      <End Role="tb_ScholarshipQuestionTest" EntitySet="tb_ScholarshipQuestionTest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Subject_tb_Class" Association="Self.FK_tb_Subject_tb_Class">
+      <End Role="tb_Class" EntitySet="tb_Class" />
+      <End Role="tb_Subject" EntitySet="tb_Subject" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Subjects_tb_Course" Association="Self.FK_tb_Subjects_tb_Course">
+      <End Role="tb_Course" EntitySet="tb_Course" />
+      <End Role="tb_Subjects" EntitySet="tb_Subjects" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Subtopic_tb_Course" Association="Self.FK_tb_Subtopic_tb_Course">
+      <End Role="tb_Course" EntitySet="tb_Course" />
+      <End Role="tb_Subtopic" EntitySet="tb_Subtopic" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Subtopic_tb_Package" Association="Self.FK_tb_Subtopic_tb_Package">
+      <End Role="tb_Package" EntitySet="tb_Package" />
+      <End Role="tb_Subtopic" EntitySet="tb_Subtopic" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Subtopic_tb_Subjects" Association="Self.FK_tb_Subtopic_tb_Subjects">
+      <End Role="tb_Subjects" EntitySet="tb_Subjects" />
+      <End Role="tb_Subtopic" EntitySet="tb_Subtopic" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Topic_tb_Course" Association="Self.FK_tb_Topic_tb_Course">
+      <End Role="tb_Course" EntitySet="tb_Course" />
+      <End Role="tb_Topic" EntitySet="tb_Topic" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_Topic_tb_Package" Association="Self.FK_tb_Topic_tb_Package">
+      <End Role="tb_Package" EntitySet="tb_Package" />
+      <End Role="tb_Topic" EntitySet="tb_Topic" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_UserAttend_tb_Answer" Association="Self.FK_tb_UserAttend_tb_Answer">
+      <End Role="tb_Answer" EntitySet="tb_Answer" />
+      <End Role="tb_UserAttend" EntitySet="tb_UserAttend" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_UserAttend_tb_Login" Association="Self.FK_tb_UserAttend_tb_Login">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_UserAttend" EntitySet="tb_UserAttend" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_UserAttend_tb_PracticeAttempt" Association="Self.FK_tb_UserAttend_tb_PracticeAttempt">
+      <End Role="tb_PracticeAttempt" EntitySet="tb_PracticeAttempt" />
+      <End Role="tb_UserAttend" EntitySet="tb_UserAttend" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_UserAttend_tb_Question" Association="Self.FK_tb_UserAttend_tb_Question">
+      <End Role="tb_Question" EntitySet="tb_Question" />
+      <End Role="tb_UserAttend" EntitySet="tb_UserAttend" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_UserExamAttend_tb_ScholarshipAnswer" Association="Self.FK_tb_UserExamAttend_tb_ScholarshipAnswer">
+      <End Role="tb_Answer" EntitySet="tb_Answer" />
+      <End Role="tb_UserExamAttend" EntitySet="tb_UserExamAttend" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_UserExamAttend_tb_ScholarshipQuestion" Association="Self.FK_tb_UserExamAttend_tb_ScholarshipQuestion">
+      <End Role="tb_Question" EntitySet="tb_Question" />
+      <End Role="tb_UserExamAttend" EntitySet="tb_UserExamAttend" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_UserPreparationAttend_tb_Answer" Association="Self.FK_tb_UserPreparationAttend_tb_Answer">
+      <End Role="tb_Answer" EntitySet="tb_Answer" />
+      <End Role="tb_UserPreparationAttend" EntitySet="tb_UserPreparationAttend" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_UserPreparationAttend_tb_Login" Association="Self.FK_tb_UserPreparationAttend_tb_Login">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_UserPreparationAttend" EntitySet="tb_UserPreparationAttend" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_UserPreparationAttend_tb_Preparation" Association="Self.FK_tb_UserPreparationAttend_tb_Preparation">
+      <End Role="tb_Preparation" EntitySet="tb_Preparation" />
+      <End Role="tb_UserPreparationAttend" EntitySet="tb_UserPreparationAttend" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_UserPreparationAttend_tb_Question" Association="Self.FK_tb_UserPreparationAttend_tb_Question">
+      <End Role="tb_Question" EntitySet="tb_Question" />
+      <End Role="tb_UserPreparationAttend" EntitySet="tb_UserPreparationAttend" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_UserPreparationResult_tb_Login" Association="Self.FK_tb_UserPreparationResult_tb_Login">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="tb_UserPreparationResult" EntitySet="tb_UserPreparationResult" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_UserPreparationResult_tb_Preparation" Association="Self.FK_tb_UserPreparationResult_tb_Preparation">
+      <End Role="tb_Preparation" EntitySet="tb_Preparation" />
+      <End Role="tb_UserPreparationResult" EntitySet="tb_UserPreparationResult" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TopicID_tb_Subtopic_tb_Topic" Association="Self.FK_TopicID_tb_Subtopic_tb_Topic">
+      <End Role="tb_Topic" EntitySet="tb_Topic" />
+      <End Role="tb_Subtopic" EntitySet="tb_Subtopic" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserExamResult_tb_Exam" Association="Self.FK_UserExamResult_tb_Exam">
+      <End Role="tb_Exam" EntitySet="tb_Exam" />
+      <End Role="UserExamResult" EntitySet="UserExamResult" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserExamResult_tb_Login" Association="Self.FK_UserExamResult_tb_Login">
+      <End Role="tb_Login" EntitySet="tb_Login" />
+      <End Role="UserExamResult" EntitySet="UserExamResult" />
+    </AssociationSet>
+    <AssociationSet Name="PointId" Association="Self.PointId">
+      <End Role="tb_Points" EntitySet="tb_Points" />
+      <End Role="tb_ReferFriend" EntitySet="tb_ReferFriend" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

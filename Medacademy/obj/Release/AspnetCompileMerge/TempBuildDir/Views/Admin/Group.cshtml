@@ -1,0 +1,131 @@
+﻿
+@{
+    ViewBag.Title = "Group";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <ol class="breadcrumb">
+                        <li><h3 class="box-title">Group List</h3></li>
+                    </ol>
+                    <a class="btn btn-success btn-xs" style="margin-left:5px" onclick="AddGroup()">Add Group</a>
+                </div><!-- /.box-header -->
+                <div class="box-body" id="class-list-view">
+                    @Html.Partial("~/Views/Admin/_pv_Group_Grid.cshtml")
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
+
+<div class="modal fade" id="editGroup">
+</div><!-- /.modal --><!--edit Class--->
+
+<script>
+    $(document).ready(function () {
+
+        IntializeDataTable();
+
+    });
+
+
+    function IntializeDataTable() {
+        $('#classTable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true
+        });
+    }
+    function refreshGroupGrid() {
+        $.ajax({
+            url: '/Admin/RefreshGroup',
+            dataType: 'html',
+            success: function (data) {
+                $('#class-list-view').html(data);
+                IntializeDataTable();
+            },
+        });
+    }
+    function AddGroup() {
+        window.location.href = '/Admin/AddGroup/';
+    }
+
+    $(document).on('click', '.confirmDelete', function () {
+        var groupid = $(this).attr("data-id");
+        var url = '/Admin/GroupDelete?groupid=' + groupid;
+        $.confirm({
+            text: "Are you sure?",
+            confirm: function (button) {
+                $.get(url, function (result) {
+                    if (result.status) {
+                        toastrSuccess(result.msg);
+                        refreshGroupGrid();
+                    }
+                    else {
+                        toastrError(result.msg);
+                    }
+                });
+            },
+            confirmButton: "Yes",
+            cancelButton: "Cancel",
+            confirmButtonClass: "btn-danger",
+            cancelButtonClass: "btn-success",
+        });
+    });
+
+
+    function EditGroup(source) {
+       // //debugger;
+        var groupid = $(source).attr("data-id");
+        //alert(groupid);
+        $.ajax({
+            url: '/Admin/EditGroupView?groupid=' + groupid,
+            dataType: 'html',
+            success: function (data) {
+                $('#editGroup').html(data);
+                $.validator.unobtrusive.parse($('#editGroup'));
+                $('#editGroup').modal('show');
+            },
+        });
+    }
+    $(document).on('change', '.pv_class-drop-down', function () {
+        var courseid = $(this).val();
+        if (courseid != '') {
+            // resetDropDown('Class');
+            $.ajax({
+                url: '/Admin/Getpackages?courseid=' + courseid,
+                type: "GET",
+                success: function (result) {
+                    if (result.list.length > 0) {
+                        $("#PackageID").html(""); // clear before appending new list
+                        $("#PackageID").append($('<option></option>').val("").html('-- Choose --'));
+                        $.each(result.list, function (i, item) {
+                            $("#PackageID").append($('<option></option>').val(item.Value).html(item.Text));
+                        });
+                        $("#PackageID").prop("disabled", false);
+
+                    }
+                    else {
+                        // resetDropDown('Class');
+                        $("#PackageID").html(""); // clear before appending new list
+                        $("#PackageID").append($('<option></option>').val("").html('-- No Package Found --'));
+                        $("#PackageID").prop("disabled", true);
+                    }
+                }
+            });
+        }
+        else {
+            //  resetDropDown('Class');
+        }
+    });
+
+
+</script>
+

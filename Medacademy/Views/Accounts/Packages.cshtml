@@ -1,0 +1,410 @@
+﻿@model Medacademy.Models.UserModel
+@{
+    ViewBag.Title = "Packages";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="breadcrumbsSection package_section" style="display:none;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+
+                <div class="breadcrumbs">
+                    <h1>Packages</h1>
+                    <ul>
+                        <li><a href="/Accounts/Index">Home</a></li>
+                        <li>Packages</li>
+                    </ul>
+                </div><!-- ./breadcrumbs -->
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ./breadcrumbsSection -->
+
+@if (Model.UserId != 0)
+{
+
+    <section class="packages_section commSec">
+        <div class="container">
+            <div class="col-12">
+                <h3 class="sub_package">Our packages</h3>
+                <div class="package_tabs">
+                    <div class="card mt-3 tab-card">
+
+
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active p-3" id="one" role="tabpanel" aria-labelledby="one-tab">
+                                <div class="row" id="div_id_pv_packages">
+
+                                    @Html.Partial("~/Views/User/pv_packages.cshtml", Model)
+
+                                </div>
+
+                                <ul class="pagination">
+
+                                    @{
+
+                                        Medacademy.Repository.PaginationRepository pagnation = new Medacademy.Repository.PaginationRepository();
+                                        Medacademy.Models.PaginationModel models_Pagination = new Medacademy.Models.PaginationModel();
+
+                                        models_Pagination.TotalItems = Model.PaginationModel.TotalItems; // table Count.....
+
+                                        var totelItems = pagnation.CalculatePage(models_Pagination);
+
+                                        if (totelItems.NumberOfPages != 0)
+                                        {
+
+                                            <li class="page-item clas-pagination" id="Previous" Previous-id="1"><a class="page-link">Previous</a></li>
+                                            for (int i = 1; i <= totelItems.NumberOfPages; i++)
+                                            {
+                                                if (i == 1)
+                                                {
+                                                    <li class="page-item clas-pagination active" id="@i"><a class="page-link">@i</a></li>
+                                                }
+                                                else
+                                                {
+                                                    <li class="page-item clas-pagination" id="@i"><a class="page-link">@i</a></li>
+                                                }
+
+                                            }
+                                            if (totelItems.NumberOfPages == 0)
+                                            {
+                                                <li class="page-item clas-pagination" id="1"><a class="page-link">1</a></li>
+
+                                            }
+
+                                            int NextId = 2;
+                                            if (NextId > totelItems.NumberOfPages)
+                                            {
+                                                <li class="page-item clas-pagination" id="Next" Next-id="1" Number-Of-Pages="@totelItems.NumberOfPages"><a class="page-link">Next</a></li>
+
+                                            }
+                                            else
+                                            {
+                                                <li class="page-item clas-pagination" id="Next" Next-id="2" Number-Of-Pages="@totelItems.NumberOfPages"><a class="page-link">Next</a></li>
+
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            <li class="page-item"><a class="page-link">Previous</a></li>
+                                            <li class="page-item active"><a class="page-link">1</a></li>
+                                            <li class="page-item"><a class="page-link">Next</a></li>
+
+                                        }
+
+
+                                    }
+
+
+                                </ul>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <script>
+
+    $(".clas-pagination").click(function () {
+        //debugger;
+        var PaginationModel = new Object();
+        var datas = new Object();
+        var check_Status = $(this).attr('id');
+
+        $(".clas-pagination").removeClass('active');
+
+        if (check_Status == 'Previous') {
+            PaginationModel.PageNumber = $("#Previous").attr('Previous-id');
+
+            $("#" + PaginationModel.PageNumber).addClass('active');
+            var PR1 = PaginationModel.PageNumber;
+            PR1 = parseInt(PR1) - 1;
+            var PR2 = PR1;
+            if (PR1 == 0) {
+                PR1 = 1;
+            }
+            if (PR1 == 0) {
+                PR2 = 2;
+            }
+            $("#Previous").attr('Previous-id', PR1);
+            var totelNumberOfpage =  $("#Next").attr("Number-Of-Pages");
+            if (totelNumberOfpage == 1) {
+                $("#Next").attr('Next-id', 1);
+            }
+            else {
+                $("#Next").attr('Next-id', (PR2 + 1) + 1);
+            }
+
+
+
+        }
+        else if (check_Status == 'Next') {
+            PaginationModel.PageNumber = $("#Next").attr('Next-id');
+            $("#" + PaginationModel.PageNumber).addClass('active');
+            var NE1 = PaginationModel.PageNumber;
+            var Totelpages = $("#Next").attr("Number-Of-Pages");
+            NE1 = parseInt(NE1) + 1;
+            var PREV1 = NE1;
+            if (NE1 > Totelpages) {
+                NE1 = NE1 - 1;
+                //PREV1 = PREV1 + 1;
+            }
+            $("#Next").attr('Next-id', NE1);
+            if (Totelpages == 1) {
+                $("#Previous").attr('Previous-id', 1);
+            }
+            else {
+                $("#Previous").attr('Previous-id', (PREV1 - 1) - 1);
+            }
+
+        }
+        else {
+            PaginationModel.PageNumber = $(this).attr('id');
+            var Totelpages = $("#Next").attr("Number-Of-Pages");
+            var C1 = $(this).attr('id');
+            var P2 = C1;
+            if(P2 > 1){
+                P2 = parseInt(C1) - 1
+            }
+            N1 = parseInt(C1) + 1;
+
+            if (Totelpages == 1) {
+                $("#Next").attr('Next-id', 1);
+                $("#Previous").attr('Previous-id', 1);
+            }
+            else{
+                $("#Next").attr('Next-id', N1);
+                $("#Previous").attr('Previous-id', P2);
+            }
+
+
+
+
+        }
+            datas.PaginationModel = PaginationModel;
+            $(this).addClass('active');
+
+
+
+            $.ajax({
+                type: "POST",
+                url: "/User/pv_packages",
+                data: datas,
+                success: function (response) {
+                    $("#div_id_pv_packages").html("");
+                    $("#div_id_pv_packages").html(response);
+                },
+                error: function (response) {
+
+                }
+            });
+
+
+    });
+
+    </script>
+
+
+
+                                        }
+                                        else
+                                        {
+
+                                            <section class="packages_section commSec">
+                                                <div class="container">
+                                                    <div class="col-12">
+                                                        <h3 class="sub_package">Our packages</h3>
+                                                        <div class="package_tabs">
+                                                            <div class="card mt-3 tab-card">
+
+
+                                                                <div class="tab-content" id="myTabContent">
+                                                                    <div class="tab-pane fade show active p-3" id="one" role="tabpanel" aria-labelledby="one-tab">
+                                                                        <div class="row" id="div_id_pv_packages">
+
+                                                                            @Html.Partial("~/Views/Locals/pv_Local_packages.cshtml", Model)
+
+                                                                        </div>
+
+                                                                        <ul class="pagination">
+
+                                                                            @{
+
+                                                                                Medacademy.Repository.PaginationRepository pagnation = new Medacademy.Repository.PaginationRepository();
+                                                                                Medacademy.Models.PaginationModel models_Pagination = new Medacademy.Models.PaginationModel();
+
+                                                                                models_Pagination.TotalItems = Model.LocalModel.PaginationModel.TotalItems; // table Count.....
+
+                                                                                var totelItems = pagnation.CalculatePage(models_Pagination);
+
+                                                                                if (totelItems.NumberOfPages != 0)
+                                                                                {
+                                                                                    <li class="page-item class-pagination-locals" id="Previous" Previous-id="1"><a class="page-link">Previous</a></li>
+                                                                                    for (int i = 1; i <= totelItems.NumberOfPages; i++)
+                                                                                    {
+                                                                                        if (i == 1)
+                                                                                        {
+                                                                                            <li class="page-item class-pagination-locals active" id="@i"><a class="page-link">@i</a></li>
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <li class="page-item class-pagination-locals" id="@i"><a class="page-link">@i</a></li>
+                                                                                        }
+
+                                                                                    }
+
+
+                                                                                    int NextId = 2;
+                                                                                    if (NextId > totelItems.NumberOfPages)
+                                                                                    {
+                                                                                        <li class="page-item class-pagination-locals" id="Next" Next-id="1" Number-Of-Pages="@totelItems.NumberOfPages"><a class="page-link">Next</a></li>
+
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <li class="page-item class-pagination-locals" id="Next" Next-id="2" Number-Of-Pages="@totelItems.NumberOfPages"><a class="page-link">Next</a></li>
+
+                                                                                    }
+
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <li class="page-item"><a class="page-link">Previous</a></li>
+                                                                                    <li class="page-item active"><a class="page-link">1</a></li>
+                                                                                    <li class="page-item"><a class="page-link">Next</a></li>
+
+                                                                                }
+
+
+
+
+
+                                                                            }
+
+
+                                                                        </ul>
+                                                                    </div>
+
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </section>
+
+                                            <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+                                            <script>
+
+    $(".class-pagination-locals").click(function () {
+        //debugger;
+        var PaginationModel = new Object();
+        var datas = new Object();
+        var check_Status = $(this).attr('id');
+
+        $(".class-pagination-locals").removeClass('active');
+
+        if (check_Status == 'Previous') {
+            PaginationModel.PageNumber = $("#Previous").attr('Previous-id');
+
+            $("#" + PaginationModel.PageNumber).addClass('active');
+            var PR1 = PaginationModel.PageNumber;
+            PR1 = parseInt(PR1) - 1;
+            var PR2 = PR1;
+            if (PR1 == 0) {
+                PR1 = 1;
+            }
+            if (PR1 == 0) {
+                PR2 = 2;
+            }
+            $("#Previous").attr('Previous-id', PR1);
+            var totelNumberOfpage =  $("#Next").attr("Number-Of-Pages");
+            if (totelNumberOfpage == 1) {
+                $("#Next").attr('Next-id', 1);
+            }
+            else {
+                $("#Next").attr('Next-id', (PR2 + 1) + 1);
+            }
+
+
+
+        }
+        else if (check_Status == 'Next') {
+            PaginationModel.PageNumber = $("#Next").attr('Next-id');
+            $("#" + PaginationModel.PageNumber).addClass('active');
+            var NE1 = PaginationModel.PageNumber;
+            var Totelpages = $("#Next").attr("Number-Of-Pages");
+            NE1 = parseInt(NE1) + 1;
+            var PREV1 = NE1;
+            if (NE1 > Totelpages) {
+                NE1 = NE1 - 1;
+                //PREV1 = PREV1 + 1;
+            }
+            $("#Next").attr('Next-id', NE1);
+            if (Totelpages == 1) {
+                $("#Previous").attr('Previous-id', 1);
+            }
+            else {
+                $("#Previous").attr('Previous-id', (PREV1 - 1) - 1);
+            }
+
+        }
+        else {
+            PaginationModel.PageNumber = $(this).attr('id');
+            var Totelpages = $("#Next").attr("Number-Of-Pages");
+            var C1 = $(this).attr('id');
+            var P2 = C1;
+            if(P2 > 1){
+                P2 = parseInt(C1) - 1
+            }
+            N1 = parseInt(C1) + 1;
+
+            if (Totelpages == 1) {
+                $("#Next").attr('Next-id', 1);
+                $("#Previous").attr('Previous-id', 1);
+            }
+            else{
+                $("#Next").attr('Next-id', N1);
+                $("#Previous").attr('Previous-id', P2);
+            }
+
+
+
+
+        }
+            datas.PaginationModel = PaginationModel;
+            $(this).addClass('active');
+
+
+
+            $.ajax({
+                type: "POST",
+                url: "/Locals/pv_Local_packages",
+                data: datas,
+                success: function (response) {
+                    $("#div_id_pv_packages").html("");
+                    $("#div_id_pv_packages").html(response);
+                },
+                error: function (response) {
+
+                }
+            });
+
+
+    });
+
+                                            </script>
+
+                                                                                }

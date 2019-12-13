@@ -1,0 +1,35 @@
+﻿<table id="classTable" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Sl No</th>
+            <th>Topic Name</th>
+            <th>Subject Name</th>
+            <th>Package Name</th>
+            <th>Course Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{int id = 1;
+
+            foreach (var topics in new Ma.EntityLibrary.Data.Topic().GetTopics())
+            {
+                var subjects = new Ma.EntityLibrary.Data.Subject(topics.SubjectID);
+                var package = new Ma.EntityLibrary.Data.Package(topics.PackageID);
+                var course = new Ma.EntityLibrary.Data.Course(topics.CourseID);
+                <tr>
+                    <td>@id</td>
+                    <td>@topics.TopicName</td>
+                    <td>@subjects.SubjectName</td>
+                    <td>@package.PackageName</td>
+                    <td>@course.CourseName</td>
+                    <td>
+                        <button type="button" class="btn btn-success btn-xs" data-id="@topics.TopicID" onclick="EditTopic(this)">Edit</button>
+                        <button type="button" class="btn btn-danger btn-xs confirmDelete" data-id="@topics.TopicID">Delete</button>
+                    </td>
+                </tr>
+                id++;
+            }
+        }
+    </tbody>
+</table>

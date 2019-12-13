@@ -1,0 +1,367 @@
+﻿@model Medacademy.Models.AddQuestoExam
+@{
+    ViewBag.Title = "AddQuestoExam";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    
+}
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body" id="class-count-view">
+                    @Html.Partial("~/Views/Exam/_pv_Exam_QuestionCount.cshtml", Model)
+                </div>
+                    @using (Ajax.BeginForm("AddQuesttoExam", "Exam", null, new AjaxOptions
+                    {
+                        HttpMethod = "POST",
+                        OnSuccess = "AddQuesttoExamSuccess",
+                        OnFailure = "AddQuesttoExamFailed",
+                    }, new { id = "form-login" }))
+                    {
+
+                @Html.HiddenFor(z => z.ExamId, new { Value = @Model.ExamId })
+                @Html.HiddenFor(z => z.ExamName, new { Value = @Model.ExamName })
+                @Html.HiddenFor(z => z.SelectedData, new { Value = "" })
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-sm-4 col-md-3">
+                            <h4 class="text-center">Course</h4>
+                            @Html.DropDownListFor(m => m.CourseId, Ma.EntityLibrary.Data.Dropdowndata.GetCourseDrop(), "--Choose--", new { @class = "form-control course-drop-down", @data_live_search = "true" })
+                        </div><!-- /.col -->
+                        <div class="col-sm-4 col-md-3">
+                            <h4 class="text-center">Package</h4>
+                            <select id="Package-drop-down" class="form-control Package-drop-down" disabled>
+                                <option>-- Please select Package --</option>
+                            </select>
+                        </div><!-- /.col -->
+
+                        <div class="col-sm-4 col-md-3">
+                            <h4 class="text-center">Subject</h4>
+                            <select id="Subject-drop-down" class="form-control Subject-drop-down" disabled>
+                                <option>-- Please select Subject --</option>
+                            </select>
+                        </div><!-- /.col -->
+                        <div class="col-sm-4 col-md-3">
+                            <h4 class="text-center">Topic</h4>
+                            <select id="Topic-drop-down" class="form-control Topic-drop-down" disabled>
+                                <option>-- Please select Topic --</option>
+                            </select>
+                        </div><!-- /.col -->
+                        <div class="col-sm-4 col-md-3">
+                            <h4 class="text-center">Subtopic</h4>
+                            <select id="Subtopic-drop-down" class="form-control Subtopic-drop-down" disabled>
+                                <option>-- Please select Subtopic --</option>
+                            </select>
+                        </div><!-- /.col -->
+                        <div class="col-sm-4 col-md-3">
+                            <h4 class="text-center">Level</h4>
+                            <select id="Level-drop-down" class="form-control Level-drop-down" disabled>
+                                <option>-- Please select Level --</option>
+                            </select>
+                        </div><!-- /.col -->
+                    </div>
+                </div>
+
+
+                <div class="box-body" id="class-list-view">
+                    @*@Html.Partial("~/Views/Admin/_pv_Level_Grid.cshtml")*@
+                  
+                </div><!-- /.box-body -->
+
+                  
+
+
+                }
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section>
+
+<script>
+
+
+    $(document).on('click', '.selectall', function () {
+      //  debugger;
+        if (this.checked) {
+            $('.ckb-question-item').each(function () {
+                $(".ckb-question-item").prop('checked', true);
+            })
+        } else {
+            $('.ckb-question-item').each(function () {
+                $(".ckb-question-item").prop('checked', false);
+            })
+        }
+    });
+
+    function SelectedList() {
+        var roles = "";
+        
+        $('.ckb-question-item').each(function () {
+           // alert($(this).val());
+            if ($(this).prop("checked") == true) {
+                if (roles == "") {
+                    roles += $(this).val();
+                }
+                else {
+                    roles += "~" + $(this).val();
+                }
+            }
+        });
+        $('#SelectedData').val(roles);
+       // alert("Test" + roles);
+    };
+
+    $(document).on('click', '#btn-dummy-addexam', function () {
+        SelectedList();
+
+        $('#btn-addexam').trigger('click');
+
+    });
+   
+   
+   
+
+    
+
+    $(document).on('change', '.course-drop-down', function () {
+        var id = $(this).val();
+        //  alert(id+"Test");
+        if (id != '') {
+            // resetDropDown('Package');
+            $.ajax({
+                url: '/Data/LoadPackages?courseid=' + id,
+                type: "GET",
+                success: function (result) {
+                    if (result.list.length > 0) {
+                        $("#Package-drop-down").html(""); // clear before appending new list
+                        $("#Package-drop-down").append($('<option></option>').val("").html('-- Select Package --'));
+                        $.each(result.list, function (i, item) {
+                            $("#Package-drop-down").append($('<option></option>').val(item.Value).html(item.Text));
+                        });
+                        $("#Package-drop-down").prop("disabled", false);
+                    }
+                    else {
+                       // resetDropDown('Class');
+                        $("#Package-drop-down").html(""); // clear before appending new list
+                        $("#Package-drop-down").append($('<option></option>').val("").html('-- No Packages Found --'));
+                        $("#Package-drop-down").prop("disabled", true);
+                    }
+                }
+            });
+
+        }
+        else {
+          //  resetDropDown('Class');
+        }
+    });
+
+
+
+    $(document).on('change', '.Package-drop-down', function () {
+        var id = $(this).val();
+        if (id != '') {
+            //  resetDropDown('Class');
+            $.ajax({
+                url: '/Data/LoadSubjects?packageid=' + id,
+                type: "GET",
+                success: function (result) {
+                    if (result.list.length > 0) {
+                        $("#Subject-drop-down").html(""); // clear before appending new list
+                        $("#Subject-drop-down").append($('<option></option>').val("").html('-- Select Subject --'));
+                        $.each(result.list, function (i, item) {
+                            $("#Subject-drop-down").append($('<option></option>').val(item.Value).html(item.Text));
+                        });
+                        $("#Subject-drop-down").prop("disabled", false);
+                    }
+                    else {
+                       // resetDropDown('Class');
+                        $("#Subject-drop-down").html(""); // clear before appending new list
+                        $("#Subject-drop-down").append($('<option></option>').val("").html('-- No Subjects Found --'));
+                        $("#Subject-drop-down").prop("disabled", true);
+                    }
+                }
+            });
+
+        }
+        else {
+            //   resetDropDown('Class');
+        }
+    });
+
+    $(document).on('change', '.Subject-drop-down', function () {
+        var id = $(this).val();
+        if (id != '') {
+            //  resetDropDown('Subject');
+
+            $.ajax({
+                url: '/Data/LoadTopic?subjectid=' + id,
+                type: "GET",
+                success: function (result) {
+                    if (result.list.length > 0) {
+                        $("#Topic-drop-down").html(""); // clear before appending new list
+                        $("#Topic-drop-down").append($('<option></option>').val("").html('-- Select Topic --'));
+                        $.each(result.list, function (i, item) {
+                            $("#Topic-drop-down").append($('<option></option>').val(item.Value).html(item.Text));
+                        });
+                        $("#Topic-drop-down").prop("disabled", false);
+                    }
+                    else {
+                        //resetDropDown('Subject');
+                        $("#Topic-drop-down").html(""); // clear before appending new list
+                        $("#Topic-drop-down").append($('<option></option>').val("").html('-- No Topics Found --'));
+                        $("#Topic-drop-down").prop("disabled", true);
+                    }
+                }
+            });
+
+        }
+        else {
+            //    resetDropDown('Subject');
+        }
+    });
+
+    $(document).on('change', '.Topic-drop-down', function () {
+        var id = $(this).val();
+        if (id != '') {
+            //   resetDropDown('Chapter');
+
+            $.ajax({
+                url: '/Data/LoadSubtopic?topicid=' + id,
+                type: "GET",
+                success: function (result) {
+                    if (result.list.length > 0) {
+                        $("#Subtopic-drop-down").html(""); // clear before appending new list
+                        $("#Subtopic-drop-down").append($('<option></option>').val("").html('-- Select Subtopic --'));
+                        $.each(result.list, function (i, item) {
+                            $("#Subtopic-drop-down").append($('<option></option>').val(item.Value).html(item.Text));
+                        });
+                        $("#Subtopic-drop-down").prop("disabled", false);
+                    }
+                    else {
+                        //resetDropDown('Chapter');
+                        $("#Subtopic-drop-down").html(""); // clear before appending new list
+                        $("#Subtopic-drop-down").append($('<option></option>').val("").html('-- No Subtopic Found --'));
+                        $("#Subtopic-drop-down").prop("disabled", true);
+                    }
+                }
+            });
+
+        }
+        else {
+            // resetDropDown('Chapter');
+        }
+    });
+
+    $(document).on('change', '.Subtopic-drop-down', function () {
+        var id = $(this).val();
+        if (id != '') {
+            //    resetDropDown('Class');
+            $.ajax({
+                url: '/Data/LoadLevel?subtopicid=' + id,
+                type: "GET",
+                success: function (result) {
+                    if (result.list.length > 0) {
+                        $("#Level-drop-down").html(""); // clear before appending new list
+                        $("#Level-drop-down").append($('<option></option>').val("").html('-- Select Level --'));
+                        $.each(result.list, function (i, item) {
+                            $("#Level-drop-down").append($('<option></option>').val(item.Value).html(item.Text));
+                        });
+                        $("#Level-drop-down").prop("disabled", false);
+                    }
+                    else {
+                      //  resetDropDown('Class');
+                        $("#Level-drop-down").html(""); // clear before appending new list
+                        $("#Level-drop-down").append($('<option></option>').val("").html('-- No Level Found --'));
+                        $("#Level-drop-down").prop("disabled", true);
+                    }
+                }
+            });
+
+        }
+        else {
+            //  resetDropDown('Class');
+        }
+    });
+
+    //get question list
+
+    $(document).on('change', '#Level-drop-down', function () {
+        var testId = $(this).val();
+        $.ajax({
+            url: '/Exam/GetQuestionView?testId=' + testId,
+            dataType: 'html',
+            success: function (data) {
+                $('#class-list-view').hide();
+                $('#class-list-view').html(data);
+                setTimeout(function () {
+                    IntializeDataTable();
+                    $('#class-list-view').show();
+
+                }, 1000)
+            },
+        });
+    });
+
+
+    function AddQuesttoExamSuccess(result) {
+        if (result.status) {
+            $('#addChapter').modal('hide');
+            toastrSuccess(result.msg);
+            refreshExamQuestionGrid();
+            refreshExamQuestionCount();
+        }
+        else {
+            toastrError(result.msg);
+        }
+    }
+
+    function refreshExamQuestionGrid() {
+        var levelid = $('#hflevelid').val();
+        $.ajax({
+            url: '/Exam/RefreshExamQuestionGrid?testId=' + levelid,
+
+            dataType: 'html',
+            success: function (data) {
+                //  $('#main-view-div').html(data);
+                $('#class-list-view').html(data);
+                IntializeDataTable();
+            },
+        });
+    }
+
+    function refreshExamQuestionCount() {
+        var examid = $('#ExamId').val();
+        var levelid = $('#hflevelid').val();
+        $.ajax({
+            url: '/Exam/RefreshExamQuestionCount?examid=' + examid + '~' + levelid,
+
+            dataType: 'html',
+            success: function (data) {
+               
+                $('#class-count-view').html(data);
+               // IntializeDataTable();
+            },
+        });
+    }
+
+    function PublishExam() {
+       
+        var examid = $('#ExamId').val();
+        $.ajax({
+            url: '/Exam/PublishExam?examid=' + examid,
+            type: "GET",
+            dataType: 'json',
+            success: function (data) {
+                if (data.status) {
+                    toastrSuccess(data.msg);
+                    
+                }
+                else {
+                    toastrError(data.msg);
+                }
+            }
+        });
+    }
+
+</script>

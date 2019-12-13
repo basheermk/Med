@@ -1,0 +1,474 @@
+﻿@model Medacademy.Models.ExamModel
+@{
+    ViewBag.Title = "Exam";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box form-inner">
+
+                <div class="box-header">
+                    <h3>Add Exam</h3>
+                </div><!-- /.box-header -->
+                @using (Ajax.BeginForm("AddExam", "Exam", null, new AjaxOptions
+                {
+                    HttpMethod = "POST",
+                    OnSuccess = "AddExamSuccess",
+                    OnFailure = "AddExamFailed",
+                }, new { id = "form-login" }))
+                {
+                    @Html.HiddenFor(z => z.GroupData, new { Value = "" })
+                    <form>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Exam Name</label>
+                            <div class="col-sm-8">
+                                @*<input type="text" class="form-control" placeholder="Test">*@
+                                @Html.TextBoxFor(m => m.ExamName, new { @class = "form-control", placeholder = "Exam Name" })
+                                @Html.ValidationMessageFor(m => m.ExamName)
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Duration</label>
+                            <div class="col-sm-8">
+                                @*<input type="text" class="form-control" placeholder="Test">*@
+                                @Html.TextBoxFor(m => m.Duration, new { @class = "form-control", placeholder = "In minutes", Value = "00:00:00" })
+                                @Html.ValidationMessageFor(m => m.Duration)
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Start Date</label>
+                            <div class="col-sm-3">
+
+                                @Html.TextBoxFor(m => m.StartDate, new { @class = "form-control", id = "StartDate", placeholder = "MM/DD/YYYY HH:MM:SS" })
+                                @Html.ValidationMessageFor(m => m.StartDate)
+
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">End Date</label>
+                            <div class="col-sm-3">
+
+                                @Html.TextBoxFor(m => m.EndDate, new { @class = "form-control", id = "EndDate", placeholder = "MM/DD/YYYY HH:MM:SS" })
+                                @Html.ValidationMessageFor(m => m.EndDate)
+
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Group</label>
+                            <div class="col-sm-3">
+
+                                <div class="form-group">
+                                    @*<label>Roles</label>*@
+                                    <div class="dropdown_main">
+                                        <span class="dropdown_btn">Groups <i class="fa fa-caret-down"></i></span>
+                                        <ul class="dropdown_lists">
+                                            @foreach (var groups in new Ma.EntityLibrary.Data.Group().GetGroups())
+                                            {
+                                                <li>
+                                                    <label class="label_container">
+                                                        @groups.GroupName
+                                                        <input type="checkbox" value="@groups.GroupID" class="chk-roles-cls">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+
+
+
+
+
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">&nbsp;</label>
+                            <div class="col-sm-8">
+
+
+                                <button type="button" id="btn-dummy-addexam" class="btn pay-now-btn">Save</button>
+
+
+                                <button type="submit" style="display:none;" id="btn-addexam" class="btn btn-success">Save</button>
+                                <button type="button" class="btn btn-danger" onclick="CloseLevel()">Clear</button>
+                            </div>
+                        </div>
+
+                    </form>
+                }
+                <div class="box-body" id="class-list-view">
+                    @Html.Partial("~/Views/Exam/_pv_Exam_Grid.cshtml")
+                </div>
+
+            </div>
+        </div>
+    </div><!-- /.row -->
+</section><!-- /.content -->
+
+<div class="modal fade" id="addPreparation">
+
+</div>
+
+<div class="modal fade" id="viewQuestions">
+
+</div>
+
+<div class="modal fade" id="editExam">
+
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+        $('#StartDate').datetimepicker({
+            format: 'DD-MM-YYYY HH:mm',
+            minDate: new Date()
+        });
+        //$('#StartDate').data("DateTimePicker").minDate(e.date);
+    });
+
+
+    $('#StartDate').datetimepicker({ format: 'DD/MM/YYYY HH:mm' }).on('dp.change', function (e) {
+
+        //debugger;
+        var startdate = $('#StartDate').val();
+        var enddate = $('#EndDate').val();
+        if (enddate != "") {
+
+            if (startdate >= enddate) {
+                toastrError("End date lessthan start date!");
+            }
+        }
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('#EndDate').datetimepicker({
+            format: 'DD-MM-YYYY HH:mm',
+            minDate: new Date()
+        });
+        //$('#EndDate').data("DateTimePicker").minDate(e.date);
+    });
+    $('#EndDate').datetimepicker({ format: 'DD/MM/YYYY HH:mm' }).on('dp.change', function (e) {
+        var startdate = $('#StartDate').val();
+        var enddate = $('#EndDate').val();
+        if (startdate >= enddate) {
+            toastrError("End date less than start date!");
+        }
+    });
+
+
+</script>
+
+
+
+
+
+
+
+
+<script>
+
+    $(document).ready(function () {
+        IntializeDataTable();
+    });
+
+    function refreshExam() {
+        window.location.href = '/Exam/Exam/';
+    }
+
+    function refreshExamGrid() {
+        $.ajax({
+            url: '/Exam/RefreshExam',
+            dataType: 'html',
+            success: function (data) {
+                $('#class-list-view').html(data);
+                IntializeDataTable();
+            },
+        });
+    }
+
+    function IntializeDataTable() {
+        $('#classTable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true
+        });
+    }
+
+
+
+
+    $('.dropdown_btn').click(function () {
+        $(this).siblings().toggle();
+    });
+
+    function GroupList() {
+        var roles = "";
+        $('.chk-roles-cls').each(function () {
+            if ($(this).prop("checked") == true) {
+                if (roles == "") {
+                    roles += $(this).val();
+                }
+                else {
+                    roles += "~" + $(this).val();
+                }
+            }
+        });
+        $('#GroupData').val(roles);
+        // alert(roles+"Test");
+    };
+
+    $(document).on('click', '#btn-dummy-addexam', function () {
+        GroupList();
+
+        $('#btn-addexam').trigger('click');
+
+    });
+
+    function AddExamSuccess(result) {
+        if (result.status) {
+            toastrSuccess(result.msg);
+            refreshExam();
+        }
+        else {
+            toastrError(result.msg);
+        }
+    }
+    function AddExamFailed() {
+        toastrError('Exam Adding Failed');
+    }
+
+    function AddQuestoExam(source) {
+
+        var examid = $(source).attr("data-id");
+
+        var examname = $(source).attr("data-pract-name");
+
+        window.location.href = '/Exam/AddQuestoExam?examid=' + examid + '~' + examname;
+
+    }
+
+    function CloseLevel() {
+        window.location.href = '/Exam/Exam/';
+    }
+
+
+
+    $(document).on('click', '.confirmDelete', function () {
+        // var source = $(this);
+        //debugger;
+        var examid = $(this).attr("data-id");
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to undo this !",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, cancel it!",
+            cancelButtonText: "No,!",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+function (isConfirm) {
+    if (isConfirm) {
+        $.ajax({
+            url: '/Exam/ExamCancel?examid=' + examid,
+            type: "GET",
+            dataType: 'json',
+            success: function (data) {
+                if (data.status) {
+                    toastrSuccess(data.msg);
+                    refreshExamGrid();
+                }
+                else {
+                    toastrError(data.msg);
+                }
+            }
+        });
+    }
+});
+    });
+
+
+    function addPreparations(source) {
+        var examid = $(source).attr("data-id");
+        var examname = $(source).attr("data-pract-name");
+        // alert(examname + examid+ "abc123");
+        $.ajax({
+            url: '/Exam/PreparationView?examid=' + examid + '~' + examname,
+            dataType: 'html',
+            success: function (data) {
+                $('#addPreparation').html(data);
+                $.validator.unobtrusive.parse($('#addPreparation'));
+
+                $('#addPreparation').modal('show');
+
+
+
+            },
+        });
+    }
+
+
+    function AddPreparationSuccess(result) {
+        if (result.status) {
+            $('#addPreparation').modal('hide');
+            toastrSuccess(result.msg);
+
+        }
+        else {
+            toastrError(result.msg);
+        }
+    }
+    function AddPreparationFailed() {
+        toastrError('Preparation Adding Failed');
+    }
+
+
+    function ViewQuestion(source) {
+        var examid = $(source).attr("data-id");
+        var examname = $(source).attr("data-pract-name");
+        // alert(examname + examid+ "abc123");
+        $.ajax({
+            url: '/Exam/ViewQuestion?examid=' + examid + '~' + examname,
+            dataType: 'html',
+            success: function (data) {
+                $('#viewQuestions').html(data);
+                $.validator.unobtrusive.parse($('#viewQuestions'));
+
+                $('#viewQuestions').modal('show');
+
+
+
+            },
+        });
+    }
+
+    function EditExam(source) {
+        // debugger;
+        var examid = $(source).attr("data-id");
+        // alert(groupid);
+        $.ajax({
+            url: '/Exam/EditExamView?examid=' + examid,
+            dataType: 'html',
+            success: function (data) {
+                $('#editExam').html(data);
+                $.validator.unobtrusive.parse($('#editExam'));
+                $('#editExam').modal('show');
+                FillGroupsInEdit();
+            },
+        });
+    }
+
+
+    //groupdetails
+
+    function FillGroupsInEdit() {
+       
+        var data = $('#grdata').val();
+        if (data != "") {
+            var list = data.split("~");
+            if (list != null) {
+
+                for (var i = 0; i < list.length; i++) {
+                    var roleId = list[i];
+                    $(".chk-roles-cls-edit").each(function () { // Full list
+                        var allId = $(this).val();
+                        if (roleId == allId) {
+                            $(this).prop('checked', true);
+                        }
+                    });
+                }
+            }
+        }
+
+
+    };
+
+    $(document).on('click', '#btn-dummy-addexam1', function () {
+        GroupList1();
+
+        $('#btn-addexam1').trigger('click');
+
+    });
+    function GroupList1() {
+        var roles = "";
+        $('.chk-roles-cls-edit').each(function () {
+            if ($(this).prop("checked") == true) {
+                if (roles == "") {
+                    roles += $(this).val();
+                }
+                else {
+                    roles += "~" + $(this).val();
+                }
+            }
+        });
+        $('#GroupDataEdit').val(roles);
+        // alert(roles+"Test");
+    };
+
+    function EditExamSuccess(result) {
+        if (result.status) {
+            $('#editExam').modal('hide');
+            toastrSuccess(result.msg);
+            refreshExamGrid();
+        }
+        else {
+            toastrError(result.msg);
+        }
+    }
+    function EditExamFailed() {
+        toastrError('Topic Editing Failed');
+    }
+
+
+
+
+    $(document).on('click', '.Deletepermenently', function () {
+       
+        var examid = $(this).attr("data-id");
+        swal({
+            title: "Are you sure?",
+            text: "You are about to delete permanently !",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel!",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+              function (isConfirm) {
+                  if (isConfirm) {
+                      $.ajax({
+                          url: '/Exam/ExamDelete?examid=' + examid,
+                          type: "GET",
+                          dataType: 'json',
+                          success: function (data) {
+                              if (data.status) {
+                                  toastrSuccess(data.msg);
+                                  refreshExamGrid();
+                              }
+                              else {
+                                  toastrError(data.msg);
+                              }
+                          }
+                      });
+                  }
+              });
+    });
+
+    $(document).on('click', '.viewResult', function () {
+        var examId = $(this).attr('data-id');
+        window.location.href = '/Exam/ExamResult/' + examId;
+    });
+
+</script>

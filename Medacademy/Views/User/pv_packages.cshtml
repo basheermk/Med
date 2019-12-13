@@ -1,0 +1,70 @@
+﻿@model Medacademy.Models.UserModel
+@{
+    var payment_Select = true;
+        
+}
+ 
+@{
+    foreach (var a1 in Model.LI_Pacages)
+    {
+
+        {
+            var checkPaymentSelect = Model.PaymentModel_Lists.Where(x => x.PackageID == a1.PackageID).FirstOrDefault();
+            if (checkPaymentSelect != null)
+            {
+                payment_Select = false;
+            }
+            else
+            {
+                payment_Select = true;
+            }
+        }
+
+
+        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+            <div class="packages">
+                <div class="package_photo">
+                    <img src="@a1.Files">
+                </div>
+                <div class="package_info">
+                    <h5>@a1.PackageName</h5>
+                    <div class="price">
+                       @*if (payment_Select == true)
+                        {*@
+                            <span><i class="fas fa-rupee-sign"></i>Rs.@a1.Amount</span>
+                            <span><i class="fas fa-rupee-sign"></i>Rs.@Convert.ToInt64(Convert.ToInt64(a1.Amount) - Convert.ToInt64(a1.DiscountAmount))</span>
+                        @*}*@
+
+                        @if (payment_Select == false)
+                        {
+                            
+
+                            @*<span><i class="fas fa-calendar-day" style="text-decoration:none !important;"></i>Remaining Days</span>*@
+                        }
+
+                    </div>
+                    <div class="infos_pkgs">
+                        @a1.Description
+                    </div>
+                    <div class="package_btn">
+                        <a href="#" class="detls_btn">Full Details</a>
+
+                        @*purchased*@
+
+                        @if (payment_Select == true)
+                        {
+                            <a href="/User/AlertPayment?page=@a1.PackageID" class="slct_btn" pakage-Id="@a1.PackageID">Select</a>
+                             
+                        }
+                        @if (payment_Select == false)
+                        {
+                            <a class="slct_btn" style="background-color:green; color:white;" pakage-Id="@a1.PackageID">Purchased</a>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+}

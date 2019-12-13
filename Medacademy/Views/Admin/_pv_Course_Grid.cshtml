@@ -1,0 +1,38 @@
+﻿<table id="classTable" class="table table-bordered row-border table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Sl No</th>
+            <th>Course Name</th>
+            @*<th>Subject</th>*@
+            @*<th>Price</th>*@
+            <th>Duration</th>
+            <th>Details</th>
+            <th>Added On</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+@{int id = 1;
+        foreach (var courses in new Ma.EntityLibrary.Data.Course().GetCourses())
+        {
+            <tr>
+                <td>@id</td>
+                <td>@courses.CourseName</td>
+                @*<td>@courses.CourseSubjectName</td>*@
+                @*<td>@courses.Price</td>*@
+                <td>@courses.Duration</td>
+                <td>@courses.Details</td>
+                <td>@courses.TimeStamp</td>
+                <td>
+                    <button type="button" class="btn btn-success btn-xs" data-id="@courses.CourseId" onclick="EditCourse(this)">Edit</button>
+                    <button type="button" class="btn btn-danger btn-xs confirmDelete" data-id="@courses.CourseId">Delete</button>
+                    <button type="button" class="btn btn-success btn-xs" data-id="@courses.CourseId" onclick="ViewCourse(this)">View</button>
+                </td>
+            </tr>
+            id++;
+        }
+    }
+    </tbody>
+</table>
+
+

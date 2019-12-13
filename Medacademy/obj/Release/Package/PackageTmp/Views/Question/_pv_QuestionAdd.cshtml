@@ -1,0 +1,61 @@
+﻿@model Medacademy.Models.QuestionAddModel
+
+@{
+    //long levelid =Convert.ToInt32(TempData["LEVELID"]);
+
+    var practiceTest = new Ma.EntityLibrary.Data.Level(Model.LevelID);
+    var questions = practiceTest.GetQuestions();
+}
+
+<!-- Main content -->
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header">
+            <h3 class="box-title"><i class="fa fa-list-alt"></i> Question List</h3>
+            <button type="button" class="btn btn-success btn-xs pull-right" id="add-question-practice" data-practice-id="@Model.LevelID">Add Questions</button>
+            <input type="hidden" id="hflevelid" value="@Model.LevelID" />
+        </div>
+        <div class="box-body">
+            <table id="practQuestionTable" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Q No.</th>
+                        <th>Question</th>
+                        @*<th>Type</th>*@
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        var index = 1;
+                    }
+                    @foreach (var question in questions)
+                    {
+                        <tr>
+                            <td>@index</td>
+                            <td>@(new HtmlString(question.questionName))</td>
+                            @*<td>
+                                @if (question.GetAnswer().FirstOrDefault().AnswerTypeId == 2)
+                            {
+                                <p>Image</p>
+                            }
+                            else
+                            {
+                                <p>Text</p>
+                            }
+                        </td>*@
+                        <td>
+                            <button type="button" class="btn btn-success btn-xs edit-question" data-pract-id=@question.LevelID data-id="@question.questionId" data-practice-id="@Model.LevelID">Edit</button>
+                            <button type="button" class="btn btn-danger btn-xs confirmDelete" data-id="@question.questionId">Delete</button>
+                        </td>
+                    </tr>
+                        index++;
+                    }
+                </tbody>
+            </table>
+        </div><!-- /.box-body -->
+    </div><!-- /.box -->
+</section><!-- /.content -->
+
+
+

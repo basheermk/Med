@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Untitled Document</title>
+</head>
+
+<body>
+
+    <!-- Main box -->
+    <table style="width: 100%; background-color: #E3E5E9; margin: 0px; padding: 0px; font-family: Arial; width: 800px; margin-left: auto; margin-right: auto; border-top: 5px solid #34A37C;" border="0">
+        <tr>
+            <td>
+                <table style="width:100%; background-color: #fff">
+                    <tr>
+                        <td style="width:100%; padding-top: 50px; padding-bottom: 40px;">
+                            <a href="http://www.childacademy.in"><img src="http://www.childacademy.in/Content/img/logo_main_1.png" alt="ChildAcademy" style="display: block; position: relative; margin-left: auto; margin-right: auto; width: 220px;" /></a>
+                        </td>
+                    </tr>
+                </table>
+                <table style="padding: 0px 35px; background-color: #fff;" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td style="width:100%;">
+                            <p style="color: #4B4B4D; font-size: 18px; margin-top: 2px; margin-bottom: 2px; text-align: left; font-weight: 500;">Dear {{user}},</p>
+                            <p style="color: #4B4B4D; font-size: 18px; margin-top: 2px; margin-bottom: 2px; text-align: justify; font-weight: 500;">
+                                Your each practice session is a learning process which will enhance your analytical and problem solving skills. Given below is your Practice Test Report of {{date}} with the count of right, wrong and unattended questions.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+                <table style="" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td>
+                            <!-- BODY -->
+                            <table style="width: 800px; background-color: #fff; padding-left: 35px; padding-right: 35px; padding-bottom: 15px; font-size: 16px; padding-top: 20px; font-family: Arial; font-weight: 500;" border="0">
+                                <tr>
+
+                                    <td style="background-color: #34a37c; width: 100%; color: #fff; font-size: 18px; font-weight: 800; font-family: monospace; ">
+                                        <table style=" margin: auto; font-size: 15px;">
+                                            <tr>
+                                                <td style=" width: 25%; text-align: center;">Class : {{class}}</td>
+                                                <td style=" width: 25%; text-align: center;">Subject : {{subject}}</td>
+                                                <td style=" width: 25%; text-align: center;">Chapter : {{chapter}}</td>
+                                                <td style=" width: 25%; text-align: center;">PracticeTest : {{practiceTest}}</td>
+                                                <td style=" width: 25%; text-align: center; display: none;"></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style=" margin: 20px 0px; display: block;">
+                                        <table style="width: 100%; max-width: 600px; margin: auto; ">
+                                            <tr style="background-color: rgba(204, 204, 204, 0.12);">
+                                                <td style="width: {{rightAns}}0%; min-width:100px; background-color: #40af61; float: left; overflow: hidden; padding: 10px; color: #fff;">
+                                                    Right ({{rightAns}}/10)
+                                                </td>
+                                            </tr>
+                                            <tr style="background-color: rgba(204, 204, 204, 0.12);">
+                                                <td style="width: {{wrongAns}}0%; min-width:100px; background-color: #e24b4b;float: left; overflow: hidden; padding: 10px; color: #fff;">
+                                                    Wrong ({{wrongAns}}/10)
+                                                </td>
+                                            </tr>
+                                            <tr style="background-color: rgba(204, 204, 204, 0.12);">
+                                                <td style="width: {{unattend}}0%; min-width:100px; background-color: #a9a8a8;float: left; overflow: hidden; padding: 10px; color: #fff;">
+                                                    Unattend ({{unattend}}/10)
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                            </table>
+                            <!-- BODY END -->
+                            <table style="padding: 0px 35px; background-color: #fff;" cellpadding="0" cellspacing="0" border="0" width="100%">
+                                <tr>
+                                    <td style=" width:100%;">
+                                        <center>
+                                            <p style=" color: #fff; font-size: 18px; margin-top: 2px; margin-bottom: 2px; text-align: left; font-weight: 500; text-align: center; width: 298px; height: 100%; background-color: #198bc9; border-radius: 2%; box-sizing: border-box; padding: 30px;">
+                                                Your Grade Is <span style="font-size: 60px; display: block; width: 100%; text-align: center;">{{grade}}</span>
+                                            </p>
+                                        </center>
+                                        <br />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
+
+                            <!-- Footer -->
+                            <table style="width: 800px; color: #b0b0b0; font-size: 12px; font-weight: 500; " border="0">
+                                <tr>
+                                    <td>
+                                        <p style="margin-bottom: 20px; margin-top: 20px; text-align: center; display: block; position: relative;">
+                                            &copy;  2016 www.childacademy.in All Rights Reserved.
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                            <!-- Footer END -->
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+    </table>
+    <!-- Main box END -->
+</body>
+</html>

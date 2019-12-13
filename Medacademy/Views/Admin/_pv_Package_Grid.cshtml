@@ -1,0 +1,63 @@
+﻿<style>
+    .green {
+        background-color: greenyellow;
+        font-size: 12px;
+        padding: 3px 8px;
+    }
+
+    .red {
+        background-color: red;
+        font-size: 12px;
+        padding: 5px 10px;
+    }
+</style>
+
+<table id="classTable" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Sl No</th>
+            @*<th>Type</th>*@
+            <th>Package Name</th>
+            <th>Course Name</th>
+            <th>Amount</th>
+            <th>Discounted Amount</th>
+            <th>Expiry Days</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{int id = 1;
+
+            foreach (var packages in new Ma.EntityLibrary.Data.Package().GetPackages())
+            {
+                var course = new Ma.EntityLibrary.Data.Course(packages.CourseID);
+                <tr>
+                    <td>@id</td>
+                    @*<td>@packages.Type</td>*@
+                    <td>@packages.PackageName</td>
+                    <td>@course.CourseName</td>
+                    <td>@packages.Amount</td>
+                    <td>@packages.DiscountAmount</td>
+                    <td>@packages.ExpiryDays</td>
+                    @{ if( DateTime.Now<= packages.ExpiryDate)
+                        {
+                            <td><label class="green">Active</label></td>
+                        }
+                        else
+                        {
+                            <td><label class="red">Expired</label></td>
+                        }
+                    }
+                    <td>
+                        <button type="button" class="btn btn-success btn-xs" data-id="@packages.PackageID" onclick="EditPackage(this)">Edit</button>
+                        <button type="button" class="btn btn-danger btn-xs confirmDelete" data-id="@packages.PackageID">Delete</button>
+                        <button type="button" class="btn btn-success btn-xs" data-id="@packages.PackageID" onclick="ViewPackage(this)">View</button>
+                       
+                    </td>
+                </tr>
+                            id++;
+                        }
+        }
+    </tbody>
+</table>

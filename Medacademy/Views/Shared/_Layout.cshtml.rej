@@ -1,0 +1,9 @@
+diff a/Medacademy/Views/Shared/_Layout.cshtml b/Medacademy/Views/Shared/_Layout.cshtml	(rejected hunks)
+@@ -22,7 +22,6 @@
+     <!-- Custom style -->
+     <link rel="stylesheet" href="~/Content/css/styles.css">
+     <link rel="stylesheet" href="~/Content/css/new_style.css">
+-    <link rel="stylesheet" href="css/newR_style.css">
+     <link rel="stylesheet" href="~/Content/css/newR_style.css">
+ 
+     <!-- Favicon -->

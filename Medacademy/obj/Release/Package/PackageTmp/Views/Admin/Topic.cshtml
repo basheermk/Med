@@ -1,0 +1,189 @@
+﻿
+@{
+    ViewBag.Title = "Topic";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <ol class="breadcrumb">
+                        <li><h3 class="box-title">Topic List</h3></li>
+                    </ol>
+                    <a class="btn btn-success btn-xs" style="margin-left:5px" onclick="AddTopic()">Add Topic</a>
+                </div><!-- /.box-header -->
+                <div class="box-body" id="class-list-view">
+                    @Html.Partial("~/Views/Admin/_pv_Topic_Grid.cshtml")
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
+
+<div class="modal fade" id="editTopic">
+</div><!-- /.modal --><!--edit Class--->
+
+<script>
+    $(document).ready(function () {
+
+        IntializeDataTable();
+
+    });
+    function IntializeDataTable() {
+        $('#classTable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true
+        });
+    }
+    function AddTopic() {
+        window.location.href = '/Admin/AddTopic/';
+    }
+    function EditTopic(source) {
+        // debugger;
+        var topicid = $(source).attr("data-id");
+        // alert(groupid);
+        $.ajax({
+            url: '/Admin/EditTopicView?topicid=' + topicid,
+            dataType: 'html',
+            success: function (data) {
+                $('#editTopic').html(data);
+                $.validator.unobtrusive.parse($('#editTopic'));
+                $('#editTopic').modal('show');
+            },
+        });
+    }
+
+    //$(document).on('click', '.confirmDelete', function () {
+    //    var topicid = $(this).attr("data-id");
+    //    var url = '/Admin/TopicDelete?topicid=' + topicid;
+    //    $.confirm({
+    //        text: "Are you sure?",
+    //        confirm: function (button) {
+    //            $.get(url, function (result) {
+    //                if (result.status) {
+    //                    toastrSuccess(result.msg);
+    //                    refreshTopicGrid();
+    //                }
+    //                else {
+    //                    toastrError(result.msg);
+    //                }
+    //            });
+    //        },
+    //        confirmButton: "Yes",
+    //        cancelButton: "Cancel",
+    //        confirmButtonClass: "btn-danger",
+    //        cancelButtonClass: "btn-success",
+    //    });
+    //});
+
+    $(document).on('click', '.confirmDelete', function () {
+
+        var topicid = $(this).attr("data-id");
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to undo this !",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel!",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+function (isConfirm) {
+    if (isConfirm) {
+        $.ajax({
+            url : '/Admin/TopicDelete?topicid=' + topicid,
+            type: "GET",
+            dataType: 'json',
+            success: function (data) {
+                if (data.status) {
+                    toastrSuccess(data.msg);
+                    refreshTopicGrid();
+                }
+                else {
+                    toastrError(data.msg);
+                }
+            }
+        });
+    }
+});
+    });
+
+
+    function refreshTopicGrid() {
+        $.ajax({
+            url: '/Admin/RefreshTopic',
+            dataType: 'html',
+            success: function (data) {
+                $('#class-list-view').html(data);
+                IntializeDataTable();
+            },
+        });
+    }
+
+
+
+    $('#editTopic').on('show.bs.modal', function () {
+
+
+        var depData = $('#depName').val();
+        var depId = $('#pkgId').val();
+        var subId = $('#sbjId').val();
+        var cmpId = $('#courseDrop').val();
+        $.ajax({
+            url: '/Admin/GetPackage?courseid=' + cmpId,
+            type: "GET",
+            dataType: "json",
+            success: function (result) {
+                if (result.list.length > 0) {
+                    $("#PackageID").html("");
+                    $("#PackageID").append($('<option></option>').val("").html('Select'));
+                    $.each(result.list, function (i, item) {
+                        $("#PackageID").append($('<option></option>').val(item.Value).html(item.Text));
+                        $("#PackageID").val(depId);                      
+                    });
+                    $("#PackageID").prop("disabled", false);
+                }
+                else {
+                    $("#PackageID").html("");
+                    $("#PackageID").append($('<option></option>').val("").html('No data found'));
+                    $("#PackageID").prop("disabled", true);
+                }
+            }
+        });
+        $.ajax({
+            url: '/Admin/GetSubject?packageid=' + depId,
+            type: "GET",
+            dataType: "json",
+            success: function (result) {
+                if (result.List.length > 0) {
+                    $("#SubjectID").html("");
+                    $("#SubjectID").append($('<option></option>').val("").html('Select'));
+                    $.each(result.List, function (i, item) {
+                        $("#SubjectID").append($('<option></option>').val(item.Value).html(item.Text));                    
+                        $("#SubjectID").val(subId);                        
+                    });
+                    $("#SubjectID").prop("disabled", false);
+                }
+                else {
+                    $("#SubjectID").html("");
+                    $("#SubjectID").append($('<option></option>').val("").html('No data found'));
+                    $("#SubjectID").prop("disabled", true);
+                }
+            }
+        });
+
+
+
+       
+    });
+
+</script>
+

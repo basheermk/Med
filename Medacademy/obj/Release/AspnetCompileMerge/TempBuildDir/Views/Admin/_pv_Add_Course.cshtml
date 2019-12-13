@@ -1,0 +1,69 @@
+﻿@model Medacademy.Models.CourseModel
+<div class="modal-dialog modal-sm">
+    <div class="modal-content" style="border-radius: 3px;">
+        <div class="modal-header">
+            Add Course<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        @using (Ajax.BeginForm("AddCourse", "Admin", null, new AjaxOptions
+        {
+            HttpMethod = "POST",
+            OnSuccess = "CourseAddSuccess",
+            OnFailure = "CourseAddFailed",
+        }, new { id = "form-login" }))
+        {
+            <div class="modal-body">
+                @Html.TextBoxFor(m => m.CourseName, new { @class = "form-control", placeholder = "Course Name" })
+                @Html.ValidationMessageFor(m => m.CourseName)
+            </div>
+            @Html.TextBoxFor(m => m.Courseimage, new { value = "", type = "hidden" })
+            @*<div class="modal-body">
+                @Html.TextBoxFor(m => m.CourseSubjectName, new { @class = "form-control", placeholder = "Subject Name" })
+                @Html.ValidationMessageFor(m => m.CourseSubjectName)
+            </div>*@
+            <div class="modal-body">
+                @Html.TextBoxFor(m => m.Price, new { @class = "form-control", placeholder = "Price" })
+                @Html.ValidationMessageFor(m => m.Price)
+            </div>
+            <div class="modal-body">
+                @Html.TextBoxFor(m => m.Duration, new { @class = "form-control", placeholder = "Duration" })
+                @Html.ValidationMessageFor(m => m.Duration)
+            </div>
+            <div class="modal-body">
+                @Html.TextAreaFor(m => m.Details, new { @class = "form-control", placeholder = "Details" })
+                @Html.ValidationMessageFor(m => m.Details)
+            </div>
+            <div class="modal-body">
+                <label>Course Image</label>
+                <img style="height:50px;" id="course-img-preview" />
+                <input id="course-image-upload" type="file" class="uploder-controler" />
+                @*<input type="file" id="course-image-upload" />*@
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-success">Add</button>
+            </div>
+        }
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+
+<script>
+
+
+    function CourseAddSuccess(result) {
+        if (result.status) {
+            $('#addCourse').modal('hide');
+            toastrSuccess(result.msg);
+            refreshCourseGrid();
+        }
+        else {
+            toastrError(result.msg);
+        }
+    }
+    function CourseAddFailed() {
+        toastrError('Course Adding Failed');
+    }
+
+
+
+</script>

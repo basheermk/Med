@@ -1,0 +1,84 @@
+﻿@model Medacademy.Models.StudentList
+
+@{
+    var studentlist = new Ma.EntityLibrary.Data.StudentsList().GetStudentdetails(Model.GroupID);
+    //var questions = practiceTest.GetQuestions();
+}
+
+
+<section class="content">
+    <div class="box box-default">
+        <div class="box-body">
+            @*<input type="hidden" id="hflevelid" value="@Model.LevelID" />*@
+            <table id="QuestionTableNew" class="table table-bordered table-striped">
+
+                <thead>
+                    <tr>
+                        @*<th><input class="selectall" type="checkbox"></th>*@
+                        <th>Q No.</th>
+                        <th>Name </th>
+                        <th>Groups</th>
+                        @*<th>Action</th>*@
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        var index = 1;
+                    }
+                    @foreach (var stud in studentlist)
+                    {
+                        <tr>
+                        
+                            <td>@index</td>
+                            <td>@(new HtmlString(stud.Name))</td>
+                           @*@{ var groups = new Ma.EntityLibrary.Data.StudentsList().Getgroupname(stud.StudentId);
+                               string groupname = "";
+                               foreach (var grp in groups)
+                               {
+                                   groupname = grp.GroupName + " | " + groupname;
+                               }
+                           }*@
+                            <td>@stud.GroupName </td> 
+                         
+                        </tr>
+                                   index++;
+                               }
+                </tbody>
+            </table>
+        </div>
+    </div>
+  </section>
+
+
+<script>
+    $(document).ready(function () {
+
+
+        IntializeDataTable();
+
+
+    });
+
+
+
+
+
+
+    function IntializeDataTable() {
+        $('#QuestionTableNew').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true,
+            "lengthMenu": [5, 10, 50, 100, 200, "Max"],
+            "pageLength": 5,
+            "aoColumnDefs": [{"bSortable": false,"aTargets": [0]}]
+
+        });
+
+    }
+
+
+</script>

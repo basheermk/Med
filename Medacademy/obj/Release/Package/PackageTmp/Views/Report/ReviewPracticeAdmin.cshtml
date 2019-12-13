@@ -1,0 +1,596 @@
+﻿@model Medacademy.Models.PracticeWorksheetModel
+@{
+    ViewBag.Title = "ReviewPracticeAdmin";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+    var student = new Ma.EntityLibrary.Data.StudentsList(Model.userId);
+    var practiceTest = new Ma.EntityLibrary.Data.Level(Model.levelid);
+    var questions = practiceTest.GetPracticeTestQuestions();
+    var unPaidQuestions = questions.ToList();
+    var report = new Ma.EntityLibrary.Data.StudentsList(Model.userId).GetReport(Model.levelid, Model.attemptId);
+    var newQuestOrder = new List<Ma.EntityLibrary.Data.Question>();
+    foreach (var quest in report.ReportList)
+    {
+        if (questions.Any(z => z.questionId == quest.QuestionId))
+        {
+            var tempQuest = questions.Where(z => z.questionId == quest.QuestionId).FirstOrDefault();
+            newQuestOrder.Add(tempQuest);
+        }
+    }
+    questions = newQuestOrder;
+    //var unpaidquestion = questions.Take(3).ToList();
+    var subtopic = new Ma.EntityLibrary.Data.SubTopic(practiceTest.SubTopicID);
+    var topic = new Ma.EntityLibrary.Data.Topic(subtopic.TopicID);
+
+    var userData = (Medacademy.Models.UserModel)Session["UserLoginFirstTime"];
+}
+<style>
+    .exams_main2{
+        margin-top:30px;
+    }
+
+    .answer_main {
+        width: 100%;
+        display: inline-block;
+        margin-top: 20px;
+    }
+
+</style>
+
+<div onbeforeunload="return confirmEvent()">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+
+                <div class="exams_main2">
+                    <h4> @subtopic.SubTopicName</h4>
+                </div>
+
+                <div class="exam_questions">
+
+                    <div class="exam_left">
+                        <div class="exam_border">
+                            <div class="exam_title"> @practiceTest.LevelName </div>
+                        </div>
+                        <ul class="question-list-group" id="quest-ul-list">
+                            @{
+                                var index = 1;
+                            }
+                            @foreach (var question in questions)
+                            {
+                                if (question.questionTypeId == 1)
+                                {
+                                <li id="@question.questionId" class="isHidden answer-list-li" data-quest-attend="1">
+                                    <div class="exam_qa exam_border  questions_main">
+                                        <div class="questions_box media_marpad_zero">
+                                            <div class="pmzero identify-quest-parent-dev">
+                                                <div class="exam_qa_header pmzero">
+                                                    <h4 class="q_no" data-quest-no="@index">
+                                                        Question @index
+                                                    </h4>
+                                                    <span class="right_mark">Right mark:<b>1.00</b></span>
+                                                    @*<span class="neg_mark">Negative mark:<b>0.33</b></span>*@
+                                                </div>
+                                                <div class="pmzero right-wrong-specify-dev" style="min-height: initial;width: 100%;display: inline-block;">
+                                                    <p class="rightorwrongaps apswrong isHidden">Wrong Answer</p>
+                                                    <p class="rightorwrongaps apsright isHidden">Right Answer</p>
+                                                </div>
+                                            </div>
+                                            @*<div class="exam_qa exam_border">*@
+                                            <div class="exam_qa_body">
+                                                <div class="exam_question question-mark">
+                                                    <input type="hidden" id="hfQuestionNo" value="@index" />
+                                                    <div class="question">
+                                                    
+                                                    @(new HtmlString(question.questionName)) @*<i class="fa fa-question"></i>*@</div>
+
+                                                    @{var answers = question.GetAnswer();}
+                                                    <div class="checkboxes isDisabled answer_main" id="answer-option-div">
+                                                        @foreach (var answerlist in answers)
+                                                        {
+                                                            var attendStatus = report.ReportList.Any(z => z.UserAnswerId == answerlist.AnswerId) ? 1 : 0;
+                                                            if (answerlist.AnswerTypeId == 1)
+                                                            {
+                                                                if (answerlist.Status == 1)
+                                                                {
+                                                                    <label class="cust_checkbox">
+                                                                        @(new HtmlString(answerlist.Answer))
+
+                                                                        <input type="radio" checked="checked" data-user-attend="@attendStatus" class="ans_radio" id="@answerlist.AnswerId" name="@question.questionId" data-right="@answerlist.Status" data-question-id="@question.questionId" />
+                                                                        <span class="checkmark"></span>
+                                                                    </label>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <label class="cust_checkbox">
+                                                                        @(new HtmlString(answerlist.Answer))
+                                                                        <input type="radio" data-user-attend="@attendStatus" class="ans_radio" id="@answerlist.AnswerId" name="@question.questionId" data-right="@answerlist.Status" data-question-id="@question.questionId" />
+                                                                        <span class="checkmark"></span>
+                                                                    </label>
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                if (answerlist.Status == 1)
+                                                                {
+                                                                    <label class="cust_checkbox">
+                                                                        @(new HtmlString(answerlist.Answer))
+
+                                                                        <input type="radio" checked="checked" data-user-attend="@attendStatus" class="ans_radio" id="@answerlist.AnswerId" name="@question.questionId" data-right="@answerlist.Status" data-question-id="@question.questionId" />
+                                                                        <span class="checkmark"></span>
+                                                                    </label>
+                                                                    <div class="img-question">
+                                                                        <img class="img-responsive" src="@answerlist.AnswerImage">
+                                                                    </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <label class="cust_checkbox">
+                                                                        @(new HtmlString(answerlist.Answer))
+                                                                        <input type="radio" data-user-attend="@attendStatus" class="ans_radio" id="@answerlist.AnswerId" name="@question.questionId" data-right="@answerlist.Status" data-question-id="@question.questionId" />
+                                                                        <span class="checkmark"></span>
+                                                                    </label>
+                                                                    <div class="img-question">
+                                                                        <img class="img-responsive" src="@answerlist.AnswerImage">
+                                                                    </div>
+                                                                }
+                                                            }
+
+
+                                                        }
+                                                    </div><!-- ./checkboxes -->
+
+
+
+                                                </div><!-- ./exam_question -->
+                                            </div><!-- ./exam_qa_body -->
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 question_buttons_main text-center exam_qa_footer">
+                                                <a class="qafoot_btn get-prev-quest prev-btn " style="cursor:pointer" id="prev-btn"><span class="fa  fa-angle-left"></span> &nbsp; Previous </a>
+
+                                                <a class="qafoot_btn get-next-quest next-btn" style="cursor:pointer" id="next-btn">Next &nbsp; <span class="fa  fa-angle-right"></span></a>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 explanation  explanation-@question.questionId" id="answer-exp-div" data-id="@question.questionId">
+                                                <hr>
+                                                <img class="ans_ban" src="@Url.Content("~/Content/images/ans_134.png")">
+                                                <p>@(new HtmlString(@question.explanation))</p>
+                                                @{
+                                                    @*var explanationFile = question.GetAnswerExplanationImage();
+                                                        if (explanationFile != null)
+                                                        {
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 img-question isPointer">
+                                                                <img class="img-responsive isPointer" src="@explanationFile.FilePath">
+
+                                                            </div>
+                                                        }*@
+                                                }
+                                            </div>
+
+                                            @*</div>*@<!-- ./exam_qa -->
+
+                                        </div>
+                                    </div>
+
+
+
+                                </li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li id="@question.questionId" class="isHidden answer-list-li" data-quest-attend="1">
+                                                            <div class="exam_qa exam_border  questions_main">
+                                                                <div class="questions_box media_marpad_zero">
+                                                                    <div class="pmzero identify-quest-parent-dev">
+                                                                        <div class="exam_qa_header pmzero">
+                                                                            <h4 class="q_no" data-quest-no="@index">
+                                                                                Question @index
+                                                                            </h4>
+                                                                            <span class="right_mark">Right mark:<b>1.00</b></span>
+                                                                            @*<span class="neg_mark">Negative mark:<b>0.33</b></span>*@
+                                                                        </div>
+                                                                        <div class="pmzero right-wrong-specify-dev" style="min-height: initial;width: 100%;display: inline-block;">
+                                                                            <p class="rightorwrongaps apswrong isHidden">Wrong Answer</p>
+                                                                            <p class="rightorwrongaps apsright isHidden">Right Answer</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    @*<div class="exam_qa exam_border">*@
+                                                                    <div class="exam_qa_body">
+                                                                        <div class="exam_question question-mark">
+                                                                            <input type="hidden" id="hfQuestionNo" value="@index" />
+                                                                            <div class="question">
+                                                                                @(new HtmlString(question.questionName)) @*<i class="fa fa-question"></i>*@
+                                                                            </div>
+                                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 img-question">
+
+                                                                                @if (question.QuestionImage != null)
+                                                                                {
+                                                                                    <img class="img-responsive" src="@question.QuestionImage">
+                                                                                }
+                                                                            </div>
+
+
+
+                                                                            @{var answers = question.GetAnswer();}
+                                                                            <div class="checkboxes isDisabled answer_main" id="answer-option-div">
+                                                                                @foreach (var answerlist in answers)
+                                                                                {
+                                                                                    var attendStatus = report.ReportList.Any(z => z.UserAnswerId == answerlist.AnswerId) ? 1 : 0;
+                                                                                    if (answerlist.AnswerTypeId == 1)
+                                                                                    {
+                                                                                        if (answerlist.Status == 1)
+                                                                                        {
+                                                                                            <label class="cust_checkbox">
+                                                                                                @(new HtmlString(answerlist.Answer))
+
+                                                                                                <input type="radio" checked="checked" data-user-attend="@attendStatus" class="ans_radio" id="@answerlist.AnswerId" name="@question.questionId" data-right="@answerlist.Status" data-question-id="@question.questionId" />
+                                                                                                <span class="checkmark"></span>
+                                                                                            </label>
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <label class="cust_checkbox">
+                                                                                                @(new HtmlString(answerlist.Answer))
+                                                                                                <input type="radio" data-user-attend="@attendStatus" class="ans_radio" id="@answerlist.AnswerId" name="@question.questionId" data-right="@answerlist.Status" data-question-id="@question.questionId" />
+                                                                                                <span class="checkmark"></span>
+                                                                                            </label>
+                                                                                        }
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        if (answerlist.Status == 1)
+                                                                                        {
+                                                                                            <label class="cust_checkbox">
+                                                                                                @(new HtmlString(answerlist.Answer))
+
+                                                                                                <input type="radio" checked="checked" data-user-attend="@attendStatus" class="ans_radio" id="@answerlist.AnswerId" name="@question.questionId" data-right="@answerlist.Status" data-question-id="@question.questionId" />
+                                                                                                <span class="checkmark"></span>
+                                                                                            </label>
+                                                                                            <div class="img-question">
+                                                                                                <img class="img-responsive" src="@answerlist.AnswerImage">
+                                                                                            </div>
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <label class="cust_checkbox">
+                                                                                                @(new HtmlString(answerlist.Answer))
+                                                                                                <input type="radio" data-user-attend="@attendStatus" class="ans_radio" id="@answerlist.AnswerId" name="@question.questionId" data-right="@answerlist.Status" data-question-id="@question.questionId" />
+                                                                                                <span class="checkmark"></span>
+                                                                                            </label>
+                                                                                            <div class="img-question">
+                                                                                                <img class="img-responsive" src="@answerlist.AnswerImage">
+                                                                                            </div>
+                                                                                        }
+                                                                                    }
+
+
+                                                                                }
+                                                                            </div><!-- ./checkboxes -->
+
+
+
+                                                                        </div><!-- ./exam_question -->
+                                                                    </div><!-- ./exam_qa_body -->
+                                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 question_buttons_main text-center exam_qa_footer">
+                                                                        <a class="qafoot_btn get-prev-quest prev-btn " style="cursor:pointer" id="prev-btn"><span class="fa  fa-angle-left"></span> &nbsp; Previous </a>
+
+                                                                        <a class="qafoot_btn get-next-quest next-btn" style="cursor:pointer" id="next-btn">Next &nbsp; <span class="fa  fa-angle-right"></span></a>
+                                                                    </div>
+                                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 explanation  explanation-@question.questionId" id="answer-exp-div" data-id="@question.questionId">
+                                                                        <hr>
+                                                                        <img class="ans_ban" src="@Url.Content("~/Content/images/ans_134.png")">
+                                                                        <p>@(new HtmlString(@question.explanation))</p>
+                                                                        @{
+                                                                            @*var explanationFile = question.GetAnswerExplanationImage();
+                                                                                if (explanationFile != null)
+                                                                                {
+                                                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 img-question isPointer">
+                                                                                        <img class="img-responsive isPointer" src="@explanationFile.FilePath">
+
+                                                                                    </div>
+                                                                                }*@
+                                                                        }
+                                                                    </div>
+
+                                                                    @*</div>*@<!-- ./exam_qa -->
+
+                                                                </div>
+                                                            </div>
+
+
+
+                                                        </li>
+                                                                                }
+                                                                                index++;
+                                                                            }
+                        </ul>
+
+
+
+                    </div><!-- ./exam_left -->
+
+
+                    <div class="exam_right">
+                        <div class="exam_timer_all exam_border">
+                            <div class="examTimer" data-seconds-left=@practiceTest.Duration.TotalSeconds>
+                            </div>
+                            <div class="question_palette">
+                                <h6 class="text-center">Question Palette</h6>
+                                <ul class="blocks_ul" id="block-mark-answer">
+                                    @{
+                                        var indexOfBox = 1;
+                                    }
+
+                                    @foreach (var answerlist in report.ReportList)
+                                    {
+                                        var tooltip = indexOfBox; //
+                                        var qrooltip = "Q " + indexOfBox;
+                                        if (answerlist.Status == Ma.ClassLibrary.Utility.AnswerStatus.NotAnswered)
+                                        {
+
+                                            <li class="not_ans navigate-qusetion-div isPointer red-tooltip" id="@answerlist.QuestionId" data-index="@indexOfBox">
+                                                <a class="apsQuestionNumberMod" data-toggle="tooltip" data-placement="top" title="@qrooltip"><span> @tooltip</span></a>
+                                            </li>
+                                        }
+                                        else if (answerlist.Status == Ma.ClassLibrary.Utility.AnswerStatus.Wrong)
+                                        {
+
+                                            <li class="marked navigate-qusetion-div isPointer red-tooltip" id="@answerlist.QuestionId" data-index="@indexOfBox">
+                                                <a class="apsQuestionNumberMod" data-toggle="tooltip" data-placement="top" title="@qrooltip"><span> @tooltip</span></a>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li class="answ navigate-qusetion-div isPointer red-tooltip" id="@answerlist.QuestionId" data-index="@indexOfBox">
+                                                <a class="apsQuestionNumberMod" data-toggle="tooltip" data-placement="top" title="@qrooltip"><span> @tooltip</span></a>
+                                            </li>
+                                        }
+                                        indexOfBox++;
+                                    }
+
+
+
+
+
+                                </ul>
+                                <ul class="legend_list">
+                                    <li class="not_ans">
+                                        <span class="numb_stat" id="unattend-number">@report.UnattendedNo</span><p>Unattended</p>
+                                    </li>
+                                    <li class="marked">
+                                        <span class="numb_stat" id="wrong-number">@report.WrongNo</span><p>Wrong</p>
+                                    </li>
+                                    <li class="answ">
+                                        <span class="numb_stat" id="correct-number">@report.RightNo</span><p>Right Answered</p>
+                                    </li>
+                                </ul>
+                                @*<ul class="question_number">
+                                        <li class="not_ans"><span>1</span></li>
+                                        <li><span>2</span></li>
+                                        <li class="marked"><span>3</span></li>
+                                        <li class="answ"><span>4</span></li>
+                                    </ul>*@
+                                <div class="pal_buttons">
+                                    @*<div><button>Questions</button></div>*@
+                                    @*<div><button>Insructions</button></div>
+                                        <div><button>Profile</button></div>*@
+                                    <div><button class="qafoot_btn  round_ red-tooltip btn-Report isPointer submit-validate-practice" data-toggle="tooltip" data-placement="top" title="" data-original-title="Report" style="float:right;cursor:pointer" data-id="@practiceTest.LevelID">Submit</button></div>
+                                    @*<a class="qafoot_btn round_ red-tooltip isHidden btn-Report isPointer submit-validate-practice" data-toggle="tooltip" data-placement="top" title="" data-original-title="Report" style="display:none; float:right" data-id="@practiceTest.LevelID"><span class="fa  fa-file-text-o"></span></a>*@
+                                </div>
+                            </div><!-- ./question_palette -->
+                        </div><!-- ./exam_right -->
+
+                    </div><!-- ./exam_questions -->
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    @Html.TextBoxFor(z => z.AnswerSet, new { value = "", type = "hidden" })
+    @Html.HiddenFor(m => m.levelid)
+    @Html.HiddenFor(m => m.userId)
+    @Html.HiddenFor(m => m.startTime)
+    @Html.HiddenFor(m => m.attemptId)
+    @Html.HiddenFor(m => m.orderValue)
+    @Html.TextBoxFor(m => m.correctAnsCount, new { @class = "ha-CorrectAnsCount-dev", @value = "", @type = "hidden" })
+
+
+
+    <button type="submit" id="submit-answer-button" class="isHidden"></button>
+
+    @*}*@
+</div>
+
+
+
+
+@Html.TextBoxFor(m => m.AnswerSet, new { value = "", type = "hidden" })
+@Html.TextBoxFor(m => m.levelid, new { type = "hidden" })
+@Html.HiddenFor(m => m.levelid)
+@Html.HiddenFor(m => m.userId)
+@Html.HiddenFor(m => m.startTime)
+<button type="submit" id="submit-answer-button" class="isHidden"></button>
+
+<!-- /content-------------------------------------------------------------------------------------------------------------->
+<input type="hidden" id="hfQuestionNavigateId" value="@Model.QuestionId" />
+<input type="hidden" id="hfIsNavigate" value="@ViewBag.Navigate" />
+
+
+<script>
+
+
+
+    $(document).ready(function () {
+        //$('html, body').animate({
+        //    scrollTop: $('.container').offset('0').top
+        //}, 10);
+
+        $('#quest-ul-list li:nth-child(1)').find('#prev-btn').remove(); //Removes previous button for first li
+        $('#quest-ul-list li:last-child').find('.next-btn').remove();
+        $('#next-btn').css('display', 'inline-block');
+        if ($('#hfIsNavigate').val() == 1) {
+            $('#quest-ul-list > li').hide();
+            var li = $('#quest-ul-list').find('#' + $('#hfQuestionNavigateId').val());
+            $(li).show();
+        }
+
+        $('.answer-list-li[data-quest-attend=1]').find('input[type=radio][data-right=1]').addClass('v_right');
+        $('.answer-list-li[data-quest-attend=1]').find('input[type=radio][data-user-attend=1]').each(function (index, row) {
+            var flag = $(row).attr('data-right');
+            if (flag == 0) {
+                $(row).removeClass('v_right');
+                $(row).addClass('v_wrong');
+            }
+        });
+        //Shinu Paul
+        $('.answer-list-li[data-quest-attend=2]').find('input[type=radio][data-right=1]').next('.trigger-ans-option').addClass('v_right');
+
+        var isPaid = $('#hfIsPaid').val();
+        if (isPaid == 'False') {
+            $('#quest-ul-list li:nth-child(1)').find('#prev-btn').css('display', 'inline-block');
+            $('#quest-ul-list li:nth-child(1)').find('#prev-btn').addClass('demo-user');
+        }
+        var questNo = parseInt($('#unattend-number').text());
+        // For hiding report btn 21-11-2016
+        //if (isPaid == 'True' && questNo > 1)
+        //    $('#quest-ul-list li:last-child').find('.btn-Report').css('display', 'inline-block');
+
+
+
+        //$('input[type=radio][data-user-attend=1]').next('.trigger-ans-option').addClass('v_wrong');
+        //$('input[type=radio][data-right=1]').each(function (index, row) {
+        //    var flag = $(row).attr('data-right');
+        //    console.log(flag);
+        //    if (flag == 1) {
+        //        var attendedStatus = $(row).attr('data-user-attend');
+        //        console.log('attend '+ index+' '+attendedStatus);
+        //        if (attendedStatus == 1) {
+        //            //$(row).next('.trigger-ans-option').removeClass('v_wrong');
+        //            $(row).next('.trigger-ans-option').removeClass('v_wrong');
+        //            $(row).next('.trigger-ans-option').addClass('v_right');
+        //        }
+        //        //$(row).next('.trigger-ans-option').addClass('v_right');
+        //    }
+        //});
+        //var marker = $('#block-mark-answer').find('#' + questId);
+        //$('html,body').animate({ scrollTop: 250 }, 10);
+        $('body').animate({ scrollTop: "250px" }, 1000);
+        apsShowTheSecret(); //To show Eight,Wrong,Unattend status on top right
+    });
+
+    $(document).on('click', '.navigate-qusetion-div', function () {
+
+        $('html, body').animate({
+            scrollTop: $('.container').offset().top
+        }, 10);
+
+        var index = $(this).attr('data-index');
+        var isPaid = $('#hfIsPaid').val();
+        var practName = $('#hfPracticeTestName').val();
+        var chpNo = $('#hfChapterNo').val();
+        console.log(practName);
+        console.log(chpNo);
+        //if (index > 3 && isPaid == 'False') {
+        //    //
+        //    //window.location.href = '/Student/AlertPayment/';
+        //    //return;
+        //    if (chpNo == '1' && practName == 'Level 1' || practName == 'Level 2' || practName == 'Level 3') {
+        //        //alert("hit")
+        //        $('#quest-ul-list > li').hide();
+        //        var questId = $(this).attr('id');
+        //        var li = $('#quest-ul-list').find('#' + questId);
+        //        $(li).show();
+        //    }
+        //    else {
+        //        window.location.href = '/Student/AlertPayment';
+        //    }
+        //}
+        $('#quest-ul-list > li').hide();
+        var questId = $(this).attr('id');
+        var li = $('#quest-ul-list').find('#' + questId);
+        $(li).show();
+
+    });
+
+    $(document).on('click', '.get-next-quest', function () {
+
+        //$('html, body').animate({
+        //    scrollTop: $('.question-list-group').offset().top
+        //}, 10);
+
+        $('html,body').animate({ scrollTop: 250 }, 10);
+
+        var parentLi = $(this).parent().parent().parent().parent();
+        $('#quest-ul-list > li').hide();
+        $(parentLi).next('li').show();
+
+    });
+
+    $(document).on('click', '.get-prev-quest', function () {
+        //$('html, body').animate({
+        //    scrollTop: $('.question-list-group').offset().top
+        //}, 10);
+
+        $('html,body').animate({ scrollTop: 250 }, 10);
+
+        var parentLi = $(this).parent().parent().parent().parent();
+        $('#quest-ul-list > li').hide();
+        $(parentLi).prev('li').show();
+
+    });
+
+
+
+
+
+    function apsShowTheSecret() {
+
+
+
+        $('.answer_main').each(function () {
+
+
+
+            var totlanswers = $(this).children().length;
+
+
+            var iswrong = 0;
+            for (i = 1; i <= totlanswers; i++) {
+                if ($(this).children().children().children().children('.trigger-ans-option:nth-child(' + i + ')').hasClass('v_wrong')) {
+                    iswrong = 1;
+                }
+                else if ($(this).children().children().children().children('.trigger-ans-option:nth-child(' + i + ')').siblings('.ans_radio').attr('data-user-attend') == 2) {
+                    iswrong = 2;
+                }
+
+                if (iswrong != 0) {
+                    i = totlanswers + 1;
+                }
+            }
+
+            if (iswrong == 1) {
+
+                //show ans wrong
+                $(this).parent().children('div:nth-child(1)').children('div:nth-child(2)').children().hide();
+                $(this).parent().children('div:nth-child(1)').children('div:nth-child(2)').children('.apswrong').show();
+            }
+            else if (iswrong == 2) {
+                //show ans unatend
+                //$(this).parent().parent().parent().parent().parent().children('div:nth-child(1)').children('div:nth-child(2)').children().hide();
+                //$(this).parent().parent().parent().parent().parent().children('div:nth-child(1)').children('div:nth-child(2)').children('.apswrong').show();
+            }
+            else if (iswrong == 0) {
+
+                //show ans right
+                $(this).parent().children('div:nth-child(1)').children('div:nth-child(2)').children().hide();
+                $(this).parent().children('div:nth-child(1)').children('div:nth-child(2)').children('.apsright').show();
+            }
+
+
+        });
+
+    }
+</script>
+

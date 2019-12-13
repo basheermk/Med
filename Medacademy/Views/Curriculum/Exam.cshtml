@@ -1,0 +1,284 @@
+﻿@*sweet alert*@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<link href="/Content/Plugins/SweetAlert/sweetalert.css" rel="stylesheet" />
+<script src="/Content/Plugins/SweetAlert/sweetalert.min.js"></script>
+
+@model Medacademy.Models.UserModel
+@{
+    ViewBag.Title = "Exam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var datas = (Medacademy.Models.UserModel)Session["UserLoginFirstTime"];
+
+    var group = new Ma.EntityLibrary.Data.Group().GetGroupsbyuserid(Model.UserId);
+
+}
+
+<style>
+    .ns-tableView > div {
+        width: 100%;
+        display: inline-block;
+        margin: 50px 0px;
+
+    }
+</style>
+
+<section class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 ns-tableView table-responsive">
+              
+
+                    <table id="classTable" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Sl No</th>
+                                <th>Name</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{int id = 1;
+
+                                foreach (var topics in new Ma.EntityLibrary.Data.Exam().GetExambygroupid(group))
+                                {
+                                    string[] splitData = topics.ExamStartDate.Split('/');
+                                    string stdate = splitData[1] + "/" + splitData[0] + "/" + splitData[2].ToString();
+
+
+                                    string[] splitData1 = topics.ExamEndDate.Split('/');
+
+                                    string eddate = splitData1[1] + "/" + splitData1[0] + "/" + splitData1[2].ToString();
+
+
+                                    DateTime startdates = Convert.ToDateTime(stdate);
+                                    DateTime enddates = Convert.ToDateTime(eddate);
+
+                                    //When we using server the below dates will not work .so kindly use the above commented code for server..the below code is just for localhost
+
+                                    //DateTime startdates = Convert.ToDateTime(topics.ExamStartDate);
+                                    //DateTime enddates = Convert.ToDateTime(topics.ExamEndDate);
+
+                                    if (startdates <= DateTime.Now && DateTime.Now <= Convert.ToDateTime(enddates))
+                                    {
+
+
+                                        <tr>
+                                            <td>@id</td>
+                                            <td>@topics.ExamName</td>
+                                            <td>@topics.ExamStartDate</td>
+                                            <td>@topics.ExamEndDate</td>
+                                            <td>
+                                                <button type="button" class="btn btn-success btn-xs" data-id="@topics.ExamId" data-user-id="@Model.UserId" data-start-time="@topics.ExamStartDate" data-end-time="@topics.ExamEndDate" onclick="StartExam(this)">Start Exam</button>
+                                            </td>
+                                        </tr>
+                                            id++;
+                                        }
+                                    }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                  
+               
+        </div>
+    </div>
+</section>
+<script>
+    $(document).ready(function () {
+
+        IntializeDataTable();
+
+    });
+    function IntializeDataTable() {
+        $('#classTable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true
+        });
+    }
+
+    function StartExam(source) {
+       // debugger;
+        var examid = $(source).attr("data-id");
+        var userid = $(source).attr("data-user-id");
+        var starttime = $(source).attr("data-start-time");
+        var endtime = $(source).attr("data-end-time");
+
+       
+
+
+        var today = new Date();
+        var date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
+        var time = today.getHours() + ":" + today.getMinutes(); //+ ":" + today.getSeconds()
+        var dateTime = date + ' ' + time; //current date time
+
+        var id = userid + '~' + examid;
+       
+        // setting startdate for checking  
+
+        var startdate;
+        var datesplit = starttime.split(" ");
+        var timesplit = datesplit[1].split(":");
+
+        var spliteddate = datesplit[0].split("/");
+        var year =spliteddate[2];
+        var month =spliteddate[1];
+        var day = spliteddate[0];
+
+        var hr = timesplit[0];
+        var mm = timesplit[1]
+        var ss = "00"
+
+        startdate = year + "-" + month + "-" + day + "T" + hr + ":" + mm + ":" + ss
+
+        let startdate1 = Date.parse(startdate);
+     //   alert(startdate1);
+
+
+        //if (timesplit[0] > 12)
+        //{
+        //    var hr = timesplit[0] - 12;
+        //    var mm = timesplit[1]
+        //    var ss = ":00 PM"
+        //    startdate = datesplit[0] + " " + hr + ":" + mm + ss;
+          
+        //}
+        //else
+        //{
+        //     startdate = starttime + ":00 AM"
+        //}
+
+        // setting currentdate for checking  
+
+        var currentdate;
+
+        //var datesplit = dateTime.split(" ");
+        //var timesplit = datesplit[1].split(":");
+
+        //var spliteddate = datesplit[0].split("/");
+        //var year =spliteddate[2];
+        //var month =spliteddate[1];
+        //var day = spliteddate[0];
+
+        //var hr = timesplit[0];
+        //var mm = timesplit[1]
+        //var ss = "00"
+
+        //currentdate = year + "-" + month + "-" + day + "T" + hr + ":" + mm + ":" + ss
+
+       // let currentdate1 = Date.parse(currentdate);
+
+        let currentdate1 = new Date();
+      //  alert(currentdate1);
+
+        //if (timesplit[0] > 12) {
+        //    var hr = timesplit[0] - 12;
+        //    var mm = timesplit[1]
+        //    var ss = ":00 PM"
+        //    currentdate = datesplit[0] + " " + hr + ":" + mm + ss;
+        //}
+        //else {
+        //    currentdate = starttime + ":00 AM"
+        //}
+
+
+        // setting enddate for checking  
+
+        var enddate;
+        var datesplit = endtime.split(" ");
+        var timesplit = datesplit[1].split(":");
+
+        var spliteddate = datesplit[0].split("/");
+        var year = spliteddate[2];
+        var month = spliteddate[1];
+        var day = spliteddate[0];
+
+        var hr = timesplit[0];
+        var mm = timesplit[1]
+        var ss = "00"
+
+        enddate = year + "-" + month + "-" + day + "T" + hr + ":" + mm + ":" + ss
+        let enddate1 = Date.parse(enddate);
+       
+
+        //if (timesplit[0] > 12) {
+        //    var hr = timesplit[0] - 12;
+        //    var mm = timesplit[1]
+        //    var ss = ":00 PM"
+        //    enddate = datesplit[0] + " " + hr + ":" + mm + ss;
+        //}
+        //else {
+        //    enddate = starttime + ":00 AM"
+        //}
+
+
+     
+
+        //var finalstartdate = Date.parse(startdate);
+        //var finalenddate = new Date(enddate);
+        //var finalcurrentdate = new Date(currentdate);
+
+        $.ajax({
+            url: '/Curriculum/CheckexambyUser?id=' + id,
+            type: "GET",
+            success: function (result) {
+
+               
+                
+                if (result.list == 0) {
+                    
+                    if (startdate1 <= currentdate1 && currentdate1 <= enddate1) {
+                        var id = userid + '~' + examid
+                        window.location.href = '/Curriculum/ExamStart/' + id;
+                    } else {
+                        swal("Sorry!", "Exam is not available!", "warning");
+                    }
+                  
+                   
+                    //if (starttime.getTime() <= dateTime.getTime() && dateTime.getTime() <= endtime.getTime()) {
+                    //    var id = userid + '~' + examid
+                    //    window.location.href = '/Curriculum/ExamStart/' + id;
+                    //}
+                    //else {
+                    //    swal("Sorry!", "Exam is not available!", "warning");
+                    //}
+                }
+                else {
+                  
+
+                    swal("Sorry!", "Already attempted!", "warning");
+                   
+                    
+                 
+                  
+                }
+            }
+        });
+        
+       
+        //if (starttime.getTime() <= today.getTime() && endtime.getTime() <= today.getTime())
+        //{
+        //    swal("Ready for exam!", "You clicked the button!", "success");
+        //}
+        //else {
+        //    swal("Good job!", "You clicked the button!", "warning");
+        //}
+
+      
+        //var user = "12/11/2012/5/30";
+        //var arrdt = starttime.split(":");
+        //var userdt = new Date(arrdt[2], arrdt[1] - 1, arrdt[0], arrdt[3], arrdt[4]);
+        //var currdt = new Date();
+        //if (userdt < currdt) {
+        //    alert("userdate is before current date");
+        //} else {
+        //    alert("userdate is after current date");
+        //}
+    }
+
+</script>

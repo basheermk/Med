@@ -1,0 +1,172 @@
+﻿@model Medacademy.Models.UserModel
+
+@{
+    ViewBag.Title = "SignUp";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+@*testsibi1111111111111111111111111111111*@
+<section class="lgn_sec">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 full_wid">
+                <div class="cust_lg_form">
+                    <div class="blue_right_sec blx_cust">
+                        <div class="img_cont">
+                            <img src="~/Content/images/login/lgo.png">
+                        </div>
+                        <h4>
+                            WELCOME TO
+                            MEDACADEMY
+                        </h4>
+                        <p class="hid">To keep connected with us please Login with peronal info</p>
+                        <div class="sb_btn form-group">
+                            <a href="/Accounts/Login" class="btn-class">Login</a>
+
+                        </div>
+                    </div>
+
+                    @*@using (Ajax.BeginForm("CreateAccount_User", "Accounts", null, new AjaxOptions
+                        {
+                            HttpMethod = "POST",
+                            OnSuccess = "LoginSuccess",
+                            OnFailure = "LoginFailed",
+                        }, new { id = "form-login" }))
+                        {*@
+                    @using (Html.BeginForm("CreateAccount_User", "Accounts", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <div class="details dtlz_czt">
+                            <form>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h4>Create Account</h4>
+                                    </div>
+                                    <div class="col-lg-6 mar_rgt">
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "Name" })
+                                            @Html.ValidationMessageFor(m => m.FirstName)
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
+                                            @Html.ValidationMessageFor(m => m.Email)
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mar_rgt">
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+                                            @Html.ValidationMessageFor(m => m.Password)
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            @Html.DropDownListFor(m => m.CourseId, Ma.EntityLibrary.Data.Dropdowndata.GetCourseDrop(), "--Choose--", new { @class = "form-control pv_class-drop-down", @data_live_search = "true", name = "topicDropdown", id = "topicDataDropdown" })
+                                            @Html.ValidationMessageFor(m => m.CourseId)
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mar_rgt">
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(m => m.Districts, new { @class = "form-control", placeholder = "Districts" })
+                                            @Html.ValidationMessageFor(m => m.Districts)
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(m => m.Pin, new { @class = "form-control", placeholder = "Pin" })
+                                            @Html.ValidationMessageFor(m => m.Pin)
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mar_rgt">
+                                        <div class="form-group">
+
+                                            @Html.TextBoxFor(m => m.State, new { @class = "form-control", placeholder = "State" })
+                                            @Html.ValidationMessageFor(m => m.State)
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(m => m.Address, new { @class = "form-control", placeholder = "Address" })
+                                            @Html.ValidationMessageFor(m => m.Address)
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mar_rgt">
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(m => m.ContactNo, new { @class = "form-control", placeholder = "Contact No" })
+                                            @Html.ValidationMessageFor(m => m.ContactNo)
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            @Html.DropDownListFor(m => m.Gender, Ma.EntityLibrary.Data.Dropdowndata.GetGender(), "--Choose--", new { @class = "form-control pv_class-drop-down", @data_live_search = "true", name = "topicDropdown", id = "topicDataDropdown" })
+                                            @Html.ValidationMessageFor(m => m.Gender)
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 filz">
+                                        <div class="form-group">
+                                            <label>Profile Image</label>
+                                            @* <input type="file" class="custom-file-input">*@
+                                            @*@Html.TextBox("file", "", new { type = "file", @class = "custom-file-input" }) <br />*@
+                                            @Html.TextBoxFor(m => m.file, new { @class = "form-control custom-file-input", type = "file", placeholder = "File", id = "subtopic-pdf-upload" })
+                                            @*<input id="subtopic-pdf-upload" type="file" class="uploder-controler" />*@
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="sb_btn sb_btnzz form-group" style="align-items:center;">
+                                    <button type="submit" class="btn btn-success">Sign Up</button>
+                                </div>
+                            </form>
+                        </div>
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function LoginSuccess(result) {
+        if (result.status) {
+            //$('#editLevel').modal('hide');
+            toastrSuccess(result.msg);
+
+        }
+        else {
+            toastrError(result.msg);
+        }
+    }
+    function LoginFailed() {
+        toastrError('Login Failed');
+    }
+
+    //$(document).on('change', '#subtopic-pdf-upload', function () {
+    //    debugger;
+    //    var source = $(this);
+    //    var selectedFile = this.files[0];
+    //    var input = this;
+    //    if (input.files && input.files[0]) {
+    //        var url = input.value;
+    //        var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+    //        if (ext == "pdf") {
+    //            selectedFile.convertToBase64(function (base64) {
+    //                // $('#package-img-preview').attr({ "src": base64, "class": "useruploder" });
+    //                $('#Pdfpath').val(base64);
+    //            });
+    //            var reader = new FileReader();
+    //        }
+    //        else {
+    //            $(source).val('');
+    //            toastrWarning('Invalid Filetype');
+    //        }
+    //    }
+    //});
+
+</script>
+
+
+

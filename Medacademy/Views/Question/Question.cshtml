@@ -1,0 +1,904 @@
+﻿@model Medacademy.Models.CourseModel
+@{
+    ViewBag.Title = "Question";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content">
+    <!-- COLOR PALETTE -->
+    <div class="box box-default color-palette-box">
+        <div class="box-header with-border">
+            <h3 class="box-title"><i class="fa fa-pencil"></i>Question</h3>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-sm-4 col-md-3">
+                    <h4 class="text-center">Course</h4>
+                    @Html.DropDownListFor(m => m.CourseId, Ma.EntityLibrary.Data.Dropdowndata.GetCourseDrop(), "--Choose--", new { @class = "form-control course-drop-down", @data_live_search = "true" })
+                </div><!-- /.col -->
+                <div class="col-sm-4 col-md-3">
+                    <h4 class="text-center">Package</h4>
+                    <select id="Package-drop-down" class="form-control Package-drop-down" disabled>
+                        <option>-- Please select Package --</option>
+                    </select>
+                </div><!-- /.col -->
+
+                <div class="col-sm-4 col-md-3">
+                    <h4 class="text-center">Subject</h4>
+                    <select id="Subject-drop-down" class="form-control Subject-drop-down" disabled>
+                        <option>-- Please select Subject --</option>
+                    </select>
+                </div><!-- /.col -->
+                <div class="col-sm-4 col-md-3">
+                    <h4 class="text-center">Topic</h4>
+                    <select id="Topic-drop-down" class="form-control Topic-drop-down" disabled>
+                        <option>-- Please select Topic --</option>
+                    </select>
+                </div><!-- /.col -->
+                <div class="col-sm-4 col-md-3">
+                    <h4 class="text-center">Subtopic</h4>
+                    <select id="Subtopic-drop-down" class="form-control Subtopic-drop-down" disabled>
+                        <option>-- Please select Subtopic --</option>
+                    </select>
+                </div><!-- /.col -->
+                <div class="col-sm-4 col-md-3">
+                    <h4 class="text-center">Level</h4>
+                    <select id="Level-drop-down" class="form-control Level-drop-down" disabled>
+                        <option>-- Please select Level --</option>
+                    </select>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+            <div class="row" id="partial-view">
+
+            </div><!-- /.box-body -->
+
+        </div><!-- /.box -->
+    </div>
+</section><!-- /.content -->
+
+<script>
+  
+       
+   
+    $(document).on('change', '.course-drop-down', function () {
+        var id = $(this).val();
+        if (id != '') {
+            resetDropDown('Package');
+            $.ajax({
+                url: '/Data/LoadPackages?courseid=' + id,
+                type: "GET",
+                success: function (result) {
+                    if (result.list.length > 0) {
+                        $("#Package-drop-down").html(""); // clear before appending new list
+                        $("#Package-drop-down").append($('<option></option>').val("").html('-- Select Package --'));
+                        $.each(result.list, function (i, item) {
+                            $("#Package-drop-down").append($('<option></option>').val(item.Value).html(item.Text));
+                        });
+                        $("#Package-drop-down").prop("disabled", false);
+                    }
+                    else {
+                        resetDropDown('Class');
+                        $("#Package-drop-down").html(""); // clear before appending new list
+                        $("#Package-drop-down").append($('<option></option>').val("").html('-- No Packages Found --'));
+                        $("#Package-drop-down").prop("disabled", true);
+                    }
+                }
+            });
+
+        }
+        else {
+            resetDropDown('Class');
+        }
+    });
+
+
+
+    $(document).on('change', '.Package-drop-down', function () {
+        var id = $(this).val();
+        if (id != '') {
+            resetDropDown('Class');
+            $.ajax({
+                url: '/Data/LoadSubjects?packageid=' + id,
+                type: "GET",
+                success: function (result) {
+                    if (result.list.length > 0) {
+                        $("#Subject-drop-down").html(""); // clear before appending new list
+                        $("#Subject-drop-down").append($('<option></option>').val("").html('-- Select Subject --'));
+                        $.each(result.list, function (i, item) {
+                            $("#Subject-drop-down").append($('<option></option>').val(item.Value).html(item.Text));
+                        });
+                        $("#Subject-drop-down").prop("disabled", false);
+                    }
+                    else {
+                        resetDropDown('Class');
+                        $("#Subject-drop-down").html(""); // clear before appending new list
+                        $("#Subject-drop-down").append($('<option></option>').val("").html('-- No Subjects Found --'));
+                        $("#Subject-drop-down").prop("disabled", true);
+                    }
+                }
+            });
+
+        }
+        else {
+            resetDropDown('Class');
+        }
+    });
+
+    $(document).on('change', '.Subject-drop-down', function () {
+        var id = $(this).val();
+        if (id != '') {
+            resetDropDown('Subject');
+
+            $.ajax({
+                url: '/Data/LoadTopic?subjectid=' + id,
+                type: "GET",
+                success: function (result) {
+                    if (result.list.length > 0) {
+                        $("#Topic-drop-down").html(""); // clear before appending new list
+                        $("#Topic-drop-down").append($('<option></option>').val("").html('-- Select Topic --'));
+                        $.each(result.list, function (i, item) {
+                            $("#Topic-drop-down").append($('<option></option>').val(item.Value).html(item.Text));
+                        });
+                        $("#Topic-drop-down").prop("disabled", false);
+                    }
+                    else {
+                        resetDropDown('Subject');
+                        $("#Topic-drop-down").html(""); // clear before appending new list
+                        $("#Topic-drop-down").append($('<option></option>').val("").html('-- No Topics Found --'));
+                        $("#Topic-drop-down").prop("disabled", true);
+                    }
+                }
+            });
+
+        }
+        else {
+            resetDropDown('Subject');
+        }
+    });
+
+    $(document).on('change', '.Topic-drop-down', function () {
+        var id = $(this).val();
+        if (id != '') {
+            resetDropDown('Chapter');
+
+            $.ajax({
+                url: '/Data/LoadSubtopic?topicid=' + id,
+                type: "GET",
+                success: function (result) {
+                    if (result.list.length > 0) {
+                        $("#Subtopic-drop-down").html(""); // clear before appending new list
+                        $("#Subtopic-drop-down").append($('<option></option>').val("").html('-- Select Subtopic --'));
+                        $.each(result.list, function (i, item) {
+                            $("#Subtopic-drop-down").append($('<option></option>').val(item.Value).html(item.Text));
+                        });
+                        $("#Subtopic-drop-down").prop("disabled", false);
+                    }
+                    else {
+                        resetDropDown('Chapter');
+                        $("#Subtopic-drop-down").html(""); // clear before appending new list
+                        $("#Subtopic-drop-down").append($('<option></option>').val("").html('-- No Subtopic Found --'));
+                        $("#Subtopic-drop-down").prop("disabled", true);
+                    }
+                }
+            });
+
+        }
+        else {
+            resetDropDown('Chapter');
+        }
+    });
+
+    $(document).on('change', '.Subtopic-drop-down', function () {
+        var id = $(this).val();
+        if (id != '') {
+            resetDropDown('Class');
+            $.ajax({
+                url: '/Data/LoadLevel?subtopicid=' + id,
+                type: "GET",
+                success: function (result) {
+                    if (result.list.length > 0) {
+                        $("#Level-drop-down").html(""); // clear before appending new list
+                        $("#Level-drop-down").append($('<option></option>').val("").html('-- Select Level --'));
+                        $.each(result.list, function (i, item) {
+                            $("#Level-drop-down").append($('<option></option>').val(item.Value).html(item.Text));
+                        });
+                        $("#Level-drop-down").prop("disabled", false);
+                    }
+                    else {
+                        resetDropDown('Class');
+                        $("#Level-drop-down").html(""); // clear before appending new list
+                        $("#Level-drop-down").append($('<option></option>').val("").html('-- No Level Found --'));
+                        $("#Level-drop-down").prop("disabled", true);
+                    }
+                }
+            });
+
+        }
+        else {
+            resetDropDown('Class');
+        }
+    });
+
+
+    function resetDropDown(item) {
+        if (item == 'Class') {
+            //$("#subject-drop-down").html(''); // clear before appending new list
+            //$("#subject-drop-down").append($('<option></option>').val("").html('--Please select class--'));
+            //$("#chapter-drop-down").html(''); // clear before appending new list
+            //$("#chapter-drop-down").append($('<option></option>').val("").html('--Please select subject--'));
+            //$("#practice-test-drop-down").html(''); // clear before appending new list
+            //$("#practice-test-drop-down").append($('<option></option>').val("").html('--Please select chapter--'));
+            //$("#subject-drop-down").prop("disabled", true);
+            //$("#chapter-drop-down").prop("disabled", true);
+            //$("#practice-test-drop-down").prop("disabled", true);
+            //$('#partial-view').html('');
+        }
+        else if (item == 'Subject') {
+            //$("#chapter-drop-down").html(''); // clear before appending new list
+            //$("#chapter-drop-down").append($('<option></option>').val("").html('--Please select subject--'));
+            //$("#practice-test-drop-down").html(''); // clear before appending new list
+            //$("#practice-test-drop-down").append($('<option></option>').val("").html('--Please select chapter--'));
+            //$("#chapter-drop-down").prop("disabled", true);
+            //$("#practice-test-drop-down").prop("disabled", true);
+            //$('#partial-view').html('');
+
+        }
+        else {
+            //$("#practice-test-drop-down").html(''); // clear before appending new list
+            //$("#practice-test-drop-down").append($('<option></option>').val("").html('--Please select chapter--'));
+            //$("#practice-test-drop-down").prop("disabled", true);
+            //$('#partial-view').html('');
+
+        }
+
+        //get question list
+
+        $(document).on('change', '#Level-drop-down', function () {
+            var testId = $(this).val();
+            $.ajax({
+                url: '/Question/GetQuestionView?testId=' + testId,
+                dataType: 'html',
+                success: function (data) {
+                   
+                    $('#partial-view').hide();
+                    $('#partial-view').html(data);
+                    IntializeDataTable();
+                    setTimeout(function () {
+                        $('#partial-view').show();
+                    }, 1000)
+                },
+            });
+        });
+
+        //--------------------------------------------------------------------add questions to levels
+
+        $(document).on('click', '#add-question-practice', function () {
+            var levelid = $(this).attr("data-practice-id");
+            $.ajax({
+                url: '/Question/GetAddQuestionView?testId=' + levelid,
+                dataType: 'html',
+                success: function (data) {
+                    $('#partial-view').html(data);
+                    setTimeout(function () {
+                        CKEDITOR.replace('question-editor');
+                        CKEDITOR.replace('question-editor2');
+                        CKEDITOR.replace('answer-explanation-editor');
+                    }, 1000)
+                },
+            });
+        });
+
+    }
+
+
+    ////New Update basheer
+    //$(document).on('click', '.confirmDelete', function () {
+    //    var questionId = $(this).attr("data-id");
+    //    var url = '/Question/DeleteQuestion?questionId=' + questionId;
+    //    $.confirm({
+    //        text: "Are you sure?",
+    //        confirm: function (button) {
+    //            $.get(url, function (result) {
+    //                if (result.status) {
+    //                    toastrSuccess(result.msg);
+    //                    refreshQuestionGrid();
+    //                }
+    //                else {
+    //                    toastrError(result.msg);
+    //                }
+    //            });
+    //        },
+    //        confirmButton: "Yes",
+    //        cancelButton: "Cancel",
+    //        confirmButtonClass: "btn-danger",
+    //        cancelButtonClass: "btn-success",
+    //    });
+    //});
+
+    $(document).on('click', '.confirmDelete', function () {
+       
+        var questionId = $(this).attr("data-id");
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to undo this !",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel!",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+function (isConfirm) {
+    if (isConfirm) {
+        $.ajax({
+            url: '/Question/DeleteQuestion?questionId=' + questionId,
+            type: "GET",
+            dataType: 'json',
+            success: function (data) {
+                if (data.status) {
+                    toastrSuccess(data.msg);
+                    refreshQuestionGrid();
+                }
+                else {
+                    toastrError(data.msg);
+                }
+            }
+        });
+    }
+});
+    });
+
+
+
+    function refreshQuestionGrid() {
+        var levelid = $('#hflevelid').val();
+        $.ajax({
+            url: '/Question/RefreshQuestionsGrid?testId=' + levelid,
+          
+            dataType: 'html',
+            success: function (data) {
+              //  $('#main-view-div').html(data);
+                $('#partial-view').html(data);
+                IntializeDataTable();
+            },
+        });
+    }
+
+    $(document).on('click', '.edit-question', function () {
+        var questionId = $(this).attr("data-id");
+        var levelid = $(this).attr("data-practice-id");
+
+        $.ajax({
+            url: '/Question/GetEditQuestionView?questionId=' + questionId + '&levelid=' + levelid,
+            dataType: 'html',
+            success: function (data) {
+
+                $('#partial-view').html('');
+                // alert();
+                $('#partial-view').html(data);
+
+
+
+                if (CKEDITOR) {
+                    if (CKEDITOR.instances.editor1) {
+                        CKEDITOR.instances.editor1.destroy();
+                    }
+                }
+
+                $("textarea").each(function () {
+                    CKEDITOR.replace(this);
+                });
+
+
+                setTimeout(function () {
+                    $('#partial-view').show();
+                }, 1000)
+            },
+        });
+    });
+
+
+
+    //---------------------------------------------------------------------------------------------------------------
+
+    var answer = 1;
+
+    //$(document).ready(function () {
+
+
+
+    //});
+
+
+    $(document).on('change', '#questionTypeId', function () {
+        var type = $(this).val();
+        if (type == 1) {
+            $('#question-editor-area').show();
+            $('#question-editor-area2').hide();
+            $('#question-image-area').hide();
+            $('#answer-type-id').show();
+            $('#answer-view-id').show();
+            $('#answer-area').hide();
+            $('#submit-btn-dummy').hide();
+
+        }
+        else if (type == 2) {
+            $('#question-image-area').show();
+            $('#question-editor-area').show();
+            $('#question-editor-area2').hide();
+            $('#answer-view-id').show();
+            $('#answer-type-id').show();
+            $('#answer-area').hide();
+            $('#submit-btn-dummy').hide();
+
+        }
+        else if (type == 3) {
+            $('#question-image-area').show();
+            $('#question-editor-area').show();
+            $('#question-editor-area2').show();
+            $('#answer-view-id').show();
+            $('#answer-type-id').show();
+            $('#answer-area').hide();
+            $('#submit-btn-dummy').hide();
+
+        }
+        else {
+            $('#question-image-area').hide();
+            $('#question-editor-area').hide();
+            $('#question-editor-area2').hide();
+            $('#answer-type-id').hide();
+            $('#answer-view-id').hide();
+            $('#answer-area').hide();
+            $('#submit-btn-dummy').hide();
+
+        }
+    });
+
+    $(document).on('change', '#answerTypeId', function () {
+        var type = $(this).val();
+        if (type = 1) {
+            answer = 1;
+            $('#answer-area').show();
+            $('#answer-editor-div').html('');
+            $('#answer-image-div').html('');
+            $('#submit-btn-dummy').hide();
+            //CKEDITOR.replace('answer-explanation-editor');
+
+        }
+        else if (type = 2) {
+            $('#answer-area').show();
+            $('#answer-editor-div').html('');
+            $('#answer-image-div').html('');
+            $('#submit-btn-dummy').hide();
+            //CKEDITOR.replace('answer-explanation-editor');
+
+        }
+    });
+
+    function AddQuestionOpt() {
+       debugger;
+        var type = $('#answerTypeId').val();
+        if (type == 1) {
+            var template = $('#answer-editor-template').clone().html();
+            var content = template.replace('{{Number}}', answer)
+                                        .replace('{{editorId}}', answer)
+                                        .replace('{{editorName}}', answer)
+                                        .replace('{{item}}', answer)
+            $('#answer-editor-div').append(content);
+
+            CKEDITOR.replace('answer-editor-' + answer);
+            // CKEDITOR.replace('answer-editor-1');
+
+            answer++;
+            $('#submit-btn-dummy').show();
+
+        }
+
+        if (type == 2) {
+            var template = $('#answer-image-template').clone().html();
+            var content = template.replace('{{Number}}', answer)
+                                        .replace('{{editorId}}', answer)
+                                        .replace('{{editorName}}', answer)
+                                        .replace('{{item}}', answer)
+            $('#answer-image-div').append(content);
+            answer++;
+            $('#submit-btn-dummy').show();
+
+        }
+    }
+
+    $(document).on('click', '.add-answer-option', function () {
+        var type = $('#answerTypeId').val();
+        var answer = parseInt($('#hfAnswerCount').val());
+
+        if (type == 1) {
+            answer++;
+            var template = $('#answer-editor-template').clone().html();
+            var content = template.replace('{{Number}}', answer)
+                                        .replace('{{editorId}}', answer)
+                                        .replace('{{editorName}}', answer)
+                                        .replace('{{item}}', answer)
+            $('#answer-editor-div').append(content);
+
+            CKEDITOR.replace('answer-editor-' + answer);
+
+            $('#hfAnswerCount').val(answer)
+            $('#submit-btn-dummy').show();
+
+        }
+
+        if (type == 2) {
+            answer++;
+            var template = $('#answer-image-template').clone().html();
+            var content = template.replace('{{Number}}', answer)
+                                        .replace('{{editorId}}', answer)
+                                        .replace('{{editorName}}', answer)
+                                        .replace('{{item}}', answer)
+            $('#answer-image-div').append(content);
+            $('#hfAnswerCount').val(answer)
+            $('#submit-btn-dummy').show();
+
+        }
+    });
+    $(document).on('click', '.remove-answer-option', function () {
+        $(this).parent().remove();
+        // answer--;
+    });
+
+
+    $(document).on('change', '.answer-image-upload', function () {
+        //var imgedit = 1;
+        //$('#imageedit').val(imgedit);
+        var source = $(this);
+        var selectedFile = this.files[0];
+        var input = this;
+        if (input.files && input.files[0]) {
+            var url = input.value;
+            var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+            if (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg" || ext == "bmp") {
+                selectedFile.convertToBase64(function (base64) {
+                    var image = $(source).parent().find('img');
+                    var hiddenField = $(source).parent().find('#hfBase64Image');
+                    $(image).attr({ "src": base64, "class": "useruploder" });
+                    $(hiddenField).val(base64);
+                });
+                var reader = new FileReader();
+            }
+            else {
+                $(source).val('');
+                toastrWarning('Invalid Filetype');
+                var image = $(source).parent().find('img');
+                var hiddenField = $(source).parent().find('#hfBase64Image');
+                $(image).attr({ "src": base64, "class": "useruploder" });
+                $(hiddenField).val('');
+            }
+        }
+    });
+    File.prototype.convertToBase64 = function (callback) {
+        var FR = new FileReader();
+        FR.onload = function (e) {
+            callback(e.target.result)
+        };
+        FR.readAsDataURL(this);
+    }
+
+    $(document).on('click', '#submit-btn-dummy', function () {
+        //   var questTxt = $('#question-editor');
+        //debugger;
+        var quest = CKEDITOR.instances['question-editor'].getData()
+        $('#question').val(decodeHtmlEntity(quest));
+        //  var ansTxt = $('#answer-explanation-editor');
+        var ans = CKEDITOR.instances['answer-explanation-editor'].getData()
+        $('#answerExplanation').val(decodeHtmlEntity(ans));
+        var list = GetAnswerList();
+        var length = 0;
+        jQuery.each(list, function (index, item) {
+            // do something with `item` (or `this` is also `item` if you like)
+            if (item.AnswerStatus == true) {
+                length++;
+            }
+        });
+
+        if ($('#answerViewId').val() == '') {
+            toastrWarning('Please select the answer view type!');
+            return true;
+        }
+        SetQuestionImage();
+        SetAnswerExpImage();
+
+        if (list.length > 0) {
+            var jsonData = JSON.stringify(list);
+            $('#answerData').val(jsonData);
+
+            setTimeout(function () {
+                if (list.length > 0) {
+                    $('#submit-btn').trigger('click');
+                }
+                else {
+                    toastrWarning('Please set one answer as the right one!');
+                }
+            }, 300);
+        }
+        else {
+            toastrWarning('Please set one answer as the right one!');
+        }
+
+    });
+
+    //convert meta html equivalents
+    function decodeHtmlEntity(content) {
+
+        var varTitle = $('<textarea />').html(content).text();
+        return varTitle;
+
+
+        //var tempTxt = document.createElement("textarea");
+        //tempTxt.innerHTML = content;
+        //return tempTxt.value;
+    }
+
+    function AddQuestionSuccess(result) {
+        if (result.status) {
+            $('#addChapter').modal('hide');
+            toastrSuccess(result.msg);
+            refreshChapterGrid();
+        }
+        else {
+            toastrError(result.msg);
+        }
+    }
+
+    function GetAnswerList() {
+        var type = $('#answerTypeId').val();
+        var list = [];
+        if (type == 1) {
+            $('#answer-editor-div .answer-editor-repeat').each(function (index, row) {
+                var editor1 = $(row).find('textarea');
+                var txtid = $(editor1).attr('id')
+                var value = CKEDITOR.instances[txtid].getData()
+                var radio = $(row).find('input[type=radio]:checked').val() == "on" ? true : false;
+                var obj = new Object();
+                obj.AnswerText = decodeHtmlEntity(value);
+                obj.AnswerStatus = radio;
+                list.push(obj);
+            });
+            return list;
+
+
+            //if (list.length > 0) {
+            //    var jsonArray = JSON.stringify(list)
+            //    $('#answerData').val(jsonArray);
+            //    setTimeout(function () {
+            //        $('#submit-btn').trigger('click');
+            //    }, 500)
+            //}
+            //else {
+            //    toastrWarning('Please add answers');
+            //}
+        }
+        else if (type == 2) {
+            $('#answer-image-div .answer-image-repeat').each(function (index, row) {
+                var data = $(row).find('#hfBase64Image').val();
+                var isDb = $(row).find('#hfIsDatabase').val();
+                if (isDb == '1') {
+
+                    var img = $(row).find('#image-browse').attr('src');
+
+                    image = document.createElement('img');
+                    document.body.appendChild(image);
+                    image.setAttribute('style', 'display:none');
+                    image.setAttribute('alt', 'script div');
+                    image.setAttribute("src", img);
+
+                    var imgCanvas = document.createElement("canvas"),
+                    imgContext = imgCanvas.getContext("2d");
+
+                    // Make sure canvas is as big as the picture
+                    imgCanvas.width = image.width;
+                    imgCanvas.height = image.height;
+
+                    // Draw image into canvas element
+                    imgContext.drawImage(image, 0, 0, image.width, image.height);
+                    // Save image as a data URL
+                    data = imgCanvas.toDataURL("image/png");
+
+
+                    //toDataUrl(img, function (base64Img) {
+                    //    // Base64DataURL
+                    //    data = base64Img;
+                    //});
+                }
+                var radio = $(row).find('input[type=radio]:checked').val() == "on" ? true : false;
+                var obj = new Object();
+                obj.AnswerText = data;
+                obj.AnswerStatus = radio;
+                list.push(obj);
+            });
+
+            return list;
+
+            //if (list.length > 0) {
+            //    var jsonArray = JSON.stringify(list)
+            //    $('#answerData').val(jsonArray);
+            //    setTimeout(function () {
+            //        $('#submit-btn').trigger('click');
+            //    }, 500)
+            //}
+            //else {
+            //    toastrWarning('Please add answers');
+            //}
+        }
+    }
+
+
+
+
+    //get question list
+    $(document).on('click', '#go-question-practice', function () {
+        var testId = $(this).attr('data-practice-id');
+        $.ajax({
+            url: '/Question/GetQuestionView?testId=' + testId,
+            dataType: 'html',
+            success: function (data) {
+                $('#partial-view').html('');
+                // alert();
+                $('#partial-view').html(data);
+
+            },
+        });
+    });
+
+    //function toDataUrl(url, callback, outputFormat) {
+    //    var img = new Image();
+    //    img.crossOrigin = 'Anonymous';
+    //    img.onload = function () {
+    //        var canvas = document.createElement('CANVAS');
+    //        var ctx = canvas.getContext('2d');
+    //        var dataURL;
+    //        canvas.height = this.height;
+    //        canvas.width = this.width;
+    //        ctx.drawImage(this, 0, 0);
+    //        dataURL = canvas.toDataURL(outputFormat);
+    //        callback(dataURL);
+    //        canvas = null;
+    //    };
+    //    img.src = url;
+    //}
+    function EditQuestionSuccess(result) {
+        if (result.status) {
+            toastrSuccess('Success');
+            $.ajax({
+                url: '/Question/GetQuestionView?testId=' + result.id,
+                dataType: 'html',
+                success: function (data) {
+                    $('#partial-view').html(data);
+
+                },
+            });
+        }
+        else {
+            toastrError('An error occured');
+        }
+    }
+
+    $(document).on('change', '#question-image-upload', function () {
+        var source = $(this);
+        var selectedFile = this.files[0];
+        var input = this;
+        if (input.files && input.files[0]) {
+            var url = input.value;
+            var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+            if (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg" || ext == "bmp") {
+                selectedFile.convertToBase64(function (base64) {
+                    $('#question-image-preview').attr({ "src": base64, "class": "useruploder" });
+                    $('#questionImage').val(base64);
+                    $('#hfImageDatabase').val(0);
+                });
+                var reader = new FileReader();
+            }
+            else {
+                $(source).val('');
+                toastrWarning('Invalid Filetype');
+            }
+        }
+    });
+
+    $(document).on('change', '#answer-exp-image-upload', function () {
+        var source = $(this);
+        var selectedFile = this.files[0];
+        var input = this;
+        if (input.files && input.files[0]) {
+            var url = input.value;
+            var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+            if (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg" || ext == "bmp") {
+                selectedFile.convertToBase64(function (base64) {
+                    $('#answer-exp-image-preview').attr({ "src": base64, "class": "useruploder" });
+                    $('#ansExpImage').val(base64);
+                    $('#hfExpImageDatabase').val(0);
+                });
+                var reader = new FileReader();
+            }
+            else {
+                $(source).val('');
+                toastrWarning('Invalid Filetype');
+            }
+        }
+    });
+
+    function SetQuestionImage() {
+        var status = $('#hfImageDatabase').val();
+        if (status == 1) {
+            var img = $('#question-image-preview').attr('src');
+            image = document.createElement('img');
+            document.body.appendChild(image);
+            image.setAttribute('style', 'display:none');
+            image.setAttribute('alt', 'script div');
+            image.setAttribute("src", img);
+
+            var imgCanvas = document.createElement("canvas"),
+            imgContext = imgCanvas.getContext("2d");
+
+            // Make sure canvas is as big as the picture
+            imgCanvas.width = image.width;
+            imgCanvas.height = image.height;
+
+            // Draw image into canvas element
+            imgContext.drawImage(image, 0, 0, image.width, image.height);
+            // Save image as a data URL
+            data = imgCanvas.toDataURL("image/png");
+
+            $('#questionImage').val(data);
+        }
+    }
+
+
+    function SetAnswerExpImage() {
+        var status = $('#hfExpImageDatabase').val();
+        if (status == 1) {
+            var img = $('#answer-exp-image-preview').attr('src');
+            image = document.createElement('img');
+            document.body.appendChild(image);
+            image.setAttribute('style', 'display:none');
+            image.setAttribute('alt', 'script div');
+            image.setAttribute("src", img);
+
+            var imgCanvas = document.createElement("canvas"),
+            imgContext = imgCanvas.getContext("2d");
+
+            // Make sure canvas is as big as the picture
+            imgCanvas.width = image.width;
+            imgCanvas.height = image.height;
+
+            // Draw image into canvas element
+            imgContext.drawImage(image, 0, 0, image.width, image.height);
+            // Save image as a data URL
+            data = imgCanvas.toDataURL("image/png");
+
+            $('#ansExpImage').val(data);
+        }
+    }
+
+
+    $(document).ready(function () {
+      
+        
+
+    });
+
+    function IntializeDataTable() {
+        $('#practQuestionTable').DataTable({
+            //"paging": true,
+            //"lengthChange": false,
+            "searching": true,
+           // "ordering": true,
+            //"info": true,
+            //"autoWidth": true
+
+        });
+    }
+
+   
+
+
+</script>

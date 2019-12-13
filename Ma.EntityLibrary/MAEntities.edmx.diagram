@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="50b4d6aa53044455a473840e840c4cba" Name="Diagram1" ZoomLevel="88">
+        <EntityTypeShape EntityType="MedacademyModel.tb_Answer" Width="1.5" PointX="12" PointY="79.5" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_AnswerDummy" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_AnswerType" Width="1.5" PointX="12.75" PointY="84.125" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_AnswerView" Width="1.5" PointX="0.75" PointY="33.5" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_AppRedeemPoints" Width="1.5" PointX="3" PointY="63.625" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_Assessment" Width="1.5" PointX="0.75" PointY="51.625" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_AssessmentAnswer" Width="1.5" PointX="3" PointY="35.125" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_AssessmentAttempt" Width="1.5" PointX="3" PointY="51.625" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_AssessmentFile" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_AssessmentQuestion" Width="1.5" PointX="0.75" PointY="36.625" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_CbseAnswer" Width="1.5" PointX="10" PointY="29.125" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_CbseFile" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_CbseQuestion" Width="1.5" PointX="3.75" PointY="25.625" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_Challenge" Width="1.5" PointX="5.25" PointY="105" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_Chapter" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_ChapterDummy" Width="1.5" PointX="4.75" PointY="4.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_Class" Width="1.5" PointX="1.5" PointY="41.25" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_ClassStudent" Width="1.5" PointX="9" PointY="67.125" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_CommonPassword" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_ContactExpert" Width="1.5" PointX="6.75" PointY="3.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_ContactUs" Width="1.5" PointX="6.75" PointY="7.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_Course" Width="1.5" PointX="7.5" PointY="26.875" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_Division" Width="1.5" PointX="0.75" PointY="76.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_DivisionStudent" Width="1.5" PointX="3" PointY="68.125" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_ErrorLog" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_Exam" Width="1.5" PointX="3.75" PointY="75.875" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_ExamGroup" Width="1.5" PointX="12" PointY="42.625" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_ExamQuestion" Width="1.5" PointX="6" PointY="81.125" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_ExamRank" Width="1.5" PointX="12" PointY="71.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_ExamRequest" Width="1.5" PointX="3" PointY="157.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_Exercise" Width="1.5" PointX="9" PointY="96.875" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_File" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_FileDummy" Width="1.5" PointX="2.75" PointY="8.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_Group" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_GroupStudent" Width="1.5" PointX="8.75" PointY="3.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_Homework" Width="1.5" PointX="9" PointY="70.625" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_HomeworkSchool" Width="1.5" PointX="6" PointY="55.625" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_HomeworkStudent" Width="1.5" PointX="14.25" PointY="56.5" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_HomeworkStudentSchool" Width="1.5" PointX="14.25" PointY="60.625" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_Increment" Width="1.5" PointX="8.75" PointY="6.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_Ipayy" Width="1.5" PointX="3" PointY="104.125" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_Lesson" Width="1.5" PointX="8.75" PointY="9.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_Level" Width="1.5" PointX="9.75" PointY="33.25" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_Login" Width="1.5" PointX="0.75" PointY="58.375" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_Mark" Width="1.5" PointX="3" PointY="119.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_MpesePayment" Width="1.5" PointX="3" PointY="165" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_News" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_Notification" Width="1.5" PointX="3" PointY="151.625" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_NotificationUser" Width="1.5" PointX="8.25" PointY="107.125" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_Olympiad" Width="1.5" PointX="9.75" PointY="88.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_OlympiadAnswer" Width="1.5" PointX="15" PointY="85.375" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_OlympiadAttempt" Width="1.5" PointX="12" PointY="67.375" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_OlympiadChapter" Width="1.5" PointX="9.75" PointY="92.5" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_OlympiadFile" Width="1.5" PointX="10.75" PointY="4.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_OlympiadQuestion" Width="1.5" PointX="12.75" PointY="86.625" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_OlympiadTest" Width="1.5" PointX="9.75" PointY="84.875" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_Package" Width="1.5" PointX="7.5" PointY="31.375" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_PasswordReset" Width="1.5" PointX="10.75" PointY="8.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_PayByCash" Width="1.5" PointX="3" PointY="160.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_Payment" Width="1.5" PointX="11.25" PointY="62.625" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_PaymentTest" Width="1.5" PointX="4.75" PointY="11.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_PAYTM_REQUEST" Width="1.5" PointX="9" PointY="57.375" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_PAYTM_RESPONSE" Width="1.5" PointX="17.25" PointY="60.625" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_Points" Width="1.5" PointX="9.75" PointY="43.125" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_PracticeAttempt" Width="1.5" PointX="6" PointY="63.25" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_PracticePoint" Width="1.5" PointX="3" PointY="155.25" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_PracticePointDetails" Width="1.5" PointX="14.25" PointY="63.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_PracticeReward" Width="1.5" PointX="0.75" PointY="72.875" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_PracticeTest" Width="1.5" PointX="6.75" PointY="76.625" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_PracticeTestDummy" Width="1.5" PointX="10.75" PointY="11.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_Preparation" Width="1.5" PointX="0.75" PointY="80.625" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_PromoCode" Width="1.5" PointX="12.75" PointY="0.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_Question" Width="1.5" PointX="9.75" PointY="79" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_QuestionDummy" Width="1.5" PointX="0.75" PointY="12.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_QuestionType" Width="1.5" PointX="1.5" PointY="30" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_RedeemPoints" Width="1.5" PointX="3" PointY="55.625" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_ReferFriend" Width="1.5" PointX="12" PointY="58.625" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_Reward" Width="1.5" PointX="12.75" PointY="4.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_Scholarship" Width="1.5" PointX="3.75" PointY="21.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_ScholarshipAnswer" Width="1.5" PointX="10" PointY="38.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_ScholarshipAttempt" Width="1.5" PointX="6.75" PointY="12.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_ScholarshipFile" Width="1.5" PointX="12.75" PointY="7.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_ScholarshipQuestion" Width="1.5" PointX="3.75" PointY="39.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_ScholarshipQuestionTest" Width="1.5" PointX="3.75" PointY="29.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_School" Width="1.5" PointX="6.75" PointY="45.125" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_SchoolRating" Width="1.5" PointX="9" PointY="52.5" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_ScoreRange" Width="1.5" PointX="12.75" PointY="11.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_State" Width="1.5" PointX="4.5" PointY="46.125" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_Subject" Width="1.5" PointX="1.5" PointY="46.25" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_SubjectExpertSubject" Width="1.5" PointX="6" PointY="60.125" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_Subjects" Width="1.5" PointX="7.5" PointY="36.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_Subtopic" Width="1.5" PointX="9.75" PointY="46.875" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_TeacherSubject" Width="1.5" PointX="9" PointY="64.125" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_Topic" Width="1.5" PointX="7.5" PointY="40.875" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_UnlockedLevel" Width="1.5" PointX="12" PointY="54.625" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_UrlFile" Width="1.5" PointX="14.75" PointY="0.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_UserAssessmentAttend" Width="1.5" PointX="5.25" PointY="51" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_UserAttend" Width="1.5" PointX="14.25" PointY="68.125" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_UserExamAttend" Width="1.5" PointX="6" PointY="68.25" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_UserLog" Width="1.5" PointX="3" PointY="59.875" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_UserOlympiadAttend" Width="1.5" PointX="17.25" PointY="68.25" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_UserPreparationAttend" Width="1.5" PointX="3" PointY="71.25" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_UserPreparationResult" Width="1.5" PointX="9" PointY="75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_VideoFiles" Width="1.5" PointX="14.75" PointY="3.75" />
+        <EntityTypeShape EntityType="MedacademyModel.UserExamResult" Width="1.5" PointX="6" PointY="73.125" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_FileTest" Width="1.5" PointX="14.75" PointY="6.75" />
+        <EntityTypeShape EntityType="MedacademyModel.tb_ScholarshipAnswerTest" Width="1.5" PointX="14.75" PointY="10.75" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_Answer_tb_Question" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_UserAttend_tb_Answer" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_UserExamAttend_tb_ScholarshipAnswer" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_UserPreparationAttend_tb_Answer" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Olympi__Answe__69FBBC1F" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Assess__Answe__40F9A68C" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_CbseAn__Answe__46B27FE2" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Olympi__Answe__6AEFE058" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_ScholarshipAnswer_tb_AnswerView" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_AppRed__Rewar__3E1D39E1" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_AppRed__UserI__3F115E1A" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Assess__Asses__42E1EEFE" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Assess__Subje__40058253" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Assess__Quest__41EDCAC5" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_UserAs__UserA__15DA3E5D" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Assess__Subje__43D61337" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Assess__UserI__44CA3770" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_UserAs__Asses__13F1F5EB" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Assess__Quest__45BE5BA9" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_UserAs__Quest__14E61A24" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_CbseAn__Quest__47A6A41B" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_CbseQu__Quest__489AC854" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Challe__FromU__498EEC8D" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Challe__Notif__4A8310C6" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Challe__ToUse__4B7734FF" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Divisi__Class__4F47C5E3" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Homewo__Class__56E8E7AB" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Homewo__Class__59C55456" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Olympi__Class__690797E6" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Practi__Class__7D0E9093" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_UserLo__Class__1F63A897" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_ClassStudent_tb_Class" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_Subject_tb_Class" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_ClassStudent_tb_Login1" />
+        <AssociationConnector Association="MedacademyModel.FK_CourseID_tb_Package_tb_Course" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_Level_tb_Course" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_Subjects_tb_Course" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_Subtopic_tb_Course" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_Topic_tb_Course" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Divisi__Divis__51300E55" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Divisi__Schoo__503BEA1C" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Divisi__UserI__5224328E" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_UserEx__ExamI__1B9317B3" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_Exam_tb_Exam" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_ExamGroup_tb_ExamGroup" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_ExamQuestion_tb_Exam1" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_ExamRank_tb_Exam" />
+        <AssociationConnector Association="MedacademyModel.FK_UserExamResult_tb_Exam" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_ExamGroup_tb_Group" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_ExamRank_tb_Login" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_ExamRequest_tb_Login" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Exerci__Pract__756D6ECB" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Homewo__Homew__5CA1C101" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Homewo__Pract__57DD0BE4" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Homewo__Teach__58D1301D" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Homewo__Homew__5E8A0973" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Homewo__Teach__5AB9788F" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Homewo__Attem__5BAD9CC8" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Homewo__UserI__5D95E53A" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Homewo__UserI__5F7E2DAC" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_Ipayy_tb_Login" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Practi__Pract__7A3223E8" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Unlock__Level__11158940" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_Level_tb_Package" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_level_tb_PracticeTest" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_Level_tb_Subjects" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_Level_tb_Topic" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_Question_tb_Level" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_MpeseP__UserI__65370702" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Notifi__FromU__662B2B3B" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Notifi__UserI__681373AD" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Olympi__UserI__6FB49575" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_PayByC__UserI__73852659" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Practi__UserI__793DFFAF" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Practi__UserI__7B264821" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Redeem__UserI__00DF2177" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_ReferF__Frien__01D345B0" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_ReferF__UserI__02C769E9" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_School__UserI__0B5CAFEA" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Subjec__UserI__0E391C95" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Teache__UserI__10216507" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Unlock__UserI__12FDD1B2" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_UserAs__UserI__16CE6296" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_UserEx__UserI__1C873BEC" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_UserLo__UserI__2057CCD0" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_UserOl__UserI__24285DB4" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_Attempt_tb_Login" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_login_tb_Payment" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_Mark_tb_Login" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_PAYTM_REQUEST_tb_Login" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_PAYTM_RESPONSE_tb_Login" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_UserAttend_tb_Login" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_UserPreparationAttend_tb_Login" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_UserPreparationResult_tb_Login" />
+        <AssociationConnector Association="MedacademyModel.FK_UserExamResult_tb_Login" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Notifi__Notif__671F4F74" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Olympi__Olymp__6DCC4D03" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Olympi__Olymp__70A8B9AE" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Olympi__Quest__6BE40491" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_UserOl__UserA__2334397B" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Olympi__Chapt__6CD828CA" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Olympi__Olymp__6EC0713C" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_UserOl__Olymp__214BF109" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Olympi__Chapt__72910220" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Olympi__Quest__719CDDE7" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_UserOl__Quest__22401542" />
+        <AssociationConnector Association="MedacademyModel.FK_PackageID_tb_Subjects_tb_Package" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_PAYTM_REQUEST_tb_Package" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_PAYTM_RESPONSE_tb_Package" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_Subtopic_tb_Package" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_Topic_tb_Package" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_Payment_tb_Login" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_Payment_tb_PAYTM_RESPONSE" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_PAYTM_RESPONSE_tb_PAYTM_REQUEST" />
+        <AssociationConnector Association="MedacademyModel.PointId" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_Attempt_tb_Subtopic" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_PracticePointDetails_tb_PracticeAttempt" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_UserAttend_tb_PracticeAttempt" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Redeem__Rewar__7FEAFD3E" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_UserPreparationAttend_tb_Preparation" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_UserPreparationResult_tb_Preparation" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_Question_tb_QuestionType" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_UserAttend_tb_Question" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_UserExamAttend_tb_ScholarshipQuestion" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_UserPreparationAttend_tb_Question" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_ScholarshipQuestion_tb_QuestionType" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_ScholarshipQuestionTest_tb_QuestionType" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_Scholarship_tb_Subject" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_ScholarshipAnswer_tb_ScholarshipQuestion" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_School__Schoo__0A688BB1" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_School__State__09746778" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Subjec__Subje__0D44F85C" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Teache__Subje__0F2D40CE" />
+        <AssociationConnector Association="MedacademyModel.FK_Subject_tb_Topic_tb_Subjects" />
+        <AssociationConnector Association="MedacademyModel.FK_tb_Subtopic_tb_Subjects" />
+        <AssociationConnector Association="MedacademyModel.FK__tb_Unlock__Subtopic__1209AD79" />
+        <AssociationConnector Association="MedacademyModel.FK_TopicID_tb_Subtopic_tb_Topic" />
+        <EntityTypeShape EntityType="MedacademyModel.View_ExamStudentResult" Width="1.5" PointX="3.375" PointY="15.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

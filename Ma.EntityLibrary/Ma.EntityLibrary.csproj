@@ -1,0 +1,500 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{243AF033-8DAD-4D9C-8B95-C4AC4C6FCFC6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Ma.EntityLibrary</RootNamespace>
+    <AssemblyName>Ma.EntityLibrary</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\SCHOOL MAN\TrackTap\TrackTap\bin\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="Data\Answers.cs" />
+    <Compile Include="Data\BaseReference.cs" />
+    <Compile Include="Data\Course.cs" />
+    <Compile Include="Data\Dropdowndata.cs" />
+    <Compile Include="Data\Exam.cs" />
+    <Compile Include="Data\ExamGroup.cs" />
+    <Compile Include="Data\ExamQuestion.cs" />
+    <Compile Include="Data\ExamQuestions.cs" />
+    <Compile Include="Data\ExamRank.cs" />
+    <Compile Include="Data\Group.cs" />
+    <Compile Include="Data\GroupSTudent.cs" />
+    <Compile Include="Data\Level.cs" />
+    <Compile Include="Data\News.cs" />
+    <Compile Include="Data\Package.cs" />
+    <Compile Include="Data\Payment.cs" />
+    <Compile Include="Data\PracticeTestAttempt.cs" />
+    <Compile Include="Data\PreparationResult.cs" />
+    <Compile Include="Data\PreparationUser.cs" />
+    <Compile Include="Data\Question.cs" />
+    <Compile Include="Data\Sp_GetUserResultNew.cs" />
+    <Compile Include="Data\Sp_GetUserResults.cs" />
+    <Compile Include="Data\StudentsList.cs" />
+    <Compile Include="Data\StudentViewList.cs" />
+    <Compile Include="Data\Subject.cs" />
+    <Compile Include="Data\SubTopic.cs" />
+    <Compile Include="Data\Topic.cs" />
+    <Compile Include="Data\User.cs" />
+    <Compile Include="fn_GetExamDetails_Result.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MAEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MAEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MAEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MAEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MAEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="sp_GetRewardPointDeatils1_Result.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetRewardPointDeatils_Result.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetUserResultsNew_Result.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetUserResults_Result.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_QtnFileUpload_Result.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_QuestionExcelUpload_Result.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Answer.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_AnswerDummy.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_AnswerType.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_AnswerView.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_AppRedeemPoints.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Assessment.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_AssessmentAnswer.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_AssessmentAttempt.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_AssessmentFile.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_AssessmentQuestion.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_CbseAnswer.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_CbseFile.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_CbseQuestion.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Challenge.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Chapter.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_ChapterDummy.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Class.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_ClassStudent.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_CommonPassword.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_ContactExpert.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_ContactUs.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Course.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Division.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_DivisionStudent.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_ErrorLog.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Exam.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_ExamGroup.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_ExamQuestion.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_ExamRank.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_ExamRequest.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Exercise.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_File.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_FileDummy.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_FileTest.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Group.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_GroupStudent.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Homework.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_HomeworkSchool.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_HomeworkStudent.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_HomeworkStudentSchool.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Increment.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Ipayy.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Lesson.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Level.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Login.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Mark.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_MpesePayment.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_News.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Notification.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_NotificationUser.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Olympiad.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_OlympiadAnswer.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_OlympiadAttempt.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_OlympiadChapter.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_OlympiadFile.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_OlympiadQuestion.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_OlympiadTest.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Package.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_PasswordReset.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_PayByCash.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Payment.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_PaymentTest.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_PAYTM_REQUEST.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_PAYTM_RESPONSE.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Points.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_PracticeAttempt.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_PracticePoint.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_PracticePointDetails.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_PracticeReward.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_PracticeTest.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_PracticeTestDummy.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Preparation.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_PromoCode.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Question.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_QuestionDummy.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_QuestionType.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_RedeemPoints.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_ReferFriend.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Reward.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Scholarship.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_ScholarshipAnswer.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_ScholarshipAnswerTest.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_ScholarshipAttempt.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_ScholarshipFile.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_ScholarshipQuestion.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_ScholarshipQuestionTest.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_School.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_SchoolRating.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_ScoreRange.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_State.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Subject.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_SubjectExpertSubject.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Subjects.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Subtopic.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_TeacherSubject.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Topic.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_UnlockedLevel.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_UrlFile.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_UserAssessmentAttend.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_UserAttend.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_UserExamAttend.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_UserLog.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_UserOlympiadAttend.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_UserPreparationAttend.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_UserPreparationResult.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_VideoFiles.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserExamResult.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_ExamStudentResult.cs">
+      <DependentUpon>MAEntities.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="MAEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MAEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="MAEntities.edmx.diagram">
+      <DependentUpon>MAEntities.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\PagedList.css" />
+    <Content Include="MAEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MAEntities.edmx</DependentUpon>
+      <LastGenOutput>MAEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="MAEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MAEntities.edmx</DependentUpon>
+      <LastGenOutput>MAEntities.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ma.ClassLibrary\Ma.ClassLibrary.csproj">
+      <Project>{e3332ac5-fb79-4163-a518-2e191b35d7d7}</Project>
+      <Name>Ma.ClassLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

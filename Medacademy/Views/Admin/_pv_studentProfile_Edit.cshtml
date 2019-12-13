@@ -1,0 +1,152 @@
+﻿@model Medacademy.Models.UserModel
+@{
+    var grpdata = Model.Groups;
+}
+<div class="modal-dialog modal-md">
+    <div class="modal-content" style="border-radius: 3px;">
+        <div class="modal-header">
+            Edit Profileinfo<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+
+        @using (Ajax.BeginForm("EditStudent", "Admin", null, new AjaxOptions
+        {
+            HttpMethod = "POST",
+            OnSuccess = "EditStudentSuccess",
+            OnFailure = "EditStudentFailed",
+        }, new { id = "form-login" }))
+        {
+            @Html.HiddenFor(z => z.Groups, new { Value = grpdata, id = "grdata" })
+            @Html.TextBoxFor(m => m.UserId, new { type = "hidden" })
+            @Html.TextBoxFor(m => m.GroupsEdit, new { type = "hidden" })
+            @Html.TextBoxFor(m => m.Profileeditimage, new { value = "", type = "hidden" })
+
+            <div class="modal-body">
+                <form>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Student Name</label>
+                        <div class="col-sm-8">
+                            @*<input type="text" class="form-control" placeholder="Test">*@
+                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "First Name" })
+                            @Html.ValidationMessageFor(m => m.FirstName)
+                        </div>
+                    </div>
+                    @*<div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Last Name</label>
+                        <div class="col-sm-8">
+                            
+                            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Last Name" })
+                            @Html.ValidationMessageFor(m => m.LastName)
+                        </div>
+                    </div>*@
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Address</label>
+                        <div class="col-sm-8">
+                            @*<input type="text" class="form-control" placeholder="Test">*@
+                            @Html.TextBoxFor(m => m.Address, new { @class = "form-control", placeholder = "Address" })
+                            @Html.ValidationMessageFor(m => m.Address)
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Contact No</label>
+                        <div class="col-sm-8">
+
+                            @Html.TextBoxFor(m => m.ContactNo, new { @class = "form-control", id = "Contact No" })
+                            @Html.ValidationMessageFor(m => m.ContactNo)
+
+                        </div>
+                    </div>
+                    @*<div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-8">
+
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", id = "Email" })
+                            @Html.ValidationMessageFor(m => m.Email)
+
+                        </div>
+                    </div>*@
+
+                    @*<div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Groups</label>
+                            <div class="dropdown_main">
+                                <span class="dropdown_btn">Groups <i class="fa fa-caret-down"></i></span>
+                                <ul class="dropdown_lists">
+                                    @foreach (var groups in new Ma.EntityLibrary.Data.Group().GetGroups())
+                                    {
+                                        <li>
+                                            <label class="label_container">
+                                                @groups.GroupName
+                                                <input type="checkbox" value="@groups.GroupID" class="chk-roles-cls-edit">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </li>
+                                    }
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>*@
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Group</label>
+                        <div class="col-sm-8">
+                            @Html.DropDownListFor(m => m.GroupID, Ma.EntityLibrary.Data.Dropdowndata.GetGroupforstudentedit(), "--Choose--", new { @class = "form-control pv_class-drop-down", @data_live_search = "true", })
+                            @Html.ValidationMessageFor(m => m.GroupID)
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @{if (Model.FilesName == null || Model.FilesName == string.Empty)
+                {
+                                    <label>Profile Image</label>
+                                    <div class="upload-box" id="courseedit-img-preview" style="background-image: url(../Content/img/default-placeholder-1024x1024-960x960.png);">
+                                    </div>
+                                    <input id="courseedit-image-upload" type="file" class="uploder-controler" />
+                                }
+                                else
+                                {
+                                    <label>Profile Image</label>
+                                    <div class="upload-box" id="courseedit-img-preview" style="background-image:url(@Model.FilesName);">
+                                    </div>
+                                    <input id="courseedit-image-upload" type="file" class="uploder-controler" />
+
+                                }
+                            }
+                            <div id="dummyId"></div>
+
+                            @*<img style="height:50px;" id="course-img-preview" />
+                    <input id="course-image-upload" type="file" class="uploder-controler" />*@
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">&nbsp;</label>
+                            <div class="col-sm-8">
+
+
+                                <button type="button" id="btn-dummy-addexam1" class="btn pay-now-btn">Update</button>
+                                <button type="submit" style="display:none;" id="btn-addexam1" class="btn btn-success">Save</button>
+                                @*<button type="button" class="btn btn-danger" onclick="CloseLevel()">Close</button>*@
+                            </div>
+                        </div>
+
+                </form>
+
+            </div>
+
+
+                            }
+    </div>
+</div>
+
+<script>
+
+
+    $('.dropdown_btn').click(function () {
+        $(this).siblings().toggle();
+    });
+
+
+
+
+
+</script>

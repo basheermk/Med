@@ -1,0 +1,523 @@
+﻿@model Medacademy.Models.UserModel
+@{
+    ViewBag.Title = "AlertPayment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var datas1 = Model.LI_Pacages.Where(x => x.PackageID == Model.TempID1).FirstOrDefault();
+    var paidamount = Convert.ToInt64(Convert.ToInt64(datas1.Amount) - Convert.ToInt64(datas1.DiscountAmount));
+    Session["paidamount"] = paidamount;
+    
+}
+
+
+<link href="~/Content/css/ChiledAcademy/bootstrap.min.css" rel="stylesheet" />
+
+<link href="~/Content/css/ChiledAcademy/common.css" rel="stylesheet" />
+
+
+<style>
+     .tab-body-content {
+         border: 3px solid #20a7db;
+         padding: 15px;
+         float: left;
+         width: 100%;
+         margin-bottom: 15px;
+     }
+
+     .tab-navigant {
+         border-bottom: 1px solid transparent;
+     }
+
+         .tab-navigant li {
+             width: 100%;
+             max-width: 50%;
+             border-radius: 0px;
+         }
+
+             .tab-navigant li a {
+                 border-radius: 0px;
+                 color: #269782;
+                 font-weight: bold;
+                 text-align: center;
+             }
+
+             .tab-navigant li.active a {
+                 background-color: #20a7db;
+                 color: #ffffff;
+                 border: 1px solid transparent;
+                 border-radius: 0px;
+             }
+
+                 .tab-navigant li.active:hover a,
+                 .tab-navigant li.active:focus a,
+                 .tab-navigant li.active:active a,
+                 .tab-navigant li.active a:focus {
+                     background-color: #07475f;         /*f..................ffffffffff*/
+                     color: #ffffff;
+                     border: 1px solid transparent;
+                     border-radius: 0px;
+                 }
+
+                 .payment_tab{
+                     width:100%;
+                 }
+
+     .input-control {
+         width: 100%;
+         height: 35px;
+         padding: 5px 10px;
+         border-radius: 30px;
+         border: 1px solid #20a7db;
+         background-color: #eff8f5;
+     }
+
+         .input-control:focus {
+             width: 100%;
+             height: 35px;
+             padding: 5px 10px;
+             border-radius: 30px;
+             border: 1px solid #20a7db;
+             background-color: #eff8f5;
+             box-shadow: 0px 0px 10px rgb(190, 228, 214);
+             -webkit-box-shadow: 0px 0px 10px rgb(190, 228, 214);
+             -moz-box-shadow: 0px 0px 10px rgb(190, 228, 214);
+             -ms-box-shadow: 0px 0px 10px rgb(190, 228, 214);
+         }
+
+     .btn.btn-ash {
+         background-color: #9a9a9a;
+         color: #fff;
+         width: 30%;
+         padding: 15px 10px;
+     }
+
+         .btn.btn-ash:hover {
+             background-color: #07475f;
+             color: #fff;
+             width: 30%;
+             padding: 15px 10px;
+         }
+
+     .btn.btn-green {
+         background-color: #20a7db;
+         color: #fff;
+         width: 30%;
+         padding: 15px 10px;
+     }
+
+         .btn.btn-green:hover {
+             background-color: #07475f;
+             color: #fff;
+             width: 30%;
+             padding: 15px 10px;
+         }
+
+     .paybox {
+         background-color: #ddf7ec;
+         position: relative;
+         display: block;
+     }
+
+     .paybox-head {
+         background-color: #20a7db;
+         padding: 15px 15px;
+         color: #ffffff;
+         display: block;
+         position: relative;
+     }
+
+     .payment-box {
+         padding: 15px;
+         display: block;
+         position: relative;
+     }
+
+     .payment-icons {
+         display: block;
+         position: relative;
+         margin: 0px auto;
+         max-width: 200px;
+     }
+
+     .radio-customizer {
+         display: inline-block;
+         position: relative;
+         width: 25px;
+         height: 25px;
+         overflow: hidden;
+         vertical-align: top;
+         margin-right: 5px;
+     }
+
+         .radio-customizer input[type=checkbox] {
+             position: absolute;
+             display: block;
+             width: 100%;
+             height: 100%;
+             z-index: 100;
+             opacity: 0;
+             top: 0px;
+             margin: 0px;
+             left: 0px;
+             cursor: pointer;
+         }
+
+             .radio-customizer input[type=checkbox] ~ .dummy-radio {
+                 background-image: url("/Content/img/radio_uncheck.png");
+                 background-position: center;
+                 background-repeat: no-repeat;
+                 background-size: contain;
+                 height: 25px;
+                 width: 25px;
+                 display: block;
+                 position: relative;
+             }
+
+             .radio-customizer input[type=checkbox]:checked ~ .dummy-radio {
+                 background-image: url("/Content/img/radio_check.png");
+                 background-position: center;
+                 background-repeat: no-repeat;
+                 background-size: contain;
+                 height: 25px;
+                 width: 25px;
+                 display: block;
+                 position: relative;
+             }
+
+     .text-sucess {
+         color: #57d7a7;
+     }
+
+     .text-errors {
+         color: #e24242;
+     }
+
+     .txtbox-form {
+         background-color: #ffffff;
+     }
+
+     .btn-responsive {
+         font-size: 12px;
+     }
+
+     .tab-pane {
+    padding: 25px 45px;
+}
+
+     @@media(max-width: 767px) {
+         .amount-mrp {
+             float: initial !important;
+             width: 100%;
+             text-align: right;
+         }
+
+         .btn-responsive {
+             width: 100% !important;
+             margin-bottom: 5px;
+             font-size: 12px;
+         }
+     }
+
+</style>
+
+<style>
+    
+nav > .nav.nav-tabs{
+
+  border: none;
+    color:#fff;
+    background:#272e38;
+    border-radius:0;
+
+}
+nav > div a.nav-item.nav-link
+{
+  border: none;
+    padding: 18px 25px;
+    color:#fff;
+    background:#20a7db;
+    border-radius:0;
+}
+
+nav > div a.nav-item.nav-link.active{
+    background:#07475f;
+}
+.tab-content{
+  background: #fdfdfd;
+    line-height: 25px;
+    border-bottom:5px solid #07475f;
+    padding:30px 25px;
+}
+
+nav > div a.nav-item.nav-link:hover,
+nav > div a.nav-item.nav-link:focus
+{
+  border: none;
+    background: #07475f;
+    color:#fff;
+    border-radius:0;
+    transition:background 0.20s linear;
+}
+
+.login-btn{
+    padding:5px 10px;
+    background:#57d7a7;
+    color:#fff;
+    border-radius:10px;
+}
+</style>
+
+<div class="container" style="width:100%; max-width: 1210px;">
+    <h2 style="color: #20a7db; text-align: center; font-weight: bold;">Make wise decision to be successful</h2>
+    @*<p>Students always perform better, when they learn better. Child acedemy belives in Learn, Practice and Test. Get enrolled to access unlimited practice sessions to score well in exams at 1500/student.</p>*@
+
+
+    <div class="col-sm-8 ">
+        <nav>
+            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Credit / Debit Card / Net banking</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Pay by Cash</a>
+            </div>
+        </nav>
+        <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+               
+                            @*<div class="row">
+                                <div class="col-sm-5 form-group">
+
+                                    <label style="margin-top: 3px;" for="CodeRefer">Referral / Promo Code</label>
+                                </div>
+                                <div class="col-sm-5 form-group">
+                                    <input type="text" id="promoCode" placeholder="Enter your Referral / Promo Code" class="input-control " />
+                                    <p class="isHidden text-errors invalid-promo">Invalid Promo code</p>
+                                    <p class="isHidden text-sucess promo-added">Promo code applied successfully</p>
+                                    <p class="isHidden text-errors invalid-refcode">Invalid Referral Code</p>
+                                    <p class="isHidden text-sucess refcode-added">Referral Code applied successfully</p>
+                                </div>
+                                <div class="col-sm-2 form-group">
+                                    <button type="button" class="login-btn isDisabled" id="promocodeApply" style="border: 1px solid transparent;">APPLY</button>
+                                </div>
+                            </div>*@
+                @{ 
+
+                    var datas = Model.LI_Pacages.Where(x => x.PackageID == Model.TempID1 ).FirstOrDefault();
+                    //var paidamount = Convert.ToInt64(Convert.ToInt64(datas.Amount) - Convert.ToInt64(datas.DiscountAmount));
+                    //Session["paidamount"] = paidamount;
+
+                }
+
+                            <div class="row">
+                                <div class="col-sm-12 form-group" style="margin-top: 20px;">
+                                    @*<label class="amount-mrp" style="text-align: left;">Child Academy One Year Subscription</label>
+                                    <label class="pull-right amount-mrp"><i class="fa fa-inr"></i>1500  </label>*@
+                                    <label class="amount-mrp" style="text-align: left;">@datas.PackageName </label>
+                                    <label class="pull-right amount-mrp"><i class="fa fa-inr"></i>@Convert.ToInt64(Convert.ToInt64(datas.Amount) - Convert.ToInt64(datas.DiscountAmount))  </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 form-group isHidden discount-div-dev">
+                                    <label>Promocode Discount</label>
+                                    <label class="pull-right amount-discount" style=" color green;"><i class="fa fa-inr"></i></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 form-group  total-amount-dev" style="border-bottom: 1px solid #20a7db; border-top: 1px solid #20a7db; padding-top: 10px; padding-bottom: 10px; ">
+                                    <label>Total Payable Amount</label>
+                                    <label class="pull-right amount-total"><i class="fa fa-inr"></i>@Convert.ToInt64(Convert.ToInt64(datas.Amount) - Convert.ToInt64(datas.DiscountAmount))  </label>
+                                </div>
+                            </div>
+
+
+                            <p id="Button-Paragraph" class="text-center" style="color: #000000;">You will be redirected to the payment gateway upon clicking Pay Now</p>
+                            <div class="form-group text-center" style="margin-bottom: 0px;">
+                              @*  <button id="btnTrial" class="btn btn-ash btn-responsive">CONTINUE AS A TRIAL USER</button>*@
+                                <button id="payNow" class="btn btn-green btn-responsive">PAY NOW</button>
+                                @*<button id="payMpesa" class="btn btn-green btn-responsive ">PAY USING M-PESA</button>*@
+                                <button id="iPay" class="btn btn-green btn-responsive isHidden btn-pay-mobile" style="margin-top 3px;">PAY BY MOBILE</button>
+                            </div>
+                       
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+                @*<div class="row">
+                    <div class="col-sm-5 form-group">
+
+                        <label style="margin-top: 3px;" for="CodeRefer">Referral / Promo Code</label>
+                    </div>
+                    <div class="col-sm-5 form-group">
+                        <input type="text" id="promoCode" placeholder="Enter your Referral / Promo Code" class="input-control " />
+                        <p class="isHidden text-errors invalid-promo">Invalid Promo code</p>
+                        <p class="isHidden text-sucess promo-added">Promo code applied successfully</p>
+                        <p class="isHidden text-errors invalid-refcode">Invalid Referral Code</p>
+                        <p class="isHidden text-sucess refcode-added">Referral Code applied successfully</p>
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <button type="button" class="login-btn isDisabled" id="promocodeApply" style="border: 1px solid transparent;">APPLY</button>
+                    </div>
+                </div>*@
+
+                <div class="row">
+                    <div class="col-sm-12 form-group" style="margin-top: 20px;">
+                        <label class="amount-mrp" style="text-align: left;">@datas.PackageName</label>
+                        <label class="pull-right amount-mrp"><i class="fa fa-inr"></i>@Convert.ToInt64(Convert.ToInt64(datas.Amount) - Convert.ToInt64(datas.DiscountAmount))   </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 form-group isHidden discount-div-dev">
+                        <label>Promocode Discount</label>
+                        <label class="pull-right amount-discount" style=" color green;"><i class="fa fa-inr"></i></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 form-group  total-amount-dev" style="border-bottom: 1px solid #20a7db; border-top: 1px solid #20a7db; padding-top: 10px; padding-bottom: 10px; ">
+                        <label>Total Payable Amount</label>
+                        <label class="pull-right amount-total"><i class="fa fa-inr"></i>@Convert.ToInt64(Convert.ToInt64(datas.Amount) - Convert.ToInt64(datas.DiscountAmount)) </label>
+                    </div>
+                </div>
+
+                @*@using (Ajax.BeginForm("PayByCash", "Student", null, new AjaxOptions
+                {
+                    HttpMethod = "POST",
+                    OnSuccess = "PayCashAddSuccess",
+                    OnFailure = "PayCashAddFailed",
+                    OnComplete = "permLoader"
+                }, new { id = "form-register" }))
+                {*@
+                    @Html.HiddenFor(m => m.UserId, new { @class = "hfUserId" });
+                    @Html.HiddenFor(m => m.FirstName);
+                    @Html.HiddenFor(m => m.LastName);
+                    @Html.HiddenFor(m => m.Email);
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Address</label>
+                                @Html.TextBoxFor(m => m.Address, new { @class = "input-control txtbox-form addressPayCashValid", placeholder = "Address", maxlength = 250 })
+                                <span class="field-validation-valid isHidden isRed addressPayCashMsg">Address required</span>
+
+
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>State</label>
+                                        @Html.TextBoxFor(m => m.State, new { @class = "input-control txtbox-form statePayCashValid", placeholder = "State", maxlength = 32, onkeypress = "return validateCharacters(event)" })
+                                        <span class="field-validation-valid isHidden isRed apsrequiredfield statePayCashMsg">State required</span>
+
+
+
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Postal Code</label>
+                                        @Html.TextBoxFor(m => m.Pin, new { @class = "input-control txtbox-form postalPayCashValid", placeholder = "Postal Code", minlength = 6, maxlength = 6, onkeypress = "return validatePostalCode(event)" })
+                                        <span class="field-validation-valid isHidden isRed apsrequiredfield postalPayCashMsg">Postal Code required</span>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Contact</label>
+                                        @Html.TextBoxFor(m => m.ContactNo, new { @class = "input-control txtbox-form contactPayCashValid", placeholder = "Contact", maxlength = 15, onkeypress = "return isNumberKey(event)" })
+                                        <span class="field-validation-valid isHidden isRed apsrequiredfield contactPayCashMsg">Contact required</span>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-12" style="padding-top: 10px; padding-bottom: 10px; ">
+                            <div class="form-group text-center" style="margin-bottom: 0px;">
+                                <button id="btnTrial" type="button" class="btn btn-ash btn-responsive">Pay by Cash</button>
+                                <button id="BtnPayCash" type="submit" class="isHidden"></button>
+                                @*<button class="btn btn-green register-pay-cash-dev btn-responsive">REGISTER</button>*@
+                            </div>
+                        </div>
+                    </div>
+                @*}*@
+
+
+            </div>
+           
+        </div>
+
+    </div>
+
+
+    <div class="col-sm-4">
+        <div class="paybox">
+            <div class="paybox-head">PAYMENT METHODS</div>
+            <div class="payment-box">
+                <div class="form-group" style="border-bottom: 2px solid #20a7db; padding-left: 15px; padding-right: 15px;margin-left: -15px; margin-right: -15px;">
+                    <label>Credit / Debit Card</label>
+                    <p>We accepts the following cards</p>
+                    <div class="form-group">
+                        <img src="~/Content/images/payment.png" class="payment-icons" />
+                    </div>
+                </div>
+                <div class="form-group" style="border-bottom: 2px solid #20a7db; padding-left: 15px; padding-right: 15px;margin-left: -15px; margin-right: -15px;">
+                    <label>Net Banking</label>
+                    <p>You can pay using your net banking account</p>
+                    <div></div>
+                </div>
+                <div class="form-group" style="padding-left: 15px; padding-right: 15px;margin-left: -15px; margin-right: -15px;">
+                    <label>Pay by Cash</label>
+                    <p>Enter the address from where cash is to be collected. We will visit you within 5 working days to collect the payment.</p>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div><!-- col-sm-4 -->
+
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+
+    $(document).on('click', '#payNow', function () {
+        var btn = 2; //iPay
+        var promo = $('#promoCode').val();
+
+        window.location.href = '/User/Payment/';
+    });
+   
+    //$("#payNow").click(function () {
+       
+    //    window.location.href = '/User/CreatePayment/';
+    //});
+   
+    
+    $(document).on('click', '#iPay', function () {
+        var btn = 2; //iPay
+        var promo = $('#promoCode').val();
+
+        window.location.href = '/Student/PromoCheckPayment/' + promo + '~' + btn;
+    });
+    $(document).on('click', '#payMpesa', function () {
+        var btn = 3; //M-Pese
+        var promo = $('#promoCode').val();
+        //https://www.mpesa.in/mcommPg/paymentGateway/mrchntProcessor
+        window.location.href = '/User/PromoCheckPayment/' + promo + '~' + btn;
+    });
+    $(document).on('click', '#btnTrial', function () {
+        window.location.href = '/User/PaybyCash';
+    });
+    function PayCashAddSuccess(result) {
+
+        window.location.href = '/Student/Index';
+
+
+    }
+    function PayCashAddFailed(result) {
+
+        window.location.href = '/Student/Index';
+
+
+    }
+</script>

@@ -1,0 +1,185 @@
+﻿
+@{
+    ViewBag.Title = "Package";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <ol class="breadcrumb">
+                        <li><h3 class="box-title">Package List</h3></li>
+                    </ol>
+                    <a class="btn btn-success btn-xs" style="margin-left:5px" onclick="AddPackage()">Add Package</a>
+                </div><!-- /.box-header -->
+                <div class="box-body" id="class-list-view">
+                    @Html.Partial("~/Views/Admin/_pv_Package_Grid.cshtml")
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
+
+<div class="modal fade" id="editPackage">
+</div><!-- /.modal --><!--edit Class--->
+<div class="modal fade" id="viewPackage">
+</div><!-- /.modal --><!--edit Class--->
+<script>
+    $(document).ready(function () {
+
+        IntializeDataTable();
+
+    });
+
+
+    function AddPackage() {
+        window.location.href = '/Admin/AddPackage/';
+    }
+
+
+    //$(document).on('click', '.confirmDelete', function () {
+    //    var packageid = $(this).attr("data-id");
+    //    var url = '/Admin/PackageDelete?packageid=' + packageid;
+    //    $.confirm({
+    //        text: "Are you sure?",
+    //        confirm: function (button) {
+    //            $.get(url, function (result) {
+    //                if (result.status) {
+    //                    toastrSuccess(result.msg);
+    //                    refreshPackageGrid();
+    //                }
+    //                else {
+    //                    toastrError(result.msg);
+    //                }
+    //            });
+    //        },
+    //        confirmButton: "Yes",
+    //        cancelButton: "Cancel",
+    //        confirmButtonClass: "btn-danger",
+    //        cancelButtonClass: "btn-success",
+    //    });
+    //});
+
+    $(document).on('click', '.confirmDelete', function () {
+        var packageid = $(this).attr("data-id");
+
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to undo this !",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel!",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+function (isConfirm) {
+    if (isConfirm) {
+        $.ajax({
+            url : '/Admin/PackageDelete?packageid=' + packageid,
+            type: "GET",
+            dataType: 'json',
+            success: function (data) {
+                if (data.status) {
+                    toastrSuccess(data.msg);
+                    refreshPackageGrid();
+                }
+                else {
+                    toastrError(data.msg);
+                }
+            }
+        });
+    }
+});
+    });
+
+
+    function refreshPackageGrid() {
+        $.ajax({
+            url: '/Admin/RefreshPackage',
+            dataType: 'html',
+            success: function (data) {
+                $('#class-list-view').html(data);
+                IntializeDataTable();
+            },
+        });
+    }
+
+
+    function IntializeDataTable() {
+        $('#classTable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true
+        });
+    }
+
+
+    function EditPackage(source) {
+        var packageid = $(source).attr("data-id");
+        $.ajax({
+            url: '/Admin/EditPackageView?packageid=' + packageid,
+            dataType: 'html',
+            success: function (data) {
+                $('#editPackage').html(data);
+                $.validator.unobtrusive.parse($('#editPackage'));
+                $('#editPackage').modal('show');
+            },
+        });
+    }
+    $(document).on('change', '#packageedit-image-upload', function () {
+        //debugger;
+        var source = $(this);
+        var selectedFile = this.files[0];
+        var input = this;
+        if (input.files && input.files[0]) {
+            var url = input.value;
+            var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+            if (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg" || ext == "bmp") {
+                selectedFile.convertToBase64(function (base64) {
+                    var h = $(document).find('#packageedit-img-preview').html();
+                    //alert(h);
+                    $(document).find('#packageedit-img-preview').remove();
+                    $(document).find('#dummyId1').html("<div class='upload-box'style='background-image:url(" + base64 + ");'id='packageedit-img-preview'>" + h + "</div>");
+                    //alert(f);
+                    $('#Packageeditimage').val(base64);
+                });
+                var reader = new FileReader();
+            }
+            else {
+                //alert('23');
+                $(source).val('');
+                toastrWarning('Invalid Filetype');
+            }
+        }
+    });
+    File.prototype.convertToBase64 = function (callback) {
+        var FR = new FileReader();
+        FR.onload = function (e) {
+            callback(e.target.result)
+        };
+        FR.readAsDataURL(this);
+    }
+
+    function ViewPackage(source) {
+        var packageid = $(source).attr("data-id");
+        $.ajax({
+            url: '/Admin/ViewPackage?packageid=' + packageid,
+            dataType: 'html',
+            success: function (data) {
+                $('#editPackage').html(data);
+                $.validator.unobtrusive.parse($('#editPackage'));
+                $('#editPackage').modal('show');
+            },
+        });
+    }
+
+
+</script>
+

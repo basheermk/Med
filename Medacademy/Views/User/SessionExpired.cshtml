@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "SessionExpired";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+   
+    <style>
+         .cust_404 {
+             text-align: center;
+             margin-top: 60px;
+         }
+
+             .cust_404 h1 {
+                 font-size: 97px;
+             }
+
+             .cust_404 a {
+                 float: right;
+                 background: #007bff;
+                 padding: 9px 69px;
+                 color: #fff;
+                 text-decoration: none;
+             }
+    </style>
+    <title>404</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="cust_404">
+                    <h1>404</h1>
+                    <h2>YOUR SESSION EXPIRED</h2>
+                    <hr>
+                    <p>Any Confirmed Transactions are saved , but u will need to restart any searches or unfinished transactions</p>
+                    <a href="/Accounts/Index" class="sub-tn">Back to home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+</body>
+</html>
+

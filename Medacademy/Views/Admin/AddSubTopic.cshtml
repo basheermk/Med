@@ -1,0 +1,518 @@
+﻿@model Medacademy.Models.SubTopicModel
+
+@{
+    ViewBag.Title = "AddSubTopic";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="addpackage">
+    @using (Ajax.BeginForm("AddSubTopics", "Admin", null, new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnSuccess = "SubTopicAddSuccess",
+        OnFailure = "SubTopicAddFailed",
+    }, new { id = "form-login" }))
+    {
+        @Html.TextBoxFor(m => m.Pdfpath, new { value = "", type = "hidden" })
+        @Html.TextBoxFor(m => m.Videopath, new { value = "", type = "hidden" })
+        @Html.TextBoxFor(m => m.extension, new { value = "", type = "hidden" })
+
+
+        @Html.TextBoxFor(m => m.PackageID, new { type = "hidden" })
+        @Html.TextBoxFor(m => m.SubjectID, new { type = "hidden" })
+        @Html.TextBoxFor(m => m.TopicID, new { type = "hidden" })
+        <div class="container">
+            <div class="col-12">
+                <div class="package_heading">
+                    <h3>Add Subtopic</h3>
+                </div>
+                <form>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Upload Video</label>
+                        <div class="col-sm-8">
+                            <button type="button" class="btn btn-success rounded-0" data-toggle="modal" data-target="#UploadVideo" id="btn_ChooseVideo">
+                                <i class="fa fa-plus-circle"></i> Choose Video
+                            </button>
+                            <br /><br />
+                            <input type="checkbox" id="checkbox_YouTubeVideo" value="Enable"/>
+                            Enable
+                            <br />
+                            @Html.TextBoxFor(m => m.YouTubeVideo, new { @readonly = true, @class = "form-control", placeholder = "YouTube Video URL" })
+
+
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Upload PDF</label>
+                        <div class="col-sm-8">
+                            <button type="button" class="btn btn-success rounded-0" data-toggle="modal" id="btn_ChooseFile">
+                                <i class="fa fa-plus-circle"></i> Choose PDF
+                            </button>
+
+                            @Html.TextBoxFor(m => m.PDFName, new { @readonly = true, @class = "form-control", placeholder = "File Name" })
+
+
+                            <input id="subtopic-pdf-upload" style="display:none;" type="file" class="uploder-controler" />
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Course</label>
+                        <div class="col-sm-8">
+                            @Html.DropDownListFor(m => m.CourseID, Ma.EntityLibrary.Data.Dropdowndata.GetCourseDrop(), "--Choose--", new { @class = "form-control course-drop-down", @data_live_search = "true", name = "subtopicDropdown", id = "subtopicDataDropdown" })
+                            @Html.ValidationMessageFor(m => m.CourseID)
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Package</label>
+                        <div class="col-sm-8">
+                            <select id="Package-drop-down" class="form-control Package-drop-down" disabled>
+                                <option>-- Please select Package --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Subject</label>
+                        <div class="col-sm-8">
+                            <select id="Subject-drop-down" class="form-control Subject-drop-down" disabled>
+                                <option>-- Please select Subject --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Topic</label>
+                        <div class="col-sm-8">
+                            <select id="Topic-drop-down" class="form-control Topic-drop-down" disabled>
+                                <option>-- Please select Topic --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">SubTopic Name</label>
+                        <div class="col-sm-8">
+                            @Html.TextBoxFor(m => m.SubTopicName, new { @class = "form-control", placeholder = "Subtopic Name" })
+                            @Html.ValidationMessageFor(m => m.SubTopicName)
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row" id="div_videoDisplay">
+
+                        <label class="col-sm-2 col-form-label">Video</label>
+
+                        <div class="col-sm-8">
+                            @*<div class="jumbotron">*@
+                            @*..............................................................................*@
+
+
+
+                            <style type="text/css">
+                                 .video-frame {
+                                     width: 100%;
+                                     border: 4px solid #dc3545;
+                                     box-shadow: 1px 2px 3px #dc3545;
+                                     border-radius: 3px;
+                                 }
+
+                                 .title {
+                                     font-weight: 500;
+                                     font-size: 14px;
+                                     text-align: center;
+                                     margin-bottom: 10px;
+                                     margin-top: 10px;
+                                     background-color: #dc3545;
+                                     color: white;
+                                     box-shadow: 1px 2px 4px #dc3545;
+                                 }
+
+                                 .remove_btn {
+                                     margin: 10px auto;
+                                     text-align: center;
+                                 }
+                            </style>
+
+
+
+
+
+                            @{
+
+                                if (Model.SubTopicModel_List != null)
+                                {
+                                    if (Model.SubTopicModel_List.Count != 0)
+                                    {
+                                        foreach (var item in Model.SubTopicModel_List)
+                                        {
+                                            if (item.ID != 0)
+                                            {
+                                                <div class="">
+
+                                                    <div class="title">@item.Name</div>
+                                                    <div class="video-frame">
+                                                        <video style="width:100%; height:100%;" controls>
+                                                            <source src="@Url.Content(@item.FilePath)" type="video/mp4" />
+                                                        </video>
+
+                                                    </div>
+                                                    <div class="remove_btn">
+
+                                                        <button type="button" id="@item.ID" class="btn btn-danger btn_class_Remove">Remove</button>
+
+                                                    </div>
+                                                </div>
+                                            }
+
+                                        }
+                                    }
+
+
+                                }
+
+
+                            }
+
+
+
+
+
+
+                            @*..............................................................................*@
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">&nbsp;</label>
+                        <div class="col-sm-8">
+
+                            <button type="submit" id="btn_saveSubmit" class="btn btn-success">Save</button>
+                            <button type="button" class="btn btn-danger" onclick="CloseSubTopic()">Close</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+                                }
+</section>
+
+<div class="row">
+
+    <div class="modal fade" id="UploadVideo">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Upload New video File</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body">
+                    @using (Html.BeginForm("UploadVideo", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+
+                        //{
+                        <div class="form-group">
+                            <label>Choose File:</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" id="fileupload" name="fileupload" class="custom-file-input" />
+                                    <label class="custom-file-label"></label>
+                                </div>
+                                <div class="input-group-append">
+                                    <input type="submit" id="btnUpload" class="btn btn-secondary" value="Upload" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script>
+
+    var getyoutubeData = $("#YouTubeVideo").val();
+    if (getyoutubeData != "") {
+        $("#div_videoDisplay").hide();
+    }
+
+    $("#checkbox_YouTubeVideo").click(function () {
+        $("#YouTubeVideo").val("");
+        if ($(this).prop('checked') == true) {
+            $("#btn_ChooseVideo").prop('disabled', true);
+            $("#YouTubeVideo").attr("readonly", false);
+            $("#div_videoDisplay").hide();
+        }
+        else {
+            $("#btn_ChooseVideo").prop('disabled', false);
+            $("#YouTubeVideo").attr("readonly", true);
+            $("#div_videoDisplay").show();
+        }
+    });
+
+    $("#btn_ChooseFile").click(function () {
+        $("#subtopic-pdf-upload").click();
+    });
+
+    $(".btn_class_Remove").click(function () {
+
+        var id = $(this).attr('id');
+        var datas = new Object();
+        datas.ID = id;
+
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this imaginary file!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel plx!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+            function (isConfirm) {
+                if (isConfirm) {
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/Admin/RemoveVideoFiles",
+                        data: JSON.stringify(datas),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            swal("Deleted!", response, "success");
+                            var explode = function () {
+                                location.reload();
+                            };
+                            setTimeout(explode, 3000);
+
+                        },
+                        failure: function (response) {
+                           // alert(response.responseText);
+                        },
+                        error: function (response) {
+                            //alert(response.responseText);
+                        }
+                    });
+
+
+                } else {
+                    swal("Cancelled", "Your imaginary file is safe :)", "error");
+                }
+            });
+
+
+
+
+    });
+
+    $(function () {
+        $('#file').on('#change', function () {
+            var file = this.files[0];
+            var reader = new FileReader();
+            reader.onload = viewer.load;
+            reader.readAsDataURL(file);
+            viewer.setProperties(file);
+        });
+
+        var viewer = {
+            load: function (e) {
+                $("#preview").attr('src',e.target.result);
+            },
+            setProperties: function(file) {
+
+            }
+
+        }
+
+    })
+
+    function refreshSubTopicGrid() {
+        $.ajax({
+            url: '/Admin/RefreshSubTopic',
+            dataType: 'html',
+            success: function (data) {
+                $('#class-list-view').html(data);
+                IntializeDataTable();
+            },
+        });
+    }
+
+    function IntializeDataTable() {
+        $('#classTable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true
+        });
+    }
+    function SubTopicAddSuccess(result) {
+        if (result.status) {
+            toastrSuccess(result.msg);
+            refreshSubTopicGrid();
+        }
+        else {
+            toastrError(result.msg);
+        }
+    }
+    function SubTopicAddFailed() {
+        toastrError('Topic Adding Failed');
+    }
+
+
+
+    function CloseSubTopic() {
+        window.location.href = '/Admin/SubTopic/';
+    }
+
+    $(document).on('change', '#subtopic-pdf-upload', function () {
+        //debugger;
+        var source = $(this);
+        var selectedFile = this.files[0];
+
+        var input = this;
+        if (input.files && input.files[0]) {
+            var url = input.value;
+            var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+            if (ext == "pdf") {
+                selectedFile.convertToBase64(function (base64) {
+                   // $('#package-img-preview').attr({ "src": base64, "class": "useruploder" });
+                    $('#Pdfpath').val(base64);
+                    $("#PDFName").val(selectedFile.name);
+                });
+                var reader = new FileReader();
+            }
+            else {
+                $(source).val('');
+                toastrWarning('Invalid Filetype');
+            }
+        }
+    });
+    File.prototype.convertToBase64 = function (callback) {
+        var FR = new FileReader();
+        FR.onload = function (e) {
+            callback(e.target.result)
+        };
+        FR.readAsDataURL(this);
+    }
+
+
+    //Basheer
+
+    $(document).on('change', '.course-drop-down', function () {
+        var id = $(this).val();
+        if (id != '') {
+            //  resetDropDown('Package');
+            $.ajax({
+                url: '/Data/LoadPackages?courseid=' + id,
+                type: "GET",
+                success: function (result) {
+                    if (result.list.length > 0) {
+                        $("#Package-drop-down").html(""); // clear before appending new list
+                        $("#Package-drop-down").append($('<option></option>').val("").html('-- Select Package --'));
+                        $.each(result.list, function (i, item) {
+                            $("#Package-drop-down").append($('<option></option>').val(item.Value).html(item.Text));
+                        });
+                        $("#Package-drop-down").prop("disabled", false);
+                    }
+                    else {
+                        //resetDropDown('Class');
+                        $("#Package-drop-down").html(""); // clear before appending new list
+                        $("#Package-drop-down").append($('<option></option>').val("").html('-- No Packages Found --'));
+                        $("#Package-drop-down").prop("disabled", true);
+                    }
+                }
+            });
+
+        }
+        else {
+            //resetDropDown('Class');
+        }
+    });
+
+
+    $(document).on('change', '.Package-drop-down', function () {
+        var id = $(this).val();
+        $('#PackageID').val(id);
+        if (id != '') {
+            //  resetDropDown('Package');
+            $.ajax({
+                url: '/Data/LoadSubjects?packageid=' + id,
+                type: "GET",
+                success: function (result) {
+                    if (result.list.length > 0) {
+                        $("#Subject-drop-down").html(""); // clear before appending new list
+                        $("#Subject-drop-down").append($('<option></option>').val("").html('-- Select Subject --'));
+                        $.each(result.list, function (i, item) {
+                            $("#Subject-drop-down").append($('<option></option>').val(item.Value).html(item.Text));
+                        });
+                        $("#Subject-drop-down").prop("disabled", false);
+                    }
+                    else {
+                        //resetDropDown('Class');
+                        $("#Subject-drop-down").html(""); // clear before appending new list
+                        $("#Subject-drop-down").append($('<option></option>').val("").html('-- No Packages Found --'));
+                        $("#Subject-drop-down").prop("disabled", true);
+                    }
+                }
+            });
+
+        }
+        else {
+            //resetDropDown('Class');
+        }
+    });
+
+    $(document).on('change', '.Subject-drop-down', function () {
+        var id = $(this).val();
+        $('#SubjectID').val(id);
+        if (id != '') {
+            //  resetDropDown('Package');
+            $.ajax({
+                url: '/Data/LoadTopic?subjectid=' + id,
+                type: "GET",
+                success: function (result) {
+                    if (result.list.length > 0) {
+                        $("#Topic-drop-down").html(""); // clear before appending new list
+                        $("#Topic-drop-down").append($('<option></option>').val("").html('-- Select Topic --'));
+                        $.each(result.list, function (i, item) {
+                            $("#Topic-drop-down").append($('<option></option>').val(item.Value).html(item.Text));
+                        });
+                        $("#Topic-drop-down").prop("disabled", false);
+                    }
+                    else {
+                        //resetDropDown('Class');
+                        $("#Topic-drop-down").html(""); // clear before appending new list
+                        $("#Topic-drop-down").append($('<option></option>').val("").html('-- No Topic Found --'));
+                        $("#Topic-drop-down").prop("disabled", true);
+                    }
+                }
+            });
+
+        }
+        else {
+            //resetDropDown('Class');
+        }
+    });
+
+    $(document).on('change', '.Topic-drop-down', function () {
+        var id = $(this).val();
+        $('#TopicID').val(id);
+
+    });
+
+
+</script>
+

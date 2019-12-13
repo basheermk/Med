@@ -1,0 +1,427 @@
+﻿@model Medacademy.Models.UserModel
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var newPointStudents = new Ma.EntityLibrary.Data.StudentsList().NewPointAchievement();
+    var news = new Ma.EntityLibrary.Data.News().Getnews().OrderByDescending(q => q.NewsID).Take(2);
+}
+
+
+
+<section class="bannerSection">
+
+    <div class="main_banner">
+        <img src="~/Content/images/main_banner.jpg">
+        <div class="banner_txts">
+            <h2>Welcome to Medacademy</h2>
+            <p><b>MED ACADEMY</b>, the only software/platform available in KERALA, where you could get proper guidance for competitive exams, whose main motto: <b>“MAKING PROFESSIONALS, PROFESSIONALLY”</b>.
+            <p>
+                <b><strong>Any time anywhere MEDACADEMY will be there with you”</strong></b>
+            </p>
+            <a href="/Accounts/AboutUs" class="btn med_btn_one">Read more</a>
+            <a href="/Accounts/SignUp" class="btn med_btn_two border">Get started now</a>
+        </div>
+    </div><!-- ./main_banner -->
+
+</section>
+<!-- ./bannerSection -->
+
+
+
+<section class="commSec">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-12">
+                <h3 class="mainTitle blckClr">Packages</h3>
+            </div>
+        </div>
+        @{
+
+            if (Model.UserId != 0)
+            {
+                <div class="row">
+                    @foreach (var a1 in Model.Home_Pacages_List)
+                {
+                        <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+                            <div class="packages">
+                                <div class="package_photo">
+                                    <img src="@a1.Files">
+                                </div>
+                                <div class="package_info">
+                                    <h5>@a1.PackageName</h5>
+                                    <div class="price">
+                                        <span><i class="fas fa-rupee-sign"></i>Rs.@a1.Amount</span>
+                                        <span><i class="fas fa-rupee-sign"></i>Rs.@Convert.ToInt64(Convert.ToInt64(a1.Amount) - Convert.ToInt64(a1.DiscountAmount))</span>
+                                    </div>
+                                    <div class="package_btn">
+                                        <a href="#" class="detls_btn">Full Details</a>
+                                        <a href="/User/AlertPayment?page=@a1.PackageID" class="slct_btn" pakage-Id="@a1.PackageID">Select</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <a href="/Accounts/Packages/" class="btn viewMorebtn">View More</a>
+                    </div>
+                </div>
+
+            }
+            else
+            {
+                <div class="row">
+                    @{ 
+                        if (Model.Home_Pacages_List != null)
+                        {
+                    foreach (var a1 in Model.Home_Pacages_List)
+                    {
+                        <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+                            <div class="packages">
+                                <div class="package_photo">
+                                    <img src="@a1.Files">
+                                </div>
+                                <div class="package_info">
+                                    <h5>@a1.PackageName</h5>
+                                    <div class="price">
+                                        <span><i class="fas fa-rupee-sign"></i>Rs.@a1.Amount</span>
+                                        <span><i class="fas fa-rupee-sign"></i>Rs.@Convert.ToInt64(Convert.ToInt64(a1.Amount) - Convert.ToInt64(a1.DiscountAmount))</span>
+                                    </div>
+                                    <div class="package_btn">
+                                        <a href="#" class="detls_btn">Full Details</a>
+                                        <a href="/User/AlertPayment?page=@a1.PackageID" class="slct_btn" pakage-Id="@a1.PackageID">Select</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                            }
+                        }
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <a href="/Accounts/Local_Packages/" class="btn viewMorebtn">View More</a>
+                    </div>
+                </div>
+
+            }
+
+
+
+        }
+
+    </div>
+</section>
+<!-- ./commSec -->
+
+
+
+<section class="whySec">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-12">
+                <h3 class="mainTitle whtClr">Why Medacademy?</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="why_points">
+                    <img src="~/Content/images/icon_1.png">
+                    <div class="why_info">
+                        <h5>Economical</h5>
+                        <p>Promote active learning strategies and improve student achievement.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="why_points">
+                    <img src="~/Content/images/icon_2.png">
+                    <div class="why_info">
+                        <h5>Adaptive</h5>
+                        <p>Individualize student learning experiences.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="why_points">
+                    <img src="~/Content/images/icon_3.png">
+                    <div class="why_info">
+                        <h5>Strong</h5>
+                        <p>Encourage more co-operative and project-based learning. To develop student independence and responsibility for own learning.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="why_points">
+                    <img src="~/Content/images/icon_4.png">
+                    <div class="why_info">
+                        <h5>Simple</h5>
+                        <p>Make the learning process more interesting and smooth.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="why_points">
+                    <img src="~/Content/images/icon_5.png">
+                    <div class="why_info">
+                        <h5>Engaging</h5>
+                        <p>To prepare students for future jobs.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="why_points">
+                    <img src="~/Content/images/icon_6.png">
+                    <div class="why_info">
+                        <h5>Informative</h5>
+                        <p>To give students groundwork and practice exercises.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- ./whySec -->
+
+
+
+
+<section class="aboutUs">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-12">
+                <h3 class="mainTitle blckClr">About us</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="about_us">
+                    <img src="~/Content/images/about_vdo.jpg">
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="about_us">
+                    @*<h5>WELCOME TO MEDACADEMY</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut fermentum, augue ut interdum mollis, elit diam pulvinar leo.</p>*@
+
+
+                    <div id="accordion">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <div data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Our History <i class="fas fa-caret-right"></i></div>
+                            </div>
+
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                <div class="card-body">
+                                    <p style="align-content:center">It was in January 2019, we registered a society, <b>PHARMA EDUCARE SOCIETY (TVM/TC/49/2019)</b>. We started our project with live coaching classes at THIRUVANANTHAPURAM, CALICUT & THRISSUR, with a single motto <b>“MAKING PROFESSIONALS, PROFESSIONALLY”</b></p>
+                                    <p style="align-content:center">Many of the REGISTERED PHARMACIST contacted and requested to start the same in their districts, also to provide materials for them. But, we know that none of us is going to refer the materials / any source when we get in hand altogether. As a result, we came with a solution,”<b> ONLINE COACHING”</b> specializing in solving MCQs in your preferred time.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" id="headingTwo">
+                                <div class="collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Our Mission <i class="fas fa-caret-right"></i></div>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                <div class="card-body">
+                                    <p><b>MEDACADEMY</b>, the only software/platform available in KERALA, where you could get proper guidance for competitive exams, whose main motto: <b>“MAKING PROFESSIONALS, PROFESSIONALLY”</b>.
+                                    <p><b>MEDACADEMY</b> provides you:</p>
+                                    <p> Option to workout unlimitedly</p>
+                                    <p>  Preparation in your preferable timings</p>
+                                    <p>  Workouts unlimited until you are confident</p>
+                                    <p>  Self analyzation of your progress</p>
+                                    <p>  Time Management</p>
+                                    <p>  Find out solutions with discussions for each option where ever needed</p>
+                                    <p>  Notes (pdf) and videos on each topic</p>
+                                    <p>  Conduct exams every week</p>
+                                    <p>
+                                        <b><strong>Any time anywhere MEDACADEMY will be there with you”</strong></b>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" id="headingThree">
+                                <div class="collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Our Vision <i class="fas fa-caret-right"></i></div>
+                            </div>
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                                <div class="card-body">
+                                    <p>“Where could we get proper coaching for PHARMACIST KPSC, etc?”</p>
+                                    <p>“Which is the prescribed textbook to get prepared for PSC for PHARMACIST?”</p>
+                                    <p>The only solution for all your questions:-“MEDACADEMY”</p>
+                                    <p>
+                                        The only software/ platform available in Kerala, who is <b>MAKING PROFESSIONALS, PROFESSIONALLY,</b>
+                                        where you could workout & prepare according to your own preferred time.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+
+<section class="newsSection commSec">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-12">
+                <h3 class="mainTitle blckClr">Latest News & Acheivements</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                <div class="row">
+                    @foreach (var newsdetails in news)
+                    {
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="news">
+                                <div class="news_photo">
+                                    <img src="@newsdetails.Image">
+                                </div>
+                                <div class="news_info">
+                                    <h6>@newsdetails.NewsDate.ToShortDateString()</h6>
+                                    <h5>@newsdetails.Head</h5>
+                                    <p>@newsdetails.SubHead</p>
+                                    <a href="/Admin/DetailedNews?Newsid=@newsdetails.NewsID">Read more</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+
+
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="points">
+                    <h5>New Points Achievements</h5>
+                    <div id="points_achieve">
+                        <div class="single_points">
+                            @foreach (var stud in newPointStudents)
+                            {
+                                var profilePic = new Ma.EntityLibrary.Data.StudentsList(stud.UserId);
+                                if (profilePic.FilesName != null)
+                                {
+                                    <img src="@profilePic.FilesName" class="marquee-img" />
+                                }
+                                else
+                                {
+                                    <img src="@Url.Content("~/Content/images/male.png")" class="marquee-img" />
+                                }
+                                <div class="single_info">
+                                    <h5>@stud.FirstName</h5>
+                                    <h6>Level Open: <b>@stud.PracticeTestName</b></h6>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<section class="commSec testimony_sec">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-12">
+                <h3 class="mainTitle whtClr">What People Say?</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div id="demos">
+                    <div class="owl-carousel owl-theme">
+                        <div class="item">
+                            <div class="clientTestimony">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget nulla eu magna auctor consequat. Integer nec dignissim elit, et tristique felis. Etiam nec gravida felis, bibendum dapibus ante. Morbi vel risus risus. Duis ligula mi, commodo vitae posuere a, vulputate tristique erat. Sed tempor sapien nibh, vitae dignissim massa laoreet sit amet. </p>
+                                <img src="~/Content/images/testimony_1.jpg">
+                                <h4>Jannie J Jones</h4>
+                                <h6>Student</h6>
+                            </div>
+                        </div>
+
+                        <div class="item">
+                            <div class="clientTestimony">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget nulla eu magna auctor consequat. Integer nec dignissim elit, et tristique felis. Etiam nec gravida felis, bibendum dapibus ante. Morbi vel risus risus. Duis ligula mi, commodo vitae posuere a, vulputate tristique erat. Sed tempor sapien nibh, vitae dignissim massa laoreet sit amet. </p>
+                                <img src="~/Content/images/testimony_1.jpg">
+                                <h4>Jannie J Jones</h4>
+                                <h6>Student</h6>
+                            </div>
+                        </div>
+
+                        <div class="item">
+                            <div class="clientTestimony">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget nulla eu magna auctor consequat. Integer nec dignissim elit, et tristique felis. Etiam nec gravida felis, bibendum dapibus ante. Morbi vel risus risus. Duis ligula mi, commodo vitae posuere a, vulputate tristique erat. Sed tempor sapien nibh, vitae dignissim massa laoreet sit amet. </p>
+                                <img src="~/Content/images/testimony_1.jpg">
+                                <h4>Jannie J Jones</h4>
+                                <h6>Student</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<script>
+    var my_time;
+    $(document).ready(function () {
+        pageScroll();
+        $("#points_achieve").mouseover(function () {
+            clearTimeout(my_time);
+        }).mouseout(function () {
+            pageScroll();
+        });
+    });
+
+    function pageScroll() {
+        var objDiv = document.getElementById("points_achieve");
+        objDiv.scrollTop = objDiv.scrollTop + 1;
+        $('').html('scrollTop : ' + objDiv.scrollTop);
+        $('').html('scrollHeight : ' + objDiv.scrollHeight);
+        if (objDiv.scrollTop == (objDiv.scrollHeight - 100)) {
+            objDiv.scrollTop = 0;
+        }
+        my_time = setTimeout('pageScroll()', 25);
+    }
+
+
+
+</script>
+
+

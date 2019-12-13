@@ -1,0 +1,253 @@
+﻿    
+
+@model Medacademy.Models.UserModel
+
+@{
+
+    var datas = (Medacademy.Models.UserModel)Session["UserLoginFirstTime"];
+    var allsubjects = new Ma.EntityLibrary.Data.Subject().GetSubjectsbyid(Model.PackageID);
+    var packagename = new Ma.EntityLibrary.Data.Package(Model.PackageID).PackageName;
+
+}
+
+
+@{ if (datas == null)
+    {
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="tab_inner">
+                <h5>@packagename</h5>
+                <input type="hidden" value= @Model.PackageID id="hfpkgidtounpaidprcts" />
+                <p>Listed below are the chapters based on your syllabus. You can start practicing with the topic of your choice. The various sets in the chapter are arranged from simplest to the difficult one.</p>
+
+
+                <div class="package_table">
+                    @{
+                        if (allsubjects.Count > 0)
+                        {
+                            int lockid = 1;
+                            foreach (var subjects in allsubjects)
+                            {
+                                <div class="package_table_inner">
+                                    <div>
+                                        <img src="~/Content/images/pencil_icon.png"> @subjects.SubjectName
+                                    </div>
+                                    @{
+                                        var Topics = new Ma.EntityLibrary.Data.Topic().GetUserviewTopics(subjects.SubjectID);
+
+
+
+                                        if (Topics.Count > 0)
+                                        {
+
+                                            <div>
+                                                @Html.DropDownListFor(m => m.TopicId, Ma.EntityLibrary.Data.Dropdowndata.GetTopicDrop(subjects.SubjectID), new { @class = "form-control topic-drop-down", @data_live_search = "true", id = "topic-drop-down", divid = @Topics.FirstOrDefault().TopicID })
+
+                                            </div>
+
+                                            var subtopic = new Ma.EntityLibrary.Data.SubTopic().GetSubtopic(Topics[0].TopicID);
+
+
+                                            if (subtopic.Count > 0)
+                                            {
+
+                                                <div>
+                                                    @Html.DropDownListFor(m => m.SubtopicID, Ma.EntityLibrary.Data.Dropdowndata.GetSubtopics(Topics[0].TopicID), new { @class = "form-control subtopic-drop-down", @data_live_search = "true", name = "levelDropdown", id = "SubtopicID" + @Topics.FirstOrDefault().TopicID, divid = @Topics.FirstOrDefault().TopicID + "pdf" })
+                                                </div>
+                                                var pdflink = @Topics.FirstOrDefault().TopicID + "pdf";
+                                                var videolink = @Topics.FirstOrDefault().TopicID + "video";
+                                                <div id="subtopic-list-view">
+                                                    <div>
+                                                        <a data-id="@subtopic[0].Pdfpath" class="comm_icon pdf_icon Viewpdf   @pdflink" data-pdf="@Topics.FirstOrDefault().TopicID" title="View PDF"><img src="~/Content/images/pdf.png"></a>
+                                                    </div>
+                                                    <div>
+                                                        <a data-id="@subtopic[0].Videopath" class="comm_icon video_icon @Topics.FirstOrDefault().TopicID" data-video="@Topics.FirstOrDefault().TopicID" title="View Video"><img src="~/Content/images/video.png"></a>
+                                                    </div>
+                                                    @{
+                                                        var levels = new Ma.EntityLibrary.Data.Level().GetUserviewLevelcommon(@subtopic[0].SubTopicID, lockid);
+                                                        if (levels.Count > 0)
+                                                        {
+                                                            var leveldiv = @Topics.FirstOrDefault().TopicID + "p";
+                                                            <div class="@leveldiv">
+
+                                                                @*@{int indexOfColor = 1;
+                                                                    }*@
+                                                                <div class="tab_inner_btns">
+                                                                    @foreach (var Lvls in levels)
+                                                                    {
+                                                                        <a class="navigate-start-practice isPointer" data-lockid-no="@Lvls.firstlockid" data-pract-name="@Lvls.LevelName" data-id="@Lvls.LevelID" data-notpaid-user="@Lvls.paidfirstlockid" data-locked-status="@Lvls.LockStatus" id="@Lvls.LevelID" href="#">@Lvls.LevelName<span class="lock-aps" style="color: #000000"><i class="fa fa-lock lockaps1612" aria-hidden="true"></i></span></a>
+                                                                                    @*<a class="pract_@indexOfColor navigate-start-practice isPointer" data-chapter-no="@chapNo" data-pract-name="@pract.PracticeTest" data-id="@pract.PracticeTestGuid" data-index="@indexOfColor" data-exercise-available="@pract.ExerciseAvailable" data-locked-status="@pract.LockStatus">@pract.PracticeTest<span class="lock-aps" style="color: #000000"><i class="fa fa-lock lockaps1612" aria-hidden="true"></i></span></a>*@
+                                                                        //indexOfColor++;
+                                                                    }
+                                                                </div>
+
+
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="leveldiv">
+                                                                <div class="tab_inner_btns">
+                                                                    <a id="" href="#"></a>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    }
+                                                </div>
+                                                            }
+
+                                                        }
+                                    }
+
+
+
+                                </div>
+                                                                lockid++;
+                                                            }
+
+
+                                                        }
+                    }
+                </div>
+
+
+            </div>
+
+
+
+
+        </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                                                <div class="tab_inner">
+                                                                    <h5>@packagename</h5>
+                                                                    <input type="hidden" value=@Model.PackageID id="hfpkgidtounpaidprcts" />
+                                                                    <p>Listed below are the chapters based on your syllabus. You can start practicing with the topic of your choice. The various sets in the chapter are arranged from simplest to the difficult one.</p>
+
+
+                                                                    <div class="package_table">
+                                                                        @{
+                                                                            if (allsubjects.Count > 0)
+                                                                            {
+                                                                                int userpaidlockid = 1;  //id used for unlocking first level for user registered but not paid
+                                                                                int lockid = 1;
+                                                                                foreach (var subjects in allsubjects)
+                                                                                {
+                                                                                    <div class="package_table_inner">
+                                                                                        <div>
+                                                                                            <img src="~/Content/images/pencil_icon.png"> 1.@subjects.SubjectName
+                                                                                        </div>
+                                                                                        @{
+                                                                                            var Topics = new Ma.EntityLibrary.Data.Topic().GetUserviewTopics(subjects.SubjectID);
+
+
+
+                                                                                            if (Topics.Count > 0)
+                                                                                            {
+
+                                                                                                <div>
+                                                                                                    @Html.DropDownListFor(m => m.TopicId, Ma.EntityLibrary.Data.Dropdowndata.GetTopicDrop(subjects.SubjectID), new { @class = "form-control topic-drop-down", @data_live_search = "true", id = "topic-drop-down", divid = @Topics.FirstOrDefault().TopicID })
+
+                                                                                                </div>
+
+                                                                                                var subtopic = new Ma.EntityLibrary.Data.SubTopic().GetSubtopic(Topics[0].TopicID);
+
+
+                                                                                                if (subtopic.Count > 0)
+                                                                                                {
+
+                                                                                                    <div>
+                                                                                                        @Html.DropDownListFor(m => m.SubtopicID, Ma.EntityLibrary.Data.Dropdowndata.GetSubtopics(Topics[0].TopicID), new { @class = "form-control subtopic-drop-down", @data_live_search = "true", name = "levelDropdown", id = "SubtopicID" + @Topics.FirstOrDefault().TopicID, divid = @Topics.FirstOrDefault().TopicID + "pdf" })
+                                                                                                    </div>
+                                                                                                    var pdflink = @Topics.FirstOrDefault().TopicID + "pdf";
+                                                                                                    var videolink = @Topics.FirstOrDefault().TopicID + "video";
+
+
+                                                                                                    <div id="subtopic-list-view">
+                                                                                                        @{
+                                                                                                            var videopath = "";
+                                                                                                            var VideoType = ""; // 1 for video 2 for youtube
+                                                                                                            if (subtopic[0].YouTubeVideo != null)
+                                                                                                            {
+                                                                                                                videopath = subtopic[0].YouTubeVideo;
+                                                                                                                VideoType = "0";
+                                                                                                            }
+                                                                                                            else /*if (subtopic[0].Videopath != null)*/
+                                                                                                            {
+                                                                                                                videopath = subtopic[0].Videopath;
+                                                                                                                VideoType = "1";
+
+                                                                                                            }
+                                                                                                        }
+                                                                                                        <div>
+                                                                                                            <a  data-id="@subtopic[0].Pdfpath" class="comm_icon pdf_icon Viewpdf   @pdflink" data-pdf="@Topics.FirstOrDefault().TopicID" title="View PDF"><img src="~/Content/images/pdf.png"></a>
+                                                                                                        </div>
+                                                                                                        <div>
+                                                                                                            <a data-id="@videopath" data-class-id="@VideoType" class="comm_icon video_icon Viewvideo  @Topics.FirstOrDefault().TopicID" data-video="@Topics.FirstOrDefault().TopicID" title="View Video"><img src="~/Content/images/video.png"></a>
+                                                                                                        </div>
+                                                                                                        @{
+                                                                                                            var levels = new Ma.EntityLibrary.Data.Level().GetUserviewLevel(@subtopic[0].SubTopicID, datas.UserId, lockid, userpaidlockid);
+                                                                                                            if (levels.Count > 0)
+                                                                                                            {
+                                                                                                                var leveldiv = @Topics.FirstOrDefault().TopicID + "p";
+                                                                                                                <div class="@leveldiv">
+
+
+                                                                                                                    <div class="tab_inner_btns">
+                                                                                                                        @foreach (var Lvls in levels)
+                                                                                                                        {
+                                                                                                                            <a class="navigate-start-practice isPointer" data-lockid-no="@Lvls.firstlockid" data-pract-name="@Lvls.LevelName" data-id="@Lvls.LevelID" data-notpaid-user="@Lvls.paidfirstlockid" data-locked-status="@Lvls.LockStatus" id="@Lvls.LevelID" href="#">@Lvls.LevelName<span class="lock-aps" style="color: #000000"><i class="fa fa-lock lockaps1612" aria-hidden="true"></i></span></a>
+                                                                                                                                                    @*<a class="pract_@indexOfColor navigate-start-practice isPointer" data-chapter-no="@chapNo" data-pract-name="@pract.PracticeTest" data-id="@pract.PracticeTestGuid" data-index="@indexOfColor" data-exercise-available="@pract.ExerciseAvailable" data-locked-status="@pract.LockStatus">@pract.PracticeTest<span class="lock-aps" style="color: #000000"><i class="fa fa-lock lockaps1612" aria-hidden="true"></i></span></a>*@
+
+                                                                                                                        }
+                                                                                                                    </div>
+
+
+                                                                                                                </div>
+                                                                                                            }
+                                                                                                            else
+                                                                                                            {
+                                                                                                                <div class="leveldiv">
+                                                                                                                    <div class="tab_inner_btns">
+                                                                                                                        <a id="" href="#"></a>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                            }
+                                                                                                        }
+                                                                                                    </div>
+                                                                                                                }
+
+                                                                                                            }
+
+                                                                                        }
+
+
+
+                                                                                    </div>
+                                                                                                                    userpaidlockid++;
+                                                                                                                }
+
+
+                                                                                                            }
+                                                                        }
+                                                                    </div>
+
+
+                                                                </div>
+
+
+
+
+                                                            </div>
+                                                                                                            }
+}
+
+
+
+
+
+
+
+
+

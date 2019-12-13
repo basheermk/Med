@@ -1,0 +1,273 @@
+﻿
+@model Medacademy.Models.LevelsModel
+@{
+    ViewBag.Title = "AddLevel";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<section class="addpackage">
+    @using (Ajax.BeginForm("AddLevels", "Admin", null, new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnSuccess = "LevelAddSuccess",
+        OnFailure = "LevelAddFailed",
+    }, new { id = "form-login" }))
+    {
+        <div class="container">
+            <div class="col-12">
+                <div class="package_heading">
+                    <h3>Add Level</h3>
+                </div>
+                @Html.TextBoxFor(m => m.PackageID, new { type = "hidden" })
+                @Html.TextBoxFor(m => m.SubjectID, new { type = "hidden" })
+                @Html.TextBoxFor(m => m.TopicID, new { type = "hidden" })
+                @Html.TextBoxFor(m => m.SubTopicID, new { type = "hidden" })
+                <form>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Course</label>
+                        <div class="col-sm-8">
+                            @Html.DropDownListFor(m => m.CourseID, Ma.EntityLibrary.Data.Dropdowndata.GetCourseDrop(), "--Choose--", new { @class = "form-control course-drop-down", @data_live_search = "true", name = "levelDropdown", id = "levelDataDropdown" })
+                            @Html.ValidationMessageFor(m => m.CourseID)
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Package</label>
+                        <div class="col-sm-8">
+                            <select id="Package-drop-down" class="form-control Package-drop-down" disabled>
+                                <option>-- Please select Package --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Subject</label>
+                        <div class="col-sm-8">
+                            <select id="Subject-drop-down" class="form-control Subject-drop-down" disabled>
+                                <option>-- Please select Subject --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Topic</label>
+                        <div class="col-sm-8">
+                            <select id="Topic-drop-down" class="form-control Topic-drop-down" disabled>
+                                <option>-- Please select Topic --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Subtopic</label>
+                        <div class="col-sm-8">
+                            <select id="Subtopic-drop-down" class="form-control Subtopic-drop-down" disabled>
+                                <option>-- Please select Subtopic --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Level</label>
+                        <div class="col-sm-8">
+                            @*@Html.TextBoxFor(m => m.LevelName, new { @class = "form-control", placeholder = "Level Name" })
+                            @Html.ValidationMessageFor(m => m.LevelName)*@
+                            @Html.DropDownListFor(m => m.LevelName, Ma.EntityLibrary.Data.Dropdowndata.GetLevels(), "--Choose--", new { @class = "form-control pv_class-drop-down", @data_live_search = "true", name = "topicDropdown", id = "topicDataDropdown" })
+                            @Html.ValidationMessageFor(m => m.LevelName)
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Duration</label>
+                        <div class="col-sm-8">
+                            @Html.TextBoxFor(m => m.timer, new { @class = "form-control", Placeholder = "Duration", Value = "00:00:00" })
+                            @Html.ValidationMessageFor(m => m.timer)
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">&nbsp;</label>
+                        <div class="col-sm-8">
+                            <button type="submit" class="btn btn-success">Save</button>
+                            <button type="button" class="btn btn-danger" onclick="CloseLevel()">Close</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    }
+</section>
+
+<script>
+    function refreshLevelGrid() {
+        $.ajax({
+            url: '/Admin/RefreshLevel',
+            dataType: 'html',
+            success: function (data) {
+                $('#class-list-view').html(data);
+                IntializeDataTable();
+            },
+        });
+    }
+
+    function IntializeDataTable() {
+        $('#classTable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true
+        });
+    }
+    function LevelAddSuccess(result) {
+        if (result.status) {
+            toastrSuccess(result.msg);
+            refreshLevelGrid();
+        }
+        else {
+            toastrError(result.msg);
+        }
+    }
+    function LevelAddFailed() {
+        toastrError('Level Adding Failed');
+    }
+
+
+
+    function CloseLevel() {
+        window.location.href = '/Admin/Level/';
+    }
+
+    $(document).on('change', '.course-drop-down', function () {
+        var id = $(this).val();
+        if (id != '') {
+            //  resetDropDown('Package');
+            $.ajax({
+                url: '/Data/LoadPackages?courseid=' + id,
+                type: "GET",
+                success: function (result) {
+                    if (result.list.length > 0) {
+                        $("#Package-drop-down").html(""); // clear before appending new list
+                        $("#Package-drop-down").append($('<option></option>').val("").html('-- Select Package --'));
+                        $.each(result.list, function (i, item) {
+                            $("#Package-drop-down").append($('<option></option>').val(item.Value).html(item.Text));
+                        });
+                        $("#Package-drop-down").prop("disabled", false);
+                    }
+                    else {
+                        //resetDropDown('Class');
+                        $("#Package-drop-down").html(""); // clear before appending new list
+                        $("#Package-drop-down").append($('<option></option>').val("").html('-- No Packages Found --'));
+                        $("#Package-drop-down").prop("disabled", true);
+                    }
+                }
+            });
+
+        }
+        else {
+            //resetDropDown('Class');
+        }
+    });
+
+
+    $(document).on('change', '.Package-drop-down', function () {
+        var id = $(this).val();
+        $('#PackageID').val(id);
+        if (id != '') {
+            //  resetDropDown('Package');
+            $.ajax({
+                url: '/Data/LoadSubjects?packageid=' + id,
+                type: "GET",
+                success: function (result) {
+                    if (result.list.length > 0) {
+                        $("#Subject-drop-down").html(""); // clear before appending new list
+                        $("#Subject-drop-down").append($('<option></option>').val("").html('-- Select Subject --'));
+                        $.each(result.list, function (i, item) {
+                            $("#Subject-drop-down").append($('<option></option>').val(item.Value).html(item.Text));
+                        });
+                        $("#Subject-drop-down").prop("disabled", false);
+                    }
+                    else {
+                        //resetDropDown('Class');
+                        $("#Subject-drop-down").html(""); // clear before appending new list
+                        $("#Subject-drop-down").append($('<option></option>').val("").html('-- No Packages Found --'));
+                        $("#Subject-drop-down").prop("disabled", true);
+                    }
+                }
+            });
+
+        }
+        else {
+            //resetDropDown('Class');
+        }
+    });
+
+    $(document).on('change', '.Subject-drop-down', function () {
+        var id = $(this).val();
+        $('#SubjectID').val(id);
+        if (id != '') {
+            //  resetDropDown('Package');
+            $.ajax({
+                url: '/Data/LoadTopic?subjectid=' + id,
+                type: "GET",
+                success: function (result) {
+                    if (result.list.length > 0) {
+                        $("#Topic-drop-down").html(""); // clear before appending new list
+                        $("#Topic-drop-down").append($('<option></option>').val("").html('-- Select Topic --'));
+                        $.each(result.list, function (i, item) {
+                            $("#Topic-drop-down").append($('<option></option>').val(item.Value).html(item.Text));
+                        });
+                        $("#Topic-drop-down").prop("disabled", false);
+                    }
+                    else {
+                        //resetDropDown('Class');
+                        $("#Topic-drop-down").html(""); // clear before appending new list
+                        $("#Topic-drop-down").append($('<option></option>').val("").html('-- No Topic Found --'));
+                        $("#Topic-drop-down").prop("disabled", true);
+                    }
+                }
+            });
+
+        }
+        else {
+            //resetDropDown('Class');
+        }
+    });
+
+    $(document).on('change', '.Topic-drop-down', function () {
+        var id = $(this).val();
+        $('#TopicID').val(id);
+        if (id != '') {
+            //  resetDropDown('Package');
+            $.ajax({
+                url: '/Data/LoadSubtopic?topicid=' + id,
+                type: "GET",
+                success: function (result) {
+                    if (result.list.length > 0) {
+                        $("#Subtopic-drop-down").html(""); // clear before appending new list
+                        $("#Subtopic-drop-down").append($('<option></option>').val("").html('-- Select Subject --'));
+                        $.each(result.list, function (i, item) {
+                            $("#Subtopic-drop-down").append($('<option></option>').val(item.Value).html(item.Text));
+                        });
+                        $("#Subtopic-drop-down").prop("disabled", false);
+                    }
+                    else {
+                        //resetDropDown('Class');
+                        $("#Subtopic-drop-down").html(""); // clear before appending new list
+                        $("#Subtopic-drop-down").append($('<option></option>').val("").html('-- No Packages Found --'));
+                        $("#Subtopic-drop-down").prop("disabled", true);
+                    }
+                }
+            });
+
+        }
+        else {
+            //resetDropDown('Class');
+        }
+    });
+
+    $(document).on('change', '.Subtopic-drop-down', function () {
+        var id = $(this).val();
+        $('#SubTopicID').val(id);
+
+    });
+
+</script>
+
+
+

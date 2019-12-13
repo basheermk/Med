@@ -1,0 +1,133 @@
+﻿
+@model Medacademy.Models.ExamModel
+@{
+    var grpdata = Model.GroupData;
+}
+<div class="modal-dialog modal-md">
+    <div class="modal-content" style="border-radius: 3px;">
+        <div class="modal-header">
+            Edit Topic<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+
+        @using (Ajax.BeginForm("EditExam", "Exam", null, new AjaxOptions
+        {
+            HttpMethod = "POST",
+            OnSuccess = "EditExamSuccess",
+            OnFailure = "EditExamFailed",
+        }, new { id = "form-login" }))
+        {
+            @Html.HiddenFor(z => z.GroupData, new { Value = grpdata, id ="grdata" })
+            @Html.TextBoxFor(m => m.ExamID, new { type = "hidden" })
+            @Html.TextBoxFor(m => m.GroupDataEdit, new { type = "hidden" })
+
+            <div class="modal-body">
+                <form>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Exam Name</label>
+                        <div class="col-sm-8">
+                            @*<input type="text" class="form-control" placeholder="Test">*@
+                            @Html.TextBoxFor(m => m.ExamName, new { @class = "form-control", placeholder = "Exam Name" })
+                            @Html.ValidationMessageFor(m => m.ExamName)
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Duration</label>
+                        <div class="col-sm-8">
+                            @*<input type="text" class="form-control" placeholder="Test">*@
+                            @Html.TextBoxFor(m => m.Duration, new { @class = "form-control", placeholder = "In minutes", Value = "00:00:00" })
+                            @Html.ValidationMessageFor(m => m.Duration)
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Start Date</label>
+                        <div class="col-sm-3">
+
+                            @Html.TextBoxFor(m => m.StrtDate, new { @class = "form-control", id = "StrtDate" })
+                            @Html.ValidationMessageFor(m => m.StrtDate)
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">End Date</label>
+                        <div class="col-sm-3">
+
+                            @Html.TextBoxFor(m => m.EnDate, new { @class = "form-control", id = "EnDate" })
+                            @Html.ValidationMessageFor(m => m.EnDate)
+
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Groups</label>
+                            <div class="dropdown_main">
+                                <span class="dropdown_btn">Groups <i class="fa fa-caret-down"></i></span>
+                                <ul class="dropdown_lists">
+                                    @foreach (var groups in new Ma.EntityLibrary.Data.Group().GetGroups())
+                                    {
+                                        <li>
+                                            <label class="label_container">
+                                                @groups.GroupName
+                                                <input type="checkbox" value="@groups.GroupID" class="chk-roles-cls-edit">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </li>
+                                    }
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">&nbsp;</label>
+                        <div class="col-sm-8">
+
+
+                            <button type="button" id="btn-dummy-addexam1" class="btn pay-now-btn">Update</button>
+                            <button type="submit" style="display:none;" id="btn-addexam1" class="btn btn-success">Save</button>
+                            <button type="button" class="btn btn-danger" onclick="CloseLevel()">Close</button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $('#editExam').on('shown.bs.modal', function () {
+
+        $('#StrtDate').datetimepicker({
+            format: 'DD/MM/YYYY HH:mm'
+
+        });
+        $('#EnDate').datetimepicker({
+            format: 'DD/MM/YYYY HH:mm'
+
+        });
+    });
+
+</script>
+
+
+
+
+
+<script>
+   
+
+    $('.dropdown_btn').click(function () {
+        $(this).siblings().toggle();
+    });
+
+
+
+
+
+</script>

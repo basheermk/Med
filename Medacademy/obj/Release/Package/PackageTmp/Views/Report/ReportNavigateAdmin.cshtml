@@ -1,0 +1,144 @@
+﻿@model Medacademy.Models.PracticeWorksheetModel
+@{
+    ViewBag.Title = "ReportNavigateAdmin";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+    long userId = Convert.ToInt64(Session["id"]);
+
+  
+
+    var student = new Ma.EntityLibrary.Data.StudentsList(userId);
+    var report = student.GetReport(Model.levelid, Model.attemptId);
+    var unpaidquestion = report.ReportList.ToList();
+    //  var userData = new CS.EntityLibrary.Data.User((CS.EntityLibrary.tb_Login)Session["User"]);
+    //Breadcrumb
+    var practiceTest = new Ma.EntityLibrary.Data.Level(Model.levelid);
+    var subtopic = new Ma.EntityLibrary.Data.SubTopic(practiceTest.SubTopicID);
+    var topic = new Ma.EntityLibrary.Data.Topic(subtopic.TopicID);
+}
+
+<div class="mar_gap_for_menu">
+  
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 media_marpad_zero text-center reports_main" style="margin-top:0px;">
+
+
+                @*<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mapazero pay_banner payment-banner dev-report-status" style="background: #1ebae9">
+                        <div class="container pract" style=" text-align: center; width:100%;">
+                            <p class="dev-result-text"></p>
+                        </div>
+                    </div>*@
+
+
+                <h1 class="reports_h1">Excellent, @student.FirstName! You have completed the assessment test!</h1>
+
+                <p class="reports_p">You may review your responses below.</p>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mapazero stats_btns text-left" style="margin-top:15px; padding-bottom:10px;">
+                    <div class="row">
+                        @*<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center"><div class="stats_mob_btn">Q all</div></div>*@
+
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="status_black" style="background-color: #2e2e2e;"><span class="numb_stat">@report.TotalQuestion</span><span class="txt_stat">Total questions</span></div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="status_black"><span class="numb_stat">@report.UnattendedNo</span><span class="txt_stat">questions unattended</span></div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="status_black status_green"><span class="numb_stat dev-right-no">@report.RightNo</span><span class="txt_stat">right answers</span></div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <div class="status_black status_red"><span class="numb_stat">@report.WrongNo</span><span class="txt_stat">wrong answers</span></div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mapazero table-responsive">
+                        <table class="table my_reports_table table-hover">
+                            <thead>
+                                <tr>
+                                    <th style="width: 57px;">Q No.</th>
+                                    <th>Question</th>
+                                    <th>Your Answer</th>
+                                    <th class="text-center">Options</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    var index = 1;
+                                }
+                                @if (student.isPaid != 0)
+                                {
+                                    foreach (var reportList in report.ReportList)
+                                    {
+                                        <tr>
+                                            <td>@index</td>
+                                            <td>@(new HtmlString(reportList.QuestionName))</td>
+                                            @if (reportList.Status == 0)
+                                            {
+                                                <td><p class="question_all wrong_ans">Wrong</p></td>
+                                            }
+                                            else if ((int)reportList.Status == 1)
+                                            {
+                                                <td><p class="question_all right_ans">Correct</p></td>
+                                            }
+                                            else if ((int)reportList.Status == 2)
+                                            {
+                                                <td><p class="question_all">Unattended</p></td>
+                                            }
+                                            <td><a data-id="@Model.levelid" data-question-id="@reportList.QuestionId" data-attempt-id="@Model.attemptId" class="button_1 button_2 button_360 text-center isPointer navigate-practice-test-ui">review</a></td>
+                                        </tr>
+                                        index++;
+                                    }
+                                }
+                                else
+                                {
+                                    foreach (var quest in unpaidquestion)
+                                    {
+                                        <tr>
+                                            <td>@index</td>
+                                            <td>@(new HtmlString(quest.QuestionName))</td>
+                                            @if (quest.Status == 0)
+                                            {
+                                                <td><p class="question_all wrong_ans">Wrong</p></td>
+                                            }
+                                            else if ((int)quest.Status == 1)
+                                            {
+                                                <td><p class="question_all right_ans">Correct</p></td>
+                                            }
+                                            else if ((int)quest.Status == 2)
+                                            {
+                                                <td><p class="question_all">Unattended</p></td>
+                                            }
+                                            <td><a data-id="@Model.levelid" data-question-id="@quest.QuestionId" data-attempt-id="@Model.attemptId" class="button_1 button_2 button_360 text-center isPointer navigate-practice-test-ui">review</a></td>
+                                        </tr>
+                                        index++;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+
+    </div>
+
+
+    <script>
+    $(document).on('click', '.navigate-practice-test-ui', function () {
+        var practiceTestId = $(this).attr("data-id");
+        var attemptId = $(this).attr("data-attempt-id");
+        var questionId = $(this).attr("data-question-id");
+        var id = practiceTestId + '~' + attemptId + '~' + questionId;
+        window.location.href = '/Report/NavigatePracticeAdmin/' + id;
+    });
+
+   
+
+
+    </script>
+
+
+
+
+

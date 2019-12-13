@@ -1,0 +1,25 @@
+﻿@model Medacademy.Models.UserModel
+@{
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<form method="post" action="/User/PaymentPost" novalidate="novalidate" name="frmTransaction" id="frmTransaction">
+        
+    <input value="Submit" type="submit" class="submit-trigger isHidden" />
+</form>
+
+<script>
+    $(document).ready(function () {
+        ajaxLoaderStop();
+        $('body').pleaseWait();
+        $('.nav_bar_main').addClass('isHidden');
+        $('.footer_main').addClass('isHidden');
+        $('.submit-trigger').hide();
+        $('.submit-trigger').trigger('click');
+
+    });
+</script>
+
+

@@ -1,0 +1,151 @@
+﻿@model Medacademy.Models.SubjectModel
+@{
+    ViewBag.Title = "AddSubject";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<section class="addpackage">
+    @using (Ajax.BeginForm("AddSubjects", "Admin", null, new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnSuccess = "SubjectAddSuccess",
+        OnFailure = "SubjectAddFailed",
+    }, new { id = "form-login" }))
+    {
+        @Html.TextBoxFor(m => m.PackageID, new { type = "hidden" })
+        <div class="container">
+            <div class="col-12">
+                <div class="package_heading">
+                    <h3>Add Subject</h3>
+                </div>
+                <form>
+                   
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Course</label>
+                        <div class="col-sm-8">
+                            @Html.DropDownListFor(m => m.CourseID, Ma.EntityLibrary.Data.Dropdowndata.GetCourseDrop(), "--Choose--", new { @class = "form-control course-drop-down", @data_live_search = "true", name = "courseDropdown", id = "courseDataDropdown" })
+                            @Html.ValidationMessageFor(m => m.CourseID)
+                        </div>
+                    </div>
+                   
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Package</label>
+                        <div class="col-sm-8">
+                            <select id="Package-drop-down" class="form-control Package-drop-down" disabled>
+                                <option>-- Please select Package --</option>
+                            </select>
+                        </div>
+                    </div>
+                    @*<div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Group</label>
+                        <div class="col-sm-8">
+                            
+                            @Html.DropDownListFor(m => m.GroupID, new SelectList(new List<Object> { new { value = 0, text = "--Choose--" } }, "value", "text"), new { @class = "form-control division_Select", @data_live_search = "true", @disabled = "disabled", @visibility = "hidden" })
+                           
+                            @Html.TextBoxFor(m => m.GroupID, new { @id = "textgroup", @class = "form-control", placeholder = "Group", @readonly = "readonly" })
+                            @Html.ValidationMessageFor(m => m.GroupID)
+                        </div>
+                    </div>*@
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-8">
+                            @Html.TextBoxFor(m => m.SubjectName, new { @class = "form-control", placeholder = "Subject Name" })
+                            @Html.ValidationMessageFor(m => m.SubjectName)
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">&nbsp;</label>
+                        <div class="col-sm-8">
+                            <button type="submit" class="btn btn-success">Save</button>
+                            <button type="button" class="btn btn-danger" onclick="CloseSubject()">Close</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    }
+</section>
+<script>
+    function refreshSubjectGrid() {
+        $.ajax({
+            url: '/Admin/RefreshSubject',
+            dataType: 'html',
+            success: function (data) {
+                $('#class-list-view').html(data);
+                IntializeDataTable();
+            },
+        });
+    }
+
+    function IntializeDataTable() {
+        $('#classTable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true
+        });
+    }
+     function SubjectAddSuccess(result) {
+        if (result.status) {
+            toastrSuccess(result.msg);
+            refreshSubjectGrid();
+        }
+        else {
+            toastrError(result.msg);
+        }
+    }
+    function SubjectAddFailed() {
+        toastrError('Subject Adding Failed');
+    }
+
+ 
+
+    function CloseSubject() {
+        window.location.href = '/Admin/Subject/';
+    }
+
+
+    $(document).on('change', '.course-drop-down', function () {
+        var id = $(this).val();
+        if (id != '') {
+          //  resetDropDown('Package');
+            $.ajax({
+                url: '/Data/LoadPackages?courseid=' + id,
+                type: "GET",
+                success: function (result) {
+                    if (result.list.length > 0) {
+                        $("#Package-drop-down").html(""); // clear before appending new list
+                        $("#Package-drop-down").append($('<option></option>').val("").html('-- Select Package --'));
+                        $.each(result.list, function (i, item) {
+                            $("#Package-drop-down").append($('<option></option>').val(item.Value).html(item.Text));
+                        });
+                        $("#Package-drop-down").prop("disabled", false);
+                    }
+                    else {
+                        resetDropDown('Class');
+                        $("#Package-drop-down").html(""); // clear before appending new list
+                        $("#Package-drop-down").append($('<option></option>').val("").html('-- No Packages Found --'));
+                        $("#Package-drop-down").prop("disabled", true);
+                    }
+                }
+            });
+
+        }
+        else {
+            resetDropDown('Class');
+        }
+    });
+
+    $(document).on('change', '.Package-drop-down', function () {
+        var id = $(this).val();
+        $('#PackageID').val(id);
+       
+    });
+
+  
+</script>
+
+

@@ -1,0 +1,115 @@
+﻿@model Medacademy.Models.QuestionAddModel
+
+
+<!-- Main content -->
+<!-- COLOR PALETTE -->
+<div class="box box-default color-palette-box">
+    <div class="box-header with-border">
+        <h3 class="box-title"><i class="fa fa-list-alt"></i> Add Question</h3>
+        <button type="button" class="btn btn-success btn-xs pull-right" id="go-question-practice" data-practice-id="@Model.LevelID">Go Back</button>
+    </div>
+    <div class="box-body">
+        @using (Ajax.BeginForm("AddQuestion", "Question", null, new AjaxOptions
+        {
+            HttpMethod = "POST",
+            OnSuccess = "AddQuestionSuccess",
+            OnFailure = "ajaxFailure",
+        }, new { id = "form-login" }))
+        {
+            <div class="row" id="main-question-body">
+
+                <div class="col-sm-12">
+                    <!--- question type -->
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Question Type</label>
+                            @Html.DropDownListFor(m => m.questionTypeId, Ma.EntityLibrary.Data.Dropdowndata.GetQuestionTypes(), "--Choose--", new { @class = "form-control select2" })
+                        </div><!-- /.form-group -->
+                    </div><!-- /.col -->
+                    <!--- question type -->
+                    <!--- answer type -->
+                    <div class="col-md-4 isHidden" id="answer-type-id">
+                        <div class="form-group">
+                            <label>Answer Type</label>
+                            @Html.DropDownListFor(m => m.answerTypeId, Ma.EntityLibrary.Data.Dropdowndata.GetAnswerTypes(), "--Choose--", new { @class = "form-control select2" })
+                        </div><!-- /.form-group -->
+                    </div><!-- /.col -->
+                    <!--- answer type -->
+                   </div>
+
+                @Html.TextBoxFor(m => m.answerData, new { value = "", type = "hidden" })
+                @Html.TextBoxFor(m => m.questionImage, new { value = "", type = "hidden" })
+                @Html.HiddenFor(m => m.LevelID)
+
+                @Html.TextBoxFor(m => m.answerExplanation, new { value = "", type = "hidden" })
+                @Html.TextBoxFor(m => m.question, new { value = "", type = "hidden" })
+                @Html.TextBoxFor(m => m.ansExpImage, new { value = "", type = "hidden" })
+
+
+
+
+                <!--- html editor-->
+                <div class="col-sm-12 isHidden" id="question-editor-area">
+                    <div class="form-group">
+                        <label>Question</label>
+                        <textarea id="question-editor" name="question-editor" rows="10" cols="80"></textarea>
+                    </div><!-- /.form-group -->
+                </div>
+                <!--- html editor-->
+                <!--- image upload-->
+                <div class="col-sm-12 isHidden" id="question-image-area">
+                    <div class="form-group">
+                        <label>Question Image</label>
+                        <img style="height:100px;" id="question-image-preview" />
+                        <input type="file" id="question-image-upload" />
+                    </div><!-- /.form-group -->
+                </div>
+                <!--- image upload-->
+                <!--- 2ndhtml editor-->
+                <div class="col-sm-12 isHidden" id="question-editor-area2">
+                    <div class="form-group">
+                        <label>Question</label>
+                        <textarea id="question-editor2" name="question-editor2" rows="10" cols="80"></textarea>
+                    </div><!-- /.form-group -->
+                </div>
+                <!--- 2ndhtml editor-->
+
+
+                <div class="col-sm-12 isHidden" id="answer-area">
+
+                    <!--- answer clear template-->
+                    <label>
+                        Add Answers
+                        <button type="button" class="btn btn-success btn-xs" onclick="AddQuestionOpt()"><i class="fa fa-plus"></i></button>
+                    </label>
+                    <div class="row" id="answer-editor-div">
+
+                    </div>
+                    <div class="row" id="answer-image-div">
+
+                    </div>
+                    <div class="form-group">
+                        <label>Answer Explanation Image</label>
+                        <img style="height:100px;" id="answer-exp-image-preview" />
+                        <input type="file" id="answer-exp-image-upload" />
+                        <label>Answer Explanation Text</label>
+                        <textarea id="answer-explanation-editor" name="answer-explanation-editor" rows="10" cols="80"></textarea>
+                    </div><!-- /.form-group -->
+
+                </div>
+
+                <button type="button" id="submit-btn-dummy" class="btn btn-info pull-right isHidden">Submit</button>
+                <button type="submit" id="submit-btn" class="btn btn-info pull-right" style="display:none">Submit</button>
+            </div><!-- /.row -->
+        }
+
+    </div><!-- /.box-body -->
+    <div class="box-body">
+    </div><!-- /.box-body -->
+</div><!-- /.box -->
+<!-- /.content -->
+
+
+<script id="answer-clear-template" type="application/html-template">
+
+</script>

@@ -1,0 +1,47 @@
+﻿@model Medacademy.Models.NewsModel
+@{
+    ViewBag.Title = "DetailedNews";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var newsdetails = new Ma.EntityLibrary.Data.News(Model.NewsId);
+}
+
+<style>
+    .news-details > div > p {
+    font-size: 13px;
+    margin: 4px 0;
+    font-weight: 600;
+}
+.phots-details {
+    width: 430px;
+    margin: 15px 0;
+}
+.phots-details img {
+    width: 100%;
+}
+.full-details h6 {
+    line-height: 27px;
+    text-align: justify;
+}
+</style>
+
+<section class="contact_sction commSec">
+    <div class="container">
+        <div class="col-12">
+            <div class="news-details">
+                <div class="left_white">
+                    <h4 class="contact_title">@newsdetails.Head</h4>
+                    <p>@newsdetails.NewsDate.ToShortDateString()</p>
+                    <div class="phots-details">
+                        <img src="@newsdetails.Image">
+                    </div>
+
+                    <div class="full-details">
+                        <h4>@newsdetails.SubHead</h4>
+                        <h6>@newsdetails.Newsdetils</h6>
+                    </div>
+                </div>            </div>
+        </div>
+    </div>
+</section>
+

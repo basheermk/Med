@@ -1,0 +1,429 @@
+﻿@model Medacademy.Models.QuestionAddModel
+
+
+<!-- Main content -->
+<section class="content" id="main-view-div">
+    @Html.Partial("~/Views/Question/_pv_QuestionAdd_Level_Adding.cshtml", Model)
+</section>
+
+<script id="answer-editor-template" type="application/html-template">
+    <div class="form-group answer-editor-repeat" id="answer-editor-div-repeat-{{item}}">
+        <button class="btn btn-danger btn-xs remove-answer-option"><i class="fa fa-minus"></i></button>
+        <label>Option</label>
+        <textarea id="answer-editor-{{editorId}}" name="answer-editor-{{editorName}}" />
+        <input type="radio" name="correct-answer" id="correct-answer" />
+    </div><!-- /.form-group -->
+</script>
+
+<script id="answer-image-template" type="application/html-template">
+    <div class="form-group answer-image-repeat" id="answer-editor-div-repeat-{{item}}">
+        <button class="btn btn-danger btn-xs remove-answer-option"><i class="fa fa-minus"></i></button>
+        <label>Option</label>
+        <input id="answer-image-{{editorId}}" name="answer-image-{{editorName}}" class="answer-image-upload" type="file" />
+        <img style="height:100px;" />
+        <input type="hidden" id="hfBase64Image" />
+        <label>Correct Answer <input type="radio" name="correct-answer" id="correct-answer" class="radio radio-primary" /></label>
+    </div><!-- /.form-group -->
+</script>
+
+<input type="hidden" value="1" id="hfAnswerCount" />
+
+<script>
+
+    function resetAnswerCount() {
+        answer = 1;
+        $('#answer-editor-div').html('');
+    }
+
+    var answer = 1;
+
+    $(document).ready(function () {
+
+        IntializeDataTable();
+
+
+    });
+
+    function IntializeDataTable() {
+        $('#practQuestionTable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true
+        });
+    }
+
+    $(document).on('change', '#questionTypeId', function () {
+        $('#answer-editor-div').html('');
+        answer = 1;
+        var type = $(this).val();
+        if (type == 1) {
+            $('#question-editor-area').show();
+            $('#question-editor-area2').hide();
+            $('#question-image-area').hide();
+            $('#answer-type-id').show();
+            $('#answer-view-id').show();
+            $('#answer-area').hide();
+            $('#submit-btn-dummy').hide();
+
+        }
+        else if (type == 2) {
+            $('#question-image-area').show();
+            $('#question-editor-area').show();
+            $('#question-editor-area2').hide();
+            $('#answer-view-id').show();
+            $('#answer-type-id').show();
+            $('#answer-area').hide();
+            $('#submit-btn-dummy').hide();
+
+        }
+        else if (type == 3) {
+            $('#question-image-area').show();
+            $('#question-editor-area').show();
+            $('#question-editor-area2').show();
+            $('#answer-view-id').show();
+            $('#answer-type-id').show();
+            $('#answer-area').hide();
+            $('#submit-btn-dummy').hide();
+
+        }
+        else {
+            $('#question-image-area').hide();
+            $('#question-editor-area').hide();
+            $('#question-editor-area2').hide();
+            $('#answer-type-id').hide();
+            $('#answer-view-id').hide();
+            $('#answer-area').hide();
+            $('#submit-btn-dummy').hide();
+
+        }
+    });
+
+    $(document).on('change', '#answerTypeId', function () {
+
+     //   var template = $('#answer-clear-template').clone().html();
+     //   $('#answer-area').html(template);
+
+        answer = 1;
+        var type = $(this).val();
+        if (type = 1) {
+            answer = 1;
+            $('#answer-area').show();
+            $('#answer-editor-div').html('');
+            $('#answer-image-div').html('');
+            $('#submit-btn-dummy').hide();
+            //CKEDITOR.replace('answer-explanation-editor');
+
+        }
+        else if (type = 2) {
+            answer = 1;
+            $('#answer-area').show();
+            $('#answer-editor-div').html('');
+            $('#answer-image-div').html('');
+            $('#submit-btn-dummy').hide();
+            //CKEDITOR.replace('answer-explanation-editor');
+
+        }
+    });
+
+
+
+    $(document).on('click', '.add-answer-option-practice', function () {
+        var type = $('#answerTypeId').val();
+        if (type == 1) {
+            var template = $('#answer-editor-template').clone().html();
+            var content = template.replace('{{Number}}', answer)
+                                        .replace('{{editorId}}', answer)
+                                        .replace('{{editorName}}', answer)
+                                        .replace('{{item}}', answer)
+            $('#answer-editor-div').append(content);
+
+           // CKEDITOR.replace('answer-editor-' + answer);
+            CKEDITOR.replace('answer-editor-1');
+
+            //answer++;
+            $('#submit-btn-dummy').show();
+
+        }
+
+        if (type == 2) {
+            var template = $('#answer-image-template').clone().html();
+            var content = template.replace('{{Number}}', answer)
+                                        .replace('{{editorId}}', answer)
+                                        .replace('{{editorName}}', answer)
+                                        .replace('{{item}}', answer)
+            $('#answer-image-div').append(content);
+            answer++;
+            $('#submit-btn-dummy').show();
+
+        }
+    });
+
+
+    function AddQuestionOpt() {
+
+        debugger
+        var type = $('#answerTypeId').val();
+        if (type == 1) {
+            var template = $('#answer-editor-template').clone().html();
+            var content = template.replace('{{Number}}', answer)
+                                        .replace('{{editorId}}', answer)
+                                        .replace('{{editorName}}', answer)
+                                        .replace('{{item}}', answer)
+            $('#answer-editor-div').append(content);
+
+            CKEDITOR.replace('answer-editor-' + answer);
+           // CKEDITOR.replace('answer-editor-1');
+
+            answer++;
+            $('#submit-btn-dummy').show();
+
+        }
+
+        if (type == 2) {
+            var template = $('#answer-image-template').clone().html();
+            var content = template.replace('{{Number}}', answer)
+                                        .replace('{{editorId}}', answer)
+                                        .replace('{{editorName}}', answer)
+                                        .replace('{{item}}', answer)
+            $('#answer-image-div').append(content);
+            answer++;
+            $('#submit-btn-dummy').show();
+
+        }
+    }
+
+
+
+
+        $(document).on('click', '.remove-answer-option', function () {
+            $(this).parent().remove();
+            // answer--;
+        });
+
+
+        $(document).on('change', '.answer-image-upload', function () {
+            var source = $(this);
+            var selectedFile = this.files[0];
+            var input = this;
+            if (input.files && input.files[0]) {
+                var url = input.value;
+                var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+                if (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg" || ext == "bmp") {
+                    selectedFile.convertToBase64(function (base64) {
+                        var image = $(source).parent().find('img');
+                        var hiddenField = $(source).parent().find('#hfBase64Image');
+                        $(image).attr({ "src": base64, "class": "useruploder" });
+                        $(hiddenField).val(base64);
+                    });
+                    var reader = new FileReader();
+                }
+                else {
+                    $(source).val('');
+                    toastrWarning('Invalid Filetype');
+                    var image = $(source).parent().find('img');
+                    var hiddenField = $(source).parent().find('#hfBase64Image');
+                    $(image).attr({ "src": base64, "class": "useruploder" });
+                    $(hiddenField).val('');
+                }
+            }
+        });
+        File.prototype.convertToBase64 = function (callback) {
+            var FR = new FileReader();
+            FR.onload = function (e) {
+                callback(e.target.result)
+            };
+            FR.readAsDataURL(this);
+        }
+
+
+
+        $(document).on('change', '#question-image-upload', function () {
+            var source = $(this);
+            var selectedFile = this.files[0];
+            var input = this;
+            if (input.files && input.files[0]) {
+                var url = input.value;
+                var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+                if (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg" || ext == "bmp") {
+                    selectedFile.convertToBase64(function (base64) {
+                        $('#question-image-preview').attr({ "src": base64, "class": "useruploder" });
+                        $('#questionImage').val(base64);
+                    });
+                    var reader = new FileReader();
+                }
+                else {
+                    $(source).val('');
+                    toastrWarning('Invalid Filetype');
+                }
+            }
+        });
+
+        $(document).on('change', '#answer-exp-image-upload', function () {
+            //debugger;
+            var source = $(this);
+            var selectedFile = this.files[0];
+            var input = this;
+            if (input.files && input.files[0]) {
+                var url = input.value;
+                var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+                if (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg" || ext == "bmp") {
+                    selectedFile.convertToBase64(function (base64) {
+                        $('#answer-exp-image-preview').attr({ "src": base64, "class": "useruploder" });
+                        $('#ansExpImage').val(base64);
+                    });
+                    var reader = new FileReader();
+                }
+                else {
+                    $(source).val('');
+                    toastrWarning('Invalid Filetype');
+                }
+            }
+        });
+        File.prototype.convertToBase64 = function (callback) {
+            var FR = new FileReader();
+            FR.onload = function (e) {
+                callback(e.target.result)
+            };
+            FR.readAsDataURL(this);
+        }
+
+
+        $(document).on('click', '#submit-btn-dummy', function () {
+            //   var questTxt = $('#question-editor');
+            var quest = CKEDITOR.instances['question-editor'].getData()
+            $('#question').val(decodeHtmlEntity(quest));
+            //  var ansTxt = $('#answer-explanation-editor');
+            var ans = CKEDITOR.instances['answer-explanation-editor'].getData()
+            $('#answerExplanation').val(decodeHtmlEntity(ans));
+            var list = GetAnswerList();
+            var length = 0;
+            jQuery.each(list, function (index, item) {
+                // do something with `item` (or `this` is also `item` if you like)
+                if (item.AnswerStatus == true) {
+                    length++;
+                }
+            });
+
+            if ($('#answerViewId').val() == '') {
+                toastrWarning('Please select the answer view type!');
+                return true;
+            }
+            var item = 1;
+            if (list.length > 0) {
+                var jsonData = JSON.stringify(list);
+                $('#answerData').val(jsonData);
+                setTimeout(function () {
+                    if (list.length > 0) {
+                        $('#submit-btn').trigger('click');
+                        item++;
+                    }
+                    else {
+                        toastrWarning('Please set one answer as the right one!');
+                    }
+                }, 300);
+            }
+            else {
+                toastrWarning('Please set one answer as the right one!');
+            }
+
+        });
+
+        //convert meta html equivalents
+        function decodeHtmlEntity(content) {
+
+            var varTitle = $('<textarea />').html(content).text();
+            return varTitle;
+
+
+            //var tempTxt = document.createElement("textarea");
+            //tempTxt.innerHTML = content;
+            //return tempTxt.value;
+        }
+
+        function AddQuestionSuccess(result) {
+            if (result.status) {
+                $.ajax({
+                    url: '/Question/RefreshAddQuestionView?testId=' + result.id,
+                    dataType: 'html',
+                    success: function (data) {
+                        $('#main-view-div').html(data);
+                        CKEDITOR.replace('question-editor');
+                    },
+                });
+                toastrSuccess(result.msg);
+                refreshChapterGrid();
+            }
+            else {
+                toastrError(result.msg);
+            }
+        }
+
+        function GetAnswerList() {
+            var type = $('#answerTypeId').val();
+            var list = [];
+            if (type == 1) {
+                $('#answer-editor-div .answer-editor-repeat').each(function (index, row) {
+                    var editor1 = $(row).find('textarea');
+                    var txtid = $(editor1).attr('id')
+                    var value = CKEDITOR.instances[txtid].getData()
+                    var radio = $(row).find('input[type=radio]:checked').val() == "on" ? true : false;
+                    var obj = new Object();
+                    obj.AnswerText = decodeHtmlEntity(value);
+                    obj.AnswerStatus = radio;
+                    list.push(obj);
+                });
+                return list;
+
+
+                //if (list.length > 0) {
+                //    var jsonArray = JSON.stringify(list)
+                //    $('#answerData').val(jsonArray);
+                //    setTimeout(function () {
+                //        $('#submit-btn').trigger('click');
+                //    }, 500)
+                //}
+                //else {
+                //    toastrWarning('Please add answers');
+                //}
+            }
+            else if (type == 2) {
+                $('#answer-image-div .answer-image-repeat').each(function (index, row) {
+                    var data = $(row).find('input[type=hidden]').val();
+                    var radio = $(row).find('input[type=radio]:checked').val() == "on" ? true : false;
+                    var obj = new Object();
+                    obj.AnswerText = data;
+                    obj.AnswerStatus = radio;
+                    list.push(obj);
+                });
+
+                return list;
+
+                //if (list.length > 0) {
+                //    var jsonArray = JSON.stringify(list)
+                //    $('#answerData').val(jsonArray);
+                //    setTimeout(function () {
+                //        $('#submit-btn').trigger('click');
+                //    }, 500)
+                //}
+                //else {
+                //    toastrWarning('Please add answers');
+                //}
+            }
+        }
+
+        //get question list
+        $(document).on('click', '#go-question-practice', function () {
+            var testId = $(this).attr('data-practice-id');
+            $.ajax({
+                url: '/Question/GetQuestionView?testId=' + testId,
+                dataType: 'html',
+                success: function (data) {
+                    $('#partial-view').html(data);
+                },
+            });
+        });
+
+</script>

@@ -1,0 +1,1102 @@
+﻿@model Medacademy.Models.UserModel
+@{
+    ViewBag.Title = "Worksheet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var datas = (Medacademy.Models.UserModel)Session["UserLoginFirstTime"];
+}
+
+<style>
+    .navigate-start-practice:hover > .lock-aps {
+        display: block;
+    }
+
+    .lock-aps {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 45px;
+    }
+
+    .lock-aps {
+        position: relative;
+        display: block;
+        border-radius: 45px;
+        float: right;
+        width: inherit;
+    }
+
+    .navigate-start-practice:hover > .lock-aps > .lockaps1612 {
+        display: block;
+    }
+
+    .pract a {
+        min-width: 81.67px;
+        display: inline-block;
+    }
+
+    .lockaps1612 {
+        color: #fff;
+        padding-left: 6px;
+    }
+
+    .navigate-start-practice > span {
+        display: none;
+    }
+
+    .lock-aps {
+        display: block !important;
+    }
+
+    a[data-pract-name="Comprehension"] {
+        min-width: 142.64px;
+        /*padding-left: 20px;
+        padding-right: 20px;*/
+    }
+
+    a[data-pract-name="ADVANCED"] {
+        min-width: 104px;
+        /*padding-left: 20px;
+        padding-right: 20px;*/
+    }
+    /*a[data-pract-name="Comprehension"] .lock-aps > .fa-lock{
+        position: absolute;
+        right: -12px;
+        top: 4px;
+    }*/
+    .apsgreybar {
+        background-color: #ccc !important;
+    }
+
+    .apsgreytext > span {
+        color: #ccc !important;
+    }
+</style>
+
+
+
+
+<section class="breadcrumbsSection worksheet_section"  style="display:none;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumbs">
+                    <h1>Worksheet</h1>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li>Curriculum</li>
+                        <li>Worksheet</li>
+                    </ul>
+                </div><!-- ./breadcrumbs -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="commSec course_bdy_section">
+    @if (datas == null)
+    {
+        <input type="hidden" value="False" id="hfIsPaid" />
+        <input type="hidden" value="0" id="hfislogged" />
+        <input type="hidden" value="0" id="hfpackageid" />
+        var allcourses = new Ma.EntityLibrary.Data.Course().GetUserviewCourses();
+        var allpackages = allcourses.Where(z => z.CourseId == allcourses[0].CourseId).FirstOrDefault().GetPackages();
+        var allsubjects = allpackages.Where(z => z.PackageID == allpackages[0].PackageID).FirstOrDefault().GetSubjects();
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="worksheet_menu">
+                        <ul>
+
+                            @if (datas == null)
+                            {
+                                foreach (var courses in allcourses)
+                                {
+                                    <li class="isPointer" onclick="navigatecourse(this)" data-toggle="tab" data-class-id="@courses.CourseId"><a href="">@courses.CourseName</a></li>
+                                }
+
+                            }
+                            else
+                            {
+                                <li class="active"><a href="#">Course 1</a></li>
+                            }
+
+                        </ul>
+
+                        <h6 class="text-center">CHOOSE THE PACKAGE TO TEST YOUR SKILLS</h6>
+                    </div>
+
+
+                    @{
+                        if (allpackages.Count > 0)
+                        {
+
+
+                            <div class="cust_tabs" id="course-list-view">
+
+                                <nav>
+                                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+
+                                        @foreach (var package in allpackages)
+                                        {
+                            <a class="nav-item nav-link isPointer" onclick="navigatepackage(this)" data-class-id="@package.PackageID" data-toggle="tab" id="nav-home-tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">@package.PackageName</a> @*active*@
+
+                                        }
+                                    </div>
+                                </nav>
+
+                                <div class="tab-content py-3 px-3 px-sm-0 package-list-view" id="nav-tabContent ">
+                                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                        <div class="tab_inner">
+                                            <h5>@allpackages[0].PackageName</h5>
+                                            <input type="hidden" value=@allpackages[0].PackageID id="hfpkgidtounpaidprcts" />
+                                            <p>Listed below are the chapters based on your syllabus. You can start practicing with the topic of your choice. The various sets in the chapter are arranged from simplest to the difficult one.</p>
+
+
+                                            <div class="package_table">
+                                                @{
+                                                    if (allsubjects.Count > 0)
+                                                    {
+                                                        int lockid = 1;
+                                                        foreach (var subjects in allsubjects)
+                                                        {
+                                    <div class="package_table_inner">
+                                        <div>
+                                            <img src="~/Content/images/pencil_icon.png"> @subjects.SubjectName
+                                        </div>
+                                        @{
+                                            var Topics = new Ma.EntityLibrary.Data.Topic().GetUserviewTopics(subjects.SubjectID);
+
+
+
+                                            if (Topics.Count > 0)
+                                            {
+
+                                        <div>
+                                            @Html.DropDownListFor(m => m.TopicId, Ma.EntityLibrary.Data.Dropdowndata.GetTopicDrop(subjects.SubjectID), new { @class = "form-control topic-drop-down", @data_live_search = "true", id = "topic-drop-down", divid = @Topics.FirstOrDefault().TopicID })
+
+                                        </div>
+
+                                                var subtopic = new Ma.EntityLibrary.Data.SubTopic().GetSubtopic(Topics[0].TopicID);
+
+
+                                                if (subtopic.Count > 0)
+                                                {
+
+                                        <div>
+                                            @Html.DropDownListFor(m => m.SubtopicID, Ma.EntityLibrary.Data.Dropdowndata.GetSubtopics(Topics[0].TopicID), new { @class = "form-control subtopic-drop-down", @data_live_search = "true", name = "levelDropdown", id = "SubtopicID" + @Topics.FirstOrDefault().TopicID, divid = @Topics.FirstOrDefault().TopicID + "pdf" })
+                                        </div>
+                                                    var pdflink = @Topics.FirstOrDefault().TopicID + "pdf";
+                                                    var videolink = @Topics.FirstOrDefault().TopicID + "video";
+                                        <div id="subtopic-list-view">
+                                            <div>
+                                                <a data-id="@subtopic[0].Pdfpath" class="comm_icon pdf_icon Viewpdf   @pdflink" data-pdf="@Topics.FirstOrDefault().TopicID" title="View PDF"><img src="~/Content/images/pdf.png"></a>
+                                            </div>
+                                            <div>
+                                                <a data-id="@subtopic[0].Videopath" class="comm_icon video_icon Viewvideo @Topics.FirstOrDefault().TopicID" data-video="@Topics.FirstOrDefault().TopicID" title="View Video"><img src="~/Content/images/video.png"></a>
+                                            </div>
+                                            @{
+                                                var levels = new Ma.EntityLibrary.Data.Level().GetUserviewLevelcommon(@subtopic[0].SubTopicID, lockid);
+                                                if (levels.Count > 0)
+                                                {
+                                                    var leveldiv = @Topics.FirstOrDefault().TopicID + "p";
+                                            <div class="@leveldiv">
+
+                                                @*@{int indexOfColor = 1;
+                                                    }*@
+                                                <div class="tab_inner_btns">
+                                                    @foreach (var Lvls in levels)
+                                                    {
+                                                    <a class="navigate-start-practice isPointer" data-lockid-no="@Lvls.firstlockid" data-pract-name="@Lvls.LevelName" data-id="@Lvls.LevelID" data-notpaid-user="@Lvls.paidfirstlockid" data-locked-status="@Lvls.LockStatus" id="@Lvls.LevelID" href="#">@Lvls.LevelName<span class="lock-aps" style="color: #000000"><i class="fa fa-lock lockaps1612" aria-hidden="true"></i></span></a>
+                                                    @*<a class="pract_@indexOfColor navigate-start-practice isPointer" data-chapter-no="@chapNo" data-pract-name="@pract.PracticeTest" data-id="@pract.PracticeTestGuid" data-index="@indexOfColor" data-exercise-available="@pract.ExerciseAvailable" data-locked-status="@pract.LockStatus">@pract.PracticeTest<span class="lock-aps" style="color: #000000"><i class="fa fa-lock lockaps1612" aria-hidden="true"></i></span></a>*@
+                                                        //indexOfColor++;
+                                                    }
+                                                </div>
+
+
+                                            </div>
+                                                }
+                                                else
+                                                {
+                                            <div class="leveldiv">
+                                                <div class="tab_inner_btns">
+                                                    <a id="" href="#"></a>
+                                                </div>
+                                            </div>
+                                                }
+                                            }
+                                        </div>
+                                                    }
+
+                                                }
+                                        }
+
+
+
+                                    </div>
+                                                        lockid++;
+                                                    }
+
+
+                                                }
+                                                }
+                                            </div>
+
+
+                                        </div>
+
+
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                                                }
+                    }
+
+                </div>
+            </div>
+        </div>
+                                                }
+                                                else
+                                                {
+                                                    <input type="hidden" value="@datas.Ispaid.ToString()" id="hfIsPaid" />
+                                                    <input type="hidden" value="@datas.UserId" id="hfislogged" />
+                                                    if (datas.PackageID == 0)
+                                                    {
+                                                        <input type="hidden" value="0" id="hfpackageid" />
+                                                        var usercourse = new Ma.EntityLibrary.Data.Course().Getcoursesforuserid(datas.CourseId);
+                                                        var allpackages = usercourse.Where(z => z.CourseId == usercourse[0].CourseId).FirstOrDefault().GetPackages();
+                                                        var allsubjects = allpackages.Where(z => z.PackageID == allpackages[0].PackageID).FirstOrDefault().GetSubjects();
+ <div class="container">
+                                                            <div class="row">
+                                                                <div class="col-12">
+
+                                                                    <div class="worksheet_menu">
+                                                                        <ul>
+
+                                                                         
+                                                                             @{   foreach (var courses in usercourse)
+                                                                                 {
+                                                                                    <li class="isPointer" onclick="navigatecourse(this)" data-toggle="tab" data-class-id="@courses.CourseId"><a href="">@courses.CourseName</a></li>
+                                                                                     }
+
+                                                                                 }
+
+                                                                        </ul>
+
+                                                                        <h6 class="text-center">CHOOSE THE PACKAGE TO TEST YOUR SKILLS</h6>
+                                                                    </div>
+
+
+                                                                    @{
+                                                                        if (allpackages.Count > 0)
+                                                                        {
+
+
+                                                                            <div class="cust_tabs" id="course-list-view">
+
+                                                                                <nav>
+                                                                                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+
+                                                                                        @foreach (var package in allpackages)
+                                                                                        {
+                                                                                            <a class="nav-item nav-link isPointer" onclick="navigatepackage(this)" data-class-id="@package.PackageID" data-toggle="tab" id="nav-home-tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">@package.PackageName</a> @*active*@
+
+                                                                                        }
+                                                                                    </div>
+                                                                                </nav>
+
+                                                                                <div class="tab-content py-3 px-3 px-sm-0  package-list-view" id="nav-tabContent">
+                                                                                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                                                                        <div class="tab_inner">
+                                                                                            <h5>@allpackages[0].PackageName</h5>
+                                                                                            <input type="hidden" value=@allpackages[0].PackageID id="hfpkgidtounpaidprcts" />
+                                                                                            <p>Listed below are the chapters based on your syllabus. You can start practicing with the topic of your choice. The various sets in the chapter are arranged from simplest to the difficult one.</p>
+
+
+                                                                                            <div class="package_table">
+                                                                                                @{
+                                                                                                    if (allsubjects.Count > 0)
+                                                                                                    {
+                                                                                                        int userpaidlockid = 1;  //id used for unlocking first level for user registered but not paid
+                                                                                                        int lockid = 1;
+                                                                                                        foreach (var subjects in allsubjects)
+                                                                                                        {
+                                                                                                            <div class="package_table_inner">
+                                                                                                                <div>
+                                                                                                                    <img src="~/Content/images/pencil_icon.png"> 1.@subjects.SubjectName
+                                                                                                                </div>
+                                                                                                                @{
+                                                                                                                    var Topics = new Ma.EntityLibrary.Data.Topic().GetUserviewTopics(subjects.SubjectID);
+
+
+
+                                                                                                                    if (Topics.Count > 0)
+                                                                                                                    {
+
+                                                                                                                        <div>
+                                                                                                                            @Html.DropDownListFor(m => m.TopicId, Ma.EntityLibrary.Data.Dropdowndata.GetTopicDrop(subjects.SubjectID), new { @class = "form-control topic-drop-down", @data_live_search = "true", id = "topic-drop-down", divid = @Topics.FirstOrDefault().TopicID })
+
+                                                                                                                        </div>
+
+                                                                                                                        var subtopic = new Ma.EntityLibrary.Data.SubTopic().GetSubtopic(Topics[0].TopicID);
+
+
+                                                                                                                        if (subtopic.Count > 0)
+                                                                                                                        {
+
+                                                                                                                            <div>
+                                                                                                                                @Html.DropDownListFor(m => m.SubtopicID, Ma.EntityLibrary.Data.Dropdowndata.GetSubtopics(Topics[0].TopicID), new { @class = "form-control subtopic-drop-down", @data_live_search = "true", name = "levelDropdown", id = "SubtopicID" + @Topics.FirstOrDefault().TopicID, divid = @Topics.FirstOrDefault().TopicID + "pdf" })
+                                                                                                                            </div>
+                                                                                                                            var pdflink = @Topics.FirstOrDefault().TopicID + "pdf";
+                                                                                                                            var videolink = @Topics.FirstOrDefault().TopicID + "video";
+
+
+                                                                                                                            <div id="subtopic-list-view">
+                                                                                                                                @{
+                                                                                                                                    var videopath = "";
+                                                                                                                                    var VideoType = ""; // 1 for video 2 for youtube
+                                                                                                                                    if (subtopic[0].YouTubeVideo != null)
+                                                                                                                                    {
+                                                                                                                                        videopath = subtopic[0].YouTubeVideo;
+                                                                                                                                        VideoType = "0";
+                                                                                                                                    }
+                                                                                                                                    else /*if (subtopic[0].Videopath != null)*/
+                                                                                                                                    {
+                                                                                                                                        videopath = subtopic[0].Videopath;
+                                                                                                                                        VideoType = "1";
+
+                                                                                                                                    }
+                                                                                                                                }
+                                                                                                                                <div>
+                                                                                                                                    <a data-id="@subtopic[0].Pdfpath" class="comm_icon pdf_icon Viewpdf   @pdflink" data-pdf="@Topics.FirstOrDefault().TopicID" title="View PDF"><img src="~/Content/images/pdf.png"></a>
+                                                                                                                                </div>
+                                                                                                                                <div>
+                                                                                                                                    <a data-id="@videopath" data-class-id="@VideoType" class="comm_icon video_icon Viewvideo  @Topics.FirstOrDefault().TopicID" data-video="@Topics.FirstOrDefault().TopicID" title="View Video"><img src="~/Content/images/video.png"></a>
+                                                                                                                                </div>
+                                                                                                                                @{
+                                                                                                                                    var levels = new Ma.EntityLibrary.Data.Level().GetUserviewLevel(@subtopic[0].SubTopicID, datas.UserId, lockid, userpaidlockid);
+                                                                                                                                    if (levels.Count > 0)
+                                                                                                                                    {
+                                                                                                                                        var leveldiv = @Topics.FirstOrDefault().TopicID + "p";
+                                                                                                                                        <div class="@leveldiv">
+
+
+                                                                                                                                            <div class="tab_inner_btns">
+                                                                                                                                                @foreach (var Lvls in levels)
+                                                                                                                                                {
+                                                                                                                                                    <a class="navigate-start-practice isPointer" data-lockid-no="@Lvls.firstlockid" data-pract-name="@Lvls.LevelName" data-id="@Lvls.LevelID" data-notpaid-user="@Lvls.paidfirstlockid" data-locked-status="@Lvls.LockStatus" id="@Lvls.LevelID" href="#">@Lvls.LevelName<span class="lock-aps" style="color: #000000"><i class="fa fa-lock lockaps1612" aria-hidden="true"></i></span></a>
+                                                                                                                                                    @*<a class="pract_@indexOfColor navigate-start-practice isPointer" data-chapter-no="@chapNo" data-pract-name="@pract.PracticeTest" data-id="@pract.PracticeTestGuid" data-index="@indexOfColor" data-exercise-available="@pract.ExerciseAvailable" data-locked-status="@pract.LockStatus">@pract.PracticeTest<span class="lock-aps" style="color: #000000"><i class="fa fa-lock lockaps1612" aria-hidden="true"></i></span></a>*@
+
+                                                                                                                                                }
+                                                                                                                                            </div>
+
+
+                                                                                                                                        </div>
+                                                                                                                                    }
+                                                                                                                                    else
+                                                                                                                                    {
+                                                                                                                                        <div class="leveldiv">
+                                                                                                                                            <div class="tab_inner_btns">
+                                                                                                                                                <a id="" href="#"></a>
+                                                                                                                                            </div>
+                                                                                                                                        </div>
+                                                                                                                                    }
+                                                                                                                                }
+                                                                                                                            </div>
+                                                                                                                                        }
+
+                                                                                                                                    }
+
+                                                                                                                }
+
+
+
+                                                                                                            </div>
+                                                                                                                                            userpaidlockid++;
+                                                                                                                                        }
+
+
+                                                                                                                                    }
+                                                                                                }
+                                                                                            </div>
+
+
+                                                                                        </div>
+
+
+
+
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                                                                                    }
+                                                                    }
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                                                                                                    }
+                                                                                                                                    else
+                                                                                                                                    {
+                                                                                                                                        var usercourse = new Ma.EntityLibrary.Data.Course().Getcoursesforuserid(datas.CourseId);
+                                                                                                                                        var allpackages = new Ma.EntityLibrary.Data.Package().GetPackagesusingpackageid(datas.PackageID);
+                                                                                                                                        var allsubjects = allpackages.Where(z => z.PackageID == allpackages[0].PackageID).FirstOrDefault().GetSubjects();
+                                                                                                                                        <input type="hidden" value="@datas.PackageID" id="hfpackageid" />
+ <div class="container">
+               <div class="row">
+                   <div class="col-12">
+
+                       <div class="worksheet_menu">
+                           <ul>
+
+                               @{                              
+                                   foreach (var courses in usercourse)
+                                   {
+                                       <li class="isPointer" onclick="navigatecourse(this)" data-toggle="tab" data-class-id="@courses.CourseId"><a href="">@courses.CourseName</a></li>
+                                   }
+
+                               }
+                              
+
+                           </ul>
+
+                           <h6 class="text-center">CHOOSE THE PACKAGE TO TEST YOUR SKILLS</h6>
+                       </div>
+
+
+                       @{
+                           if (allpackages.Count > 0)
+                           {
+
+
+                               <div class="cust_tabs" id="course-list-view">
+
+                                   <nav>
+                                       <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+
+                                           @foreach (var package in allpackages)
+                                           {
+                                               <a class="nav-item nav-link isPointer" onclick="navigatepackage(this)" data-class-id="@package.PackageID" data-toggle="tab" id="nav-home-tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">@package.PackageName</a>
+
+                                           }
+                                       </div>
+                                   </nav>
+
+                                   <div class="tab-content py-3 px-3 px-sm-0  package-list-view" id="nav-tabContent">
+                                       <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                           <div class="tab_inner">
+                                               @*<h5>@allpackages[0].PackageName</h5>*@
+                                               <input type="hidden" value=@allpackages[0].PackageID id="hfpkgidtounpaidprcts" />
+                                               <p>Listed below are the chapters based on your syllabus. You can start practicing with the topic of your choice. The various sets in the chapter are arranged from simplest to the difficult one.</p>
+
+
+                                               <div class="package_table">
+                                                   @{
+                                                       if (allsubjects.Count > 0)
+                                                       {
+                                                           int userpaidlockid = 1;  //id used for unlocking first level for user registered but not paid
+                                                           int lockid = 1;
+                                                           foreach (var subjects in allsubjects)
+                                                           {
+                                                               <div class="package_table_inner">
+                                                                   <div>
+                                                                       <img src="~/Content/images/pencil_icon.png"> 1.@subjects.SubjectName
+                                                                   </div>
+                                                                   @{
+                                                                       var Topics = new Ma.EntityLibrary.Data.Topic().GetUserviewTopics(subjects.SubjectID);
+
+
+
+                                                                       if (Topics.Count > 0)
+                                                                       {
+
+                                                                           <div>
+                                                                               @Html.DropDownListFor(m => m.TopicId, Ma.EntityLibrary.Data.Dropdowndata.GetTopicDrop(subjects.SubjectID), new { @class = "form-control topic-drop-down", @data_live_search = "true", id = "topic-drop-down", divid = @Topics.FirstOrDefault().TopicID })
+
+                                                                           </div>
+
+                                                                           var subtopic = new Ma.EntityLibrary.Data.SubTopic().GetSubtopic(Topics[0].TopicID);
+
+
+                                                                           if (subtopic.Count > 0)
+                                                                           {
+
+                                                                               <div>
+                                                                                   @Html.DropDownListFor(m => m.SubtopicID, Ma.EntityLibrary.Data.Dropdowndata.GetSubtopics(Topics[0].TopicID), new { @class = "form-control subtopic-drop-down", @data_live_search = "true", name = "levelDropdown", id = "SubtopicID" + @Topics.FirstOrDefault().TopicID, divid = @Topics.FirstOrDefault().TopicID + "pdf" })
+                                                                               </div>
+                                                                               var pdflink = @Topics.FirstOrDefault().TopicID + "pdf";
+                                                                               var videolink = @Topics.FirstOrDefault().TopicID + "video";
+
+
+                                                                               <div id="subtopic-list-view">
+                                                                                   @{
+                                                                                       var videopath = "";
+                                                                                       var VideoType = ""; // 1 for video 2 for youtube
+                                                                                       if (subtopic[0].YouTubeVideo != null)
+                                                                                       {
+                                                                                           videopath = subtopic[0].YouTubeVideo;
+                                                                                           VideoType = "0";
+                                                                                       }
+                                                                                       else /*if (subtopic[0].Videopath != null)*/
+                                                                                       {
+                                                                                           videopath = subtopic[0].Videopath;
+                                                                                           VideoType = "1";
+
+                                                                                       }
+                                                                                   }
+                                                                                   <div>
+                                                                                       <a data-id="@subtopic[0].Pdfpath" class="comm_icon pdf_icon Viewpdf   @pdflink" data-pdf="@Topics.FirstOrDefault().TopicID" title="View PDF"><img src="~/Content/images/pdf.png"></a>
+                                                                                   </div>
+                                                                                   <div>
+                                                                                       <a data-id="@videopath" data-class-id="@VideoType" class="comm_icon video_icon Viewvideo   @Topics.FirstOrDefault().TopicID" data-video="@Topics.FirstOrDefault().TopicID" title="View Video"><img src="~/Content/images/video.png"></a>
+                                                                                   </div>
+                                                                                   @{
+                                                                                       var levels = new Ma.EntityLibrary.Data.Level().GetUserviewLevel(@subtopic[0].SubTopicID, datas.UserId, lockid, userpaidlockid);
+                                                                                       if (levels.Count > 0)
+                                                                                       {
+                                                                                           var leveldiv = @Topics.FirstOrDefault().TopicID + "p";
+                                                                                           <div class="@leveldiv   lock-lev-dark">
+
+
+                                                                                               <div class="tab_inner_btns">
+                                                                                                   @foreach (var Lvls in levels)
+                                                                                                   {
+                                                                                                       <a class="navigate-start-practice isPointer" data-lockid-no="@Lvls.firstlockid" data-pract-name="@Lvls.LevelName" data-id="@Lvls.LevelID" data-notpaid-user="@Lvls.paidfirstlockid" data-locked-status="@Lvls.LockStatus" id="@Lvls.LevelID" href="#">@Lvls.LevelName<span class="lock-aps" style="color: #000000"><i class="fa fa-lock lockaps1612" aria-hidden="true"></i></span></a>
+                                                                                                       @*<a class="pract_@indexOfColor navigate-start-practice isPointer" data-chapter-no="@chapNo" data-pract-name="@pract.PracticeTest" data-id="@pract.PracticeTestGuid" data-index="@indexOfColor" data-exercise-available="@pract.ExerciseAvailable" data-locked-status="@pract.LockStatus">@pract.PracticeTest<span class="lock-aps" style="color: #000000"><i class="fa fa-lock lockaps1612" aria-hidden="true"></i></span></a>*@
+
+                                                                                                   }
+                                                                                               </div>
+
+
+                                                                                           </div>
+                                                                                       }
+                                                                                       else
+                                                                                       {
+                                                                                           <div class="leveldiv">
+                                                                                               <div class="tab_inner_btns">
+                                                                                                   <a id="" href="#"></a>
+                                                                                               </div>
+                                                                                           </div>
+                                                                                       }
+                                                                                   }
+                                                                               </div>
+                                                                                           }
+
+                                                                                       }
+
+                                                                   }
+
+
+
+                                                               </div>
+                                                                                               userpaidlockid++;
+                                                                                           }
+
+
+                                                                                       }
+                                                   }
+                                               </div>
+
+
+                                           </div>
+
+
+
+
+                                       </div>
+                                   </div>
+
+                               </div>
+                                                                                       }
+                       }
+
+                   </div>
+               </div>
+           </div>
+
+                                                                                               }
+
+                                                                                           }
+
+                                                                                       
+
+    @*modal popup for lock*@
+
+    <div class="modal fade my_model_success  bs-example-modal-sm" id="locked-level-pop-up-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header select_ans">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="mySmallModalLabel"><span class="fa fa-lock"></span>&nbsp;Locked</h4>
+                </div>
+                <div class="modal-body my_modle_txt">
+                    <p>Sorry! You need to complete the previous level to unlock this level!<br /></p>
+                    <button class="close_popup locked-level-ok">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ViewPdf">
+    </div><!-- /.modal --><!--edit Class--->
+</section>
+<script>
+
+    function locksystem() {
+        var isPaid = $('#hfIsPaid').val();
+        var islogged = $('#hfislogged').val();
+
+        if (islogged == 0) {
+            // debugger;
+            $('.navigate-start-practice').each(function (index) {
+                var lockStatus = $(this).attr('data-locked-status');
+                var thisaps = $(this);
+                var Lockid = $(this).attr('data-lockid-no');
+                var pracName = $(this).attr('data-pract-name');
+                if (Lockid == '1') {
+
+                    if (pracName == 'Level 1') {
+                        thisaps.children().removeClass('lock-aps');
+                    }
+                    else {
+                        var lockStatus = $(this).attr('data-locked-status');
+                        if (lockStatus == 1) {
+                            thisaps.children().removeClass('lock-aps');
+                            $(this).data('locked-status', 0);
+                        }
+                    }
+                }
+                else {
+                    $(this).addClass('apsgreybar').addClass('isDisabled');
+                    $(this).parent().siblings('.chap_title').addClass('apsgreytext');
+                }
+            });
+
+            setTimeout(function () {
+                $('#childLogVideo').trigger('click');
+            }, 2000);
+
+            setTimeout(function () {
+                $('#html5-watermark').addClass('isHidden');
+            }, 3000);
+
+        }
+        else {
+            if (isPaid == 'False') {
+                // debugger;
+                $('.navigate-start-practice').each(function (index) {
+                    var lockStatus = $(this).attr('data-locked-status');
+                    var thisaps = $(this);
+                    var Lockid = $(this).attr('data-lockid-no');
+                    var Firstlockid = $(this).attr('data-notpaid-user');
+                    var pracName = $(this).attr('data-pract-name');
+                    if (Firstlockid == '1') {
+                        if (pracName == 'Level 1') {
+                            //alert(pracName);
+                            thisaps.children().removeClass('lock-aps');
+                        }
+                        else {
+                            var lockStatus = $(this).attr('data-locked-status');
+                            if (lockStatus == 0) {
+                                thisaps.children().removeClass('lock-aps');
+                                $(this).data('locked-status', 0);
+                            }
+                        }
+                    }
+                    else {
+                        $(this).addClass('apsgreybar').addClass('isDisabled');
+                        $(this).parent().siblings('.chap_title').addClass('apsgreytext');
+                    }
+                });
+
+                setTimeout(function () {
+                    $('#childLogVideo').trigger('click');
+                }, 2000);
+
+                setTimeout(function () {
+                    $('#html5-watermark').addClass('isHidden');
+                }, 3000);
+            }
+            else if (isPaid == 'True') {
+                //  debugger;
+                $('.navigate-start-practice').each(function (index) {
+                    var thisaps = $(this);
+                    var lockStatus = $(this).attr('data-locked-status');
+                    //var chapNo = $(this).attr('data-chapter-no');
+                    var pracName = $(this).attr('data-pract-name');
+                    //if (chapNo == '1') {
+                    if (pracName == 'Level 1') {
+
+                        thisaps.children().removeClass('lock-aps');
+                    }
+                    else {
+                        //  alert(pracName);
+                        if (lockStatus == 0) {
+                            // alert(lockStatus+"lock");
+                            thisaps.children().removeClass('lock-aps');
+                            $(this).data('locked-status', 0);
+                        }
+                    }
+                    //}
+                });
+            }
+
+        }
+
+    }
+
+    $(document).ready(function () {
+
+        locksystem();
+
+    });
+
+    function navigatecourse(b) {
+        //  debugger;
+        var source = $(b).val();
+        var courseid = $(b).attr('data-class-id');
+
+
+        $.ajax({
+            url: '/Curriculum/NavigateCourse?courseid=' + courseid,
+            dataType: 'html',
+            success: function (data) {
+                $('#course-list-view').html('');
+                $('#course-list-view').html(data);
+                locksystem();
+                //$('#nav-ul-class > li').removeClass('active');
+                //$(source).addClass('active');
+            },
+        });
+    };
+
+    function navigatepackage(b) {
+        //   debugger;
+        var source = $(b).val();
+        var packageid = $(b).attr('data-class-id');
+
+
+        $.ajax({
+            url: '/Curriculum/NavigatePackage?packageid=' + packageid,
+            dataType: 'html',
+            success: function (data) {
+                $('.package-list-view').html('');
+                $('.package-list-view').html(data);
+                locksystem();
+                //$('#nav-ul-class > li').removeClass('active');
+                //$(source).addClass('active');
+            },
+        });
+    };
+
+
+    $(document).on('change', '.topic-drop-down', function () {
+        //  debugger
+        var id = $(this).val();
+
+        var source = $(this);
+
+        var topid = $(source).attr('divid');
+
+        //var topid = $("#topicid").attr('data-id');
+
+        if (id != '') {
+
+            $.ajax({
+                url: '/Data/LoadSubtopic?topicid=' + id,
+                type: "GET",
+                success: function (result) {
+                    if (result.list.length > 0) {
+                        $("#SubtopicID" + topid).html(""); // clear before appending new list
+                        $("#SubtopicID" + topid).append($('<option></option>').val("").html());
+                        $.each(result.list, function (i, item) {
+                            $("#SubtopicID" + topid).append($('<option></option>').val(item.Value).html(item.Text));
+                        });
+                        $("#SubtopicID" + topid).prop("disabled", false);
+                       var subtopicid =result.list[0].Value;
+                       dropdownchange(subtopicid, topid);
+                        //$('.subtopic-drop-down').dropdown();
+                    }
+                    else {
+
+                        $("#SubtopicID" + topid).html(""); // clear before appending new list
+                        $("#SubtopicID" + topid).append($('<option></option>').val("Nothing to show").html());
+                        $("#SubtopicID" + topid).prop("disabled", true);
+                    }
+                }
+            });
+
+        }
+        else {
+
+        }
+    });
+
+    function dropdownchange(subtopicid,topid) {
+
+        var topid = topid + "pdf";
+
+             
+        var className = topid.trim();
+        var subtopicid = subtopicid;
+        var link = topid.split('p');
+        var video = link[0];
+
+        //   debugger;
+
+
+
+        var linkforlevel = topid.split('d');
+        var level = linkforlevel[0];
+
+        $.ajax({
+            url: '/Curriculum/Subtopicchange?subtopicid=' + subtopicid,
+            type: "GET",
+            dataType: 'json',
+            success: function (data) {
+                $('a.' + topid).attr("data-id", data.Pdf);
+                $('a.' + video).attr("data-id", data.Video);
+                $('a.' + video).attr("data-class-id", data.type);
+                ChangeLevel(subtopicid, level); //change the level according to subtopics
+
+
+
+
+            }
+        });
+    }
+
+
+
+    $(document).on('change', '.subtopic-drop-down', function () {
+        
+        var source = $(this);
+        var topid = $(source).attr('divid');
+        var subtopicid = $(source).attr('id');
+        var className = topid.trim();
+        //  debugger;
+        var subtopicid = $(this).val();
+        var link = topid.split('p');
+        var video = link[0];
+
+        //   debugger;
+
+        
+
+        var linkforlevel = topid.split('d');
+        var level = linkforlevel[0];
+
+        $.ajax({
+            url: '/Curriculum/Subtopicchange?subtopicid=' + subtopicid,
+            type: "GET",
+            dataType: 'json',
+            success: function (data) {                
+                $('a.' + topid).attr("data-id", data.Pdf);
+                $('a.' + video).attr("data-id", data.Video);
+                $('a.' + video).attr("data-class-id", data.type);
+                ChangeLevel(subtopicid, level); //change the level according to subtopics
+
+
+
+
+            }
+        });
+    });
+
+    function ChangeLevel(subtopicid, level) {
+        // alert(subtopicid + "Test" + level);
+        var isPaid = $('#hfIsPaid').val();
+        var islogged = $('#hfislogged').val();
+        // alert(islogged + "loggedid");
+        var ids = subtopicid + '~' + islogged
+        if (islogged == 0 || isPaid == 'False') {
+            window.location.href = '/Accounts/SignUp';
+
+        }
+        else {
+            $.ajax({
+                url: '/Curriculum/Subtopicchangelevel?subtopicid=' + ids,
+                type: "GET",
+                dataType: 'json',
+                success: function (data) {
+                    var newHtml = "";
+                    newHtml += '<div class="tab_inner_btns">';
+                    $.each(JSON.parse(data.subtopic), function () {
+                        //alert(this.LevelName);
+                        //newHtml += '<div class="tab_inner_btns">';
+                        //newHtml += '<a id="' + this.LevelID + '" href="#">' + this.LevelName + '</a>';
+
+                        newHtml += '<a class="navigate-start-practice isPointer" data-lockid-no="' + this.firstlockid + '" data-pract-name="' + this.LevelName + '" data-id="' + this.LevelID + '"  data-notpaid-user="' + this.paidfirstlockid + '"data-locked-status="' + this.LockStatus + '" id="' + this.LevelID + '" href="#">' + this.LevelName + '<span class="lock-aps" style="color: #000000"><i class="fa fa-lock lockaps1612" aria-hidden="true"></i></span></a>'
+                        //newHtml += '</div>';
+                    });
+                    newHtml += '</div>';
+                    $('.' + level).html(newHtml);
+                    locksystem();
+                }
+            });
+        }
+
+
+    }
+
+
+    $(document).on('click', '.navigate-start-practice', function () {
+        //var isExerciseAvailable = $(this).attr('data-exercise-available');
+        //var isPaid = $('#hfIsPaid').val();
+        var isPaid = $('#hfIsPaid').val();
+        var islogged = $('#hfislogged').val();
+
+        if (islogged == 0) {
+            var lockStatus = $(this).attr('data-locked-status');
+            var thisaps = $(this);
+            var Lockid = $(this).attr('data-lockid-no');
+            var pracName = $(this).attr('data-pract-name');
+            if (Lockid != '1') {
+                window.location.href = '/Accounts/SignUp';
+            }
+            else {
+              
+
+                var levelid = $(this).attr("data-id");
+                var packageid = $('#hfpkgidtounpaidprcts').val();
+                var id = levelid + '~' + packageid
+
+               // alert(levelid + "First" + packageid);
+                window.location.href = '/Curriculum/PracticeWorksheet/' + id;
+                //alert("Ready to move on to exam page");
+            }
+        }
+        else {
+            if (isPaid == 'False') {
+                var lockStatus = $(this).attr('data-locked-status');
+                var thisaps = $(this);
+                var Lockid = $(this).attr('data-lockid-no');
+                var pracName = $(this).attr('data-pract-name');
+                if (Lockid != '1') {
+                    window.location.href = '/Accounts/Packages';
+                }
+                else {
+
+                    var lockStatus = $(this).attr('data-locked-status');
+                    if (lockStatus == 1) {
+                        $('#locked-level-pop-up-modal').modal('show');
+                    }
+                    else {
+                        var levelid = $(this).attr("data-id");
+                        var packageid = $('#hfpkgidtounpaidprcts').val();
+                        var id = levelid + '~' + packageid
+
+                       // alert(levelid + "First" + packageid);
+                        window.location.href = '/Curriculum/PracticeWorksheet/' + id;
+                    }
+
+                }
+            }
+            else {
+                var lockStatus = $(this).attr('data-locked-status');
+                if (lockStatus == 1) {
+                    $('#locked-level-pop-up-modal').modal('show');
+                }
+                else {
+
+                    var levelid = $(this).attr("data-id");
+                    var packageid = $('#hfpackageid').val();
+                    var id = levelid + '~' + packageid
+
+                  //  alert(levelid + "First" + packageid);
+
+                    //window.location.href = '/Student/StartPractice/' + levelid;
+                    window.location.href = '/Curriculum/PracticeWorksheet/' + id;
+
+                }
+            }
+        }
+    });
+
+    $(document).on('click', '.locked-level-ok', function () {
+        $('#locked-level-pop-up-modal').modal('hide');
+    });
+
+    $(document).on('click', '.Viewpdf', function () {
+        var isPaid = $('#hfIsPaid').val();
+        var islogged = $('#hfislogged').val();
+        var PdfValue = $(this).attr('data-id');
+
+        if (islogged == 0) {
+            window.location.href = '/Accounts/SignUp';
+        }
+        else {
+            if (isPaid == 'False') {
+                window.location.href = '/Accounts/SignUp';
+            }
+            else {
+
+
+                $.ajax({
+                    url: '/Curriculum/ViewPdf?Pdfdata=' + PdfValue,
+                    dataType: 'html',
+                    success: function (data) {
+                        $('#ViewPdf').html(data);
+                        //$.validator.unobtrusive.parse($('#ViewPdf'));
+                        $('#ViewPdf').modal('show');
+                    },
+                });
+
+            }
+        }
+
+
+    });
+
+    $(document).on('click', '.Viewvideo', function () {
+
+       
+        var isPaid = $('#hfIsPaid').val();
+        var islogged = $('#hfislogged').val();
+        var VideoValue = $(this).attr('data-id');
+        var VideoType = $(this).attr('data-class-id');
+               //(VideoType);
+        var Videodata = VideoType + '~' + VideoValue;
+
+        if (islogged == 0) {
+            window.location.href = '/Accounts/SignUp';
+        }
+        else {
+            if (isPaid == 'False') {
+                window.location.href = '/Accounts/SignUp';
+            }
+            else {
+
+
+                $.ajax({
+                    url: '/Curriculum/Viewvideo?Videodata=' + Videodata,
+                    dataType: 'html',
+                    success: function (data) {
+                        $('#ViewPdf').html(data);
+                        //$.validator.unobtrusive.parse($('#ViewPdf'));
+                        $('#ViewPdf').modal('show');
+                    },
+                });
+
+            }
+        }
+
+
+    });
+
+
+
+
+
+
+
+
+
+</script>

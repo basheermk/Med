@@ -1,0 +1,296 @@
+﻿
+@{
+    ViewBag.Title = "StudentProfile";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <ol class="breadcrumb">
+                        <li><h3 class="box-title">Student Profile</h3></li>
+                    </ol>
+                </div><!-- /.box-header -->
+                <div class="box-body" id="class-list-view">
+                    @Html.Partial("~/Views/Admin/_pv_StudentProfileGrid.cshtml")
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
+
+<div class="modal fade" id="editStudent">
+</div><!-- /.modal --><!--edit Class--->
+<div class="modal fade" id="viewStudent">
+</div><!-- /.modal --><!--edit Class--->
+<script>
+    $(document).ready(function () {
+
+        IntializeDataTable();
+
+    });
+
+    function IntializeDataTable() {
+        $('#classTable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true
+        });
+    }
+
+    function ViewStudentinfo(source) {
+        var userid = $(source).attr("data-id");
+        $.ajax({
+            url: '/Admin/ViewStudentDetails?userid=' + userid,
+            dataType: 'html',
+            success: function (data) {
+                $('#viewStudent').html(data);
+                $.validator.unobtrusive.parse($('#viewStudent'));
+                $('#viewStudent').modal('show');
+            },
+        });
+    }
+
+    function EditStudentinfo(source) {
+        var userid = $(source).attr("data-id");
+        $.ajax({
+            url: '/Admin/EditStudentinfo?userid=' + userid,
+            dataType: 'html',
+            success: function (data) {
+                $('#editStudent').html(data);
+                $.validator.unobtrusive.parse($('#editStudent'));
+                $('#editStudent').modal('show');
+                FillGroupsInEdit();
+            },
+        });
+    }
+
+    //groupdetails
+
+    function FillGroupsInEdit() {
+
+        var data = $('#grdata').val();
+        if (data != "") {
+            var list = data.split("~");
+            if (list != null) {
+
+                for (var i = 0; i < list.length; i++) {
+                    var roleId = list[i];
+                    $(".chk-roles-cls-edit").each(function () { // Full list
+                        var allId = $(this).val();
+                        if (roleId == allId) {
+                            $(this).prop('checked', true);
+                        }
+                    });
+                }
+            }
+        }
+
+
+    };
+
+    function EditStudentSuccess(result) {
+        if (result.status) {
+            $('#editStudent').modal('hide');
+            toastrSuccess(result.msg);
+            RefreshStudentsinfo();
+        }
+        else {
+            toastrError(result.msg);
+        }
+    }
+    function EditStudentFailed() {
+        toastrError('Topic Editing Failed');
+    }
+
+    function RefreshStudentsinfo() {
+        $.ajax({
+            url: '/Admin/RefreshStudentsinfo',
+            dataType: 'html',
+            success: function (data) {
+                $('#class-list-view').html(data);
+                IntializeDataTable();
+            },
+        });
+    }
+
+    $(document).on('click', '#btn-dummy-addexam1', function () {
+        GroupList1();
+
+        $('#btn-addexam1').trigger('click');
+
+    });
+    function GroupList1() {
+        var roles = "";
+        $('.chk-roles-cls-edit').each(function () {
+            if ($(this).prop("checked") == true) {
+                if (roles == "") {
+                    roles += $(this).val();
+                }
+                else {
+                    roles += "~" + $(this).val();
+                }
+            }
+        });
+        $('#GroupsEdit').val(roles);
+        // alert(roles+"Test");
+    };
+
+
+    $(document).on('change', '#courseedit-image-upload', function () {
+        var source = $(this);
+        var selectedFile = this.files[0];
+        var input = this;
+        if (input.files && input.files[0]) {
+            var url = input.value;
+            var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+            if (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg" || ext == "bmp") {
+                selectedFile.convertToBase64(function (base64) {
+                    var h = $(document).find('#courseedit-img-preview').html();
+                    //alert(h);
+                    $(document).find('#courseedit-img-preview').remove();
+                    $(document).find('#dummyId').html("<div class='upload-box'style='background-image:url(" + base64 + ");'id='courseedit-img-preview'>" + h + "</div>");
+                    //alert(f);
+                    $('#Profileeditimage').val(base64);
+                });
+                var reader = new FileReader();
+            }
+            else {
+                //alert('23');
+                $(source).val('');
+                toastrWarning('Invalid Filetype');
+            }
+        }
+    });
+
+    File.prototype.convertToBase64 = function (callback) {
+        var FR = new FileReader();
+        FR.onload = function (e) {
+            callback(e.target.result)
+        };
+        FR.readAsDataURL(this);
+    }
+
+
+    $(document).on('click', '.activate-student', function () {
+        var userid = $(this).attr("data-id");       
+        var url = '/Admin/ActivateStudent?userid=' + userid;
+        $.confirm({
+            text: "Are you sure?",
+            confirm: function (button) {
+                $.get(url, function (result) {
+                    if (result.status) {
+                        toastrSuccess(result.msg);
+                        RefreshStudentsinfo();
+                    }
+                    else {
+                        toastrError(result.msg);
+                    }
+                });
+            },
+            confirmButton: "Yes",
+            cancelButton: "Cancel",
+            confirmButtonClass: "btn-danger",
+            cancelButtonClass: "btn-success",
+        });
+    });
+
+    $(document).on('click', '.deactivate-student', function () {
+        var userid = $(this).attr("data-id");
+        var url = '/Admin/DeactivateStudent?userid=' + userid;
+        $.confirm({
+            text: "Are you sure?",
+            confirm: function (button) {
+                $.get(url, function (result) {
+                    if (result.status) {
+                        toastrSuccess(result.msg);
+                        RefreshStudentsinfo();
+                    }
+                    else {
+                        toastrError(result.msg);
+                    }
+                });
+            },
+            confirmButton: "Yes",
+            cancelButton: "Cancel",
+            confirmButtonClass: "btn-danger",
+            cancelButtonClass: "btn-success",
+        });
+    });
+
+
+    $(document).on('click', '.confirmDelete', function () {
+        // var source = $(this);
+        //debugger;
+        var userid = $(this).attr("data-id");
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to undo this !",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel!",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+function (isConfirm) {
+    if (isConfirm) {
+        $.ajax({
+            url: '/Admin/StudentDelete?userid=' + userid,
+            type: "GET",
+            dataType: 'json',
+            success: function (data) {
+                if (data.status) {
+                    toastrSuccess(data.msg);
+                    RefreshStudentsinfo();
+                }
+                else {
+                    toastrError(data.msg);
+                }
+            }
+        });
+    }
+});
+    });
+
+
+    $(document).on('click', '.confirmPackage', function () {
+        var userid = $(this).attr("data-id");
+        var packageid = $(this).attr("data-package-id");
+
+        var id = userid + "~" + packageid;
+        var url = '/Admin/ConfirmPackage?id=' + id;
+        $.confirm({
+            text: "Are you sure?",
+            confirm: function (button) {
+                $.get(url, function (result) {
+                    if (result.status) {
+                        toastrSuccess(result.msg);
+                        RefreshStudentsinfo();
+                    }
+                    else {
+                        toastrError(result.msg);
+                    }
+                });
+            },
+            confirmButton: "Yes",
+            cancelButton: "Cancel",
+            confirmButtonClass: "btn-danger",
+            cancelButtonClass: "btn-success",
+        });
+    });
+
+
+    function Worksheetreport(source) {
+        var userid = $(source).attr("data-id");
+       
+            window.location.href = '/Report/AdminReportuserid/?id=' + userid;
+        
+    }
+  </script>

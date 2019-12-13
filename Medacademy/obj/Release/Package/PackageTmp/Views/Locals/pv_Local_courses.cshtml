@@ -1,0 +1,25 @@
+﻿@model Medacademy.Models.UserModel
+
+@{ if (Model.LocalModel.CourseModel_Lists != null)
+    {
+foreach (var A1 in Model.LocalModel.CourseModel_Lists)
+{
+    <div class="course_div">
+        <div class="course_image">
+            <img src="@A1.Files">
+        </div>
+        <div class="course_info">
+            <h6>@A1.CourseName</h6>
+            <h4>@A1.CourseSubjectName</h4>
+            <div class="course_time">
+                <span><i class="far fa-clock"></i> @A1.Duration</span>
+                @*<span>Price : Rs @A1.Price</span>*@
+            </div>
+            <p>@A1.Details</p>
+            <a href="/Accounts/Local_Packages?CourseId=@A1.CourseId">Read more</a>
+        </div>
+    </div>
+
+}
+        }
+    }
